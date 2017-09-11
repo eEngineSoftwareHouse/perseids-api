@@ -1,0 +1,8 @@
+{
+    "name" : "Perseids API",
+    "version" : "0.1.0",
+    "description" : "Fast API for Magento shops",
+    "repository": "https://github.com/eEngineSoftwareHouse/perseids.git",
+    "license": "UNLICENSED",
+    "private": true
+}
