@@ -1,0 +1,36 @@
+version: '2'
+services:
+  api:
+    build: .
+    volumes:
+      - ./api:/webapps/perseids
+    command: bash -c "mix deps.get && npm install && mix ecto.create && mix phoenix.server"
+    # command: bash -c "mix deps.get && npm install && mix ecto.create && MIX_ENV=prod PORT=4000 iex -S mix phoenix.server"
+    # command: bash -c "sleep 100000"
+    env_file:
+      - .env
+    ports:
+      - 127.0.0.1:101:4000
+    depends_on:
+      - mongo
+    restart: always
+  
+  # ====================
+  mongo:
+    image: mongo:3.4
+    ports:
+      - 127.0.0.1:27017:27017
+    volumes:
+      - ../_data/mongodb:/data/db
+    restart: always
+
+  importer:
+    build: ./importer
+    env_file:
+      - .env
+    volumes:
+      - ./importer:/root/importer
+    # Podmontowanie katalogu do którego zapisywane będą zdjęcia produktów
+    #  - ./image-server:/mnt/images
+    command: bash -c "./crons/install-crontab.sh && cron -f"
+    restart: always
