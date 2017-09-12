@@ -1,17 +1,22 @@
 defmodule Perseids.Router do
   use Perseids.Web, :router
 
+  alias Perseids.Plugs.Language
+  alias Perseids.Plugs.CurrentUser
+  alias Perseids.Plugs.Session
+
   pipeline :api do
     plug Corsica, origins: "*", allow_headers: ~w(content-type authorization Client-Language accept origin)
     plug :accepts, ["json"]
-    plug Perseids.Plugs.CurrentUser
+    plug Language
+    plug CurrentUser
     if Mix.env == :dev do
       plug Phoenix.CodeReloader
     end
   end
 
   pipeline :authorized do
-    plug Perseids.Plugs.Session
+    plug Session
   end
 
   scope "/api/v2" do
