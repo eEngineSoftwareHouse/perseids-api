@@ -23,11 +23,6 @@ defmodule Perseids.Pagination do
     prepared_params ++ [options: [skip: (page - 1) * per_page, limit: per_page, projection: params[:select] |> projection_params]]
   end
 
-  # def add_language(params, conn) do
-  #   params
-  #   |> Keyword.put_new(:lang, conn.assigns[:lang])
-  # end
-
   defp projection_params(select) do
     case select do
       nil -> [
