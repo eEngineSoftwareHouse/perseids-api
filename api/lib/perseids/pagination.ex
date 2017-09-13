@@ -23,6 +23,11 @@ defmodule Perseids.Pagination do
     prepared_params ++ [options: [skip: (page - 1) * per_page, limit: per_page, projection: params[:select] |> projection_params]]
   end
 
+  # def add_language(params, conn) do
+  #   params
+  #   |> Keyword.put_new(:lang, conn.assigns[:lang])
+  # end
+
   defp projection_params(select) do
     case select do
       nil -> [
@@ -36,7 +41,6 @@ defmodule Perseids.Pagination do
         params: 1,
         name: 1
       ]
-      # Jest potencjalne ryzyko zabicia sklepu poprzez wyczerpanie możliwej ilości atomów
       _ -> String.split(select, ",") |> Enum.map(fn(v) -> {String.to_atom(v), 1} end)
     end
   end

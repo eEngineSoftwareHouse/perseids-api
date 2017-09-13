@@ -1,20 +1,24 @@
 defmodule Perseids.ProductController do
   use Perseids.Web, :controller
+
   require Perseids.Pagination
+
   alias Perseids.Pagination
   alias Perseids.Product
 
   def index(conn, params) do
+
     %{"products" => products, "count" => count, "params" => params} = params
     |> Pagination.prepare_params
+    |> ORMongo.set_language(conn)
     |> Product.find
 
     render conn, "index.json", products: products, count: count, params: params
   end
 
 
-  def show(conn, %{"source_id" => source_id}) do
-    render conn, "product.json", product: Product.find_one(source_id)
+  def show(%{assigns: %{lang: lang}} = conn, %{"source_id" => source_id}) do
+    render conn, "product.json", product: Product.find_one(lang, source_id)
   end
 
   def check_stock(conn, %{"sku" => sku}) do
