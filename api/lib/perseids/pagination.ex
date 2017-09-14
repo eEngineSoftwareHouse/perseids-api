@@ -36,7 +36,6 @@ defmodule Perseids.Pagination do
         params: 1,
         name: 1
       ]
-      # Jest potencjalne ryzyko zabicia sklepu poprzez wyczerpanie możliwej ilości atomów
       _ -> String.split(select, ",") |> Enum.map(fn(v) -> {String.to_atom(v), 1} end)
     end
   end

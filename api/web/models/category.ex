@@ -3,15 +3,16 @@ defmodule Perseids.Category do
 
   @collection_name "categories"
 
-  def find(opts \\ [filter: %{}]) do
+  def find([_] = opts) do
     @collection_name
-    |> ORMongo.find(opts)
+    |> ORMongo.find_with_lang(opts)
     |> list_response
   end
 
-  def find_one(source_id) do
+
+  def find_one([{:source_id, source_id} | _tail] = options) do
     @collection_name
-    |> ORMongo.find([source_id: source_id])
+    |> ORMongo.find_with_lang(options)
     |> item_response
   end
 

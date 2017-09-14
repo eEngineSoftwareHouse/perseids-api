@@ -2,6 +2,19 @@ defmodule ORMongo do
   # Workaround of bug in mongodb driver, which makes impossible to call Enum.to_list on cursor with limit: 0
   @default_limit 10000000
 
+  # Put lang at the end of find options keyword list
+  def set_language(params, conn) do
+    params |> List.insert_at(-1, {:lang, conn.assigns.lang})
+  end
+
+  # Search in specific language collection
+  def find_with_lang(collection, query \\ []) do
+    collection
+    |> collection_name(query[:lang])
+    |> find(Keyword.drop(query,[:lang]))
+  end
+
+  # Set of specific finders
   def find(collection, filter: filter, options: options) do
     mongo_find(collection, filter, options)
   end
@@ -119,5 +132,12 @@ defmodule ORMongo do
   defp result(cursor) do
     cursor
     |> Enum.to_list
+  end
+
+  defp collection_name(collection_name, lang) do
+    case lang do
+      nil -> "pl_" <> collection_name
+      lang -> lang <> "_" <> collection_name
+    end
   end
 end
