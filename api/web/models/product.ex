@@ -5,7 +5,7 @@ defmodule Perseids.Product do
   @filterable_params ["category_ids", "color","size"]
 
   # TODO filters need hard optimization, so they're disabled for now
-  
+
   def find([{:keywords, keywords} | _] = opts) do
     #  available_params = extract_filters(@filterable_params, %{"keywords" => [keywords]}, %{}, opts[:lang])
     available_params = [] #### Temporarly disable filters
@@ -30,9 +30,9 @@ defmodule Perseids.Product do
     |> list_response(available_params, count_opts)
   end
 
-  def find_one(source_id) do
+  def find_one([{:source_id, source_id} | _tail] = options) do
     @collection_name
-    |> ORMongo.find_with_lang([source_id: source_id])
+    |> ORMongo.find_with_lang(options)
     |> item_response
   end
 

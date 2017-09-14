@@ -18,7 +18,7 @@ defmodule Perseids.ProductController do
 
 
   def show(%{assigns: %{lang: lang}} = conn, %{"source_id" => source_id}) do
-    render conn, "product.json", product: Product.find_one(lang, source_id)
+    render conn, "product.json", product: Product.find_one(source_id: source_id, lang: lang)
   end
 
   def check_stock(conn, %{"sku" => sku}) do
