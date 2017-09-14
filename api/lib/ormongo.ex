@@ -55,7 +55,7 @@ defmodule ORMongo do
     mongo_find_one_by_field(collection, %{ source_id: source_id })
   end
 
-  def count(collection, [{:keywords, keywords}, _]) do
+  def count(collection, [{:keywords, keywords} | _]) do
     Mongo.count(:mongo, collection, %{"$text" => %{"$search" => keywords}})
     |> elem(1)
   end
