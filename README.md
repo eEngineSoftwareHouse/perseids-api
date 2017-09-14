@@ -50,13 +50,23 @@ See `.env.sample` for details.
 
 ## MongoDB required indexes:
 
-1. Text index on product title and description field for searching:
+1. Text index on product title and description field for searching (for each language):
 ```
-db.products.createIndex( { descritpion: "text", name: "text" } )
+db.pl_products.createIndex( { descritpion: "text", name: "text" } )
+db.en_products.createIndex( { descritpion: "text", name: "text" } )
 ```
 
 2. Params, which will be used for filtering, e.g.:
 ```
-db.products.createIndex( { "params.size": 1, "params.color": 1 } )
-db.products.createIndex( { "categories.id": 1 } )
+db.pl_products.createIndex( { "params.size": 1, "params.color": 1 } )
+db.en_products.createIndex( { "params.size": 1, "params.color": 1 } )
+
+db.pl_products.createIndex( { "categories.id": 1 } )
+db.en_products.createIndex( { "categories.id": 1 } )
+```
+
+3. Other indexes
+```
+db.pl_pages.createIndex( { "slug": 1 } )
+db.en_pages.createIndex( { "slug": 1 } )
 ```

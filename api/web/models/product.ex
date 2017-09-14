@@ -27,7 +27,7 @@ defmodule Perseids.Product do
   def response(opts, available_params, count_opts) do
     @collection_name
     |> ORMongo.find_with_lang(opts)
-    |> list_response(available_params, count_opts)
+    |> list_response(available_params, count_opts, opts[:lang])
   end
 
   def find_one([{:source_id, source_id} | _tail] = options) do
@@ -37,11 +37,11 @@ defmodule Perseids.Product do
   end
 
 
-  def list_response(products, params \\ [], filter \\ %{}) do
+  def list_response(products, params \\ [], filter \\ %{}, lang) do
     %{
       "products" => products,
       "params" => params,
-      "count" => ORMongo.count(@collection_name, filter)
+      "count" => ORMongo.count(lang <> "_" <> @collection_name, filter)
     }
   end
 
