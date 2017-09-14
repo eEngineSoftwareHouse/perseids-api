@@ -20,4 +20,14 @@ defmodule Helpers do
     other
   end
 
+  def to_keyword_list(dict) do
+    Enum.map(dict, fn({key, value}) ->
+      case key do
+        "limit" ->
+          {String.to_atom(key), String.to_integer(value)}
+        _ ->
+          {String.to_atom(key), value}
+      end
+    end)
+  end
 end
