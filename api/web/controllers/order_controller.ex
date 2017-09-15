@@ -25,6 +25,6 @@ defmodule Perseids.OrderController do
   end
 
   def delivery_options(conn, _params) do
-    render conn, "index.json", Order.delivery_options
+    render conn, "index.json", Order.delivery_options([filter: %{}, lang: conn.assigns[:lang]])
   end
 end
