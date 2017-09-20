@@ -60,6 +60,8 @@ defmodule Perseids.Router do
     post "/sessions/destroy", SessionController, :destroy
 
     post "/account/create", CustomerController, :create
+
+    post "/service/newsletter", ServiceController, :newsletter
   end
 
   scope "/api/v1", Perseids do
