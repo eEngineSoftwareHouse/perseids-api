@@ -2,9 +2,6 @@ defmodule GetResponse do
   @gr_host Application.get_env(:perseids, :get_response)[:api_url]
   @gr_token "api-key " <> Application.get_env(:perseids, :get_response)[:api_key]
   @gr_campaign Application.get_env(:perseids, :get_response)[:api_campaign_token]
-  # @gr_host "https://api.getresponse.com/v3/"
-  # @gr_token "api-key 7ccbc6e77e02eddf9608741c01fc9113"
-  # @gr_campaign "4pQR6"
   @default_headers [{"Content-Type", "application/json"}, {"X-Auth-Token", @gr_token}]
 
   def save_email(%{"email" => email} = params) do
