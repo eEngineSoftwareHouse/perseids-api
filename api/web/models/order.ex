@@ -11,12 +11,14 @@ defmodule Perseids.Order do
    field :address,      :map
    field :created_at,   :string
    field :customer_id,  :integer
+   field :inpost_code,  :string
   end
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id])
+     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code])
      |> validate_required([:products, :payment, :shipping, :address])
+     |> validate_shipping
      |> validate_address("shipping", @address_fields)
   end
 
@@ -55,6 +57,13 @@ defmodule Perseids.Order do
   end
 
   # Custom validations
+  def validate_shipping(changeset) do
+    case get_field(changeset, :shipping) do
+      "inpost" -> validate_required(changeset, [:inpost_code]) # validate presence of box machine code if "inpost" shipping
+      _ -> changeset
+    end
+  end
+
   def validate_address(changeset, address_type \\ "shipping", fields) do
     get_field(changeset, :address)[address_type]
     |> Enum.reduce(changeset, &validate_address_field/2)
