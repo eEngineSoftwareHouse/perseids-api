@@ -15,9 +15,11 @@ defmodule Perseids.OrderController do
   def create(conn, params) do
     params = params
     |> Map.put_new("customer_id", conn.assigns[:customer_id])
+    |> Map.put_new("lang", conn.assigns.lang)
 
     changeset = Perseids.Order.changeset(%Perseids.Order{}, params)
     if changeset.valid? do
+      order = Order.create(changeset.changes)
       render conn, "order.json", order: Order.create(changeset.changes)
     else
       render conn, "errors.json", changeset: changeset

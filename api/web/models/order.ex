@@ -5,21 +5,30 @@ defmodule Perseids.Order do
   @address_fields ["accept-rules", "city", "country", "email", "name", "phone-number", "post-code", "street", "surname"]
 
   schema @collection_name do
-   field :products,     {:array, :map}
-   field :payment,      :string
-   field :shipping,     :string
-   field :address,      :map
-   field :created_at,   :string
-   field :customer_id,  :integer
-   field :inpost_code,  :string
+   field :products,           {:array, :map}
+   field :payment,            :string
+   field :shipping,           :string
+   field :address,            :map
+   field :created_at,         :string
+   field :customer_id,        :integer
+   field :inpost_code,        :string
+   field :redirect_url,       :string
+   field :lang,               :string
   end
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code])
+     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang])
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
      |> validate_address("shipping", @address_fields)
+  end
+
+  def create(%{payment: "payu"} = params) do
+    @collection_name
+    |> ORMongo.insert_one(params)
+    |> item_response
+    |> PayU.place_order
   end
 
   def create(params) do
@@ -27,7 +36,6 @@ defmodule Perseids.Order do
     |> ORMongo.insert_one(params)
     |> item_response
   end
-
 
   def delivery_options(opts \\ [filter: %{}]) do
     %{
