@@ -62,6 +62,8 @@ defmodule Perseids.Router do
     post "/account/create", CustomerController, :create
 
     post "/service/newsletter", ServiceController, :newsletter
+
+    get "/notify", PaymentController, :notify
   end
 
   scope "/api/v1", Perseids do

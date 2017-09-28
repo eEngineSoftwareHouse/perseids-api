@@ -60,5 +60,9 @@ defmodule Perseids.OrderView do
       created_at: order["created_at"],
       customer_id: order["customer_id"]
     }
+    |> maybe_redirect(order["redirect_url"])
   end
+
+  defp maybe_redirect(response, nil), do: response
+  defp maybe_redirect(response, redirect_url), do: response |> Map.put_new(:redirect_url, redirect_url)
 end
