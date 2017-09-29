@@ -50,19 +50,18 @@ defmodule Perseids.Order do
     |> list_response
   end
 
-  def find_one(source_id) do
+  def find_one(object_id) do
     @collection_name
-    |> ORMongo.find([source_id: source_id])
+    |> ORMongo.find([_id: object_id])
     |> item_response
   end
 
-  def list_response(list) do
-    list
+  def update(id, new_value) do
+    @collection_name |> ORMongo.update_one(%{"_id" => BSON.ObjectId.decode!(id)}, new_value)
   end
 
-  def item_response(list) do
-    list |> List.first
-  end
+  def list_response(list), do: list
+  def item_response(list), do: list |> List.first
 
   # Custom validations
   def validate_shipping(changeset) do

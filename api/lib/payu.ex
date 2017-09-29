@@ -3,6 +3,7 @@ defmodule PayU do
   @payu_api_version_endpoint "api/v2_1/"
   @payu_pos_id Application.get_env(:perseids, :payu)[:pos_id]
   @payu_notify_url Application.get_env(:perseids, :payu)[:notify_url]
+  @payu_second_key Application.get_env(:perseids, :payu)[:second_key]
   @payu_credentials %{
     grant_type: "client_credentials",
     client_id: Application.get_env(:perseids, :payu)[:client_id],
@@ -15,6 +16,12 @@ defmodule PayU do
       { :ok, response } -> payu_response(response)
       { :error, reason } -> {:error, reason}
     end
+  end
+
+  def check_sig(json_body, signature) do
+    :crypto.hash(:md5, json_body <> @payu_second_key)
+    |> Base.encode16(case: :lower)
+    |> Kernel.==(signature)
   end
 
   def place_order(%{"products" => products, "shipping" => shipping, "lang" => lang} = order) do

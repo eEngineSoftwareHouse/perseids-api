@@ -22,8 +22,9 @@ defmodule Perseids.Endpoint do
   plug Plug.RequestId
   plug Plug.Logger
 
+
   plug Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+    parsers: [:urlencoded, :multipart, Perseids.Parsers.JSON],
     pass: ["*/*"],
     json_decoder: Poison
 
