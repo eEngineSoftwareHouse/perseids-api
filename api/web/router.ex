@@ -63,7 +63,7 @@ defmodule Perseids.Router do
 
     post "/service/newsletter", ServiceController, :newsletter
 
-    post "/notify", PaymentController, :notify
+    post "/payu_notify", PaymentController, :payu_notify
   end
 
   scope "/api/v1", Perseids do

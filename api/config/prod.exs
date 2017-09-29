@@ -23,4 +23,5 @@ config :perseids, :payu,
     pos_id: System.get_env("PAYU_POS_ID"),
     client_id: System.get_env("PAYU_CLIENT_ID"),
     client_secret: System.get_env("PAYU_CLIENT_SECRET"),
+    second_key: System.get_env("PAYU_SECOND_KEY"),
     notify_url: System.get_env("PAYU_NOTIFY_URL")
