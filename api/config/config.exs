@@ -17,17 +17,6 @@ config :perseids, Perseids.Endpoint,
   pubsub: [name: Perseids.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
-# Mailer config
-config :perseids, Perseids.Mailer,
-  adapter: Bamboo.SMTPAdapter,
-  server: "smtp.emaillabs.net.pl",
-  port: 587,
-  username: System.get_env("SMTP_USERNAME"),
-  password: System.get_env("SMTP_PASSWORD"),
-  tls: :if_available, # can be `:always` or `:never`
-  ssl: false, # can be `true`
-  retries: 1
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -39,6 +28,26 @@ config :phoenix, :generators,
   migration: false,
   sample_binary_id: "111111111111111111111111"
 
+# Configure Magento Access
+config :perseids, :magento,
+  magento_api_endpoint: System.get_env("MAGENTO_API_ENDPOINT"),
+  admin_username: System.get_env("MAGENTO_ADMIN_USERNAME"),
+  admin_password: System.get_env("MAGENTO_ADMIN_PASSWORD")
+
+# Configure GetResponse
+config :perseids, :get_response,
+  api_url: System.get_env("GETRESPONSE_API_URL"),
+  api_key: System.get_env("GETRESPONSE_API_KEY"),
+  api_campaign_token: System.get_env("GETRESPONSE_API_CAMPAIGN_TOKEN")
+
+# Configure PayU
+config :perseids, :payu,
+  api_url: System.get_env("PAYU_API_URL"),
+  pos_id: System.get_env("PAYU_POS_ID"),
+  client_id: System.get_env("PAYU_CLIENT_ID"),
+  client_secret: System.get_env("PAYU_CLIENT_SECRET"),
+  second_key: System.get_env("PAYU_SECOND_KEY"),
+  notify_url: System.get_env("PAYU_NOTIFY_URL")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

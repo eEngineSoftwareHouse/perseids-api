@@ -1,3 +1,4 @@
+# Plik do testowania produkcyjnej wersji w środowisku dev
 version: '2'
 services:
   api:
@@ -10,27 +11,14 @@ services:
     env_file:
       - .env
     ports:
-      - 127.0.0.1:101:4000
+      - 4000:4000
     depends_on:
       - mongo
-    restart: always
 
   # ====================
   mongo:
     image: mongo:3.4
     ports:
-      - 127.0.0.1:27017:27017
+      - 27017:27017
     volumes:
-      - ../_data/mongodb:/data/db
-    restart: always
-
-  importer:
-    build: ./importer
-    env_file:
-      - .env
-    volumes:
-      - ./importer:/root/importer
-    # Podmontowanie katalogu do którego zapisywane będą zdjęcia produktów
-    #  - ./image-server:/mnt/images
-    command: bash -c "./crons/install-crontab.sh && cron -f"
-    restart: always
+      - ./dockerdata/mongodb:/data/db
