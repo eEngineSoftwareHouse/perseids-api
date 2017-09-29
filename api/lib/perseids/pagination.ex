@@ -12,8 +12,6 @@ defmodule Perseids.Pagination do
       _ -> params[:per_page]
     end
 
-    skip = (page - 1) * per_page
-
     params_without_pagination = Keyword.drop(params, [:page, :per_page, :select])
     prepared_params = case params_without_pagination |> Enum.count do
       0 -> [filter: %{}]

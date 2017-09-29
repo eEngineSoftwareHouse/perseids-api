@@ -30,7 +30,7 @@ defmodule Perseids.Product do
     |> list_response(available_params, count_opts, opts[:lang])
   end
 
-  def find_one([{:source_id, source_id} | _tail] = options) do
+  def find_one([{:source_id, _source_id} | _tail] = options) do
     @collection_name
     |> ORMongo.find_with_lang(options)
     |> item_response

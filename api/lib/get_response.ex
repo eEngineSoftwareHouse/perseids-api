@@ -4,7 +4,7 @@ defmodule GetResponse do
   @gr_campaign Application.get_env(:perseids, :get_response)[:api_campaign_token]
   @default_headers [{"Content-Type", "application/json"}, {"X-Auth-Token", @gr_token}]
 
-  def save_email(%{"email" => email} = params) do
+  def save_email(%{"email" => _email} = params) do
     body = params
     |> Map.put_new(:campaign, %{campaignId: @gr_campaign})
 
@@ -26,16 +26,8 @@ defmodule GetResponse do
     end
   end
 
-  defp get(url, headers \\ []) do
-    HTTPoison.get(@gr_host <> url, @default_headers ++ headers)
-  end
-
-  defp post(url, params \\ %{}, headers \\ []) do
+  defp post(url, params, headers \\ []) do
     HTTPoison.post(@gr_host <> url, Poison.encode!(params), @default_headers ++ headers)
-  end
-
-  defp put(url, params \\ %{}, headers \\ []) do
-    HTTPoison.put(@gr_host <> url, Poison.encode!(params), @default_headers ++ headers)
   end
 
 end

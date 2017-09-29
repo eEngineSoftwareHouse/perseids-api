@@ -111,29 +111,21 @@ defmodule PayU do
     end
   end
 
-  defp get(url, headers \\ []) do
-    HTTPoison.get(@payu_api_url <> @payu_api_version_endpoint <> url, [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"} | headers])
-  end
-
-  defp post(url, params \\ Poison.encode!(%{}), headers \\ [], options \\ []) do
+  defp post(url, params, headers, options) do
     HTTPoison.post(@payu_api_url <> @payu_api_version_endpoint <> url, params, [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"} | headers], options)
   end
 
-  defp put(url, params \\ Poison.encode!(%{}), headers \\ []) do
-    HTTPoison.put(@payu_api_url <> @payu_api_version_endpoint <> url, params, [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"} | headers])
-  end
-
-
-  defp token({:ok, token} = params) do
+  defp token({:ok, token} = _params) do
     token["access_token"]
   end
 
-  defp token({:error, message} = params) do
+  defp token({:error, _message} = _params) do
     ""
   end
 
   defp token() do
-    token(oauth_token)
+    oauth_token()
+    |> token()
   end
 
 end

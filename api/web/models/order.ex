@@ -21,7 +21,7 @@ defmodule Perseids.Order do
      |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang])
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
-     |> validate_address("shipping", @address_fields)
+     |> validate_address("shipping")
   end
 
   def create(%{payment: "payu"} = params) do
@@ -71,12 +71,12 @@ defmodule Perseids.Order do
     end
   end
 
-  def validate_address(changeset, address_type \\ "shipping", fields) do
+  def validate_address(changeset, address_type \\ "shipping") do
     get_field(changeset, :address)[address_type]
     |> Enum.reduce(changeset, &validate_address_field/2)
   end
 
-  def validate_address_field({key, value} = field, changeset) do
+  def validate_address_field({key, value} = _field, changeset) do
     validation_func =
       "validate_" <> key
       |> String.replace("-", "_")

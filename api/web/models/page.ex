@@ -9,7 +9,7 @@ defmodule Perseids.Page do
     |> list_response
   end
 
-  def find_one([{:slug, slug} | _tail] = options) do
+  def find_one([{:slug, _slug} | _tail] = options) do
     @collection_name
     |> ORMongo.find_with_lang(options)
     |> item_response

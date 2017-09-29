@@ -101,7 +101,7 @@ defmodule Magento do
     end
   end
 
-  defp get(url, headers \\ []) do
+  defp get(url, headers) do
     HTTPoison.get(@magento_host <> url, [{"Content-Type", "application/json"} | headers])
   end
 
@@ -109,7 +109,7 @@ defmodule Magento do
     HTTPoison.post(@magento_host <> url, params, [{"Content-Type", "application/json"} | headers])
   end
 
-  defp put(url, params \\ Poison.encode!(%{}), headers \\ []) do
+  defp put(url, params, headers) do
     HTTPoison.put(@magento_host <> url, params, [{"Content-Type", "application/json"} | headers])
   end
 
