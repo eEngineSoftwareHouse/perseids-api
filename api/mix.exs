@@ -31,7 +31,9 @@ defmodule Perseids.Mixfile do
        :absinthe,
        :absinthe_plug,
        :httpoison,
-       :scrivener_list
+       :scrivener_list,
+       :bamboo,
+       :bamboo_smtp
      ]
     ]
   end
@@ -57,7 +59,9 @@ defmodule Perseids.Mixfile do
      # dodanie path powoduje rekompilację tej zależności za każdym restartem, przydatne do dbg
      # {:httpoison, "~> 0.11.1", path: "deps/httpoison"},
      {:httpoison, "~> 0.11.1"},
-     {:scrivener_list, "~> 1.0"}
+     {:scrivener_list, "~> 1.0"},
+     {:bamboo, "~> 0.8"},
+     {:bamboo_smtp, "~> 1.4.0"},
    ]
   end
 
