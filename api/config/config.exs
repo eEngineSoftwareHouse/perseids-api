@@ -17,6 +17,17 @@ config :perseids, Perseids.Endpoint,
   pubsub: [name: Perseids.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+# Mailer config
+config :perseids, Perseids.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: "smtp.emaillabs.net.pl",
+  port: 587,
+  username: System.get_env("SMTP_USERNAME"),
+  password: System.get_env("SMTP_PASSWORD"),
+  tls: :if_available, # can be `:always` or `:never`
+  ssl: false, # can be `true`
+  retries: 1
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -27,6 +38,7 @@ config :phoenix, :generators,
   binary_id: true,
   migration: false,
   sample_binary_id: "111111111111111111111111"
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

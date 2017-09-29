@@ -1,7 +1,7 @@
 defmodule Perseids.CustomerController do
   use Perseids.Web, :controller
 
-  def info(conn, params) do
+  def info(conn, _params) do
     case Magento.customer_info(conn.assigns[:magento_token]) do
         {:ok, response} -> json(conn, response)
         {:error, message} -> json(conn, %{ errors: [message] })
