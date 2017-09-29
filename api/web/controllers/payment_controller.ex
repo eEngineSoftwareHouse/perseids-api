@@ -1,8 +1,6 @@
 defmodule Perseids.PaymentController do
-
   use Perseids.Web, :controller
   alias Perseids.Order
-  alias Plug.Conn
 
 
   def payu_notify(conn, %{"order" => %{"extOrderId" => order_id, "status" => status}} = _params) do

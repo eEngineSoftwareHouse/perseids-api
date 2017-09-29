@@ -19,7 +19,6 @@ defmodule Perseids.OrderController do
 
     changeset = Perseids.Order.changeset(%Perseids.Order{}, params)
     if changeset.valid? do
-      order = Order.create(changeset.changes)
       render conn, "order.json", order: Order.create(changeset.changes)
     else
       render conn, "errors.json", changeset: changeset
