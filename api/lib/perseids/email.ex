@@ -1,7 +1,7 @@
 defmodule Perseids.Email do
   use Bamboo.Phoenix, view: Perseids.EmailView
 
-  def contact_form(from, content) do
+  def contact_form(%{"from" => from, "content" => content} = params) do
     new_email
     |> to(Application.get_env(:perseids, :contact_form)[:email])
     |> from(from)
