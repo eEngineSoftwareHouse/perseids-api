@@ -7,20 +7,30 @@ defmodule Perseids.Product do
   # TODO filters need hard optimization, so they're disabled for now
 
   def find([{:keywords, keywords} | _] = opts) do
-    #  available_params = extract_filters(@filterable_params, %{"keywords" => [keywords]}, %{}, opts[:lang])
-    available_params = [] #### Temporarly disable filters
+    available_params = extract_filters(@filterable_params, %{"keywords" => [keywords]}, %{}, opts[:lang])
+    #available_params = [] #### Temporarly disable filters
     response(opts, available_params, opts)
   end
 
   def find([{:filter, filters} | _] = opts) do
-    #  available_params = extract_filters(@filterable_params, filters, %{}, opts[:lang])
-    available_params = [] #### Temporarly disable filters
-    response(opts, available_params, filters)
+    case Mongo.command(:mongo, %{"eval" => "productFilter("
+      <> maybe_nil(opts[:filter]["params.color"]) <> "," 
+      <> maybe_nil(opts[:filter]["params.size"]) <> ","
+      <> maybe_nil(opts[:filter]["categories.id"]) <> ","
+      <> "\"" <> opts[:lang] <> "\","
+      <> Integer.to_string(opts[:options][:skip]) <> ","
+      <> Integer.to_string(opts[:options][:limit]) <> ");"}) do
+      {:ok, return} -> return["retval"]
+      er -> IO.inspect(er); raise "ERROR"
+    end
   end
 
+  def maybe_nil(nil), do: "[]"
+  def maybe_nil(param), do: Kernel.inspect(param)
+
   def find([_] = opts) do
-    #  available_params = extract_filters(@filterable_params, %{}, %{}, opts[:lang])
-    available_params = [] #### Temporarly disable filters
+    available_params = extract_filters(@filterable_params, %{}, %{}, opts[:lang])
+    #available_params = [] #### Temporarly disable filters
     response(opts |> Keyword.put_new(:filter, %{}), available_params, %{})
   end
 
