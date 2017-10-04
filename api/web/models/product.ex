@@ -4,8 +4,6 @@ defmodule Perseids.Product do
   @collection_name "products"
   @filterable_params ["category_ids", "color","size"]
 
-  # TODO filters need hard optimization, so they're disabled for now
-
   def find([{:keywords, keywords} | _] = opts) do
     available_params = extract_filters(@filterable_params, %{"keywords" => [keywords]}, %{}, opts[:lang])
     #available_params = [] #### Temporarly disable filters
@@ -14,15 +12,23 @@ defmodule Perseids.Product do
 
   def find([{:filter, filters} | _] = opts) do
     case Mongo.command(:mongo, %{"eval" => "productFilter("
-      <> maybe_nil(opts[:filter]["params.color"]) <> "," 
-      <> maybe_nil(opts[:filter]["params.size"]) <> ","
-      <> maybe_nil(opts[:filter]["categories.id"]) <> ","
+      <> filtersToParsableJson(opts[:filter]) <> "," 
       <> "\"" <> opts[:lang] <> "\","
       <> Integer.to_string(opts[:options][:skip]) <> ","
       <> Integer.to_string(opts[:options][:limit]) <> ");"}) do
       {:ok, return} -> return["retval"]
       er -> IO.inspect(er); raise "ERROR"
     end
+  end
+
+  def filtersToParsableJson(filters) do
+    filters
+      |> Enum.to_list 
+      |> Enum.reduce([], fn(x, acc) ->
+        {name, content} = x                                  
+        acc ++  [%{name: name, content: content}]            
+      end)
+      |> Poison.encode!
   end
 
   def maybe_nil(nil), do: "[]"

@@ -1,64 +1,70 @@
 db.system.js.save(
     {
         _id: "productFilter",
-        value: function (colors, sizes, category_ids, lang, skip, limit) {
+        value: function (filters, lang, skip, limit) {
+            // Filterable params
+            if (!filters.find((x) => x["name"] === "params.color")) {
+                filters.push({"name": "params.color", "content": null});
+            }
+            if (!filters.find((x) => x["name"] === "params.size")) {
+                filters.push({"name": "params.size", "content": null});
+            }
+            
             var productQuery = {};
-            if (colors != undefined && colors.length != 0) {
-                productQuery['params.color'] = {$in: colors};
-            } else if (sizes != undefined && sizes.length != 0) {
-                productQuery['params.size'] = {$in: sizes};
-            } else if (category_ids != undefined && category_ids.length != 0) {
-                productQuery['categories.id'] = {$in: category_ids};
+            var visibleParameters = {};
+            
+            for (var filter of filters) {
+                if (filter["content"]) {
+                    productQuery[filter["name"]] = {$in: filter["content"]};
+                }
+                visibleParameters[filter["name"]] = 1;
             }
-            var desiredProducts = db.getCollection(lang + '_products').find(productQuery).skip(skip).limit(limit);
-
-            var visibleParameters = {'params.size': 1, 'params.color': 1, 'categories.id': 1};
-
-            var colorFilter = {};
-            if (colors != undefined && colors.length != 0) {
-                colorFilter['params.color'] = {$in: colors};
-            } else if (category_ids != undefined && category_ids.length != 0) {
-                colorFilter['categories.id'] = {$in: category_ids};
+            
+            var unmergedParameters = [];
+            var categoryIds = filters.find((x) => x["name"] === "categories.id")["content"];
+            for (var filter of filters) {
+                if (filter["name"] === "categories.id") {
+                    continue;
+                }
+                var parameters = {};
+                parameters["categories.id"] = {$in: categoryIds};
+                if (filter["content"]) {
+                    parameters[filter["name"]] = {$in: filter["content"]};
+                }
+                
+                unmergedParameters = [...new Set([
+                    ...db.getCollection(lang + '_products').find(parameters, visibleParameters).toArray(), 
+                    ...unmergedParameters
+                ])];
             }
-            var categoriesFilteredByColor = db.getCollection(lang + '_products').find(colorFilter, visibleParameters);
-
-            var sizeFilter = {};
-            if (sizes != undefined && sizes.length != 0) {
-                sizeFilter['params.size'] = {$in: sizes};
-            } else if (category_ids != undefined && category_ids.length != 0) {
-                sizeFilter['categories.id'] = {$in: category_ids};
+            var filterableParams = {};
+            filterableParams["category_ids"] = [];
+            for (var filter of filters) {
+                if (filter["name"] !== "categories.id") {
+                    filterableParams[filter["name"].substring(7)] = [];
+                }
             }
-            var categoriesFiltredBySize = db.getCollection(lang + '_products').find(sizeFilter, visibleParameters);
-
-            var params = [...new Set([...categoriesFilteredByColor.toArray(), ...categoriesFiltredBySize.toArray()])];
-
-            var availableColors = [];
-            var availableSizes = [];
-            var availableCategories = [];
-            for (var p of params) {
-                    if (p.params.color !== undefined)
-                            availableColors = [...new Set([...availableColors, ...p.params.color])];
-                    if (p.params.size !== undefined)
-                            availableSizes = [...new Set([...availableSizes, ...p.params.size])];
-                    
-
-                    if (p.categories !== undefined) {
-                            var t = [];
-                            for (var pp of p.categories) {
-                                    t.push(pp.id);
-                            }
-                            availableCategories = [...new Set([...availableCategories, ...t])];
+            for (var parameter of unmergedParameters) {
+                for (var filter of filters) {
+                    if (filter["name"] === "categories.id") {
+                        var ids = [];
+                        for (var t of parameter["categories"]) {
+                            ids.push(t.id);
+                        }
+                        filterableParams["category_ids"] = [...new Set([...ids, ...filterableParams["category_ids"]])];
+                    } else {
+                        var paramName = filter["name"].substring(7);
+                        if (parameter["params"][paramName]) {
+                            filterableParams[paramName] = [...new Set([...parameter["params"][paramName], ...filterableParams[paramName]])];
+                        }
                     }
+                }
             }
 
             var output = {
                     count: db.getCollection(lang + '_products').find(productQuery).length(),
-                    params: {
-                            category_ids: availableCategories,
-                            color: availableColors,
-                            size: availableSizes
-                    },
-                    products: desiredProducts.toArray()
+                    params: filterableParams,
+                    products: db.getCollection(lang + '_products').find(productQuery).skip(skip).limit(limit).toArray()
             }
 
             return output;
