@@ -6,37 +6,39 @@ defmodule Perseids.Product do
 
   def find([{:keywords, keywords} | _] = opts) do
     available_params = extract_filters(@filterable_params, %{"keywords" => [keywords]}, %{}, opts[:lang])
-    #available_params = [] #### Temporarly disable filters
     response(opts, available_params, opts)
   end
 
   def find([{:filter, filters} | _] = opts) do
-    case Mongo.command(:mongo, %{"eval" => "productFilter("
-      <> filtersToParsableJson(opts[:filter]) <> "," 
-      <> "\"" <> opts[:lang] <> "\","
-      <> Integer.to_string(opts[:options][:skip]) <> ","
-      <> Integer.to_string(opts[:options][:limit]) <> ");"}) do
+    case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts)}) do
       {:ok, return} -> return["retval"]
       er -> IO.inspect(er); raise "ERROR"
     end
   end
 
-  def filtersToParsableJson(filters) do
+  def prepare_mongo_query(opts) do
+    "productFilter("
+      <> filters_to_parsable_json(opts[:filter]) <> ","
+      <> Poison.encode!(@filterable_params) <> ","
+      <> "\"" <> opts[:lang] <> "\","
+      <> Integer.to_string(opts[:options][:skip]) <> ","
+      <> Integer.to_string(opts[:options][:limit]) <> ");"
+  end
+
+  def filters_to_parsable_json(filters) do
     filters
       |> Enum.to_list 
-      |> Enum.reduce([], fn(x, acc) ->
-        {name, content} = x                                  
-        acc ++  [%{name: name, content: content}]            
-      end)
+      |> Enum.reduce([], &name_content_maps(&1, &2))
       |> Poison.encode!
   end
 
-  def maybe_nil(nil), do: "[]"
-  def maybe_nil(param), do: Kernel.inspect(param)
+  def name_content_maps(elem, acc) do
+    {name, content} = elem                                  
+    acc ++  [%{name: name, content: content}]            
+  end
 
   def find([_] = opts) do
     available_params = extract_filters(@filterable_params, %{}, %{}, opts[:lang])
-    #available_params = [] #### Temporarly disable filters
     response(opts |> Keyword.put_new(:filter, %{}), available_params, %{})
   end
 

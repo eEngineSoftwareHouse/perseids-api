@@ -1,15 +1,18 @@
 db.system.js.save(
     {
         _id: "productFilter",
-        value: function (filters, lang, skip, limit) {
-            // Filterable params
-            if (!filters.find((x) => x["name"] === "params.color")) {
-                filters.push({"name": "params.color", "content": null});
+        value: function (filters, filterable, lang, skip, limit) {
+
+            for (var f of filterable) {
+                if (f === "category_ids") {
+                    continue;
+                }
+                f = "params." + f;
+                if (!filters.find((x) => x["name"] === f)) {
+                    filters.push({"name": f, "content": null});
+                }
             }
-            if (!filters.find((x) => x["name"] === "params.size")) {
-                filters.push({"name": "params.size", "content": null});
-            }
-            
+
             var productQuery = {};
             var visibleParameters = {};
             
