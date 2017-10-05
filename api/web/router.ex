@@ -50,6 +50,9 @@ defmodule Perseids.Router do
     get "/categories", CategoryController, :index
     get "/category/:source_id", CategoryController, :show
 
+    get "/lookbooks", LookbookController, :index
+    get "/lookbook/:source_id", LookbookController, :show
+
     get "/pages", PageController, :index
     get "/pages/:slug", PageController, :show
 
