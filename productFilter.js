@@ -2,64 +2,47 @@ db.system.js.save(
     {
         _id: "productFilter",
         value: function (filters, filterable, lang, skip, limit) {
-
             for (var f of filterable) {
-                if (f === "category_ids") {
-                    continue;
-                }
-                f = "params." + f;
-                if (!filters.find((x) => x["name"] === f)) {
-                    filters.push({"name": f, "content": null});
-                }
+                filters.push({"name": "params." + f, "content": null});
             }
 
             var productQuery = {};
             var visibleParameters = {};
-            
+            var categoryIds = null;
             for (var filter of filters) {
-                if (filter["content"]) {
-                    productQuery[filter["name"]] = {$in: filter["content"]};
+                if (filter.content) {
+                    productQuery[filter.name] = {$in: filter.content};
                 }
-                visibleParameters[filter["name"]] = 1;
+                if (filter.name === "categories.id") {
+                    categoryIds = filter.content;
+                }
+                visibleParameters[filter.name] = 1;
             }
             
-            var unmergedParameters = [];
-            var categoryIds = filters.find((x) => x["name"] === "categories.id")["content"];
+            var unmergedParameterSets = [];
+            var filterableParams = {};            
+            filterableParams["category_ids"] = [];            
             for (var filter of filters) {
-                if (filter["name"] === "categories.id") {
+                if (filter.name === "categories.id") {
                     continue;
                 }
                 var parameters = {};
-                parameters["categories.id"] = {$in: categoryIds};
-                if (filter["content"]) {
-                    parameters[filter["name"]] = {$in: filter["content"]};
+                if (categoryIds) {
+                    parameters["params.category_ids"] = {$in: categoryIds};                    
                 }
-                
-                unmergedParameters = [...new Set([
-                    ...db.getCollection(lang + '_products').find(parameters, visibleParameters).toArray(), 
-                    ...unmergedParameters
-                ])];
-            }
-            var filterableParams = {};
-            filterableParams["category_ids"] = [];
-            for (var filter of filters) {
-                if (filter["name"] !== "categories.id") {
-                    filterableParams[filter["name"].substring(7)] = [];
+                if (filter.content) {
+                    parameters[filter.name] = {$in: filter.content};
                 }
+                unmergedParameterSets.push(...db.getCollection(lang + '_products').find(parameters, visibleParameters).toArray());
+
+                filterableParams[filter.name.substring(7)] = [];
             }
-            for (var parameter of unmergedParameters) {
+
+            for (var parameterSet of unmergedParameterSets) {
                 for (var filter of filters) {
-                    if (filter["name"] === "categories.id") {
-                        var ids = [];
-                        for (var t of parameter["categories"]) {
-                            ids.push(t.id);
-                        }
-                        filterableParams["category_ids"] = [...new Set([...ids, ...filterableParams["category_ids"]])];
-                    } else {
-                        var paramName = filter["name"].substring(7);
-                        if (parameter["params"][paramName]) {
-                            filterableParams[paramName] = [...new Set([...parameter["params"][paramName], ...filterableParams[paramName]])];
-                        }
+                    var paramName = (filter.name === "categories.id") ? filter.name : filter.name.substring(7);
+                    if (parameterSet["params"][paramName]) {
+                        filterableParams[paramName] = [...new Set([...parameterSet["params"][paramName], ...filterableParams[paramName]])];
                     }
                 }
             }

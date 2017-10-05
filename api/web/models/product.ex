@@ -18,14 +18,14 @@ defmodule Perseids.Product do
 
   def prepare_mongo_query(opts) do
     "productFilter("
-      <> filters_to_parsable_json(opts[:filter]) <> ","
+      <> filters_to_key_value_pair_json(opts[:filter]) <> ","
       <> Poison.encode!(@filterable_params) <> ","
       <> "\"" <> opts[:lang] <> "\","
       <> Integer.to_string(opts[:options][:skip]) <> ","
       <> Integer.to_string(opts[:options][:limit]) <> ");"
   end
 
-  def filters_to_parsable_json(filters) do
+  def filters_to_key_value_pair_json(filters) do
     filters
       |> Enum.to_list 
       |> Enum.reduce([], &name_content_maps(&1, &2))
