@@ -17,6 +17,11 @@ Run containers:
 docker-compose up -d
 ```
 
+Make sure to append filter query to a database:
+```
+docker-compose exec mongo mongo --eval "$(< productFilter.js)"
+```
+
 App will be available at port 4000 on your localhost by default:
 
 * **API**: `http://localhost:4000`
