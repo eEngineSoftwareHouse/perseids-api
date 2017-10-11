@@ -9,14 +9,14 @@ defmodule Perseids.PaymentController do
     |> maybe_success(order_id, status, conn)
   end
 
-  def paypal_accept(conn, %{"PayerID" => payer_id, "paymentId" => payment_id, "token" => token} = params) do
+  def paypal_accept(conn, %{"PayerID" => payer_id, "paymentId" => payment_id} = _params) do
     case PayPal.execute_payment(payment_id, payer_id) do
       {:ok, _saved} -> json(conn, "ok")
       {:error, message} -> json(conn, %{errors: [message]})
     end
   end
 
-  def paypal_cancel(conn, params) do
+  def paypal_cancel(conn, _params) do
     json(conn, "ok")
   end
 

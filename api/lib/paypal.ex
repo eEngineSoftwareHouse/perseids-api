@@ -36,9 +36,9 @@ defmodule PayPal do
 
   def execute_payment(payment_id, payer_id) do
     order = Perseids.Order.find(filter: %{"payment_id" => [payment_id]}) |> List.first
-    paypal_response = case HTTPoison.post(order["execute_url"], Poison.encode!(%{ "payer_id" => payer_id }), [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"}]) do
+    case HTTPoison.post(order["execute_url"], Poison.encode!(%{ "payer_id" => payer_id }), [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"}]) do
       {:ok, response} -> update_order(response, payment_id)
-      {:error, message} -> IO.inspect message; raise "PayPal order request error"
+      {:error, message} -> {:error, "PayPal order request error: #{message}"}
     end
   end
 
