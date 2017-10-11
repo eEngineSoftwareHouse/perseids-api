@@ -1,12 +1,19 @@
+db = db.getSiblingDB('perseids');
+db.system.js.remove({"_id" : "productFilter"});
 db.system.js.save(
     {
         _id: "productFilter",
-        value: function (filters, filterable, lang, skip, limit) {
+        value: function (filters, filterable, keywords, lang, skip, limit) {
             for (var f of filterable) {
                 filters.push({"name": "params." + f, "content": null});
             }
 
             var productQuery = {};
+
+            if (keywords) {
+                productQuery['$text'] = {$search: keywords};
+            }
+
             var visibleParameters = {};
             var categoryIds = null;
             for (var filter of filters) {
@@ -28,7 +35,10 @@ db.system.js.save(
                 }
                 var parameters = {};
                 if (categoryIds) {
-                    parameters["params.category_ids"] = {$in: categoryIds};                    
+                    parameters["params.category_ids"] = {$in: categoryIds};
+                }
+                if (keywords) {
+                    parameters['$text'] = {$search: keywords};
                 }
                 if (filter.content) {
                     parameters[filter.name] = {$in: filter.content};
@@ -57,3 +67,4 @@ db.system.js.save(
         }
     }
 )
+

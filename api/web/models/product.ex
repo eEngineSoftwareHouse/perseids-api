@@ -4,48 +4,11 @@ defmodule Perseids.Product do
   @collection_name "products"
   @filterable_params ["category_ids", "color","size"]
 
-  def find([{:keywords, keywords} | _] = opts) do
-    available_params = extract_filters(@filterable_params, %{"keywords" => [keywords]}, %{}, opts[:lang])
-    response(opts, available_params, opts)
-  end
-
-  def find([{:filter, filters} | _] = opts) do
+  def find(opts) do
     case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts)}) do
       {:ok, return} -> return["retval"]
       er -> IO.inspect(er); raise "ERROR"
     end
-  end
-
-  def prepare_mongo_query(opts) do
-    "productFilter("
-      <> filters_to_key_value_pair_json(opts[:filter]) <> ","
-      <> Poison.encode!(@filterable_params) <> ","
-      <> "\"" <> opts[:lang] <> "\","
-      <> Integer.to_string(opts[:options][:skip]) <> ","
-      <> Integer.to_string(opts[:options][:limit]) <> ");"
-  end
-
-  def filters_to_key_value_pair_json(filters) do
-    filters
-      |> Enum.to_list 
-      |> Enum.reduce([], &name_content_maps(&1, &2))
-      |> Poison.encode!
-  end
-
-  def name_content_maps(elem, acc) do
-    {name, content} = elem                                  
-    acc ++  [%{name: name, content: content}]            
-  end
-
-  def find([_] = opts) do
-    available_params = extract_filters(@filterable_params, %{}, %{}, opts[:lang])
-    response(opts |> Keyword.put_new(:filter, %{}), available_params, %{})
-  end
-
-  def response(opts, available_params, count_opts) do
-    @collection_name
-    |> ORMongo.find_with_lang(opts)
-    |> list_response(available_params, count_opts, opts[:lang])
   end
 
   def find_one([{:source_id, source_id} | _tail] = options) do
@@ -54,48 +17,40 @@ defmodule Perseids.Product do
     |> item_response
   end
 
-
-  def list_response(products, params \\ [], filter \\ %{}, lang) do
-    %{
-      "products" => products,
-      "params" => params,
-      "count" => ORMongo.count(lang <> "_" <> @collection_name, filter)
-    }
+  defp prepare_mongo_query(opts) do
+    "productFilter("
+      <> filters_to_key_value_pair_json(opts[:filter]) <> ","
+      <> Poison.encode!(@filterable_params) <> ","
+      <> nil_to_null_string(opts[:keywords]) <> ","
+      <> "\"" <> opts[:lang] <> "\","
+      <> Integer.to_string(opts[:options][:skip]) <> ","
+      <> Integer.to_string(opts[:options][:limit]) <> ");"
   end
 
-  def item_response(product) do
+  defp nil_to_null_string(var) do
+    case var do
+      nil -> "null"
+      _ -> "\"" <> var <> "\""
+    end
+  end
+
+  defp filters_to_key_value_pair_json(filters) do
+    case filters do
+      nil -> "[]"
+      _ -> filters
+            |> Enum.to_list 
+            |> Enum.reduce([], &name_content_maps(&1, &2))
+            |> Poison.encode!
+    end
+  end
+
+  defp name_content_maps(elem, acc) do
+    {name, content} = elem                                  
+    acc ++  [%{name: name, content: content}]            
+  end
+
+  defp item_response(product) do
     product |> List.first
   end
-
-  defp extract_filters(filterable_params, nil, acc, lang) do
-    extract_filters(filterable_params, %{}, acc, lang)
-  end
-
-  defp extract_filters([current_param | remaining_params], conditions, acc, lang) do
-    values = case current_param do
-     "category_ids" ->
-       where = Map.drop(conditions, [current_param])
-       @collection_name
-       |> ORMongo.find_with_lang(filter: where, lang: lang)
-       |> Enum.map(fn(e) -> e["categories"] end)
-       |> List.flatten
-       |> Enum.map(fn(e) -> e["id"] end)
-     _ ->
-       where = Map.drop(conditions, ["params." <> current_param])
-       @collection_name
-       |> ORMongo.find_with_lang(filter: where, lang: lang)
-       |> Enum.map(fn(e) -> e["params"][current_param] end)
-       |> List.flatten
-    end
-    |> Enum.uniq
-    |> Enum.reject(&is_nil/1)
-
-    acc = Map.put_new(acc, current_param, values)
-
-    extract_filters(remaining_params, conditions, acc, lang)
-  end
-
-  defp extract_filters([], _conditions, acc, lang) do
-    acc
-  end
 end
+
