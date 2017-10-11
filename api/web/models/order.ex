@@ -31,6 +31,13 @@ defmodule Perseids.Order do
     |> PayU.place_order
   end
 
+  def create(%{payment: "paypal"} = params) do
+    @collection_name
+    |> ORMongo.insert_one(params)
+    |> item_response
+    |> PayPal.create_payment
+  end
+
   def create(params) do
     @collection_name
     |> ORMongo.insert_one(params)

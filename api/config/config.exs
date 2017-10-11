@@ -49,6 +49,14 @@ config :perseids, :payu,
   second_key: System.get_env("PAYU_SECOND_KEY"),
   notify_url: System.get_env("PAYU_NOTIFY_URL")
 
+# Configure PayPal
+config :perseids, :paypal,
+  api_url: System.get_env("PAYPAL_API_URL"),
+  client_id: System.get_env("PAYPAL_CLIENT_ID"),
+  client_secret: System.get_env("PAYPAL_CLIENT_SECRET"),
+  return_url: System.get_env("PAYPAL_RETURN_URL"),
+  cancel_url: System.get_env("PAYPAL_CANCEL_URL")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

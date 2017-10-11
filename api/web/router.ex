@@ -68,7 +68,11 @@ defmodule Perseids.Router do
     post "/account/create", CustomerController, :create
 
     post "/service/newsletter", ServiceController, :newsletter
+
     post "/payu_notify", PaymentController, :payu_notify
+    get "/paypal_accept", PaymentController, :paypal_accept
+    get "/paypal_cancel", PaymentController, :paypal_cancel
+
     post "/contact", ContactController, :contact_form
   end
 
