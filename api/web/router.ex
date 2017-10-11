@@ -53,6 +53,9 @@ defmodule Perseids.Router do
     get "/lookbooks", LookbookController, :index
     get "/lookbook/:source_id", LookbookController, :show
 
+    get "/thresholds", ThresholdController, :index
+    get "/threshold/:source_id", ThresholdController, :show
+
     get "/pages", PageController, :index
     get "/pages/:slug", PageController, :show
 
