@@ -30,7 +30,24 @@ defmodule PayPal do
 
     case post("payments/payment", payment_info) do
       {:ok, response} -> manage_response(response, order)
-      {:error, message} -> raise "PayPal payment request error"
+      {:error, message} -> raise "PayPal payment request error: #{message}"
+    end
+  end
+
+  def execute_payment(payment_id, payer_id) do
+    order = Perseids.Order.find(filter: %{"payment_id" => [payment_id]}) |> List.first
+    paypal_response = case HTTPoison.post(order["execute_url"], Poison.encode!(%{ "payer_id" => payer_id }), [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"}]) do
+      {:ok, response} -> update_order(response, payment_id)
+      {:error, message} -> IO.inspect message; raise "PayPal order request error"
+    end
+  end
+
+
+  defp update_order(%{body: body} = _payment, payment_id) do
+    case Poison.decode!(body) do
+     %{"state" => "approved"} -> {:ok, ORMongo.update_one("orders", %{"payment_id" => payment_id}, %{"payment_status" => "COMPLETED"})}
+     %{"message" => message} -> {:error, message}
+     _ -> {:error, "Payment state or message not found in PayPal request"}
     end
   end
 

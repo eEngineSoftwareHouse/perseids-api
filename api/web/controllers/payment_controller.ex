@@ -2,7 +2,6 @@ defmodule Perseids.PaymentController do
   use Perseids.Web, :controller
   alias Perseids.Order
 
-
   def payu_notify(conn, %{"order" => %{"extOrderId" => order_id, "status" => status}} = _params) do
     %{"signature" => signature} = Regex.named_captures(~r/signature=(?<signature>.{32})/, conn |> get_req_header("openpayu-signature") |> List.first)
 
@@ -10,15 +9,14 @@ defmodule Perseids.PaymentController do
     |> maybe_success(order_id, status, conn)
   end
 
-  def paypal_accept(conn, params) do
-    IO.puts "PAYPAL ACCEPT"
-    IO.inspect params
-    json(conn, "ok")
+  def paypal_accept(conn, %{"PayerID" => payer_id, "paymentId" => payment_id, "token" => token} = params) do
+    case PayPal.execute_payment(payment_id, payer_id) do
+      {:ok, _saved} -> json(conn, "ok")
+      {:error, message} -> json(conn, %{errors: [message]})
+    end
   end
 
   def paypal_cancel(conn, params) do
-    IO.puts "PAYPAL CANCEL"
-    IO.inspect params
     json(conn, "ok")
   end
 
