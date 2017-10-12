@@ -4,6 +4,7 @@ defmodule PayU do
   @payu_pos_id Application.get_env(:perseids, :payu)[:pos_id]
   @payu_notify_url Application.get_env(:perseids, :payu)[:notify_url]
   @payu_second_key Application.get_env(:perseids, :payu)[:second_key]
+  @payu_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
   @payu_credentials %{
     grant_type: "client_credentials",
     client_id: Application.get_env(:perseids, :payu)[:client_id],
@@ -12,7 +13,7 @@ defmodule PayU do
 
   def oauth_token do
     body = "grant_type=#{@payu_credentials.grant_type}&client_id=#{@payu_credentials.client_id}&client_secret=#{@payu_credentials.client_secret}"
-    case HTTPoison.post(@payu_api_url <> "pl/standard/user/oauth/authorize", body, [{"Content-Type", "application/x-www-form-urlencoded"}]) do
+    case HTTPoison.post(@payu_api_url <> "pl/standard/user/oauth/authorize", body, [{"Content-Type", "application/x-www-form-urlencoded"}], @payu_timeout) do
       { :ok, response } -> payu_response(response)
       { :error, reason } -> {:error, reason}
     end
@@ -111,8 +112,13 @@ defmodule PayU do
     end
   end
 
-  defp post(url, params, headers, options) do
-    HTTPoison.post(@payu_api_url <> @payu_api_version_endpoint <> url, params, [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"} | headers], options)
+  defp post(url, params, headers, options \\ []) do
+    HTTPoison.post(
+      @payu_api_url <> @payu_api_version_endpoint <> url,
+      params,
+      [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"} | headers],
+      @payu_timeout ++ options
+    )
   end
 
   defp token({:ok, token} = _params) do

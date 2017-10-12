@@ -1,5 +1,6 @@
 defmodule Magento do
   @magento_host Application.get_env(:perseids, :magento)[:magento_api_endpoint]
+  @magento_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
   @magento_admin_credentials %{
     username: Application.get_env(:perseids, :magento)[:admin_username],
     password: Application.get_env(:perseids, :magento)[:admin_password]
@@ -102,15 +103,15 @@ defmodule Magento do
   end
 
   defp get(url, headers) do
-    HTTPoison.get(@magento_host <> url, [{"Content-Type", "application/json"} | headers])
+    HTTPoison.get(@magento_host <> url, [{"Content-Type", "application/json"} | headers], @magento_timeout)
   end
 
   defp post(url, params \\ Poison.encode!(%{}), headers \\ []) do
-    HTTPoison.post(@magento_host <> url, params, [{"Content-Type", "application/json"} | headers])
+    HTTPoison.post(@magento_host <> url, params, [{"Content-Type", "application/json"} | headers], @magento_timeout)
   end
 
   defp put(url, params, headers) do
-    HTTPoison.put(@magento_host <> url, params, [{"Content-Type", "application/json"} | headers])
+    HTTPoison.put(@magento_host <> url, params, [{"Content-Type", "application/json"} | headers], @magento_timeout)
   end
 
 end

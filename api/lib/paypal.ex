@@ -4,6 +4,7 @@ defmodule PayPal do
   @paypal_client_secret Application.get_env(:perseids, :paypal)[:client_secret]
   @paypal_return_url Application.get_env(:perseids, :paypal)[:return_url]
   @paypal_cancel_url Application.get_env(:perseids, :paypal)[:cancel_url]
+  @paypal_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
 
   def create_payment(%{"products" => products, "shipping" => shipping, "lang" => lang} = order) do
     shipping = Perseids.Shipping.find_one(source_id: shipping, lang: lang)
@@ -97,7 +98,7 @@ defmodule PayPal do
   defp oauth_token() do
     auth = [basic_auth: {@paypal_client_id, @paypal_client_secret}]
     body = "grant_type=client_credentials"
-    case HTTPoison.post(@paypal_api_url <> "oauth2/token", body, [{"Content-Type", "application/x-www-form-urlencoded"}], hackney: auth) do
+    case HTTPoison.post(@paypal_api_url <> "oauth2/token", body, [{"Content-Type", "application/x-www-form-urlencoded"}], @paypal_timeout ++ [hackney: auth]) do
       { :ok, response } -> paypal_response(response)
       { :error, reason } -> {:error, reason}
     end
@@ -111,7 +112,12 @@ defmodule PayPal do
   end
 
   defp post(url, params, headers \\ [], options \\ []) do
-    HTTPoison.post(@paypal_api_url <> url, Poison.encode!(params), [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"} | headers], options)
+    HTTPoison.post(
+      @paypal_api_url <> url,
+      Poison.encode!(params),
+      [{"Content-Type", "application/json"}, {"Authorization", "Bearer #{token()}"} | headers],
+      @paypal_timeout ++ options
+    )
   end
 
   defp token({:ok, token} = _params) do
