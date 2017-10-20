@@ -55,23 +55,24 @@ See `.env.sample` for details.
 
 ## MongoDB required indexes:
 
-1. Text index on product title and description field for searching (for each language):
-```
-db.pl_products.createIndex( { descritpion: "text", name: "text" } )
-db.en_products.createIndex( { descritpion: "text", name: "text" } )
-```
+1. Text index on product title and description field for searching (for each language)
+2. Params, which will be used for filtering (for each language)
 
-2. Params, which will be used for filtering, e.g.:
 ```
-db.pl_products.createIndex( { "params.size": 1, "params.color": 1 } )
-db.en_products.createIndex( { "params.size": 1, "params.color": 1 } )
+db.pl_pln_products.createIndex( { descritpion: "text", name: "text" } );
+db.en_usd_products.createIndex( { descritpion: "text", name: "text" } );
+db.en_gbp_products.createIndex( { descritpion: "text", name: "text" } );
+db.en_eur_products.createIndex( { descritpion: "text", name: "text" } );
 
-db.pl_products.createIndex( { "categories.id": 1 } )
-db.en_products.createIndex( { "categories.id": 1 } )
-```
 
-3. Other indexes
-```
-db.pl_pages.createIndex( { "slug": 1 } )
-db.en_pages.createIndex( { "slug": 1 } )
+db.pl_pln_products.createIndex( { "categories.id": 1 } );
+db.en_usd_products.createIndex( { "categories.id": 1 } );
+db.en_gbp_products.createIndex( { "categories.id": 1 } );
+db.en_eur_products.createIndex( { "categories.id": 1 } );
+
+
+db.pl_pln_products.createIndex( { "params.size": 1, "params.color": 1 } );
+db.en_usd_products.createIndex( { "params.size": 1, "params.color": 1 } );
+db.en_gbp_products.createIndex( { "params.size": 1, "params.color": 1 } );
+db.en_eur_products.createIndex( { "params.size": 1, "params.color": 1 } );
 ```

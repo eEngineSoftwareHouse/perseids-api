@@ -24,14 +24,14 @@ defmodule Perseids.Order do
      |> validate_address("shipping")
   end
 
-  def create(%{payment: "payu"} = params) do
+  def create(%{payment: "payu-pre"} = params) do
     @collection_name
     |> ORMongo.insert_one(params)
     |> item_response
     |> PayU.place_order
   end
 
-  def create(%{payment: "paypal"} = params) do
+  def create(%{payment: "paypal-pre"} = params) do
     @collection_name
     |> ORMongo.insert_one(params)
     |> item_response
