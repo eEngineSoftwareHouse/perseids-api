@@ -7,7 +7,7 @@ defmodule Perseids.Product do
   def find(opts) do
     case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts)}) do
       {:ok, return} -> return["retval"]
-      er -> IO.inspect(er); raise "ERROR"
+      er -> IO.inspect(er); raise "Mongo custom command error"
     end
   end
 
@@ -38,19 +38,18 @@ defmodule Perseids.Product do
     case filters do
       nil -> "[]"
       _ -> filters
-            |> Enum.to_list 
+            |> Enum.to_list
             |> Enum.reduce([], &name_content_maps(&1, &2))
             |> Poison.encode!
     end
   end
 
   defp name_content_maps(elem, acc) do
-    {name, content} = elem                                  
-    acc ++  [%{name: name, content: content}]            
+    {name, content} = elem
+    acc ++  [%{name: name, content: content}]
   end
 
   defp item_response(product) do
     product |> List.first
   end
 end
-

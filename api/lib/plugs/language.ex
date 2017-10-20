@@ -9,7 +9,7 @@ defmodule Perseids.Plugs.Language do
   """
   def call(conn, _) do
     case get_req_header(conn, "client-language") |> List.first do
-      nil -> conn |> assign(:lang, "pl")
+      nil -> conn |> assign(:lang, "pl_pln")
       lang ->  conn |> assign(:lang, lang)
     end
   end
