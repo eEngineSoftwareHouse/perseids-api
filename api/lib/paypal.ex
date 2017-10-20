@@ -6,7 +6,7 @@ defmodule PayPal do
   @paypal_cancel_url Application.get_env(:perseids, :paypal)[:cancel_url]
   @paypal_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
 
-  def create_payment(%{"products" => products, "shipping" => shipping, "lang" => lang} = order) do
+  def create_payment(%{"products" => products, "shipping" => shipping, "lang" => lang, "currency" => currency} = order) do
     shipping = Perseids.Shipping.find_one(source_id: shipping, lang: lang)
 
     payment_info = %{
@@ -22,7 +22,7 @@ defmodule PayPal do
         %{
           "amount" => %{
             "total" => calc_order_total(products, shipping, lang),
-            "currency" => "PLN" # tak jak w PayU czeka na obsługę walut
+            "currency" => currency
           },
           "custom" => BSON.ObjectId.encode!(order["_id"])
         }

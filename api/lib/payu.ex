@@ -25,7 +25,7 @@ defmodule PayU do
     |> Kernel.==(signature)
   end
 
-  def place_order(%{"products" => products, "shipping" => shipping, "lang" => lang} = order) do
+  def place_order(%{"products" => products, "shipping" => shipping, "lang" => lang, "currency" => currency} = order) do
     shipping = Perseids.Shipping.find_one(source_id: shipping, lang: lang)
 
     payu_order = %{
@@ -33,7 +33,7 @@ defmodule PayU do
       customerIp: "127.0.0.1", # Needed by PayU, don't know why
       merchantPosId: @payu_pos_id,
       description: "ManyMornings - Perseids",
-      currencyCode: "PLN",
+      currencyCode: currency,
       totalAmount: calc_order_total(products, shipping, lang),
       extOrderId: BSON.ObjectId.encode!(order["_id"]),
       products: order["products"]

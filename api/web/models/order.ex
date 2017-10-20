@@ -14,11 +14,12 @@ defmodule Perseids.Order do
    field :inpost_code,        :string
    field :redirect_url,       :string
    field :lang,               :string
+   field :currency,               :string
   end
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang])
+     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency])
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
      |> validate_address("shipping")

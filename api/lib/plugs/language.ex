@@ -8,9 +8,21 @@ defmodule Perseids.Plugs.Language do
   and adds it into the conn for further usage
   """
   def call(conn, _) do
-    case get_req_header(conn, "client-language") |> List.first do
-      nil -> conn |> assign(:lang, "pl_pln")
-      lang ->  conn |> assign(:lang, lang)
-    end
+    get_req_header(conn, "client-language")
+    |> List.first
+    |> extract_currency_code(conn)
+  end
+
+  defp extract_currency_code(nil, conn), do: conn |> assign(:lang, "pl_pln")
+
+  defp extract_currency_code(prefix, conn) do
+    currency = prefix
+    |> String.split("_")
+    |> List.last
+    |> String.upcase
+
+    conn
+    |> assign(:lang, prefix)
+    |> assign(:currency, currency)
   end
 end

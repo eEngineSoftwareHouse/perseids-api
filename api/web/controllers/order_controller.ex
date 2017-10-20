@@ -16,6 +16,7 @@ defmodule Perseids.OrderController do
     params = params
     |> Map.put_new("customer_id", conn.assigns[:customer_id])
     |> Map.put_new("lang", conn.assigns.lang)
+    |> Map.put_new("currency", conn.assigns.currency)
 
     changeset = Perseids.Order.changeset(%Perseids.Order{}, params)
     if changeset.valid? do
