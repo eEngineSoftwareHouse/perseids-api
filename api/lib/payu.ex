@@ -34,10 +34,10 @@ defmodule PayU do
       merchantPosId: @payu_pos_id,
       description: "ManyMornings - Perseids",
       currencyCode: "PLN",
-      totalAmount: calc_order_total(products, shipping),
+      totalAmount: calc_order_total(products, shipping, lang),
       extOrderId: BSON.ObjectId.encode!(order["_id"]),
       products: order["products"]
-      |> Enum.map(&payu_prepare_product(&1))
+      |> Enum.map(&payu_prepare_product(&1, lang))
       |> Kernel.++([shipping |> payu_prepare_shipping])
     }
 
@@ -67,17 +67,17 @@ defmodule PayU do
     }
   end
 
-  defp payu_prepare_product(product) do
+  defp payu_prepare_product(product, lang) do
     %{
       name: product["sku"],
-      unitPrice: get_product_price(product) |> payu_format_price,
+      unitPrice: get_product_price(product, lang) |> payu_format_price,
       quantity: product["count"]
     }
   end
 
-  defp calc_order_total(products, shipping) do
+  defp calc_order_total(products, shipping, lang) do
     products
-    |> Enum.map(&get_product_price(&1) * &1["count"])
+    |> Enum.map(&get_product_price(&1, lang) * &1["count"])
     |> payu_products_price_sum
     |> Kernel.+(get_shipping_price(shipping))
   end
@@ -87,8 +87,8 @@ defmodule PayU do
     |> payu_format_price
   end
 
-  defp get_product_price(product) do
-    Perseids.Product.find_one(source_id: product["id"])["price"]
+  defp get_product_price(product, lang) do
+    Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"]
     |> List.first
   end
 
@@ -100,6 +100,7 @@ defmodule PayU do
 
   defp payu_format_price(price) do
     price
+    |> Kernel./(1) # be sure that price is INT
     |> Float.round(2)
     |> Kernel.*(100) # PayU need price in 0,01
     |> round

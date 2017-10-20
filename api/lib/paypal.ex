@@ -21,7 +21,7 @@ defmodule PayPal do
       "transactions" => [
         %{
           "amount" => %{
-            "total" => calc_order_total(products, shipping),
+            "total" => calc_order_total(products, shipping, lang),
             "currency" => "PLN" # tak jak w PayU czeka na obsługę walut
           },
           "custom" => BSON.ObjectId.encode!(order["_id"])
@@ -67,9 +67,9 @@ defmodule PayPal do
     end
   end
 
-  defp calc_order_total(products, shipping) do
+  defp calc_order_total(products, shipping, lang) do
     products
-    |> Enum.map(&get_product_price(&1) * &1["count"])
+    |> Enum.map(&get_product_price(&1, lang) * &1["count"])
     |> payu_products_price_sum
     |> Kernel.+(get_shipping_price(shipping))
   end
@@ -79,8 +79,8 @@ defmodule PayPal do
     |> payu_format_price
   end
 
-  defp get_product_price(product) do
-    Perseids.Product.find_one(source_id: product["id"])["price"]
+  defp get_product_price(product, lang) do
+    Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"]
     |> List.first
   end
 
@@ -92,6 +92,7 @@ defmodule PayPal do
 
   defp payu_format_price(price) do
     price
+    |> Kernel./(1) # be sure that price is INT
     |> Float.round(2)
   end
 
