@@ -1,4 +1,35 @@
+// Set default DB
 db = db.getSiblingDB('perseids');
+
+// Create indexes
+db.pl_pln_products.createIndex( { descritpion: "text", name: "text" } );
+db.en_usd_products.createIndex( { descritpion: "text", name: "text" } );
+db.en_gbp_products.createIndex( { descritpion: "text", name: "text" } );
+db.en_eur_products.createIndex( { descritpion: "text", name: "text" } );
+
+
+db.pl_pln_products.createIndex( { "categories.id": 1 } );
+db.en_usd_products.createIndex( { "categories.id": 1 } );
+db.en_gbp_products.createIndex( { "categories.id": 1 } );
+db.en_eur_products.createIndex( { "categories.id": 1 } );
+
+
+db.pl_pln_products.createIndex( { "params.product_size": 1 } );
+db.en_usd_products.createIndex( { "params.product_size": 1 } );
+db.en_gbp_products.createIndex( { "params.product_size": 1 } );
+db.en_eur_products.createIndex( { "params.product_size": 1 } );
+
+db.pl_pln_products.createIndex( { "params.url_key": 1 } );
+db.en_usd_products.createIndex( { "params.url_key": 1 } );
+db.en_gbp_products.createIndex( { "params.url_key": 1 } );
+db.en_eur_products.createIndex( { "params.url_key": 1 } );
+
+db.pl_pln_products.createIndex( { "url_key": 1 } );
+db.en_usd_products.createIndex( { "url_key": 1 } );
+db.en_gbp_products.createIndex( { "url_key": 1 } );
+db.en_eur_products.createIndex( { "url_key": 1 } );
+
+// Add custom filtering function
 db.system.js.remove({"_id" : "productFilter"});
 db.system.js.save(
     {
@@ -25,10 +56,10 @@ db.system.js.save(
                 }
                 visibleParameters[filter.name] = 1;
             }
-            
+
             var unmergedParameterSets = [];
-            var filterableParams = {};            
-            filterableParams["category_ids"] = [];            
+            var filterableParams = {};
+            filterableParams["category_ids"] = [];
             for (var filter of filters) {
                 if (filter.name === "categories.id") {
                     continue;
@@ -67,4 +98,3 @@ db.system.js.save(
         }
     }
 )
-

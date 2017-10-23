@@ -15,49 +15,18 @@ defmodule ORMongo do
   end
 
   # Set of specific finders
-  def find(collection, filter: filter, options: options) do
-    mongo_find(collection, filter, options)
-  end
-
-  def find(collection, filter: filter, limit: limit) do
-    mongo_find(collection, filter, limit: limit)
-  end
-
-  def find(collection, filter: filter) do
-    mongo_find(collection, filter, limit: @default_limit)
-  end
-
-  def find(collection, []) do
-    mongo_find(collection, %{}, limit: @default_limit)
-  end
-
-  def find(collection, limit: limit) do
-    mongo_find(collection, %{}, limit: limit)
-  end
-
-  def find(collection, keywords: phrase, options: options) do
-    mongo_search(collection, %{"$text" => %{"$search" => phrase}}, options)
-  end
-
-  def find(collection, keywords: phrase, limit: limit) do
-    mongo_search(collection, %{"$text" => %{"$search" => phrase}}, limit: limit)
-  end
-
-  def find(collection, keywords: phrase) do
-    mongo_search(collection, %{"$text" => %{"$search" => phrase}}, [limit: @default_limit])
-  end
-
-  def find(collection, _id: id) do
-    mongo_find_one_by_id(collection, id)
-  end
-
-  def find(collection, source_id: source_id) do
-    mongo_find_one_by_field(collection, %{ source_id: source_id })
-  end
-
-  def find(collection, slug: slug) do
-    mongo_find_one_by_field(collection, %{ slug: slug })
-  end
+  def find(collection, filter: filter, options: options),   do: mongo_find(collection, filter, options)
+  def find(collection, filter: filter, limit: limit),       do: mongo_find(collection, filter, limit: limit)
+  def find(collection, filter: filter),                     do: mongo_find(collection, filter, limit: @default_limit)
+  def find(collection, []),                                 do: mongo_find(collection, %{}, limit: @default_limit)
+  def find(collection, limit: limit),                       do: mongo_find(collection, %{}, limit: limit)
+  def find(collection, keywords: phrase, options: options), do: mongo_search(collection, %{"$text" => %{"$search" => phrase}}, options)
+  def find(collection, keywords: phrase, limit: limit),     do: mongo_search(collection, %{"$text" => %{"$search" => phrase}}, limit: limit)
+  def find(collection, keywords: phrase),                   do: mongo_search(collection, %{"$text" => %{"$search" => phrase}}, [limit: @default_limit])
+  def find(collection, _id: id),                            do: mongo_find_one_by_id(collection, id)
+  def find(collection, source_id: source_id),               do: mongo_find_one_by_field(collection, %{ source_id: source_id })
+  def find(collection, url_key: url_key),                   do: mongo_find_one_by_field(collection, %{ url_key: url_key })
+  def find(collection, slug: slug),                         do: mongo_find_one_by_field(collection, %{ slug: slug })
 
   def count(collection, [{:keywords, keywords} | _]) do
     Mongo.count(:mongo, collection, %{"$text" => %{"$search" => keywords}})

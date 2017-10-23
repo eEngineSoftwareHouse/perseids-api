@@ -17,11 +17,6 @@ Run containers:
 docker-compose up -d
 ```
 
-Make sure to append filter query to a database:
-```
-docker-compose exec mongo mongo --eval "$(< productFilter.js)"
-```
-
 App will be available at port 4000 on your localhost by default:
 
 * **API**: `http://localhost:4000`
@@ -35,6 +30,19 @@ docker-compose logs -f api
 docker-compose logs -f mongo
 ```
 
+## Prepare MongoDB
+You have to have indexes:
+
+1. Text index on product title and description field for searching (for each language)
+2. Params, which will be used for filtering (for each language)
+3. Product slugs (url_key)
+
+Be sure to prepare MongoDB (add indexes and custom functions) by running:
+```
+docker-compose exec mongo mongo --eval "$(< prepare_mongo.js)"
+````
+
+See `prepare_mongo.js` file for details.
 
 
 ## Some examples
@@ -51,28 +59,3 @@ For more examples go to API documentation (link at the top)
 
 To use methods such as `/api/v1/status/magento` you have to provide magento access data, such as host and admin credentials in your `.env` file.
 See `.env.sample` for details.
-
-
-## MongoDB required indexes:
-
-1. Text index on product title and description field for searching (for each language)
-2. Params, which will be used for filtering (for each language)
-
-```
-db.pl_pln_products.createIndex( { descritpion: "text", name: "text" } );
-db.en_usd_products.createIndex( { descritpion: "text", name: "text" } );
-db.en_gbp_products.createIndex( { descritpion: "text", name: "text" } );
-db.en_eur_products.createIndex( { descritpion: "text", name: "text" } );
-
-
-db.pl_pln_products.createIndex( { "categories.id": 1 } );
-db.en_usd_products.createIndex( { "categories.id": 1 } );
-db.en_gbp_products.createIndex( { "categories.id": 1 } );
-db.en_eur_products.createIndex( { "categories.id": 1 } );
-
-
-db.pl_pln_products.createIndex( { "params.size": 1, "params.color": 1 } );
-db.en_usd_products.createIndex( { "params.size": 1, "params.color": 1 } );
-db.en_gbp_products.createIndex( { "params.size": 1, "params.color": 1 } );
-db.en_eur_products.createIndex( { "params.size": 1, "params.color": 1 } );
-```
