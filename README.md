@@ -75,4 +75,14 @@ db.pl_pln_products.createIndex( { "params.size": 1, "params.color": 1 } );
 db.en_usd_products.createIndex( { "params.size": 1, "params.color": 1 } );
 db.en_gbp_products.createIndex( { "params.size": 1, "params.color": 1 } );
 db.en_eur_products.createIndex( { "params.size": 1, "params.color": 1 } );
+
+db.pl_pln_products.createIndex( { "params.url_key": 1 } );
+db.en_usd_products.createIndex( { "params.url_key": 1 } );
+db.en_gbp_products.createIndex( { "params.url_key": 1 } );
+db.en_eur_products.createIndex( { "params.url_key": 1 } );
+
+db.pl_pln_products.createIndex( { "url_key": 1 } );
+db.en_usd_products.createIndex( { "url_key": 1 } );
+db.en_gbp_products.createIndex( { "url_key": 1 } );
+db.en_eur_products.createIndex( { "url_key": 1 } );
 ```

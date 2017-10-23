@@ -42,7 +42,7 @@ defmodule Perseids.Router do
     get "/products/search", ProductController, :index
     get "/products/stock/:sku", ProductController, :check_stock
     get "/products/stock", ProductController, :check_stock
-    get "/product/:source_id", ProductController, :show
+    get "/product/:url_key", ProductController, :show
 
     get "/params", ParamController, :index
     get "/params/:code", ParamController, :show

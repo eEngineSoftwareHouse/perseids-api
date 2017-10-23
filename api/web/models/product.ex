@@ -11,7 +11,10 @@ defmodule Perseids.Product do
     end
   end
 
-  def find_one([{:source_id, _source_id} | _tail] = options) do
+  def find_one([{:url_key, _source_id} | _tail] = options), do: find_one_with(options)
+  def find_one([{:source_id, _source_id} | _tail] = options), do: find_one_with(options)
+
+  defp find_one_with(options) do
     @collection_name
     |> ORMongo.find_with_lang(options)
     |> item_response
