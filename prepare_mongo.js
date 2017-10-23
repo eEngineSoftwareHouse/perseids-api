@@ -1,5 +1,5 @@
 // Set default DB
-db = db.getSiblingDB('dupa');
+db = db.getSiblingDB('perseids');
 
 // Create indexes
 db.pl_pln_products.createIndex( { descritpion: "text", name: "text" } );
