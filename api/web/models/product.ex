@@ -2,7 +2,7 @@ defmodule Perseids.Product do
   use Perseids.Web, :model
 
   @collection_name "products"
-  @filterable_params ["category_ids", "color","size"]
+  @filterable_params ["category_ids", "color","pattern"]
 
   def find(opts) do
     case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts)}) do
