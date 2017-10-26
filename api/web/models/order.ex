@@ -27,28 +27,22 @@ defmodule Perseids.Order do
   end
 
   def create(%{payment: "payu-pre"} = params) do
-    shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang)
-    params = Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
     @collection_name
-    |> ORMongo.insert_one(params)
+    |> ORMongo.insert_one(append_shipping_price(params))
     |> item_response
     |> PayU.place_order
   end
 
   def create(%{payment: "paypal-pre"} = params) do
-    shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang)
-    params = Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
     @collection_name
-    |> ORMongo.insert_one(params)
+    |> ORMongo.insert_one(append_shipping_price(params))
     |> item_response
     |> PayPal.create_payment
   end
 
   def create(params) do
-    shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang)
-    params = Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
     @collection_name
-    |> ORMongo.insert_one(params)
+    |> ORMongo.insert_one(append_shipping_price(params))
     |> item_response
   end
 
@@ -130,6 +124,11 @@ defmodule Perseids.Order do
       true -> changeset
       _ -> add_error(changeset, :address, "You must accept rules to continue")
     end
+  end
+
+  defp append_shipping_price(params) do
+    shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
+    Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
   end
 
   defp calc_shipping_price(products, shipping, lang) do
