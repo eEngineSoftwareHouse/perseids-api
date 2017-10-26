@@ -7,12 +7,10 @@ db.en_usd_products.createIndex( { descritpion: "text", name: "text" } );
 db.en_gbp_products.createIndex( { descritpion: "text", name: "text" } );
 db.en_eur_products.createIndex( { descritpion: "text", name: "text" } );
 
-
 db.pl_pln_products.createIndex( { "categories.id": 1 } );
 db.en_usd_products.createIndex( { "categories.id": 1 } );
 db.en_gbp_products.createIndex( { "categories.id": 1 } );
 db.en_eur_products.createIndex( { "categories.id": 1 } );
-
 
 db.pl_pln_products.createIndex( { "params.product_size": 1 } );
 db.en_usd_products.createIndex( { "params.product_size": 1 } );
@@ -44,7 +42,7 @@ db.system.js.remove({"_id" : "productFilter"});
 db.system.js.save(
     {
         _id: "productFilter",
-        value: function (filters, filterable, keywords, lang, skip, limit) {
+        value: function (filters, filterable, selectedFields, keywords, lang, skip, limit) {
             for (var f of filterable) {
                 filters.push({"name": "params." + f, "content": null});
             }
@@ -98,10 +96,15 @@ db.system.js.save(
                 }
             }
 
+            var selectedFieldsQuery = {};
+            for (var field of selectedFields) {
+                selectedFieldsQuery[field.name] = field.content;
+            }
+
             var output = {
                     count: db.getCollection(lang + '_products').find(productQuery).length(),
                     params: filterableParams,
-                    products: db.getCollection(lang + '_products').find(productQuery).skip(skip).limit(limit).toArray()
+                    products: db.getCollection(lang + '_products').find(productQuery, selectedFieldsQuery).skip(skip).limit(limit).toArray()
             }
 
             return output;

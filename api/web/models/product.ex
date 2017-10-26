@@ -22,8 +22,9 @@ defmodule Perseids.Product do
 
   defp prepare_mongo_query(opts) do
     "productFilter("
-      <> filters_to_key_value_pair_json(opts[:filter]) <> ","
+      <> map_to_key_value_pair_json(opts[:filter]) <> ","
       <> Poison.encode!(@filterable_params) <> ","
+      <> map_to_key_value_pair_json(opts[:options][:projection]) <> ","
       <> nil_to_null_string(opts[:keywords]) <> ","
       <> "\"" <> opts[:lang] <> "\","
       <> Integer.to_string(opts[:options][:skip]) <> ","
@@ -37,10 +38,10 @@ defmodule Perseids.Product do
     end
   end
 
-  defp filters_to_key_value_pair_json(filters) do
-    case filters do
+  defp map_to_key_value_pair_json(map) do
+    case map do
       nil -> "[]"
-      _ -> filters
+      _ -> map
             |> Enum.to_list
             |> Enum.reduce([], &name_content_maps(&1, &2))
             |> Poison.encode!
