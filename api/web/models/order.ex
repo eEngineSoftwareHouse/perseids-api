@@ -3,6 +3,7 @@ defmodule Perseids.Order do
 
   @collection_name "orders"
   @address_fields ["accept-rules", "city", "country", "email", "name", "phone-number", "post-code", "street", "surname"]
+  @company_fields ["accept-rules", "city", "country", "email", "name", "phone-number", "post-code", "street", "surname", "nip", "company"]
 
   schema @collection_name do
    field :products,           {:array, :map}
@@ -23,7 +24,9 @@ defmodule Perseids.Order do
      |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency])
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
-     |> validate_address("shipping")
+     |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
+    #  |> validate_subfields_if_exist(address: [:payment, :customer])
+    #  |> validate_address("shipping")
   end
 
   def create(%{payment: "payu-pre"} = params) do
@@ -73,7 +76,43 @@ defmodule Perseids.Order do
   def item_response(list), do: list |> List.first
 
   # Custom validations
+  def validate_required_subfields(changeset, [head | tail]) do
+    { key, required_subfields } = head
+    subfields = get_field(changeset, key) |> Helpers.atomize_keys
+    IO.puts "VALIDATE REQUIRED SUBFIELDS"
+    IO.inspect head
+    IO.inspect tail
+    IO.inspect subfields
+    IO.puts "VALIDATE REQUIRED SUBFIELDS END"
+    # IO.inspect subfields
+    subfield_present?(changeset, subfields, required_subfields, key)
+    |> validate_required_subfields(tail)
+  end
+
+  def validate_required_subfields(changeset, []), do: changeset
+  
+  # def subfield_present?(changeset, nil, _required_subfields, key), do: add_error(changeset, key, "#{key} must exist")
+  def subfield_present?(changeset, nil, _required_subfields, key), do: changeset
+  def subfield_present?(changeset, subfields, [], key), do: changeset
+  def subfield_present?(changeset, subfields, [ head | tail ], key) do
+    changeset = case subfields |> Map.has_key?(head) do
+      false -> add_error(changeset, key, "#{head |> Atom.to_string} must exist")
+      true -> changeset
+    end
+
+    subfield_present?(changeset, subfields, tail, key)
+  end
+
+
+
+  def validate_required_subfields_if_exist(changeset, required_subfields) do
+    IO.puts "VALIDATE REQUIRED SUBFIELDS IF EXIST"
+    IO.inspect required_subfields
+  end
+
+
   def validate_shipping(changeset) do
+  
     case get_field(changeset, :shipping) do
       "inpost" -> validate_required(changeset, [:inpost_code]) # validate presence of box machine code if "inpost" shipping
       _ -> changeset
