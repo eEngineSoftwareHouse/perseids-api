@@ -25,8 +25,7 @@ defmodule Perseids.Order do
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
      |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
-    #  |> validate_subfields_if_exist(address: [:payment, :customer])
-    #  |> validate_address("shipping")
+     |> validate_required_subfields([address: [:payment, :customer]], optional: true) # validated only if 'payment' or 'customer' are sent
   end
 
   def create(%{payment: "payu-pre"} = params) do
@@ -72,44 +71,39 @@ defmodule Perseids.Order do
     @collection_name |> ORMongo.update_one(%{"_id" => BSON.ObjectId.decode!(id)}, new_value)
   end
 
-  def list_response(list), do: list
-  def item_response(list), do: list |> List.first
+  defp list_response(list), do: list
+  defp item_response(list), do: list |> List.first
 
   # Custom validations
-  def validate_required_subfields(changeset, [head | tail]) do
+  def validate_required_subfields(changeset, [], optional: true), do: changeset
+  def validate_required_subfields(changeset, [], optional: false), do: changeset
+  
+  def validate_required_subfields(changeset, [head | tail], optional \\ [optional: false]) do
     { key, required_subfields } = head
     subfields = get_field(changeset, key) |> Helpers.atomize_keys
-    IO.puts "VALIDATE REQUIRED SUBFIELDS"
-    IO.inspect head
-    IO.inspect tail
-    IO.inspect subfields
-    IO.puts "VALIDATE REQUIRED SUBFIELDS END"
-    # IO.inspect subfields
-    subfield_present?(changeset, subfields, required_subfields, key)
+    
+    subfield_present?(changeset, subfields, required_subfields, key, optional)
     |> validate_required_subfields(tail)
   end
 
-  def validate_required_subfields(changeset, []), do: changeset
-  
-  # def subfield_present?(changeset, nil, _required_subfields, key), do: add_error(changeset, key, "#{key} must exist")
-  def subfield_present?(changeset, nil, _required_subfields, key), do: changeset
-  def subfield_present?(changeset, subfields, [], key), do: changeset
-  def subfield_present?(changeset, subfields, [ head | tail ], key) do
+  def subfield_present?(changeset, nil, _required_subfields, key, _optional), do: changeset
+  def subfield_present?(changeset, subfields, [], key, _optional),            do: changeset
+
+  def subfield_present?(changeset, subfields, [ head | tail ], key, optional) do
+    validation_func = "validate_" <> Atom.to_string(key) 
+    |> String.replace("-", "_") 
+    |> String.to_atom
+
     changeset = case subfields |> Map.has_key?(head) do
-      false -> add_error(changeset, key, "#{head |> Atom.to_string} must exist")
-      true -> changeset
+      false -> maybe_optional_subfield(changeset, key, "#{head |> Atom.to_string} must exist", optional)
+      true -> apply(Perseids.Order, validation_func, [changeset, Atom.to_string(head)])
     end
 
-    subfield_present?(changeset, subfields, tail, key)
+    subfield_present?(changeset, subfields, tail, key, optional)
   end
 
-
-
-  def validate_required_subfields_if_exist(changeset, required_subfields) do
-    IO.puts "VALIDATE REQUIRED SUBFIELDS IF EXIST"
-    IO.inspect required_subfields
-  end
-
+  def maybe_optional_subfield(changeset, key, message, optional: true), do: changeset
+  def maybe_optional_subfield(changeset, key, message, optional: false), do: add_error(changeset, key, message)
 
   def validate_shipping(changeset) do
   
@@ -121,35 +115,35 @@ defmodule Perseids.Order do
 
   def validate_address(changeset, address_type \\ "shipping") do
     get_field(changeset, :address)[address_type]
-    |> Enum.reduce(changeset, &validate_address_field/2)
+    |> Enum.reduce(changeset, fn(elem, acc) -> validate_address_field(elem, acc, String.capitalize(address_type)) end)
   end
 
-  def validate_address_field({key, value} = _field, changeset) do
+  def validate_address_field({key, value} = _field, changeset, address_type) do
     validation_func =
       "validate_" <> key
       |> String.replace("-", "_")
       |> String.to_atom
 
     case Enum.member?(@address_fields, key) do
-      true -> apply(Perseids.Order, validation_func, [value, changeset])
+      true -> apply(Perseids.Order, validation_func, [value, changeset, address_type])
       false -> changeset # will be cool to remove unsupported keys
     end
   end
 
-  def validate_email(value, changeset) do
+  def validate_email(value, changeset, address_type) do
     case Regex.match?(~r/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i, value) do
       true -> changeset
-      false -> add_error(changeset, :address, "Wrong e-mail")
+      false -> add_error(changeset, :address, address_type <> " - wrong e-mail")
     end
   end
 
-  def validate_name(value, changeset), do: validate_field_length(value, changeset, "Name")
-  def validate_surname(value, changeset), do: validate_field_length(value, changeset, "Surname")
-  def validate_country(value, changeset), do: validate_field_length(value, changeset, "Country")
-  def validate_city(value, changeset), do: validate_field_length(value, changeset, "City")
-  def validate_phone_number(value, changeset), do: validate_field_length(value, changeset, "Phone number")
-  def validate_post_code(value, changeset), do: validate_field_length(value, changeset, "Post code")
-  def validate_street(value, changeset), do: validate_field_length(value, changeset, "Street")
+  def validate_name(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> " - name")
+  def validate_surname(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - surname")
+  def validate_country(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - country")
+  def validate_city(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> " - city")
+  def validate_phone_number(value, changeset, address_type),  do: validate_field_length(value, changeset, address_type <> " - phone number")
+  def validate_post_code(value, changeset, address_type),     do: validate_field_length(value, changeset, address_type <> " - post code")
+  def validate_street(value, changeset, address_type),        do: validate_field_length(value, changeset, address_type <> " - street")
 
   def validate_field_length(value, changeset, name) do
     case String.length(value) do
@@ -158,13 +152,14 @@ defmodule Perseids.Order do
     end
   end
 
-  def validate_accept_rules(value, changeset) do
+  def validate_accept_rules(value, changeset, address_type) do
     case value do
       true -> changeset
       _ -> add_error(changeset, :address, "You must accept rules to continue")
     end
   end
 
+  # Additional order calculations
   defp append_shipping_price(params) do
     shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
     Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
