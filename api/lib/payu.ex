@@ -25,7 +25,7 @@ defmodule PayU do
     |> Kernel.==(signature)
   end
 
-  def place_order(%{"products" => products, "shipping" => shipping, "lang" => lang, "currency" => currency} = order) do
+  def place_order(%{"products" => products, "shipping" => shipping, "lang" => lang, "currency" => currency, "shipping_price" => shipping_price} = order) do
     shipping = Perseids.Shipping.find_one(source_id: shipping, lang: lang)
 
     payu_order = %{
@@ -34,11 +34,11 @@ defmodule PayU do
       merchantPosId: @payu_pos_id,
       description: "ManyMornings - Perseids",
       currencyCode: currency,
-      totalAmount: calc_order_total(products, shipping, lang),
+      totalAmount: calc_order_total(products, shipping_price, lang),
       extOrderId: BSON.ObjectId.encode!(order["_id"]),
       products: order["products"]
       |> Enum.map(&payu_prepare_product(&1, lang))
-      |> Kernel.++([shipping |> payu_prepare_shipping])
+      |> Kernel.++([shipping |> payu_prepare_shipping(shipping_price)])
     }
 
     case post("orders", Poison.encode!(payu_order), [], follow_redirect: true) do
@@ -59,10 +59,10 @@ defmodule PayU do
     end
   end
 
-  defp payu_prepare_shipping(shipping) do
+  defp payu_prepare_shipping(shipping, shipping_price) do
     %{
       name: shipping["name"],
-      unitPrice: get_shipping_price(shipping),
+      unitPrice: payu_format_price(shipping_price),
       quantity: 1
     }
   end
@@ -75,16 +75,11 @@ defmodule PayU do
     }
   end
 
-  defp calc_order_total(products, shipping, lang) do
+  defp calc_order_total(products, shipping_price, lang) do
     products
     |> Enum.map(&get_product_price(&1, lang) * &1["count"])
     |> payu_products_price_sum
-    |> Kernel.+(get_shipping_price(shipping))
-  end
-
-  defp get_shipping_price(shipping) do
-    shipping["price"]
-    |> payu_format_price
+    |> Kernel.+(payu_format_price(shipping_price))
   end
 
   defp get_product_price(product, lang) do

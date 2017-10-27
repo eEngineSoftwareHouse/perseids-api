@@ -14,7 +14,8 @@ defmodule Perseids.Order do
    field :inpost_code,        :string
    field :redirect_url,       :string
    field :lang,               :string
-   field :currency,               :string
+   field :currency,           :string
+   field :shipping_price,     :integer
   end
 
   def changeset(order, params \\ %{}) do
@@ -27,21 +28,21 @@ defmodule Perseids.Order do
 
   def create(%{payment: "payu-pre"} = params) do
     @collection_name
-    |> ORMongo.insert_one(params)
+    |> ORMongo.insert_one(append_shipping_price(params))
     |> item_response
     |> PayU.place_order
   end
 
   def create(%{payment: "paypal-pre"} = params) do
     @collection_name
-    |> ORMongo.insert_one(params)
+    |> ORMongo.insert_one(append_shipping_price(params))
     |> item_response
     |> PayPal.create_payment
   end
 
   def create(params) do
     @collection_name
-    |> ORMongo.insert_one(params)
+    |> ORMongo.insert_one(append_shipping_price(params))
     |> item_response
   end
 
@@ -123,5 +124,59 @@ defmodule Perseids.Order do
       true -> changeset
       _ -> add_error(changeset, :address, "You must accept rules to continue")
     end
+  end
+
+  defp append_shipping_price(params) do
+    shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
+    Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
+  end
+
+  defp calc_shipping_price(products, shipping, lang) do
+    products
+    |> Enum.map(&get_product_price(&1, lang) * &1["count"])
+    |> products_price_sum
+    |> check_free_shipping(shipping, lang)
+  end
+
+  defp check_free_shipping(order_total, shipping, lang) do
+    default_shipping_price = get_default_shipping_price(shipping)
+    threshold = get_threshold(lang)
+    if order_total >= threshold do
+      0
+    else
+      default_shipping_price
+    end
+  end
+
+  defp get_threshold(lang) do
+    Perseids.Threshold.find(lang: lang)
+    |> item_response
+    |> get_value
+  end
+
+  defp get_value(threshold) do
+    threshold["value"]
+  end
+
+  defp get_default_shipping_price(shipping) do
+    shipping["price"]
+    |> format_price
+  end
+
+  defp get_product_price(product, lang) do
+    Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"]
+    |> List.first
+  end
+
+  defp products_price_sum(prices_list) do
+    prices_list
+    |> Enum.sum
+    |> format_price
+  end
+
+  defp format_price(price) do
+    price
+    |> Kernel./(1) # be sure that price is INT
+    |> Float.round(2)
   end
 end

@@ -6,7 +6,7 @@ defmodule PayPal do
   @paypal_cancel_url Application.get_env(:perseids, :paypal)[:cancel_url]
   @paypal_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
 
-  def create_payment(%{"products" => products, "shipping" => shipping, "lang" => lang, "currency" => currency} = order) do
+  def create_payment(%{"products" => products, "shipping" => shipping, "lang" => lang, "currency" => currency, "shipping_price" => shipping_price} = order) do
     shipping = Perseids.Shipping.find_one(source_id: shipping, lang: lang)
 
     payment_info = %{
@@ -21,7 +21,7 @@ defmodule PayPal do
       "transactions" => [
         %{
           "amount" => %{
-            "total" => calc_order_total(products, shipping, lang),
+            "total" => calc_order_total(products, shipping_price, lang),
             "currency" => currency
           },
           "custom" => BSON.ObjectId.encode!(order["_id"])
@@ -67,16 +67,11 @@ defmodule PayPal do
     end
   end
 
-  defp calc_order_total(products, shipping, lang) do
+  defp calc_order_total(products, shipping_price, lang) do
     products
     |> Enum.map(&get_product_price(&1, lang) * &1["count"])
     |> payu_products_price_sum
-    |> Kernel.+(get_shipping_price(shipping))
-  end
-
-  defp get_shipping_price(shipping) do
-    shipping["price"]
-    |> payu_format_price
+    |> Kernel.+(payu_format_price(shipping_price))
   end
 
   defp get_product_price(product, lang) do
