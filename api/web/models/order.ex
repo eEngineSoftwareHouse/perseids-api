@@ -2,8 +2,8 @@ defmodule Perseids.Order do
   use Perseids.Web, :model
 
   @collection_name "orders"
-  @address_fields ["accept-rules", "city", "country", "email", "name", "phone-number", "post-code", "street", "surname"]
-  @company_fields ["accept-rules", "city", "country", "email", "name", "phone-number", "post-code", "street", "surname", "nip", "company"]
+  @address_shipping_required_fields ["accept-rules", "city", "country", "email", "name", "phone-number", "post-code", "street", "surname"]
+  @address_payment_required_fields ["accept-rules", "city", "country", "email", "name", "phone-number", "post-code", "street", "surname", "nip", "company"]
 
   schema @collection_name do
    field :products,           {:array, :map}
@@ -95,7 +95,7 @@ defmodule Perseids.Order do
     |> String.to_atom
 
     changeset = case subfields |> Map.has_key?(head) do
-      false -> maybe_optional_subfield(changeset, key, "#{head |> Atom.to_string} must exist", optional)
+      false -> maybe_optional_subfield(changeset, key, "#{head |> Atom.to_string |> String.capitalize} must exist", optional)
       true -> apply(Perseids.Order, validation_func, [changeset, Atom.to_string(head)])
     end
 
@@ -106,7 +106,6 @@ defmodule Perseids.Order do
   def maybe_optional_subfield(changeset, key, message, optional: false), do: add_error(changeset, key, message)
 
   def validate_shipping(changeset) do
-  
     case get_field(changeset, :shipping) do
       "inpost" -> validate_required(changeset, [:inpost_code]) # validate presence of box machine code if "inpost" shipping
       _ -> changeset
@@ -114,8 +113,16 @@ defmodule Perseids.Order do
   end
 
   def validate_address(changeset, address_type \\ "shipping") do
+    changeset = check_required_address_fields(changeset, address_type)
     get_field(changeset, :address)[address_type]
     |> Enum.reduce(changeset, fn(elem, acc) -> validate_address_field(elem, acc, String.capitalize(address_type)) end)
+  end
+
+  def check_required_address_fields(changeset, address_type) do
+    case get_required_fields_for(address_type) -- Map.keys(get_field(changeset, :address)[address_type]) do
+      [] -> changeset
+      missing_fields -> Enum.reduce(missing_fields, changeset, fn(field, acc) -> add_error(acc, :address, "#{String.capitalize(address_type)} - #{field} field is required") end)
+    end
   end
 
   def validate_address_field({key, value} = _field, changeset, address_type) do
@@ -124,11 +131,15 @@ defmodule Perseids.Order do
       |> String.replace("-", "_")
       |> String.to_atom
 
-    case Enum.member?(@address_fields, key) do
+    case Enum.member?(@address_shipping_required_fields, key) do
       true -> apply(Perseids.Order, validation_func, [value, changeset, address_type])
       false -> changeset # will be cool to remove unsupported keys
     end
   end
+
+  def get_required_fields_for("shipping"), do: @address_shipping_required_fields
+  def get_required_fields_for("payment"), do: @address_payment_required_fields
+  def get_required_fields_for(_other), do: []
 
   def validate_email(value, changeset, address_type) do
     case Regex.match?(~r/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i, value) do
