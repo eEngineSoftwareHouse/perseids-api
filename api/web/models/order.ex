@@ -152,10 +152,17 @@ defmodule Perseids.Order do
   def validate_surname(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - surname")
   def validate_country(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - country")
   def validate_city(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> " - city")
-  def validate_phone_number(value, changeset, address_type),  do: validate_field_length(value, changeset, address_type <> " - phone number")
   def validate_post_code(value, changeset, address_type),     do: validate_field_length(value, changeset, address_type <> " - post code")
   def validate_street(value, changeset, address_type),        do: validate_field_length(value, changeset, address_type <> " - street")
 
+  def validate_phone_number(value, changeset, address_type) do
+    changeset = validate_field_length(value, changeset, address_type <> " - phone number")
+    case Regex.match?(~r/^[0-9]*$/, value) do
+      true -> changeset
+      _ -> add_error(changeset, :address, "#{address_type} - phone number should contain only numbers")
+    end
+  end
+  
   def validate_field_length(value, changeset, name) do
     case String.length(value) do
       0 -> add_error(changeset, :address, "#{name} is too short")
