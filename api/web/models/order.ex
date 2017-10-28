@@ -2,8 +2,8 @@ defmodule Perseids.Order do
   use Perseids.Web, :model
 
   @collection_name "orders"
-  @address_shipping_required_fields ["accept-rules", "city", "country", "email", "name", "phone-number", "post-code", "street", "surname"]
-  @address_payment_required_fields ["accept-rules", "city", "country", "email", "name", "phone-number", "post-code", "street", "surname", "nip", "company"]
+  @address_shipping_required_fields ["city", "country", "email", "name", "phone-number", "post-code", "street", "surname"]
+  @address_payment_required_fields ["city", "country", "email", "name", "phone-number", "post-code", "street", "surname", "nip", "company"]
 
   schema @collection_name do
    field :products,           {:array, :map}
@@ -17,11 +17,14 @@ defmodule Perseids.Order do
    field :lang,               :string
    field :currency,           :string
    field :shipping_price,     :integer
+   field :data_processing,    :boolean
+   field :accept_rules,       :boolean
   end
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency])
+     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules])
+     |> validate_acceptance(:accept_rules)
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
      |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
