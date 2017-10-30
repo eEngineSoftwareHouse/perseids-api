@@ -1,6 +1,6 @@
 defmodule Magento do
   @magento_host Application.get_env(:perseids, :magento)[:magento_api_endpoint]
-  @magento_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
+  @magento_timeout [connect_timeout: 60000, recv_timeout: 60000, timeout: 60000]
   @magento_admin_credentials %{
     username: Application.get_env(:perseids, :magento)[:admin_username],
     password: Application.get_env(:perseids, :magento)[:admin_password]
@@ -48,6 +48,13 @@ defmodule Magento do
     end
   end
 
+  def address_info(token, address_type) do
+    case get("customers/me/#{address_type}Address", [{"Authorization", "Bearer #{token}"}]) do
+      { :ok, response } -> magento_response(response)
+      { :error, reason } -> {:error, reason}
+    end
+  end
+
   def create_account(params) do
     {:ok, token} = admin_token()
     case post("customers", Poison.encode!(params), [{"Authorization", "Bearer #{token}"}]) do
@@ -56,11 +63,19 @@ defmodule Magento do
     end
   end
 
-  def update_account(params, customer_id: customer_id) do
+  def update_account(params, customer_id: customer_id, customer_token: customer_token) do
     {:ok, token} = admin_token()
+    params = %{ "customer" => set_customer_email(customer_token, params) }
     case put("customers/#{customer_id}", Poison.encode!(params), [{"Authorization", "Bearer #{token}"}]) do
       { :ok, response } -> magento_response(response)
       { :error, reason } -> {:error, reason}
+    end
+  end
+
+  defp set_customer_email(token, params) do
+    case customer_info(token) do
+      {:ok, customer} -> params["customer"] |> Map.put("email", customer["email"])
+      {:error, reason} -> params
     end
   end
 
