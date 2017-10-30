@@ -81,8 +81,9 @@ defmodule Perseids.Router do
     pipe_through :authorized
 
     get "/account", CustomerController, :info
-    post "/account/update", CustomerController, :update
+    get "/account/address/:address_type", CustomerController, :address
     get "/account/orders", OrderController, :index
+    post "/account/update", CustomerController, :update
   end
 
   scope "/api/stubs", Perseids do
