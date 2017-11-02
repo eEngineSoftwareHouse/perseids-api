@@ -51,7 +51,7 @@ defmodule Perseids.Order do
     |> item_response
   end
 
-  def delivery_options(opts \\ [filter: %{}]) do
+  def delivery_options(opts \\ [where: %{}]) do
     %{
       shipping: "shipping" |> ORMongo.find_with_lang(opts) |> list_response,
       payment: "payment" |> ORMongo.find_with_lang(opts) |> list_response

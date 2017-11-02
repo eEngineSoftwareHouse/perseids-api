@@ -35,7 +35,11 @@ defmodule Perseids.OrderView do
       code: shipping["code"],
       pay_type: shipping["pay_type"],
       price: shipping["price"],
-      price_formatted: shipping["price_formatted"]
+      price_formatted: shipping["price_formatted"],
+      wholesale: shipping["wholesale"],
+      country: shipping["country"],
+      from: shipping["from"],
+      to: shipping["to"]
     }
   end
 
