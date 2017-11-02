@@ -27,7 +27,15 @@ defmodule Perseids.OrderController do
   end
 
   def delivery_options(conn, %{"country" => country, "wholesale" => "true", "count" => count}) do
-    render conn, "index.json", Order.delivery_options([where: [%{ "country" => country, "wholesale" => true }], lang: conn.assigns[:lang]])
+    wholesale_shipping_params = [
+      %{ 
+        "country" => country, 
+        "wholesale" => true, 
+        "to" => %{ "$gte" => count |> String.to_integer },
+        "from" => %{ "$lte" => count |> String.to_integer } 
+      }
+    ]
+    render conn, "index.json", Order.delivery_options([where: wholesale_shipping_params, lang: conn.assigns[:lang]])
   end
 
   def delivery_options(conn, %{"country" => country}) do
