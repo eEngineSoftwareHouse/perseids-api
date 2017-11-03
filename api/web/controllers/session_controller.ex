@@ -19,8 +19,12 @@ defmodule Perseids.SessionController do
 
         session_id = Session.create(changeset.changes)["_id"]
         |> BSON.ObjectId.encode!
+      
 
-        json(conn, Map.put_new(customer_info, :session_id, session_id))
+        response = Perseids.CustomerHelper.default_lang(customer_info)
+        |> Map.put_new(:session_id, session_id)
+
+        json(conn, response)
 
       {:error, message} -> render conn, "error.json", message: message
       _ -> render conn, "error.json", message: "Unknown error occured"

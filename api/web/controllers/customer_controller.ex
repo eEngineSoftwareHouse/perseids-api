@@ -3,7 +3,9 @@ defmodule Perseids.CustomerController do
 
   def info(conn, _params) do
     case Magento.customer_info(conn.assigns[:magento_token]) do
-        {:ok, response} -> json(conn, response)
+        {:ok, response} -> 
+          response = Perseids.CustomerHelper.default_lang(response)
+          json(conn, response)
         {:error, message} -> json(conn, %{ errors: [message] })
     end
   end
@@ -17,14 +19,18 @@ defmodule Perseids.CustomerController do
 
   def create(conn, params) do
     case Magento.create_account(params) do
-        {:ok, response} -> json(conn, response)
+        {:ok, response} -> 
+          response = Perseids.CustomerHelper.default_lang(response)
+          json(conn, response)
         {:error, message} -> json(conn, %{ errors: [message] })
     end
   end
 
   def update(conn, params) do
     case filtered_params(params) |> Magento.update_account(customer_id: conn.assigns[:customer_id], customer_token: conn.assigns[:magento_token]) do
-        {:ok, response} -> json(conn, Map.put_new(response, :session_id, conn.assigns[:session_id]))
+        {:ok, response} -> 
+          response = Perseids.CustomerHelper.default_lang(response)
+          json(conn, Map.put_new(response, :session_id, conn.assigns[:session_id]))
         {:error, message} -> json(conn, %{ errors: [message] })
     end
   end
