@@ -97,7 +97,7 @@ defmodule Perseids.Router do
     pipe_through :authorized
     pipe_through :wholesale
 
-    post "/wholesale/order/create", OrderController, :create
+    post "/wholesale/order/create", OrderController, :wholesale_create
     get "/wholesale/order/delivery_options", OrderController, :wholesale_delivery_options
   end
 
