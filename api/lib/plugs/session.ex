@@ -21,6 +21,8 @@ defmodule Perseids.Plugs.Session do
          |> assign(:session_id, session_id)
          |> assign(:magento_token, session["magento_token"])
          |> assign(:customer_id, session["customer_id"])
+         |> assign(:group_id, session["group_id"])
+         |> assign(:wholesale, session["wholesale"])
       end
     rescue
         _ -> conn |> unauthorized

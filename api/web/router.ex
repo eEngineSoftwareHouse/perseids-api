@@ -19,6 +19,10 @@ defmodule Perseids.Router do
     plug Session
   end
 
+  pipeline :wholesale do
+    plug Perseids.Plugs.Wholesale
+  end
+
   scope "/api/v2" do
     forward "/", Absinthe.Plug,
       schema: Perseids.Schema
@@ -80,19 +84,21 @@ defmodule Perseids.Router do
     pipe_through :api
     pipe_through :authorized
 
+    post "/wholesale/order/create", OrderController, :create
+
     get "/account", CustomerController, :info
     get "/account/address/:address_type", CustomerController, :address
     get "/account/orders", OrderController, :index
     post "/account/update", CustomerController, :update
   end
 
-  scope "/api/stubs", Perseids do
+  scope "/api/v1", Perseids do
     pipe_through :api
-    get "/status/magento", StatusController, :magento
+    pipe_through :authorized
+    pipe_through :wholesale
 
-    get "/products", StubsController, :products
-    get "/product/", StubsController, :product
-
-    get "/categories", StubsController, :categories
+    post "/wholesale/order/create", OrderController, :wholesale_create
+    get "/wholesale/order/delivery_options", OrderController, :wholesale_delivery_options
   end
+
 end

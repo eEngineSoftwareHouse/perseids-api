@@ -19,16 +19,24 @@ defmodule Perseids.Order do
    field :shipping_price,     :integer
    field :data_processing,    :boolean
    field :accept_rules,       :boolean
+   field :wholesale,          :boolean
   end
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules])
+     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules, :wholesale])
      |> validate_acceptance(:accept_rules)
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
      |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
      |> validate_required_subfields([address: [:payment, :customer]], optional: true) # validated only if 'payment' or 'customer' are sent
+  end
+
+  def create(%{wholesale: true} = params) do
+    IO.puts("WHOLESALE CREATE")
+    @collection_name
+    |> ORMongo.insert_one(append_proper_wholesale_shipping(params))
+    |> item_response
   end
 
   def create(%{payment: "payu-pre"} = params) do
@@ -49,6 +57,19 @@ defmodule Perseids.Order do
     @collection_name
     |> ORMongo.insert_one(append_shipping_price(params))
     |> item_response
+  end
+
+  def append_proper_wholesale_shipping(params) do
+    products_count = products_count(params)
+    shipping = get_wholesale_shipping_for(params.address["shipping"]["country"], products_count, params.lang).shipping |> List.first
+    case shipping do
+      nil -> raise "Wholesale shipping for such order doesn't exist"
+      shipping -> 
+        Perseids.Shipping.find_one(source_id: shipping["source_id"], lang: params.lang) 
+        Map.put(params, :shipping_price, shipping["price"])
+        |> Map.put(:shipping, shipping["source_id"])
+        |> Map.put(:payment, "banktransfer-pre")
+    end
   end
 
   def delivery_options(opts \\ [where: %{}]) do
@@ -234,4 +255,19 @@ defmodule Perseids.Order do
     |> Kernel./(1) # be sure that price is INT
     |> Float.round(2)
   end
+
+  def get_wholesale_shipping_for(country, count, lang) do
+    wholesale_shipping_params = [
+      %{ 
+        "country" => country, 
+        "wholesale" => true, 
+        "to" => %{ "$gte" => count },
+        "from" => %{ "$lte" => count } 
+      }
+    ]
+
+    delivery_options([where: wholesale_shipping_params, lang: lang])
+  end
+
+  defp products_count(params), do: params.products |> Enum.reduce(0, &(&1["count"] + &2))
 end
