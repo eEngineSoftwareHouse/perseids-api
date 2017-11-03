@@ -7,7 +7,15 @@ defmodule Perseids.SessionController do
     case Magento.customer_token(%{username: email, password: password}) do
       {:ok, magento_token} ->
         {:ok, customer_info} = Magento.customer_info(magento_token)
-        changeset = Session.changeset(%Perseids.Session{}, %{magento_token: magento_token, customer_id: customer_info["id"]})
+
+        session_data = %{
+          magento_token: magento_token, 
+          customer_id: customer_info["id"], 
+          group_id: customer_info["group_id"], 
+          wholesale: customer_info["is_wholesaler"]
+        }
+
+        changeset = Session.changeset(%Perseids.Session{}, session_data)
 
         session_id = Session.create(changeset.changes)["_id"]
         |> BSON.ObjectId.encode!

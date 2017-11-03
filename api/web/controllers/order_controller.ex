@@ -26,7 +26,10 @@ defmodule Perseids.OrderController do
     end
   end
 
-  def delivery_options(conn, %{"country" => country, "wholesale" => "true", "count" => count}) do
+  # fallback for non-authorized wholesale shippings, to be removed after proper production update
+  def delivery_options(conn, %{"country" => country, "wholesale" => "true", "count" => count} = params),  do: wholesale_delivery_options(conn, params)
+
+  def wholesale_delivery_options(conn, %{"country" => country, "count" => count}) do
     wholesale_shipping_params = [
       %{ 
         "country" => country, 
