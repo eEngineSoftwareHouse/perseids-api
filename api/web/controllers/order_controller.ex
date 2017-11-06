@@ -40,7 +40,7 @@ defmodule Perseids.OrderController do
     |> Map.put_new("customer_id", conn.assigns[:customer_id])
     |> Map.put_new("lang", conn.assigns.lang)
     |> Map.put_new("currency", conn.assigns.currency)
-    |> Map.put_new("wholesale", conn.assigns.wholesale)
-    |> Map.put_new("group_id", conn.assigns.currency)
+    |> Map.put_new("wholesale", conn.assigns[:wholesale])
+    |> Map.put_new("group_id", conn.assigns[:group_id])
   end
 end

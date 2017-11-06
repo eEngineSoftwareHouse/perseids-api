@@ -33,7 +33,6 @@ defmodule Perseids.Order do
   end
 
   def create(%{wholesale: true} = params) do
-    IO.puts("WHOLESALE CREATE")
     @collection_name
     |> ORMongo.insert_one(append_proper_wholesale_shipping(params))
     |> item_response
