@@ -6,30 +6,32 @@ defmodule Perseids.Order do
   @address_payment_required_fields ["city", "country", "email", "name", "phone-number", "post-code", "street", "surname", "nip", "company"]
 
   schema @collection_name do
-   field :products,           {:array, :map}
-   field :payment,            :string
-   field :shipping,           :string
-   field :address,            :map
-   field :created_at,         :string
-   field :customer_id,        :integer
-   field :inpost_code,        :string
-   field :redirect_url,       :string
-   field :lang,               :string
-   field :currency,           :string
-   field :shipping_price,     :integer
-   field :data_processing,    :boolean
-   field :accept_rules,       :boolean
-   field :wholesale,          :boolean
+   field :products,               {:array, :map}
+   field :payment,                :string
+   field :shipping,               :string
+   field :address,                :map
+   field :created_at,             :string
+   field :customer_id,            :integer
+   field :inpost_code,            :string
+   field :redirect_url,           :string
+   field :lang,                   :string
+   field :currency,               :string
+   field :shipping_price,         :integer
+   field :data_processing,        :boolean
+   field :accept_rules,           :boolean
+   field :wholesale,              :boolean
+   field :invoice,                :boolean
+   field :other_shipping_address, :boolean
   end
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules, :wholesale])
-     |> validate_acceptance(:accept_rules)
+     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules, :wholesale, :invoice, :other_shipping_address])
+     |> validate_acceptance(:accept_rules)  
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
      |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
-     |> validate_required_subfields([address: [:payment, :customer]], optional: true) # validated only if 'payment' or 'customer' are sent
+     |> validate_required_subfields([address: [:payment]], if: :invoice) # validated only if 'invoice' checkbox is sent
   end
 
   def create(%{wholesale: true} = params) do
@@ -99,6 +101,15 @@ defmodule Perseids.Order do
   defp item_response(list), do: list |> List.first
 
   # Custom validations
+
+  def validate_required_subfields(changeset, subfields, if: key ) do
+    case get_field(changeset, key) do
+      true -> validate_required_subfields(changeset, subfields, optional: true)
+      _ -> changeset
+    end
+  end
+
+
   def validate_required_subfields(changeset, [], optional: true), do: changeset
   def validate_required_subfields(changeset, [], optional: false), do: changeset
   
