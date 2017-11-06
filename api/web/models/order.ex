@@ -73,9 +73,10 @@ defmodule Perseids.Order do
   end
 
   def delivery_options(opts \\ [where: %{}]) do
+    payment_opts = Keyword.drop(opts, [:where])
     %{
       shipping: "shipping" |> ORMongo.find_with_lang(opts) |> list_response,
-      payment: "payment" |> ORMongo.find_with_lang(opts) |> list_response
+      payment: "payment" |> ORMongo.find_with_lang(payment_opts) |> list_response
     }
   end
 
