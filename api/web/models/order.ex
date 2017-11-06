@@ -36,31 +36,31 @@ defmodule Perseids.Order do
 
   def create(%{wholesale: true} = params) do
     @collection_name
-    |> ORMongo.insert_one(append_proper_wholesale_shipping(params))
+    |> ORMongo.insert_one(append_proper_wholesale_shipping_and_payment(params))
     |> item_response
   end
 
   def create(%{payment: "payu-pre"} = params) do
     @collection_name
-    |> ORMongo.insert_one(append_shipping_price(params))
+    |> ORMongo.insert_one(update_shipping_and_payment_info(params))
     |> item_response
     |> PayU.place_order
   end
 
   def create(%{payment: "paypal-pre"} = params) do
     @collection_name
-    |> ORMongo.insert_one(append_shipping_price(params))
+    |> ORMongo.insert_one(update_shipping_and_payment_info(params))
     |> item_response
     |> PayPal.create_payment
   end
 
   def create(params) do
     @collection_name
-    |> ORMongo.insert_one(append_shipping_price(params))
+    |> ORMongo.insert_one(update_shipping_and_payment_info(params))
     |> item_response
   end
 
-  def append_proper_wholesale_shipping(params) do
+  def append_proper_wholesale_shipping_and_payment(params) do
     products_count = products_count(params)
     shipping = get_wholesale_shipping_for(params.address["shipping"]["country"], products_count, params.lang).shipping |> List.first
     case shipping do
@@ -70,7 +70,7 @@ defmodule Perseids.Order do
         Map.put(params, :shipping_price, shipping["price"])
         |> Map.put(:shipping, shipping["source_id"])
         |> Map.put_new(:shipping_code, shipping["code"])
-        |> Map.put(:payment, "banktransfer-pre")
+        |> Map.put(:payment_code, "banktransfer")
     end
   end
 
@@ -214,10 +214,12 @@ defmodule Perseids.Order do
   end
 
   # Additional order calculations
-  defp append_shipping_price(params) do
+  defp update_shipping_and_payment_info(params) do
     shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
+    payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang) 
     Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
     |> Map.put_new(:shipping_code, shipping["code"])
+    |> Map.put_new(:payment_code, payment["code"])
   end
 
   defp calc_shipping_price(products, shipping, lang) do
