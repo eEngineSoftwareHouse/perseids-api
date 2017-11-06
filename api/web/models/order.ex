@@ -69,6 +69,7 @@ defmodule Perseids.Order do
         Perseids.Shipping.find_one(source_id: shipping["source_id"], lang: params.lang) 
         Map.put(params, :shipping_price, shipping["price"])
         |> Map.put(:shipping, shipping["source_id"])
+        |> Map.put_new(:shipping_code, shipping["code"])
         |> Map.put(:payment, "banktransfer-pre")
     end
   end
@@ -216,6 +217,7 @@ defmodule Perseids.Order do
   defp append_shipping_price(params) do
     shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
     Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
+    |> Map.put_new(:shipping_code, shipping["code"])
   end
 
   defp calc_shipping_price(products, shipping, lang) do
