@@ -22,12 +22,13 @@ defmodule Perseids.Order do
    field :wholesale,              :boolean
    field :invoice,                :boolean
    field :other_shipping_address, :boolean
+   field :discount_code,          :string
   end
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules, :wholesale, :invoice, :other_shipping_address])
-     |> validate_acceptance(:accept_rules)  
+     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules, :wholesale, :invoice, :other_shipping_address, :discount_code])
+     |> validate_acceptance(:accept_rules)
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
      |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
