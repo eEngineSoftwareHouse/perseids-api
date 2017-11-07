@@ -3,6 +3,7 @@ defmodule Perseids.OrderController do
   require Perseids.Pagination
   alias Perseids.Pagination
   alias Perseids.Order
+  alias Perseids.Discount
 
   def index(conn, params) do
     orders = Order.find(filter: %{"customer_id" => [conn.assigns.customer_id]})
@@ -21,6 +22,17 @@ defmodule Perseids.OrderController do
       render conn, "order.json", order: Order.create(changeset.changes)
     else
       render conn, "errors.json", changeset: changeset
+    end
+  end
+
+  def discount(conn, %{"code" => code} = params) do
+    discount = Helpers.to_keyword_list(params)
+    |> ORMongo.set_language(conn)
+    |> Discount.find_one
+
+    case discount do
+      nil -> json(conn, %{errors: ["There's no such code"]})
+      code -> json(conn, code["value"])
     end
   end
 
