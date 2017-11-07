@@ -64,6 +64,8 @@ defmodule Perseids.Router do
     get "/pages/:slug", PageController, :show
 
     get "/order/delivery_options", OrderController, :delivery_options
+    post "/order/discount", OrderController, :discount
+
     post "/order/create", OrderController, :create
 
     post "/sessions/create", SessionController, :create

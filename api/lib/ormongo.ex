@@ -25,6 +25,7 @@ defmodule ORMongo do
   def find(collection, keywords: phrase),                   do: mongo_search(collection, %{"$text" => %{"$search" => phrase}}, [limit: @default_limit])
   def find(collection, _id: id),                            do: mongo_find_one_by_id(collection, id)
   def find(collection, source_id: source_id),               do: mongo_find_one_by_field(collection, %{ source_id: source_id })
+  def find(collection, code: code),                         do: mongo_find_one_by_field(collection, %{ code: code })
   def find(collection, url_key: url_key),                   do: mongo_find_one_by_field(collection, %{ url_key: url_key })
   def find(collection, slug: slug),                         do: mongo_find_one_by_field(collection, %{ slug: slug })
   def find(collection, where: query),                       do: mongo_where(collection, %{ "$and" => query })
