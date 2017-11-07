@@ -83,8 +83,7 @@ defmodule PayU do
   end
 
   defp get_product_price(product, lang) do
-    Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"]
-    |> List.first
+    Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]
   end
 
   defp payu_products_price_sum(prices_list) do
