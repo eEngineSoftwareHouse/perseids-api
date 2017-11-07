@@ -112,9 +112,8 @@ defmodule Perseids.Order do
   end
 
 
-  def validate_required_subfields(changeset, [], optional: true), do: changeset
-  def validate_required_subfields(changeset, [], optional: false), do: changeset
-  
+  def validate_required_subfields(changeset, [], _optional), do: changeset
+
   def validate_required_subfields(changeset, [head | tail], optional \\ [optional: false]) do
     { key, required_subfields } = head
     subfields = get_field(changeset, key) |> Helpers.atomize_keys
@@ -122,9 +121,10 @@ defmodule Perseids.Order do
     subfield_present?(changeset, subfields, required_subfields, key, optional)
     |> validate_required_subfields(tail)
   end
+  
 
-  def subfield_present?(changeset, nil, _required_subfields, key, _optional), do: changeset
-  def subfield_present?(changeset, subfields, [], key, _optional),            do: changeset
+  def subfield_present?(changeset, nil, _required_subfields, _key, _optional), do: changeset
+  def subfield_present?(changeset, _subfields, [], _key, _optional),            do: changeset
 
   def subfield_present?(changeset, subfields, [ head | tail ], key, optional) do
     validation_func = "validate_" <> Atom.to_string(key) 
@@ -139,7 +139,7 @@ defmodule Perseids.Order do
     subfield_present?(changeset, subfields, tail, key, optional)
   end
 
-  def maybe_optional_subfield(changeset, key, message, optional: true), do: changeset
+  def maybe_optional_subfield(changeset, _key, _message, optional: true), do: changeset
   def maybe_optional_subfield(changeset, key, message, optional: false), do: add_error(changeset, key, message)
 
   def validate_shipping(changeset) do
@@ -207,7 +207,7 @@ defmodule Perseids.Order do
     end
   end
 
-  def validate_accept_rules(value, changeset, address_type) do
+  def validate_accept_rules(value, changeset, _address_type) do
     case value do
       true -> changeset
       _ -> add_error(changeset, :address, "You must accept rules to continue")
