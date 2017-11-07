@@ -7,7 +7,6 @@ defmodule Perseids.ProductController do
   alias Perseids.Product
 
   def index(conn, params) do
-
     %{"products" => products, "count" => count, "params" => params} = params
     |> Pagination.prepare_params
     |> ORMongo.set_language(conn)
