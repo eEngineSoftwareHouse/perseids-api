@@ -28,7 +28,8 @@ defmodule Perseids.Product do
       <> nil_to_null_string(opts[:keywords]) <> ","
       <> "\"" <> opts[:lang] <> "\","
       <> Integer.to_string(opts[:options][:skip]) <> ","
-      <> Integer.to_string(opts[:options][:limit]) <> ");"
+      <> Integer.to_string(opts[:options][:limit]) <> ","
+      <> Integer.to_string(1) <> ");" # sorting setting: 1 is ascending, -1 descending
   end
 
   defp nil_to_null_string(var) do
