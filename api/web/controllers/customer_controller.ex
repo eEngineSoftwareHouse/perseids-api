@@ -35,6 +35,18 @@ defmodule Perseids.CustomerController do
     end
   end
 
+  def password_reset(conn, %{"email" => _email, "website_id" => _website_id} = params), do: reset_password(true, params, conn)
+  def password_reset(conn, %{"password" => password, "password_confirmation" => password_confirmation, "token" => _token, "email" => _email} = params), do: reset_password(password_confirmation == password, params, conn)
+
+
+  defp reset_password(false, _params, conn), do: json(conn, %{errors: "Passwords are not the same"})
+  defp reset_password(true, params, conn) do
+    case Magento.reset_password(params) do
+        {:ok, response} -> json(conn, response)
+        {:error, message} -> json(conn, %{ errors: [message] })
+    end
+  end
+
   defp filtered_params(params) do
     whitelisted_params = ~w(website_id lastname firstname addresses)
     %{ "customer" => Enum.reduce(params["customer"], %{}, &(maybe_put_key(&1, &2, whitelisted_params))) }
@@ -46,6 +58,6 @@ defmodule Perseids.CustomerController do
   end
   
   defp maybe_put_key(true, params, key, value), do: Map.put(params, key, value)
-  defp maybe_put_key(false, params, key, value), do: params
+  defp maybe_put_key(false, params, _key, _value), do: params
 
 end

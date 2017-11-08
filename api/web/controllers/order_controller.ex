@@ -25,7 +25,7 @@ defmodule Perseids.OrderController do
     end
   end
 
-  def discount(conn, %{"code" => code} = params) do
+  def discount(conn, %{"code" => _code} = params) do
     discount = Helpers.to_keyword_list(params)
     |> ORMongo.set_language(conn)
     |> Discount.find_one
@@ -37,14 +37,13 @@ defmodule Perseids.OrderController do
   end
 
   # fallback for non-authorized wholesale shippings, to be removed after proper production update
-  def delivery_options(conn, %{"country" => country, "wholesale" => "true", "count" => count} = params),  do: wholesale_delivery_options(conn, params)
+  def delivery_options(conn, %{"country" => _country, "wholesale" => "true", "count" => _count} = params),  do: wholesale_delivery_options(conn, params)
+  def delivery_options(conn, %{"country" => country}) do
+    render conn, "index.json", Order.delivery_options([where: [%{ "country" => country, "wholesale" => false }], lang: conn.assigns[:lang]])
+  end
 
   def wholesale_delivery_options(conn, %{"country" => country, "count" => count}) do
     render conn, "index.json", Order.get_wholesale_shipping_for(country, count |> String.to_integer, conn.assigns[:lang])
-  end
-
-  def delivery_options(conn, %{"country" => country}) do
-    render conn, "index.json", Order.delivery_options([where: [%{ "country" => country, "wholesale" => false }], lang: conn.assigns[:lang]])
   end
 
   defp prepare_params(conn, params) do

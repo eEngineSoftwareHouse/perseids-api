@@ -72,6 +72,7 @@ defmodule Perseids.Router do
     post "/sessions/destroy", SessionController, :destroy
 
     post "/account/create", CustomerController, :create
+    post "/account/reset_password", CustomerController, :password_reset
 
     post "/service/newsletter", ServiceController, :newsletter
 
