@@ -2,10 +2,11 @@ defmodule Perseids.Order do
   use Perseids.Web, :model
 
   @collection_name "orders"
-  @address_shipping_required_fields ["city", "country", "email", "name", "phone-number", "post-code", "street", "surname"]
-  @address_payment_required_fields ["city", "country", "email", "name", "phone-number", "post-code", "street", "surname", "nip", "company"]
+  @address_shipping_required_fields ["city", "country", "name", "phone-number", "post-code", "street", "surname"]
+  @address_payment_required_fields ["city", "country", "name", "phone-number", "post-code", "street", "surname", "nip", "company"]
 
   schema @collection_name do
+   field :email,                  :string
    field :products,               {:array, :map}
    field :payment,                :string
    field :shipping,               :string
@@ -27,7 +28,8 @@ defmodule Perseids.Order do
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules, :wholesale, :invoice, :other_shipping_address, :discount_code])
+     |> cast(params, [:email, :products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules, :wholesale, :invoice, :other_shipping_address, :discount_code])
+     |> validate_email
      |> validate_acceptance(:accept_rules)
      |> validate_required([:products, :payment, :shipping, :address])
      |> validate_shipping
@@ -104,13 +106,26 @@ defmodule Perseids.Order do
 
   # Custom validations
 
+  def validate_email(changeset) do
+    get_field(changeset, :email)
+    |> validate_email(changeset)
+  end
+
+  def validate_email("", changeset), do: add_error(changeset, :email, "E-mail can't be blank")
+  def validate_email(nil, changeset), do: add_error(changeset, :email, "E-mail can't be blank")
+  def validate_email(email, changeset) do
+    case Regex.match?(~r/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i, email) do
+      true -> changeset
+      false -> add_error(changeset, :email, "Wrong e-mail")
+    end
+  end
+
   def validate_required_subfields(changeset, subfields, if: key ) do
     case get_field(changeset, key) do
       true -> validate_required_subfields(changeset, subfields, optional: true)
       _ -> changeset
     end
   end
-
 
   def validate_required_subfields(changeset, [], _optional), do: changeset
 
@@ -178,13 +193,6 @@ defmodule Perseids.Order do
   def get_required_fields_for("payment"), do: @address_payment_required_fields
   def get_required_fields_for(_other), do: []
 
-  def validate_email(value, changeset, address_type) do
-    case Regex.match?(~r/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i, value) do
-      true -> changeset
-      false -> add_error(changeset, :address, address_type <> " - wrong e-mail")
-    end
-  end
-
   def validate_name(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> " - name")
   def validate_surname(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - surname")
   def validate_country(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - country")
@@ -220,7 +228,8 @@ defmodule Perseids.Order do
     payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang) 
     Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
     |> Map.put_new(:shipping_code, shipping["code"])
-    |> Map.put_new(:payment_code, payment["code"])
+    |> Map.put_new(:shipping_name, shipping["name"])
+    |> Map.put_new(:payment_name, payment["name"])
   end
 
   defp calc_shipping_price(products, shipping, lang) do

@@ -59,7 +59,9 @@ defmodule Perseids.OrderView do
     %{
       products: order["products"],
       payment: order["payment"],
+      payment_name: order["payment_name"],
       shipping: order["shipping"],
+      shipping_name: order["shipping_name"],
       address: order["address"],
       created_at: order["created_at"],
       customer_id: order["customer_id"]
