@@ -227,9 +227,22 @@ defmodule Perseids.Order do
     shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
     payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang) 
     Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
+    |> update_products(params.products, params.lang)
+    |> Map.put_new(:order_total_price, calc_order_total(params.products, params.lang))
     |> Map.put_new(:shipping_code, shipping["code"])
     |> Map.put_new(:shipping_name, shipping["name"])
     |> Map.put_new(:payment_name, payment["name"])
+  end
+
+  defp update_products(params, products, lang) do
+    new_products = products
+    |> Enum.reduce([], &update_product(&1, &2, lang))
+    Map.put(params, :products, new_products)
+  end
+
+  defp calc_order_total(products, lang) do
+    products
+    |> Enum.reduce(0, &get_product_price(&1, &2, lang))
   end
 
   defp calc_shipping_price(products, shipping, lang) do
@@ -266,6 +279,18 @@ defmodule Perseids.Order do
 
   defp get_product_price(product, lang) do
     Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]
+  end
+
+  # Total product price
+  defp get_product_price(product, acc, lang) do
+    acc + (product["count"] * (Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]))
+  end
+
+  defp update_product(product, acc, lang) do
+    price = Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]
+    product
+    |> Map.put_new("price", price)
+    |> Map.put_new("total_price", price * product["count"])
   end
 
   defp products_price_sum(prices_list) do
