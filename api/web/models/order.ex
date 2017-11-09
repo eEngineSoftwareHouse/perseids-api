@@ -237,7 +237,7 @@ defmodule Perseids.Order do
   defp update_products(params, products, lang) do
     new_products = products
     |> Enum.reduce([], &update_product(&1, &2, lang))
-    Map.put(params, :products, [new_products])
+    Map.put(params, :products, new_products)
   end
 
   defp calc_order_total(products, lang) do
@@ -288,9 +288,11 @@ defmodule Perseids.Order do
 
   defp update_product(product, acc, lang) do
     price = Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]
-    product
+    updated_product = product
     |> Map.put_new("price", price)
     |> Map.put_new("total_price", price * product["count"])
+
+    List.insert_at(acc, -1, updated_product)
   end
 
   defp products_price_sum(prices_list) do
