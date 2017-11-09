@@ -62,9 +62,11 @@ defmodule Perseids.OrderView do
       payment_name: order["payment_name"],
       shipping: order["shipping"],
       shipping_name: order["shipping_name"],
+      shipping_price: order["shipping_price"],
       address: order["address"],
       created_at: order["created_at"],
-      customer_id: order["customer_id"]
+      customer_id: order["customer_id"],
+      currency: order["currency"]
     }
     |> maybe_redirect(order["redirect_url"])
   end
