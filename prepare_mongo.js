@@ -90,8 +90,10 @@ db.system.js.save(
             for (var parameterSet of unmergedParameterSets) {
                 for (var filter of filters) {
                     var paramName = (filter.name === "categories.id") ? filter.name : filter.name.substring(7);
-                    if (parameterSet["params"][paramName]) {
-                        filterableParams[paramName] = [...new Set([...parameterSet["params"][paramName], ...filterableParams[paramName]])];
+                    if (parameterSet["params"]) {
+                        if (parameterSet["params"][paramName]) {
+                            filterableParams[paramName] = [...new Set([...parameterSet["params"][paramName], ...filterableParams[paramName]])];
+                        }
                     }
                 }
             }
