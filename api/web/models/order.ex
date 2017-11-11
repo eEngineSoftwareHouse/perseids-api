@@ -3,7 +3,7 @@ defmodule Perseids.Order do
 
   @collection_name "orders"
   @address_shipping_required_fields ["city", "country", "name", "phone-number", "post-code", "street", "surname"]
-  @address_payment_required_fields ["city", "country", "name", "phone-number", "post-code", "street", "surname", "nip", "company"]
+  @address_payment_required_fields ["city", "country", "name", "post-code", "street", "surname", "nip", "company"]
 
   schema @collection_name do
    field :email,                  :string
