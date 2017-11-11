@@ -232,6 +232,7 @@ defmodule Perseids.Order do
     |> Map.put_new(:shipping_code, shipping["code"])
     |> Map.put_new(:shipping_name, shipping["name"])
     |> Map.put_new(:payment_name, payment["name"])
+    |> Map.put_new(:payment_code, payment["code"])
   end
 
   defp update_products(params, products, lang) do
