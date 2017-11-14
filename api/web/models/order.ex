@@ -184,8 +184,19 @@ defmodule Perseids.Order do
       |> String.replace("-", "_")
       |> String.to_atom
 
+    validate_single_field(address_type, validation_func, value, changeset, key)
+  end
+
+  def validate_single_field("Shipping", validation_func, value, changeset, key) do
     case Enum.member?(@address_shipping_required_fields, key) do
-      true -> apply(Perseids.Order, validation_func, [value, changeset, address_type])
+      true -> apply(Perseids.Order, validation_func, [value, changeset, "Shipping"])
+      false -> changeset # will be cool to remove unsupported keys
+    end
+  end
+
+  def validate_single_field("Payment", validation_func, value, changeset, key) do
+    case Enum.member?(@address_payment_required_fields, key) do
+      true -> apply(Perseids.Order, validation_func, [value, changeset, "Payment"])
       false -> changeset # will be cool to remove unsupported keys
     end
   end
@@ -194,18 +205,28 @@ defmodule Perseids.Order do
   def get_required_fields_for("payment"), do: @address_payment_required_fields
   def get_required_fields_for(_other), do: []
 
+  
   def validate_name(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> " - name")
   def validate_surname(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - surname")
   def validate_country(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - country")
   def validate_city(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> " - city")
   def validate_post_code(value, changeset, address_type),     do: validate_field_length(value, changeset, address_type <> " - post code")
   def validate_street(value, changeset, address_type),        do: validate_field_length(value, changeset, address_type <> " - street")
+  def validate_company(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - company")
 
   def validate_phone_number(value, changeset, address_type) do
     changeset = validate_field_length(value, changeset, address_type <> " - phone number")
     case Regex.match?(~r/^[0-9]*$/, value) do
       true -> changeset
       _ -> add_error(changeset, :address, "#{address_type} - phone number should contain only numbers")
+    end
+  end
+
+  def validate_nip(value, changeset, address_type) do
+    changeset = validate_field_length(value, changeset, address_type <> " - nip")
+    case Regex.match?(~r/^[0-9]*$/, value) do
+      true -> changeset
+      _ -> add_error(changeset, :address, "#{address_type} - nip should contain only numbers")
     end
   end
   
