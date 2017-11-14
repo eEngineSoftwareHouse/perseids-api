@@ -24,11 +24,12 @@ defmodule Perseids.Order do
    field :invoice,                :boolean
    field :other_shipping_address, :boolean
    field :discount_code,          :string
+   field :comment,                :string
   end
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:email, :products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules, :wholesale, :invoice, :other_shipping_address, :discount_code])
+     |> cast(params, [:email, :products, :payment, :shipping, :address, :created_at, :customer_id, :inpost_code, :lang, :currency, :data_processing, :accept_rules, :wholesale, :invoice, :other_shipping_address, :discount_code, :comment])
      |> validate_email
      |> validate_acceptance(:accept_rules)
      |> validate_required([:products, :payment, :shipping, :address])
