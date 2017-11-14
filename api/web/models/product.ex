@@ -25,12 +25,14 @@ defmodule Perseids.Product do
       <> map_to_key_value_pair_json(opts[:filter]) <> ","
       <> Poison.encode!(@filterable_params) <> ","
       <> map_to_key_value_pair_json(opts[:options][:projection]) <> ","
-      <> nil_to_null_string(opts[:keywords]) <> ","
-      <> "\"" <> opts[:lang] <> "\","
-      <> Integer.to_string(opts[:options][:skip]) <> ","
-      <> Integer.to_string(opts[:options][:limit]) <> ","
+      <> (nil_to_null_string(opts[:keywords]) |> escape_value) <> ","
+      <> "\"" <> (opts[:lang] |> escape_value) <> "\","
+      <> (Integer.to_string(opts[:options][:skip]) |> escape_value) <> ","
+      <> (Integer.to_string(opts[:options][:limit]) |> escape_value) <> ","
       <> Integer.to_string(1) <> ");" # sorting setting: 1 is ascending, -1 descending
   end
+
+  defp escape_value(value), do: value |> String.replace("'", "") |> String.replace("\"", "")
 
   defp nil_to_null_string(var) do
     case var do
