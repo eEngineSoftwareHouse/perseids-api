@@ -1,6 +1,8 @@
 defmodule Perseids.Order do
   use Perseids.Web, :model
 
+  alias Perseids.Discount
+
   @collection_name "orders"
   @address_shipping_required_fields ["city", "country", "name", "phone-number", "post-code", "street", "surname"]
   @address_payment_required_fields ["city", "country", "name", "post-code", "street", "surname", "nip", "company"]
@@ -250,7 +252,7 @@ defmodule Perseids.Order do
     payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang) 
     Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
     |> update_products(params.products, params.lang)
-    |> Map.put_new(:order_total_price, calc_order_total(params.products, params.lang))
+    |> Map.put_new(:order_total_price, calc_order_total(params.products, params[:discount_code], params.lang))
     |> Map.put_new(:shipping_code, shipping["code"])
     |> Map.put_new(:shipping_name, shipping["name"])
     |> Map.put_new(:payment_name, payment["name"])
@@ -263,10 +265,18 @@ defmodule Perseids.Order do
     Map.put(params, :products, new_products)
   end
 
-  defp calc_order_total(products, lang) do
+  defp calc_order_total(products, discount_code, lang) do
     products
     |> Enum.reduce(0, &get_product_price(&1, &2, lang))
+    |> maybe_discount(Discount.find_one(code: discount_code, lang: lang))
   end
+
+  defp maybe_discount(order_total, nil), do: order_total
+  defp maybe_discount(order_total, discount) do
+    %{"value" => discount_value } = discount
+    order_total - (order_total * (discount_value * 0.01))
+  end
+
 
   defp calc_shipping_price(products, shipping, lang) do
     products
