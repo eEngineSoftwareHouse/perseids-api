@@ -13,6 +13,8 @@ defmodule Perseids.LookbookView do
       name: lookbook["name"],
       slug: lookbook["name"] |> String.downcase |> String.normalize(:nfd) |> String.replace(~r/[^A-z\s]/u, "") |> String.replace(~r/\s/, "-"),
       source_id: lookbook["source_id"],
+      description: lookbook["description"],
+      image: lookbook["image"],
       source_parent_id: lookbook["source_parent_id"]
     }
   end
