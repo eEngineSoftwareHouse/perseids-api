@@ -1,39 +1,42 @@
-## This file is a PO Template file.
+## `msgid`s in this file come from POT (.pot) files.
 ##
-## `msgid`s here are often extracted from source code.
-## Add new translations manually only if they're dynamic
-## translations that can't be statically extracted.
+## Do not add, change, or remove `msgid`s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
 ##
-## Run `mix gettext.extract` to bring this file up to
-## date. Leave `msgstr`s empty as changing them here as no
-## effect: edit them in PO (`.po`) files instead.
+## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: pl\n"
+
 ## From Ecto.Changeset.cast/4
 msgid "can't be blank"
-msgstr ""
+msgstr "nie może być puste"
 
 ## From Ecto.Changeset.unique_constraint/3
 msgid "has already been taken"
-msgstr ""
+msgstr "zostało już zajęte"
 
 ## From Ecto.Changeset.put_change/3
 msgid "is invalid"
-msgstr ""
+msgstr "jest niepoprawne"
 
 ## From Ecto.Changeset.validate_format/3
 msgid "has invalid format"
-msgstr ""
+msgstr "ma nieprawidłowy format"
 
 ## From Ecto.Changeset.validate_subset/3
 msgid "has an invalid entry"
-msgstr ""
+msgstr "ma nieprawidłową wartość"
 
 ## From Ecto.Changeset.validate_exclusion/3
 msgid "is reserved"
-msgstr ""
+msgstr "jest zarezerwowane"
 
 ## From Ecto.Changeset.validate_confirmation/3
 msgid "does not match confirmation"
-msgstr ""
+msgstr "nie pasuje do potwierdzenia"
 
 ## From Ecto.Changeset.no_assoc_constraint/3
 msgid "is still associated to this entry"
@@ -55,8 +58,8 @@ msgstr[1] ""
 
 msgid "should be at least %{count} character(s)"
 msgid_plural "should be at least %{count} character(s)"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "powinno mieć przynajmniej %{count} znak"
+msgstr[1] "powinno mieć przynajmniej %{count} znaków"
 
 msgid "should have at least %{count} item(s)"
 msgid_plural "should have at least %{count} item(s)"
@@ -75,19 +78,19 @@ msgstr[1] ""
 
 ## From Ecto.Changeset.validate_number/3
 msgid "must be less than %{number}"
-msgstr ""
+msgstr "musi być mniejsze niż %{number}"
 
 msgid "must be greater than %{number}"
-msgstr ""
+msgstr "musi być większe niż %{number}"
 
 msgid "must be less than or equal to %{number}"
-msgstr ""
+msgstr "musi być mniejsze bądź równe %{number"
 
 msgid "must be greater than or equal to %{number}"
-msgstr ""
+msgstr "musi być większe bądź równe %{number}"
 
 msgid "must be equal to %{number}"
-msgstr ""
+msgstr "musi być równe %{number}"
 
 msgid "Passwords are not the same"
 msgstr ""

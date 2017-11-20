@@ -1,5 +1,6 @@
 defmodule Perseids.Order do
   use Perseids.Web, :model
+  import Perseids.Gettext
 
   alias Perseids.Discount
 
@@ -114,12 +115,12 @@ defmodule Perseids.Order do
     |> validate_email(changeset)
   end
 
-  def validate_email("", changeset), do: add_error(changeset, :email, "E-mail can't be blank")
-  def validate_email(nil, changeset), do: add_error(changeset, :email, "E-mail can't be blank")
+  def validate_email("", changeset), do: add_error(changeset, :email, gettext "E-mail can't be blank")
+  def validate_email(nil, changeset), do: add_error(changeset, :email, gettext "E-mail can't be blank")
   def validate_email(email, changeset) do
     case Regex.match?(~r/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i, email) do
       true -> changeset
-      false -> add_error(changeset, :email, "Wrong e-mail")
+      false -> add_error(changeset, :email, gettext "Wrong e-mail")
     end
   end
 
@@ -176,7 +177,7 @@ defmodule Perseids.Order do
   def check_required_address_fields(changeset, address_type) do
     case get_required_fields_for(address_type) -- Map.keys(get_field(changeset, :address)[address_type]) do
       [] -> changeset
-      missing_fields -> Enum.reduce(missing_fields, changeset, fn(field, acc) -> add_error(acc, :address, "#{String.capitalize(address_type)} - #{field} field is required") end)
+      missing_fields -> Enum.reduce(missing_fields, changeset, fn(field, acc) -> add_error(acc, :address, "#{String.capitalize(address_type)} - #{field}" <> gettext "field is required") end)
     end
   end
 
@@ -191,14 +192,14 @@ defmodule Perseids.Order do
 
   def validate_single_field("Shipping", validation_func, value, changeset, key) do
     case Enum.member?(@address_shipping_required_fields, key) do
-      true -> apply(Perseids.Order, validation_func, [value, changeset, "Shipping"])
+      true -> apply(Perseids.Order, validation_func, [value, changeset, gettext "Shipping"])
       false -> changeset # will be cool to remove unsupported keys
     end
   end
 
   def validate_single_field("Payment", validation_func, value, changeset, key) do
     case Enum.member?(@address_payment_required_fields, key) do
-      true -> apply(Perseids.Order, validation_func, [value, changeset, "Payment"])
+      true -> apply(Perseids.Order, validation_func, [value, changeset, gettext "Payment"])
       false -> changeset # will be cool to remove unsupported keys
     end
   end
@@ -208,19 +209,19 @@ defmodule Perseids.Order do
   def get_required_fields_for(_other), do: []
 
   
-  def validate_name(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> " - name")
-  def validate_surname(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - surname")
-  def validate_country(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - country")
-  def validate_city(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> " - city")
-  def validate_post_code(value, changeset, address_type),     do: validate_field_length(value, changeset, address_type <> " - post code")
-  def validate_street(value, changeset, address_type),        do: validate_field_length(value, changeset, address_type <> " - street")
-  def validate_company(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> " - company")
+  def validate_name(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> gettext " - name")
+  def validate_surname(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> gettext " - surname")
+  def validate_country(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> gettext " - country")
+  def validate_city(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> gettext " - city")
+  def validate_post_code(value, changeset, address_type),     do: validate_field_length(value, changeset, address_type <> gettext " - post code")
+  def validate_street(value, changeset, address_type),        do: validate_field_length(value, changeset, address_type <> gettext " - street")
+  def validate_company(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> gettext " - company")
 
   def validate_phone_number(value, changeset, address_type) do
-    changeset = validate_field_length(value, changeset, address_type <> " - phone number")
+    changeset = validate_field_length(value, changeset, address_type <> gettext " - phone number")
     case Regex.match?(~r/^[0-9]*$/, value) do
       true -> changeset
-      _ -> add_error(changeset, :address, "#{address_type} - phone number should contain only numbers")
+      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should contain only numbers")
     end
   end
 
@@ -228,13 +229,13 @@ defmodule Perseids.Order do
     changeset = validate_field_length(value, changeset, address_type <> " - nip")
     case Regex.match?(~r/^[0-9]*$/, value) do
       true -> changeset
-      _ -> add_error(changeset, :address, "#{address_type} - nip should contain only numbers")
+      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "nip should contain only numbers")
     end
   end
   
   def validate_field_length(value, changeset, name) do
     case String.length(value) do
-      0 -> add_error(changeset, :address, "#{name} is too short")
+      0 -> add_error(changeset, :address, "#{name} " <> gettext "is too short")
       _ -> changeset
     end
   end
@@ -242,7 +243,7 @@ defmodule Perseids.Order do
   def validate_accept_rules(value, changeset, _address_type) do
     case value do
       true -> changeset
-      _ -> add_error(changeset, :address, "You must accept rules to continue")
+      _ -> add_error(changeset, :address, gettext "You must accept rules to continue")
     end
   end
 

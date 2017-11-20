@@ -10,5 +10,5 @@ defmodule Perseids.ContactController do
     json(conn, "ok")
   end
 
-  def contact_form(conn, _params), do: json(conn, %{errors: "Lack of `from` or `content` fields in request"})
+  def contact_form(conn, _params), do: json(conn, %{errors: gettext "Lack of `from` or `content` fields in request"})
 end

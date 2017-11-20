@@ -27,7 +27,7 @@ defmodule Perseids.SessionController do
         json(conn, response)
 
       {:error, message} -> render conn, "error.json", message: message
-      _ -> render conn, "error.json", message: "Unknown error occured"
+      _ -> render conn, "error.json", message: gettext "Unknown error occured"
     end
   end
 
@@ -38,7 +38,7 @@ defmodule Perseids.SessionController do
       |> Session.destroy
       json(conn, true)
     rescue
-      _ -> json(conn, %{errors: "Wylogowanie nie powiodło się"})
+      _ -> json(conn, %{errors: gettext "Logout failed"})
     end
   end
 
