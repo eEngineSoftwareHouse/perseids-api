@@ -1,4 +1,6 @@
 defmodule GetResponse do
+  import Perseids.Gettext
+  
   @gr_host Application.get_env(:perseids, :get_response)[:api_url]
   @gr_token "api-key " <> Application.get_env(:perseids, :get_response)[:api_key]
   @gr_campaign Application.get_env(:perseids, :get_response)[:api_campaign_token]
@@ -15,7 +17,7 @@ defmodule GetResponse do
   end
 
   def save_email(_params) do
-    %{error: "Nie podano adresu email"}
+    %{error: gettext "Email was not passed"}
   end
 
   defp response(response) do

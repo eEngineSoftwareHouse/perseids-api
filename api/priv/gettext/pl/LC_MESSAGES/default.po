@@ -1,0 +1,107 @@
+## `msgid`s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove `msgid`s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: pl\n"
+
+#: web/controllers/contact_controller.ex:13
+msgid "Lack of `from` or `content` fields in request"
+msgstr "Musisz uzupełnić pola 'email' oraz 'treść'"
+
+#: web/controllers/customer_controller.ex:43
+msgid "Passwords are not the same"
+msgstr "Wpisane hasła różnią się od siebie"
+
+#: web/models/order.ex:215
+msgid " - city"
+msgstr "- miasto"
+
+#: web/models/order.ex:218
+msgid " - company"
+msgstr " - firma"
+
+#: web/models/order.ex:214
+msgid " - country"
+msgstr " - kraj"
+
+#: web/models/order.ex:212
+msgid " - name"
+msgstr " - imię"
+
+#: web/models/order.ex:221
+msgid " - phone number"
+msgstr " - numer telefonu"
+
+#: web/models/order.ex:216
+msgid " - post code"
+msgstr " - kod pocztowy"
+
+#: web/models/order.ex:217
+msgid " - street"
+msgstr " - ulica"
+
+#: web/models/order.ex:213
+msgid " - surname"
+msgstr " - nazwisko"
+
+#: web/models/order.ex:118 web/models/order.ex:119
+msgid "E-mail can't be blank"
+msgstr "Musisz podać adres e-mail"
+
+#: web/controllers/session_controller.ex:41
+msgid "Logout failed"
+msgstr "Wylogowanie nie powiodło się"
+
+#: web/models/order.ex:202
+msgid "Payment"
+msgstr "Faktura"
+
+#: web/models/order.ex:195
+msgid "Shipping"
+msgstr "Adres wysyłki"
+
+#: web/controllers/order_controller.ex:34
+msgid "There's no such code"
+msgstr "Nie ma takiego kodu"
+
+#: web/controllers/session_controller.ex:30
+msgid "Unknown error occured"
+msgstr "Wystąpił nieznany błąd"
+
+#: web/models/order.ex:123
+msgid "Wrong e-mail"
+msgstr "E-mail ma niepoprawny format"
+
+#: web/models/order.ex:246
+msgid "You must accept rules to continue"
+msgstr "Musisz zaakceptować regulamin aby kontynuować"
+
+#: web/models/order.ex:180
+msgid "field is required"
+msgstr "pole jest wymagane"
+
+#: web/models/order.ex:238
+msgid "is too short"
+msgstr "jest za krótkie"
+
+#: web/models/order.ex:232
+msgid "nip should contain only numbers"
+msgstr "NIP powinien składać się z samych liczb"
+
+#: web/models/order.ex:224
+msgid "phone number should contain only numbers"
+msgstr "numer telefonu powinien składać się z samych liczb"
+
+#: lib/plugs/session.ex:36 lib/plugs/wholesale.ex:21
+msgid "You do not have sufficient permissions."
+msgstr "Nie posiadasz wystarczających uprawnień"
+
+#: lib/get_response.ex:20
+msgid "Email was not passed"
+msgstr "Pole e-mail nie zostało przesłane"

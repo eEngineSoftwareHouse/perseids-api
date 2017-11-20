@@ -1,5 +1,6 @@
 defmodule Perseids.CustomerController do
   use Perseids.Web, :controller
+  import Perseids.Gettext
 
   def info(conn, _params) do
     case conn.assigns[:store_view] |> conn.assigns[:store_view] |> Magento.customer_info(conn.assigns[:magento_token]) do
@@ -27,7 +28,7 @@ defmodule Perseids.CustomerController do
   end
 
   def update(conn, params) do
-    case filtered_params(params) |> conn.assigns[:store_view] |> Magento.update_account(customer_id: conn.assigns[:customer_id], customer_token: conn.assigns[:magento_token]) do
+    case conn.assigns[:store_view] |> Magento.update_account(filtered_params(params), customer_id: conn.assigns[:customer_id], customer_token: conn.assigns[:magento_token]) do
         {:ok, response} -> 
           response = Perseids.CustomerHelper.default_lang(response)
           json(conn, Map.put_new(response, :session_id, conn.assigns[:session_id]))
@@ -39,7 +40,7 @@ defmodule Perseids.CustomerController do
   def password_reset(conn, %{"password" => password, "password_confirmation" => password_confirmation, "token" => _token, "email" => _email} = params), do: reset_password(password_confirmation == password, params, conn)
 
 
-  defp reset_password(false, _params, conn), do: json(conn, %{errors: ["Passwords are not the same"]})
+  defp reset_password(false, _params, conn), do: json(conn, %{errors: [gettext "Passwords are not the same"]})
   defp reset_password(true, params, conn) do
     case conn.assigns[:store_view] |> Magento.reset_password(params) do
         {:ok, response} -> json(conn, response)
