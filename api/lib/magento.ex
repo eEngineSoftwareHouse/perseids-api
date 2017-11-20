@@ -81,8 +81,7 @@ defmodule Magento do
 
   def reset_password(%{"email" => _email, "website_id" => _website_id} = params) do
     {:ok, token} = admin_token()
-    # case put("customers/password", Poison.encode!(params |> Map.put_new("template", "email_reset")), [{"Authorization", "Bearer #{token}"}]) do
-    case put("customers/password", Poison.encode!(params), [{"Authorization", "Bearer #{token}"}]) do
+    case put("customers/password", Poison.encode!(params |> Map.put_new("template", "email_reset")), [{"Authorization", "Bearer #{token}"}]) do
       { :ok, response } -> magento_response(response)
       { :error, reason } -> {:error, reason}
     end
