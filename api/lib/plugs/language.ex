@@ -23,6 +23,17 @@ defmodule Perseids.Plugs.Language do
 
     conn
     |> assign(:lang, prefix)
+    |> assign(:store_view, get_corresponding_store_view(prefix))
     |> assign(:currency, currency)
+  end
+
+  defp get_corresponding_store_view(lang) do
+    store_views = %{
+      "pl_pln" => "plpl",
+      "en_eur" => "eneu",
+      "en_gbp" => "engbp",
+      "en_usd" => "enus"
+    }
+    store_views[lang]
   end
 end

@@ -4,9 +4,9 @@ defmodule Perseids.SessionController do
   alias Perseids.Session
 
   def create(conn, %{"email" => email, "password" => password} = _params) do
-    case Magento.customer_token(%{username: email, password: password}) do
+    case conn.assigns[:store_view] |> Magento.customer_token(%{username: email, password: password}) do
       {:ok, magento_token} ->
-        {:ok, customer_info} = Magento.customer_info(magento_token)
+        {:ok, customer_info} = conn.assigns[:store_view] |> Magento.customer_info(magento_token)
 
         session_data = %{
           magento_token: magento_token, 
