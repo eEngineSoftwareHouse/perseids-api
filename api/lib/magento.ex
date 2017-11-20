@@ -148,7 +148,7 @@ defmodule Magento do
 
   defp substitute_magento_vars(var, str) do
     {index, word} = var
-    String.replace(str, "%#{index}", word)
+    String.replace(str, "%#{index}", "#{word}")
   end
 
   defp get(url, headers) do
