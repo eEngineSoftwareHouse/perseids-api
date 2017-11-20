@@ -81,7 +81,8 @@ defmodule Magento do
 
   def reset_password(%{"email" => _email, "website_id" => _website_id} = params) do
     {:ok, token} = admin_token()
-    case put("customers/password", Poison.encode!(params |> Map.put_new("template", "email_reset")), [{"Authorization", "Bearer #{token}"}]) do
+    # case put("customers/password", Poison.encode!(params |> Map.put_new("template", "email_reset")), [{"Authorization", "Bearer #{token}"}]) do
+    case put("customers/password", Poison.encode!(params), [{"Authorization", "Bearer #{token}"}]) do
       { :ok, response } -> magento_response(response)
       { :error, reason } -> {:error, reason}
     end
@@ -132,16 +133,22 @@ defmodule Magento do
     end
   end
 
-  defp maybe_parametrized_message(%{"message" => message, "parameters" => parameters} = _body) do
-    parameters 
+  defp maybe_parametrized_message(%{"message" => message, "parameters" => [_]} = body) do
+    body["parameters"]
     |> Enum.with_index(1) # changes ["string1", "string2"] into [{"string1", 1}, {"string2", 2}]
+    |> Enum.map(fn(elem) -> {word, index} = elem; {"#{index}", word} end)
+    |> Enum.reduce(message, &(substitute_magento_vars(&1, &2)))
+  end
+
+  defp maybe_parametrized_message(%{"message" => message, "parameters" => %{}} = body) do
+    body["parameters"]
     |> Enum.reduce(message, &(substitute_magento_vars(&1, &2)))
   end
 
   defp maybe_parametrized_message(%{"message" => message} = _body), do: message
 
   defp substitute_magento_vars(var, str) do
-    {word, index} = var
+    {index, word} = var
     String.replace(str, "%#{index}", word)
   end
 
