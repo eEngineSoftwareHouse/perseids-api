@@ -16,15 +16,15 @@ defmodule Perseids.Plugs.Language do
   defp extract_currency_code(nil, conn), do: conn |> assign(:lang, "pl_pln")
 
   defp extract_currency_code(prefix, conn) do
-    currency = prefix
-    |> String.split("_")
-    |> List.last
-    |> String.upcase
+    [locale, currency] = prefix |> String.split("_")
+    
+    Gettext.put_locale(Perseids.Gettext, locale)
 
     conn
     |> assign(:lang, prefix)
+    |> assign(:locale, locale)
     |> assign(:store_view, get_corresponding_store_view(prefix))
-    |> assign(:currency, currency)
+    |> assign(:currency, currency |> String.upcase)
   end
 
   defp get_corresponding_store_view(lang) do
