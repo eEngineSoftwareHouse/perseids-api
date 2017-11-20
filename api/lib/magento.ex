@@ -140,7 +140,7 @@ defmodule Magento do
 
   defp maybe_parametrized_message(%{"message" => message} = _body), do: message
 
-  def substitute_magento_vars(var, str) do
+  defp substitute_magento_vars(var, str) do
     {word, index} = var
     String.replace(str, "%#{index}", word)
   end
