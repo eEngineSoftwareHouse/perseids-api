@@ -130,18 +130,22 @@ defmodule Magento do
     IO.inspect Poison.decode!(response.body)
     case response.status_code do
       200 -> { :ok, Poison.decode!(response.body) }
-      # _ -> { :error, response.body |> Poison.decode! |> Map.get("message") }
       _ -> { :error, response.body |> Poison.decode! |> maybe_parametrized_message }
     end
   end
 
   defp maybe_parametrized_message(%{"message" => message, "parameters" => parameters} = _body) do
     parameters 
-    |> Enum.with_index(1) 
-    |> Enum.reduce(message, fn(x, acc) -> {word, index} = x; String.replace(acc, "%#{index}", word) end)
+    |> Enum.with_index(1) # changes ["string1", "string2"] into [{"string1", 1}, {"string2", 2}]
+    |> Enum.reduce(message, &(substitute_magento_vars(&1, &2)))
   end
 
   defp maybe_parametrized_message(%{"message" => message} = _body), do: message
+
+  def substitute_magento_vars(var, str) do
+    {word, index} = var
+    String.replace(str, "%#{index}", word)
+  end
 
   defp get(url, headers) do
     HTTPoison.get(@magento_host <> url, [{"Content-Type", "application/json"} | headers], @magento_timeout)
