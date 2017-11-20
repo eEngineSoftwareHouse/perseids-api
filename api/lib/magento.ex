@@ -126,8 +126,6 @@ defmodule Magento do
   end
 
   defp magento_response(response) do
-    IO.puts "SZYMON DEBUG"
-    IO.inspect Poison.decode!(response.body)
     case response.status_code do
       200 -> { :ok, Poison.decode!(response.body) }
       _ -> { :error, response.body |> Poison.decode! |> maybe_parametrized_message }
