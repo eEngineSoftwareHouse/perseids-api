@@ -1,0 +1,107 @@
+## `msgid`s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove `msgid`s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use `mix gettext.extract --merge` or `mix gettext.merge`
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+
+#: web/controllers/contact_controller.ex:13
+msgid "Lack of `from` or `content` fields in request"
+msgstr ""
+
+#: web/controllers/customer_controller.ex:43
+msgid "Passwords are not the same"
+msgstr ""
+
+#: web/models/order.ex:215
+msgid " - city"
+msgstr ""
+
+#: web/models/order.ex:218
+msgid " - company"
+msgstr ""
+
+#: web/models/order.ex:214
+msgid " - country"
+msgstr ""
+
+#: web/models/order.ex:212
+msgid " - name"
+msgstr ""
+
+#: web/models/order.ex:221
+msgid " - phone number"
+msgstr ""
+
+#: web/models/order.ex:216
+msgid " - post code"
+msgstr ""
+
+#: web/models/order.ex:217
+msgid " - street"
+msgstr ""
+
+#: web/models/order.ex:213
+msgid " - surname"
+msgstr ""
+
+#: web/models/order.ex:118 web/models/order.ex:119
+msgid "E-mail can't be blank"
+msgstr ""
+
+#: web/controllers/session_controller.ex:41
+msgid "Logout failed"
+msgstr ""
+
+#: web/models/order.ex:202
+msgid "Payment"
+msgstr ""
+
+#: web/models/order.ex:195
+msgid "Shipping"
+msgstr ""
+
+#: web/controllers/order_controller.ex:34
+msgid "There's no such code"
+msgstr ""
+
+#: web/controllers/session_controller.ex:30
+msgid "Unknown error occured"
+msgstr ""
+
+#: web/models/order.ex:123
+msgid "Wrong e-mail"
+msgstr ""
+
+#: web/models/order.ex:246
+msgid "You must accept rules to continue"
+msgstr ""
+
+#: web/models/order.ex:180
+msgid "field is required"
+msgstr ""
+
+#: web/models/order.ex:238
+msgid "is too short"
+msgstr ""
+
+#: web/models/order.ex:232
+msgid "nip should contain only numbers"
+msgstr ""
+
+#: web/models/order.ex:224
+msgid "phone number should contain only numbers"
+msgstr ""
+
+#: lib/plugs/session.ex:36 lib/plugs/wholesale.ex:21
+msgid "You do not have sufficient permissions."
+msgstr ""
+
+#: lib/get_response.ex:20
+msgid "Email was not passed"
+msgstr ""

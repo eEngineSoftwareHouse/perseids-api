@@ -4,9 +4,9 @@ defmodule Perseids.SessionController do
   alias Perseids.Session
 
   def create(conn, %{"email" => email, "password" => password} = _params) do
-    case Magento.customer_token(%{username: email, password: password}) do
+    case conn.assigns[:store_view] |> Magento.customer_token(%{username: email, password: password}) do
       {:ok, magento_token} ->
-        {:ok, customer_info} = Magento.customer_info(magento_token)
+        {:ok, customer_info} = conn.assigns[:store_view] |> Magento.customer_info(magento_token)
 
         session_data = %{
           magento_token: magento_token, 
@@ -27,7 +27,7 @@ defmodule Perseids.SessionController do
         json(conn, response)
 
       {:error, message} -> render conn, "error.json", message: message
-      _ -> render conn, "error.json", message: "Unknown error occured"
+      _ -> render conn, "error.json", message: gettext "Unknown error occured"
     end
   end
 
@@ -38,7 +38,7 @@ defmodule Perseids.SessionController do
       |> Session.destroy
       json(conn, true)
     rescue
-      _ -> json(conn, %{errors: "Wylogowanie nie powiodło się"})
+      _ -> json(conn, %{errors: gettext "Logout failed"})
     end
   end
 

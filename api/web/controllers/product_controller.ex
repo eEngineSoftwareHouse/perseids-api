@@ -20,7 +20,7 @@ defmodule Perseids.ProductController do
   end
 
   def check_stock(conn, %{"sku" => sku}) do
-    case Magento.product_stock(sku) do
+    case conn.assigns[:store_view] |> Magento.product_stock(sku) do
       {:ok, stock} -> json(conn, stock)
       {:error, reason} -> json(conn, %{errors: [reason]})
       _ -> json(conn, %{errors: ["Wystąpił błąd"]})
@@ -28,7 +28,7 @@ defmodule Perseids.ProductController do
   end
 
   def check_stock(conn, %{"sku_list" => sku_list}) do
-    json(conn, Magento.stock_items(sku_list))
+    json(conn, conn.assigns[:store_view] |> Magento.stock_items(sku_list))
   end
 
   defp maybe_slug_or_id(%{"url_key" => url_key}, lang) do

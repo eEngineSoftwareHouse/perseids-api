@@ -8,7 +8,7 @@ defmodule Perseids.Pagination do
     end
 
     per_page = case params[:per_page] do
-      nil -> 12
+      nil -> 24
       _ -> params[:per_page]
     end
 
