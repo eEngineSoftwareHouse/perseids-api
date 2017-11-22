@@ -3,6 +3,7 @@ defmodule PayU do
   @payu_api_version_endpoint "api/v2_1/"
   @payu_pos_id Application.get_env(:perseids, :payu)[:pos_id]
   @payu_notify_url Application.get_env(:perseids, :payu)[:notify_url]
+  @payu_continue_url Application.get_env(:perseids, :payu)[:continue_url]
   @payu_second_key Application.get_env(:perseids, :payu)[:second_key]
   @payu_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
   @payu_credentials %{
@@ -30,9 +31,10 @@ defmodule PayU do
 
     payu_order = %{
       notifyUrl: @payu_notify_url,
+      continueUrl: @payu_continue_url,
       customerIp: "127.0.0.1", # Needed by PayU, don't know why
       merchantPosId: @payu_pos_id,
-      description: "ManyMornings - Perseids",
+      description: "ManyMornings.com",
       currencyCode: currency,
       totalAmount: payu_format_price(order_total_price + shipping_price),
       extOrderId: BSON.ObjectId.encode!(order["_id"]),
