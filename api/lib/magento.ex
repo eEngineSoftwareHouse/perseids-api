@@ -1,4 +1,6 @@
 defmodule Magento do
+  import Perseids.Gettext
+
   @magento_host Application.get_env(:perseids, :magento)[:magento_api_endpoint]
   @magento_timeout [connect_timeout: 60000, recv_timeout: 60000, timeout: 60000]
   @magento_admin_credentials %{
@@ -136,15 +138,15 @@ defmodule Magento do
     body["parameters"]
     |> Enum.with_index(1) # changes ["string1", "string2"] into [{"string1", 1}, {"string2", 2}]
     |> Enum.map(fn(elem) -> {word, index} = elem; {"#{index}", word} end)
-    |> Enum.reduce(message, &(substitute_magento_vars(&1, &2)))
+    |> Enum.reduce(translated_message(message), &(substitute_magento_vars(&1, &2)))
   end
 
   defp maybe_parametrized_message(%{"message" => message, "parameters" => %{}} = body) do
     body["parameters"]
-    |> Enum.reduce(message, &(substitute_magento_vars(&1, &2)))
+    |> Enum.reduce(translated_message(message), &(substitute_magento_vars(&1, &2)))
   end
 
-  defp maybe_parametrized_message(%{"message" => message} = _body), do: message
+  defp maybe_parametrized_message(%{"message" => message} = _body), do: translated_message(message)
 
   defp substitute_magento_vars(var, str) do
     {index, word} = var
@@ -164,4 +166,6 @@ defmodule Magento do
   end
   
   defp magento_api_url(url, store_view \\ "plpl"), do: @magento_host <> "rest/" <> store_view <> "/V1/" <> url
+
+  defp translated_message(message), do: Gettext.gettext(Perseids.Gettext, message)
 end

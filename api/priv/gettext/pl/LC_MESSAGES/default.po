@@ -105,3 +105,31 @@ msgstr "Nie posiadasz wystarczających uprawnień"
 #: lib/get_response.ex:20
 msgid "Email was not passed"
 msgstr "Pole e-mail nie zostało przesłane"
+
+#: lib/magento.ex:various_lines
+msgid "Please enter a password with at least %1 characters."
+msgstr "Hasło musi mieć przynajmniej %1 znaków"
+
+#: lib/magento.ex:various_lines
+msgid "Account has been updated."
+msgstr "Konto zostało zaktualizowane."
+
+#: lib/magento.ex:various_lines
+msgid "You did not sign in correctly or your account is temporarily disabled."
+msgstr "Podałeś nieprawidłowe dane lub Twoje konto zostało tymczasowo zablokowane."
+
+#: lib/magento.ex:various_lines
+msgid "Minimum of different classes of characters in password is %1. Classes of characters: Lower Case, Upper Case, Digits, Special Characters."
+msgstr "Hasło musi zawierać min. %1 różne klasy znaków. Dostępne klasy: małe litery, duże litery, cyfry, znaki specjalne"
+
+#: lib/magento.ex:various_lines
+msgid "A customer with the same email already exists in an associated website."
+msgstr "W sklepie jest już zarejestrowany klient z takim adresem e-mail."
+
+#: lib/get_response.ex:various_lines
+msgid "There is another resource with the same value of unique property"
+msgstr "Ten adres e-mail został już zarejestrowany."
+
+#: lib/get_response.ex:various_lines
+msgid "Problem during authentication process, check headers"
+msgstr "Wystąpił błąd komunikacji, spróbuj później."

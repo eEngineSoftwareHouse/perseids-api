@@ -105,3 +105,31 @@ msgstr ""
 #: lib/get_response.ex:20
 msgid "Email was not passed"
 msgstr ""
+
+#: lib/magento.ex:various_lines
+msgid "Please enter a password with at least %1 characters."
+msgstr ""
+
+#: lib/magento.ex:various_lines
+msgid "Account has been updated."
+msgstr ""
+
+#: lib/magento.ex:various_lines
+msgid "You did not sign in correctly or your account is temporarily disabled."
+msgstr ""
+
+#: lib/magento.ex:various_lines
+msgid "Minimum of different classes of characters in password is %1. Classes of characters: Lower Case, Upper Case, Digits, Special Characters."
+msgstr ""
+
+#: lib/magento.ex:various_lines
+msgid "A customer with the same email already exists in an associated website."
+msgstr ""
+
+#: lib/get_response.ex:various_lines
+msgid "There is another resource with the same value of unique property"
+msgstr ""
+
+#: lib/get_response.ex:various_lines
+msgid "Problem during authentication process, check headers"
+msgstr ""
