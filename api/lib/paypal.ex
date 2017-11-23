@@ -24,7 +24,25 @@ defmodule PayPal do
             "total" => paypal_format_price(order_total_price + shipping_price),
             "currency" => currency
           },
-          "custom" => BSON.ObjectId.encode!(order["_id"])
+          "custom" => BSON.ObjectId.encode!(order["_id"]),
+          "item_list" => %{
+            "items" => [
+              %{
+                "name" => "Zamówienie " <> BSON.ObjectId.encode!(order["_id"]) <> " - pl.manymornings.com",
+                "quantity" => "1",
+                "price" => paypal_format_price(order_total_price + shipping_price),
+                "currency" => order["currency"]
+              }
+            ],
+            "shipping_address" => %{
+              "recipient_name" => order["address"]["shipping"]["name"] <> " " <> order["address"]["shipping"]["surname"],
+              "line1" => order["address"]["shipping"]["street"],
+              "city" => order["address"]["shipping"]["city"],
+              "country_code" => order["address"]["shipping"]["country"],
+              "postal_code" => order["address"]["shipping"]["post-code"],
+              "phone" => order["address"]["shipping"]["phone-number"]
+            }
+          }
         }
       ]
     }
@@ -55,7 +73,7 @@ defmodule PayPal do
   defp manage_response(response, order) do
     %{"links" => links, "id" => payment_id} = case response.status_code do
       201 -> Poison.decode!(response.body)
-      status -> raise "PayPal payment returned #{status}"
+      status -> IO.inspect(response.body); raise "PayPal payment returned #{status}"
     end
 
     links = links
