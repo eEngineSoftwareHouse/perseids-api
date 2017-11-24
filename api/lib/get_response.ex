@@ -24,7 +24,7 @@ defmodule GetResponse do
     case response.status_code do
       # GetResponse return 202 on success, because email will be visible about 1 minute later
       202 -> Poison.decode!(response.body)
-      _ -> %{ errors: [response.body |> Poison.decode! |> Map.get("codeDescription")] }
+      _ -> %{ errors: [response.body |> Poison.decode! |> Map.get("codeDescription") |> translated_message] }
     end
   end
 
@@ -32,4 +32,5 @@ defmodule GetResponse do
     HTTPoison.post(@gr_host <> url, Poison.encode!(params), @default_headers ++ headers)
   end
 
+  defp translated_message(message), do: Gettext.gettext(Perseids.Gettext, message)
 end
