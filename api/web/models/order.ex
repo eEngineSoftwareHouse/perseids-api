@@ -163,7 +163,7 @@ defmodule Perseids.Order do
 
   def validate_shipping(changeset) do
     case get_field(changeset, :shipping) do
-      "inpost" -> validate_required(changeset, [:inpost_code]) # validate presence of box machine code if "inpost" shipping
+      "paczkomat-PL" -> validate_required(changeset, [:inpost_code]) # validate presence of box machine code if "inpost" shipping
       _ -> changeset
     end
   end
