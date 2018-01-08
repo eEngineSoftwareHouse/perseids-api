@@ -11,7 +11,7 @@ defmodule Perseids.LookbookView do
     %{
       id: BSON.ObjectId.encode!(lookbook["_id"]),
       name: lookbook["name"],
-      slug: lookbook["name"] |> String.downcase |> String.normalize(:nfd) |> String.replace(~r/[^A-z\s]/u, "") |> String.replace(~r/\s/, "-"),
+      slug: lookbook["name"] |> String.downcase |> String.normalize(:nfd) |> String.replace(~r/[^A-z0-9\s]/u, "") |> String.replace(~r/\s/, "-"),
       source_id: lookbook["source_id"],
       description: lookbook["description"],
       image: lookbook["image"],
