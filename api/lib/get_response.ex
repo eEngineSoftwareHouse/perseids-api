@@ -3,14 +3,11 @@ defmodule GetResponse do
   
   @gr_host Application.get_env(:perseids, :get_response)[:api_url]
   @gr_token "api-key " <> Application.get_env(:perseids, :get_response)[:api_key]
-  @gr_campaign Application.get_env(:perseids, :get_response)[:api_campaign_token]
+  # @gr_campaign Application.get_env(:perseids, :get_response)[:api_campaign_token]
   @default_headers [{"Content-Type", "application/json"}, {"X-Auth-Token", @gr_token}]
 
-  def save_email(%{"email" => _email} = params) do
-    body = params
-    |> Map.put_new(:campaign, %{campaignId: @gr_campaign})
-
-    case post("contacts", body) do
+  def save_email(%{"email" => _email, "campaign" => %{"campaignId" => _campaign_id}} = params) do
+    case post("contacts", params) do
       { :ok, response } -> response(response)
       { :error, reason } -> {:error, reason}
     end
