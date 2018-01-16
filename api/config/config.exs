@@ -38,7 +38,8 @@ config :perseids, :magento,
 config :perseids, :get_response,
   api_url: System.get_env("GETRESPONSE_API_URL"),
   api_key: System.get_env("GETRESPONSE_API_KEY"),
-  api_campaign_token: System.get_env("GETRESPONSE_API_CAMPAIGN_TOKEN")
+  api_campaign_token_pl: System.get_env("GETRESPONSE_API_CAMPAIGN_TOKEN_PL"),
+  api_campaign_token_en: System.get_env("GETRESPONSE_API_CAMPAIGN_TOKEN_EN")
 
 # Configure PayU
 config :perseids, :payu,
