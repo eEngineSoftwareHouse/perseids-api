@@ -4,7 +4,8 @@
 [https://www.getpostman.com/collections/24115356834c4a64c5d4](https://www.getpostman.com/collections/24115356834c4a64c5d4)
 
 #### Postman API docs:
-[https://goo.gl/fZPJWF](https://goo.gl/fZPJWF)
+[https://goo.gl/ZaBkq1](https://goo.gl/ZaBkq1)
+
 
 ## Running in development
 Create file with environment variables to be used by docker-compose in future:
