@@ -77,6 +77,7 @@ defmodule Perseids.Router do
     post "/service/newsletter", ServiceController, :newsletter
 
     post "/payu_notify", PaymentController, :payu_notify
+    post "/notify", PaymentController, :payu_notify # fallback for wrong payments in PayU, which causing 404 errors in API
     get "/paypal_accept", PaymentController, :paypal_accept
     get "/paypal_cancel", PaymentController, :paypal_cancel
 
