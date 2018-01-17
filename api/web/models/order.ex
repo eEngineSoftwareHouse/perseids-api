@@ -251,9 +251,10 @@ defmodule Perseids.Order do
   defp update_shipping_and_payment_info(params) do
     shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
     payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang) 
-    Map.put(params, :shipping_price, calc_shipping_price(params.products, shipping, params.lang))
-    |> update_products(params.products, params.lang)
+    
+    update_products(params, params.products, params.lang)
     |> Map.put_new(:order_total_price, calc_order_total(params.products, params[:discount_code], params.lang))
+    |> add_shipping_price(shipping, params.lang)
     |> Map.put_new(:shipping_code, shipping["code"])
     |> Map.put_new(:shipping_name, shipping["name"])
     |> Map.put_new(:payment_name, payment["name"])
@@ -278,15 +279,26 @@ defmodule Perseids.Order do
     order_total - (order_total * (discount_value * 0.01))
   end
 
-
-  defp calc_shipping_price(products, shipping, lang) do
-    products
-    |> Enum.map(&get_product_price(&1, lang) * &1["count"])
-    |> products_price_sum
-    |> check_free_shipping(shipping, lang)
+  defp add_shipping_price(%{order_total_price: order_total_price} = order, shipping, lang) do
+    threshold = get_threshold(lang)
+    if order_total_price >= threshold do
+      Map.put(order, :shipping_price, 0)
+    else
+      Map.put(order, :shipping_price, get_default_shipping_price(shipping))
+    end
   end
 
   defp check_free_shipping(order_total, shipping, lang) do
+    default_shipping_price = get_default_shipping_price(shipping)
+    threshold = get_threshold(lang)
+    if order_total >= threshold do
+      0
+    else
+      default_shipping_price
+    end
+  end
+  
+  defp maybe_free_shipping?(order_total, shipping, lang) do
     default_shipping_price = get_default_shipping_price(shipping)
     threshold = get_threshold(lang)
     if order_total >= threshold do
