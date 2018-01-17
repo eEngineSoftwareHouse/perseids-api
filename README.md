@@ -4,7 +4,7 @@
 [https://www.getpostman.com/collections/24115356834c4a64c5d4](https://www.getpostman.com/collections/24115356834c4a64c5d4)
 
 #### Postman API docs:
-[https://goo.gl/ZaBkq1](https://goo.gl/ZaBkq1)
+[https://goo.gl/fgAtRx](https://goo.gl/fgAtRx)
 
 
 ## Running in development
