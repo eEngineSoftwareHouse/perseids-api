@@ -288,26 +288,6 @@ defmodule Perseids.Order do
     end
   end
 
-  defp check_free_shipping(order_total, shipping, lang) do
-    default_shipping_price = get_default_shipping_price(shipping)
-    threshold = get_threshold(lang)
-    if order_total >= threshold do
-      0
-    else
-      default_shipping_price
-    end
-  end
-  
-  defp maybe_free_shipping?(order_total, shipping, lang) do
-    default_shipping_price = get_default_shipping_price(shipping)
-    threshold = get_threshold(lang)
-    if order_total >= threshold do
-      0
-    else
-      default_shipping_price
-    end
-  end
-
   defp get_threshold(lang) do
     Perseids.Threshold.find(lang: lang)
     |> item_response
