@@ -34,7 +34,7 @@ defmodule PayU do
       continueUrl: @payu_continue_url,
       customerIp: "127.0.0.1", # Needed by PayU, don't know why
       merchantPosId: @payu_pos_id,
-      description: "ManyMornings.com",
+      description: BSON.ObjectId.encode!(order["_id"]),
       currencyCode: currency,
       totalAmount: payu_format_price(order_total_price + shipping_price),
       extOrderId: BSON.ObjectId.encode!(order["_id"]),
