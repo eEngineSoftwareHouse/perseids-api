@@ -39,7 +39,8 @@ defmodule Perseids.OrderView do
       wholesale: shipping["wholesale"],
       country: shipping["country"],
       from: shipping["from"],
-      to: shipping["to"]
+      to: shipping["to"],
+      can_be_free: shipping["can_be_free"]
     }
   end
 
