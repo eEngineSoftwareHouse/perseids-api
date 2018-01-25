@@ -70,7 +70,8 @@ defmodule Perseids.OrderView do
       currency: order["currency"],
       order_id: order["exported_id"],
       payment_id: BSON.ObjectId.encode!(order["_id"]),
-      order_total_price: order["order_total_price"]
+      order_total_price: order["order_total_price"],
+      inpost_code: order["inpost_code"]
     }
     |> maybe_redirect(order["redirect_url"])
   end
