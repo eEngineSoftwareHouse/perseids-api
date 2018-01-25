@@ -26,15 +26,14 @@ defmodule PayU do
     |> Kernel.==(signature)
   end
 
-  def place_order(%{"products" => products, "shipping" => shipping, "lang" => lang, "currency" => currency, "shipping_price" => shipping_price, "order_total_price" => order_total_price} = order) do
+  def place_order(%{"email" => email, "products" => products, "shipping" => shipping, "lang" => lang, "currency" => currency, "shipping_price" => shipping_price, "order_total_price" => order_total_price} = order) do
     shipping = Perseids.Shipping.find_one(source_id: shipping, lang: lang)
-
     payu_order = %{
       notifyUrl: @payu_notify_url,
       continueUrl: @payu_continue_url,
       customerIp: "127.0.0.1", # Needed by PayU, don't know why
       merchantPosId: @payu_pos_id,
-      description: "Manymornings.com - perseids order ID: " <> BSON.ObjectId.encode!(order["_id"]),
+      description: email <> "-" <> BSON.ObjectId.encode!(order["_id"]),
       currencyCode: currency,
       totalAmount: payu_format_price(order_total_price + shipping_price),
       extOrderId: BSON.ObjectId.encode!(order["_id"]),
