@@ -12,8 +12,6 @@ defmodule Perseids.OrderController do
   end
 
   def check_orders(conn, params) do
-    IO.puts "ASDASDASDASD"
-    IO.inspect maybe_all(params)
     orders = Order.find(
       query: %{
         "synchronized" => %{"$ne" => 1},
