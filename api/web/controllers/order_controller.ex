@@ -7,23 +7,18 @@ defmodule Perseids.OrderController do
 
   def index(conn, params) do
     orders = Order.find(filter: %{"customer_id" => [conn.assigns.customer_id]})
-    orders_count = orders |> Enum.count
-    orders = orders |> Pagination.paginate_collection(params)
 
-    render conn, "orders.json", orders: orders, count: orders_count
+    conn |> render_orders(orders, params)
   end
 
   def check_orders(conn, params) do
-    IO.puts "CHECK ORDERS"
+
     orders = Order.find(query: %{
-      "synchronized" => %{"$ne" => 1}, 
-      "$or" => [%{"payment_code" => "banktransfer"}, %{"payment_status" => "COMPLETED"}]
+      "synchronized" => %{"$ne" => 1},
+      "$and" => params |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
     })
 
-    orders_count = orders |> Enum.count
-    orders = orders |> Pagination.paginate_collection(params)
-
-    render conn, "orders.json", orders: orders, count: orders_count
+    conn |> render_orders(orders, params)
   end
 
   def wholesale_create(conn, params), do: conn |> create(params)
@@ -66,5 +61,12 @@ defmodule Perseids.OrderController do
     |> Map.put_new("currency", conn.assigns.currency)
     |> Map.put_new("wholesale", conn.assigns[:wholesale])
     |> Map.put_new("group_id", conn.assigns[:group_id])
+  end
+
+  defp render_orders(conn, orders, params) do
+    orders_count = orders |> Enum.count
+    orders = orders |> Pagination.paginate_collection(params)
+
+    render conn, "orders.json", orders: orders, count: orders_count
   end
 end
