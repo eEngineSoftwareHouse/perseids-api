@@ -12,17 +12,21 @@ defmodule Perseids.OrderController do
   end
 
   def check_orders(conn, params) do
-
+    
     orders = Order.find(
       query: %{
         "synchronized" => %{"$ne" => 1},
-        "$and" => params |> Map.drop(["sort"]) |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
+        # "$and" => params |> Map.drop(["sort"]) |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
+        "$and" => maybe_all(params)
       }, 
       options: [sort: %{"created_at" => (params["sort"] || "-1") |> String.to_integer}]
     )
 
     conn |> render_orders(orders, params)
   end
+
+  def maybe_all(%{}), do: [ %{ "_id" => %{ "$exists" => true } } ]
+  def maybe_all(params), do: params |> Map.drop(["sort"]) |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
 
   def wholesale_create(conn, params), do: conn |> create(params)
 
