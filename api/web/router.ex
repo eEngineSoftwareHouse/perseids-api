@@ -10,9 +10,7 @@ defmodule Perseids.Router do
     plug :accepts, ["json"]
     plug Language
     plug CurrentUser
-    if Mix.env == :dev do
-      plug Phoenix.CodeReloader
-    end
+    if Mix.env == :dev, do: plug Phoenix.CodeReloader
   end
 
   pipeline :authorized do
@@ -21,6 +19,12 @@ defmodule Perseids.Router do
 
   pipeline :wholesale do
     plug Perseids.Plugs.Wholesale
+  end
+
+  pipeline :order_checker_api do
+    plug Corsica, origins: "*", allow_headers: ~w(content-type authorization Client-Language accept origin)
+    plug :accepts, ["json"]
+    if Mix.env == :dev, do: plug Phoenix.CodeReloader
   end
 
   scope "/api/v2" do
@@ -103,6 +107,12 @@ defmodule Perseids.Router do
 
     post "/wholesale/order/create", OrderController, :wholesale_create
     get "/wholesale/order/delivery_options", OrderController, :wholesale_delivery_options
+  end
+
+  # Limit access to this route on load balancer in production
+  scope "/checker", Perseids do
+    pipe_through :order_checker_api
+    get "/orders", OrderController, :check_orders
   end
 
 end

@@ -95,6 +95,12 @@ defmodule Perseids.Order do
     |> list_response
   end
 
+  def find([query: query] = opts) do
+    @collection_name
+    |> ORMongo.find(opts)
+    |> list_response
+  end
+
   def find_one(object_id) do
     @collection_name
     |> ORMongo.find([_id: object_id])
