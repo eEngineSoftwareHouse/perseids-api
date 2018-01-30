@@ -12,7 +12,8 @@ defmodule Perseids.OrderController do
   end
 
   def check_orders(conn, params) do
-    
+    IO.puts "ASDASDASDASD"
+    IO.inspect maybe_all(params)
     orders = Order.find(
       query: %{
         "synchronized" => %{"$ne" => 1},
@@ -25,7 +26,7 @@ defmodule Perseids.OrderController do
     conn |> render_orders(orders, params)
   end
 
-  def maybe_all(%{}), do: [ %{ "_id" => %{ "$exists" => true } } ]
+  def maybe_all(params) when params == %{}, do: [ %{ "_id" => %{ "$exists" => true } } ]
   def maybe_all(params), do: params |> Map.drop(["sort"]) |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
 
   def wholesale_create(conn, params), do: conn |> create(params)
