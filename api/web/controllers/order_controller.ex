@@ -13,6 +13,19 @@ defmodule Perseids.OrderController do
     render conn, "orders.json", orders: orders, count: orders_count
   end
 
+  def check_orders(conn, params) do
+    IO.puts "CHECK ORDERS"
+    orders = Order.find(query: %{
+      "synchronized" => %{"$ne" => 1}, 
+      "$or" => [%{"payment_code" => "banktransfer"}, %{"payment_status" => "COMPLETED"}]
+    })
+
+    orders_count = orders |> Enum.count
+    orders = orders |> Pagination.paginate_collection(params)
+
+    render conn, "orders.json", orders: orders, count: orders_count
+  end
+
   def wholesale_create(conn, params), do: conn |> create(params)
 
   def create(conn, params) do
