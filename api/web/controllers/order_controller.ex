@@ -13,10 +13,13 @@ defmodule Perseids.OrderController do
 
   def check_orders(conn, params) do
 
-    orders = Order.find(query: %{
-      "synchronized" => %{"$ne" => 1},
-      "$and" => params |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
-    })
+    orders = Order.find(
+      query: %{
+        "synchronized" => %{"$ne" => 1},
+        "$and" => params |> Map.drop(["sort"]) |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
+      }, 
+      options: [sort: %{"created_at" => (params["sort"] || "-1") |> String.to_integer}]
+    )
 
     conn |> render_orders(orders, params)
   end
