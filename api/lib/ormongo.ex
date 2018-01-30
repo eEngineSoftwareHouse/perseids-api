@@ -29,7 +29,7 @@ defmodule ORMongo do
   def find(collection, url_key: url_key),                   do: mongo_find_one_by_field(collection, %{ url_key: url_key })
   def find(collection, slug: slug),                         do: mongo_find_one_by_field(collection, %{ slug: slug })
   def find(collection, where: query),                       do: mongo_where(collection, %{ "$and" => query })
-  def find(collection, query: query),                       do: mongo_where(collection, query)
+  def find(collection, query: query, options: options),     do: mongo_where(collection, query, options)
 
   def count(collection, [{:keywords, keywords} | _]) do
     Mongo.count(:mongo, collection, %{"$text" => %{"$search" => keywords}})
@@ -100,8 +100,8 @@ defmodule ORMongo do
     |> result
   end
 
-  defp mongo_where(collection, where) do
-    Mongo.find(:mongo, collection, where)
+  defp mongo_where(collection, where, options \\ %{}) do
+    Mongo.find(:mongo, collection, where, options)
     |> result
   end
 
