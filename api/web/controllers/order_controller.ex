@@ -13,7 +13,7 @@ defmodule Perseids.OrderController do
 
   def check_orders(conn, %{"id" => object_id} = params) do
     orders = Order.find( query: %{ "id" => object_id} )
-    |> Enum.filter(fn(elem) -> elem["synchronized" !== 1] end)
+    |> Enum.filter(fn(elem) -> !Map.has_key?(elem, "synchronized") end)
     
     conn |> render_orders(orders, params)
   end
