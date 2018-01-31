@@ -110,7 +110,7 @@ defmodule Perseids.Router do
   end
 
   # Limit access to this route on load balancer in production
-  scope "/checker", Perseids do
+  scope "/api/v1/checker", Perseids do
     pipe_through :order_checker_api
     get "/orders", OrderController, :check_orders
   end
