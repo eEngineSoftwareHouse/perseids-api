@@ -15,7 +15,7 @@ defmodule Perseids.OrderController do
     orders = Order.find( query: %{ "id" => object_id} )
     |> Enum.filter(fn(elem) -> !Map.has_key?(elem, "synchronized") end)
     
-    conn |> render_orders(orders, params)
+    render conn, "orders.json", orders: orders, count: orders |> Enum.count
   end
 
   def check_orders(conn, params) do
@@ -28,7 +28,7 @@ defmodule Perseids.OrderController do
       options: [sort: %{"created_at" => (params["sort"] || "-1") |> String.to_integer}]
     )
 
-    conn |> render_orders(orders, params)
+    render conn, "orders.json", orders: orders, count: orders |> Enum.count
   end
 
   def maybe_all(params) when params == %{}, do: [ %{ "_id" => %{ "$exists" => true } } ]
