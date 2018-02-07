@@ -18,39 +18,39 @@ msgstr ""
 msgid "Passwords are not the same"
 msgstr ""
 
-#: web/models/order.ex:216
+#: web/models/order.ex:221
 msgid " - city"
 msgstr ""
 
-#: web/models/order.ex:219
+#: web/models/order.ex:224
 msgid " - company"
 msgstr ""
 
-#: web/models/order.ex:215
+#: web/models/order.ex:220
 msgid " - country"
 msgstr ""
 
-#: web/models/order.ex:213
+#: web/models/order.ex:218
 msgid " - name"
 msgstr ""
 
-#: web/models/order.ex:222
+#: web/models/order.ex:232
 msgid " - phone number"
 msgstr ""
 
-#: web/models/order.ex:217
+#: web/models/order.ex:222
 msgid " - post code"
 msgstr ""
 
-#: web/models/order.ex:218
+#: web/models/order.ex:223
 msgid " - street"
 msgstr ""
 
-#: web/models/order.ex:214
+#: web/models/order.ex:219
 msgid " - surname"
 msgstr ""
 
-#: web/models/order.ex:118 web/models/order.ex:119
+#: web/models/order.ex:124 web/models/order.ex:125
 msgid "E-mail can't be blank"
 msgstr ""
 
@@ -58,15 +58,15 @@ msgstr ""
 msgid "Logout failed"
 msgstr ""
 
-#: web/models/order.ex:203
+#: web/models/order.ex:208
 msgid "Payment"
 msgstr ""
 
-#: web/models/order.ex:196
+#: web/models/order.ex:201
 msgid "Shipping"
 msgstr ""
 
-#: web/controllers/order_controller.ex:34
+#: web/controllers/order_controller.ex:55
 msgid "There's no such code"
 msgstr ""
 
@@ -74,27 +74,27 @@ msgstr ""
 msgid "Unknown error occured"
 msgstr ""
 
-#: web/models/order.ex:123
+#: web/models/order.ex:129
 msgid "Wrong e-mail"
 msgstr ""
 
-#: web/models/order.ex:247
+#: web/models/order.ex:266
 msgid "You must accept rules to continue"
 msgstr ""
 
-#: web/models/order.ex:181
+#: web/models/order.ex:186
 msgid "field is required"
 msgstr ""
 
-#: web/models/order.ex:239
+#: web/models/order.ex:258
 msgid "is too short"
 msgstr ""
 
-#: web/models/order.ex:233
+#: web/models/order.ex:252
 msgid "nip should contain only numbers"
 msgstr ""
 
-#: web/models/order.ex:225
+#: web/models/order.ex:235
 msgid "phone number should contain only numbers"
 msgstr ""
 
@@ -102,12 +102,16 @@ msgstr ""
 msgid "You do not have sufficient permissions."
 msgstr ""
 
-#: lib/get_response.ex:20
+#: lib/get_response.ex:16
 msgid "Email was not passed"
 msgstr ""
 
-#: web/models/order.ex:167
+#: web/models/order.ex:172
 msgid "You must select parcel locker"
+msgstr ""
+
+#: web/models/order.ex:242
+msgid "phone number should be exactly 9 characters long"
 msgstr ""
 
 #: lib/magento.ex:various_lines

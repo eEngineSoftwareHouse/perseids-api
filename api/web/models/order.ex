@@ -226,10 +226,19 @@ defmodule Perseids.Order do
   def validate_phone_number(value, changeset, address_type) do
     changeset = validate_field_length(value, changeset, address_type <> gettext " - phone number")
     case Regex.match?(~r/^[0-9]*$/, value) do
-      true -> changeset
+      true -> changeset |> maybe_pl_phone?(value, get_change(changeset, :lang), address_type)
       _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should contain only numbers")
     end
   end
+
+  defp maybe_pl_phone?(changeset, value, "pl_pln", address_type) do
+    case Regex.match?(~r/[0-9]{9}/, value) do
+      true -> changeset
+      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should be exactly 9 characters long")
+    end
+  end
+
+  defp maybe_pl_phone?(changeset, _value, _lang, _address_type), do: changeset
 
   def validate_nip(value, changeset, address_type) do
     changeset = validate_field_length(value, changeset, address_type <> " - nip")
