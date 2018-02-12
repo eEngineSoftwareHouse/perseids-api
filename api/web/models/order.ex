@@ -232,7 +232,7 @@ defmodule Perseids.Order do
   end
 
   defp maybe_pl_phone?(changeset, value, "pl_pln", address_type) do
-    case Regex.match?(~r/[0-9]{9}/, value) do
+    case Regex.match?(~r/^[0-9]{9}$/, value) do
       true -> changeset
       _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should be exactly 9 characters long")
     end
