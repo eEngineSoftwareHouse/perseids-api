@@ -219,9 +219,10 @@ defmodule Perseids.Order do
   def validate_surname(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> gettext " - surname")
   def validate_country(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> gettext " - country")
   def validate_city(value, changeset, address_type),          do: validate_field_length(value, changeset, address_type <> gettext " - city")
-  def validate_post_code(value, changeset, address_type),     do: validate_field_length(value, changeset, address_type <> gettext " - post code")
   def validate_street(value, changeset, address_type),        do: validate_field_length(value, changeset, address_type <> gettext " - street")
   def validate_company(value, changeset, address_type),       do: validate_field_length(value, changeset, address_type <> gettext " - company")
+  
+  def validate_post_code(value, changeset, address_type), do: changeset |> maybe_pl_postcode?(value, get_change(changeset, :lang), address_type)
 
   def validate_phone_number(value, changeset, address_type) do
     changeset = validate_field_length(value, changeset, address_type <> gettext " - phone number")
@@ -230,6 +231,15 @@ defmodule Perseids.Order do
       _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should contain only numbers")
     end
   end
+
+  defp maybe_pl_postcode?(changeset, value, "pl_pln", address_type) do
+    case Regex.match?(~r/^[0-9]{2}-[0-9]{3}$/, value) do
+      true -> changeset
+      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "post code should have format XX-XXX")
+    end
+  end
+
+  defp maybe_pl_postcode?(changeset, value, _lang, address_type), do: validate_field_length(value, changeset, address_type <> gettext " - post code")
 
   defp maybe_pl_phone?(changeset, value, "pl_pln", address_type) do
     case Regex.match?(~r/^[0-9]{9}$/, value) do
