@@ -61,7 +61,7 @@ defmodule PayU do
   defp payu_prepare_product(product, lang) do
     %{
       name: product["name"],
-      unitPrice: get_product_price(product, lang) |> payu_format_price,
+      unitPrice: product["price"] |> payu_format_price,
       quantity: product["count"]
     }
   end
