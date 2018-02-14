@@ -288,20 +288,22 @@ defmodule Perseids.Order do
 
   defp update_products(params, products, lang) do
     new_products = products
-    |> Enum.reduce([], &update_product(&1, &2, lang))
+    |> Enum.reduce([], &update_product(&1, &2, lang, params[:discount_code]))
     Map.put(params, :products, new_products)
   end
 
   defp calc_order_total(products, discount_code, lang) do
     products
     |> Enum.reduce(0, &get_product_price(&1, &2, lang))
-    |> maybe_discount(Discount.find_one(code: discount_code, lang: lang))
+    |> maybe_discount?(discount_code, lang)
   end
 
-  defp maybe_discount(order_total, nil), do: order_total
-  defp maybe_discount(order_total, discount) do
-    %{"value" => discount_value } = discount
-    order_total - (order_total * (discount_value * 0.01))
+  defp maybe_discount?(original_price, nil, _lang), do: original_price
+  defp maybe_discount?(original_price, discount_code, lang) do
+    case Discount.find_one(code: discount_code, lang: lang) do
+      %{"value" => discount_value } -> original_price - (original_price * (discount_value * 0.01))
+      _ -> original_price
+    end
   end
 
   defp add_shipping_price(%{order_total_price: order_total_price} = order, shipping, lang) do
@@ -337,11 +339,11 @@ defmodule Perseids.Order do
     acc + (product["count"] * (Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]))
   end
 
-  defp update_product(product, acc, lang) do
+  defp update_product(product, acc, lang, discount) do
     price = Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]
     updated_product = product
-    |> Map.put_new("price", price)
-    |> Map.put_new("total_price", price * product["count"])
+    |> Map.put_new("price", maybe_discount?(price, discount, lang))
+    |> Map.put_new("total_price", maybe_discount?(price * product["count"], discount, lang))
 
     List.insert_at(acc, -1, updated_product)
   end
