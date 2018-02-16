@@ -65,9 +65,9 @@ defmodule Magento do
     end
   end
 
-  def update_account(store_view, params, customer_id: customer_id, customer_token: customer_token) do
+  def update_account(store_view, params, customer_id: customer_id, customer_token: customer_token, group_id: group_id) do
     {:ok, token} = admin_token(store_view)
-    params = %{ "customer" => set_customer_email(store_view, customer_token, params) }
+    params = %{ "customer" => set_customer_email(store_view, customer_token, params) |> Map.put("group_id", group_id) }
     case store_view |> put("customers/#{customer_id}", Poison.encode!(params), [{"Authorization", "Bearer #{token}"}]) do
       { :ok, response } -> magento_response(response)
       { :error, reason } -> {:error, reason}
