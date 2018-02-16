@@ -4,24 +4,25 @@ defmodule Perseids.Product do
   @collection_name "products"
   @filterable_params ["category_ids", "color","pattern"]
 
-  def find(opts) do
-    case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts)}) do
-      {:ok, return} -> return["retval"]
+  def find(opts, group_id) do
+    case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts, group_id)}) do
+      {:ok, return} -> mongo_return(return["retval"], group_id)
       er -> IO.inspect(er); raise "Mongo custom command error"
     end
   end
 
-  def find_one([{:url_key, _source_id} | _tail] = options), do: find_one_with(options)
-  def find_one([{:source_id, _source_id} | _tail] = options), do: find_one_with(options)
+  def find_one(group_id, [{:url_key, _source_id} | _tail] = options), do: find_one_with(options, group_id)
+  def find_one(group_id, [{:source_id, _source_id} | _tail] = options), do: find_one_with(options, group_id)
 
-  defp find_one_with(options) do
+  defp find_one_with(options, group_id) do
     @collection_name
     |> ORMongo.find_with_lang(options)
-    |> item_response
+    |> item_response(group_id)
   end
 
-  defp prepare_mongo_query(opts) do
+  defp prepare_mongo_query(opts, group_id) do
     "productFilter("
+      <> ( if group_id do group_id else "undefined" end) <> ","
       <> map_to_key_value_pair_json(opts[:filter]) <> ","
       <> Poison.encode!(@filterable_params) <> ","
       <> map_to_key_value_pair_json(opts[:options][:projection]) <> ","
@@ -58,5 +59,23 @@ defmodule Perseids.Product do
 
   defp item_response(product) do
     product |> List.first
+  end
+
+  defp item_response(product, group_id) do
+    variants = product
+    |> List.first
+    |> group_price([], group_id)
+  end
+
+  defp mongo_return(retval, nil), do: retval
+
+  defp mongo_return(retval, group_id) do
+    retval
+    |> Map.put("products", retval["products"] |> Enum.reduce([], fn(x,acc) -> [group_price(x, acc, group_id) | acc] end) |> Enum.reverse)
+  end
+
+  defp group_price(elem, acc, group_id) do
+    elem
+    |> Map.put("variants", elem["variants"] |> Enum.reduce([], fn(x, acc) -> (if x["groups_prices"][group_id] do [Map.put(x, "price", x["groups_prices"][group_id]) | acc ] else [x | acc] end) end))
   end
 end
