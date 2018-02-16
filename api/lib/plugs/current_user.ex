@@ -20,6 +20,7 @@ defmodule Perseids.Plugs.CurrentUser do
          conn
          |> assign(:session_id, session_id)
          |> assign(:magento_token, session["magento_token"])
+         |> assign(:group_id, session["group_id"] |> Integer.to_string)
          |> assign(:customer_id, session["customer_id"])
       end
     rescue
