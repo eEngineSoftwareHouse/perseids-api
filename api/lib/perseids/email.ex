@@ -5,7 +5,7 @@ defmodule Perseids.Email do
     new_email()
     |> to(Application.get_env(:perseids, :contact_form)[:email])
     |> from(from)
-    |> subject("Wiadomość z formularza kontaktowego Perseids")
+    |> subject("Wiadomość z formularza kontaktowego ManyMornings")
     |> text_body(content)
   end
 end
