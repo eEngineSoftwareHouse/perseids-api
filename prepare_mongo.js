@@ -48,7 +48,7 @@ db.system.js.remove({"_id" : "productFilter"});
 db.system.js.save(
     {
         _id: "productFilter",
-        value: function (filters, filterable, selectedFields, keywords, lang, skip, limit, sortDirection) {
+        value: function (customerGroupId, filters, filterable, selectedFields, keywords, lang, skip, limit, sortDirection) {
             for (var f of filterable) {
                 filters.push({"name": "params." + f, "content": null});
             }
@@ -107,6 +107,10 @@ db.system.js.save(
             var selectedFieldsQuery = {};
             for (var field of selectedFields) {
                 selectedFieldsQuery[field.name] = field.content;
+            }
+
+            if (customerGroupId !== "") {
+                selectedFieldsQuery["variants.groups_prices"] = 1;
             }
 
             var output = {
