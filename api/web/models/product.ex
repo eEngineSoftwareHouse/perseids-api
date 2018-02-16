@@ -71,11 +71,23 @@ defmodule Perseids.Product do
 
   defp mongo_return(retval, group_id) do
     retval
-    |> Map.put("products", retval["products"] |> Enum.reduce([], fn(x,acc) -> [group_price(x, acc, group_id) | acc] end) |> Enum.reverse)
+    |> Map.put("products", retval["products"] |> Enum.reduce([], &list_swap_group_price(&1, &2, group_id)) |> Enum.reverse)
   end
 
-  defp group_price(elem, acc, group_id) do
-    elem
-    |> Map.put("variants", elem["variants"] |> Enum.reduce([], fn(x, acc) -> (if x["groups_prices"][group_id] do [Map.put(x, "price", x["groups_prices"][group_id]) | acc ] else [x | acc] end) end))
+  defp list_swap_group_price(product, products_list, group_id) do 
+    [ group_price(product, products_list, group_id) | products_list ] 
+  end
+
+  defp group_price(elem, acc, group_id) do 
+    elem 
+    |> Map.put("variants", elem["variants"] |> Enum.reduce([], &single_swap_group_price(&1, &2, group_id)))
+  end
+
+  defp single_swap_group_price(variant, variant_list, group_id) do
+    case variant["groups_prices"][group_id] do
+      nil -> [variant | variant_list]
+      group_price -> [ Map.put(variant, "price", group_price) | variant_list ]
+      _ -> [variant | variant_list]
+    end
   end
 end
