@@ -13,11 +13,19 @@ defmodule Perseids.Product do
 
   def find_one(group_id, [{:url_key, _source_id} | _tail] = options), do: find_one_with(options, group_id)
   def find_one(group_id, [{:source_id, _source_id} | _tail] = options), do: find_one_with(options, group_id)
+  def find_one([{:url_key, _source_id} | _tail] = options), do: find_one_with(options)
+  def find_one([{:source_id, _source_id} | _tail] = options), do: find_one_with(options)
 
   defp find_one_with(options, group_id) do
     @collection_name
     |> ORMongo.find_with_lang(options)
     |> item_response(group_id)
+  end
+
+  defp find_one_with(options) do
+    @collection_name
+    |> ORMongo.find_with_lang(options)
+    |> item_response
   end
 
   defp prepare_mongo_query(opts, group_id) do
