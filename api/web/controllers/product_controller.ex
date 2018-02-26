@@ -15,6 +15,11 @@ defmodule Perseids.ProductController do
     render conn, "index.json", products: products, count: count, params: params
   end
 
+  def gift_boxes(conn, %{"category_id" => category_id} = _params) do
+    gift_boxes = %{"filter" => %{"categories.id" => [category_id]}, "select" => "name,price,categories,params,variants.price,variants.name,variants.old_price,source_id,url_key,images"}
+    index(conn, gift_boxes)
+  end
+
   def show(%{assigns: %{lang: lang}} = conn, params) do
     render conn, "product.json", product: maybe_slug_or_id(params, lang)
   end
