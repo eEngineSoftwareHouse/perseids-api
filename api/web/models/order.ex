@@ -41,12 +41,6 @@ defmodule Perseids.Order do
      |> validate_required_subfields([address: [:payment]], if: :invoice) # validated only if 'invoice' checkbox is sent
   end
 
-  def create(%{wholesale: true} = params) do
-    @collection_name
-    |> ORMongo.insert_one(append_proper_wholesale_shipping_and_payment(params))
-    |> item_response
-  end
-
   def create(%{payment: "payu-pre"} = params) do
     @collection_name
     |> ORMongo.insert_one(update_shipping_and_payment_info(params))
@@ -261,23 +255,13 @@ defmodule Perseids.Order do
       _ -> add_error(changeset, :address, gettext "You must accept rules to continue")
     end
   end
+
   # ===================================================
   # Additional order calculations
   # ===================================================
-  defp update_shipping_and_payment_info(params) do
-    shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
-    payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang) 
-    
-    update_products(params, params.products, params.lang)
-    |> Map.put_new(:order_total_price, calc_order_total(params.products, params[:discount_code], params.lang))
-    |> add_shipping_price(shipping, params.lang)
-    |> Map.put_new(:shipping_code, shipping["code"])
-    |> Map.put_new(:shipping_name, shipping["name"])
-    |> Map.put_new(:payment_name, payment["name"])
-    |> Map.put_new(:payment_code, payment["code"])
-  end
 
-  defp append_proper_wholesale_shipping_and_payment(params) do
+  # WHOLESALE order additional fields
+  defp update_shipping_and_payment_info(%{wholesale: true} = params) do
     products_count = products_count(params)
     shipping = get_wholesale_shipping_for(params.address["shipping"]["country"], products_count, params.lang).shipping |> List.first
     case shipping do
@@ -289,6 +273,20 @@ defmodule Perseids.Order do
         |> Map.put_new(:shipping_code, shipping["code"])
         |> Map.put(:payment_code, "banktransfer")
     end
+  end
+
+  # NORMAL order additional fields
+  defp update_shipping_and_payment_info(params) do
+    shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
+    payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang) 
+    
+    update_products(params, params.products, params.lang)
+    |> Map.put_new(:order_total_price, calc_order_total(params.products, params[:discount_code], params.lang))
+    |> add_shipping_price(shipping, params.lang)
+    |> Map.put_new(:shipping_code, shipping["code"])
+    |> Map.put_new(:shipping_name, shipping["name"])
+    |> Map.put_new(:payment_name, payment["name"])
+    |> Map.put_new(:payment_code, payment["code"])
   end
 
   defp update_products(params, products, lang) do
