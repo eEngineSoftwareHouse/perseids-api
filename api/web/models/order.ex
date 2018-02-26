@@ -73,8 +73,8 @@ defmodule Perseids.Order do
     case shipping do
       nil -> raise "Wholesale shipping for such order doesn't exist"
       shipping -> 
-        Perseids.Shipping.find_one(source_id: shipping["source_id"], lang: params.lang) 
         Map.put(params, :shipping_price, shipping["price"])
+        |> Map.put_new(:order_total_price, calc_order_total(params.products, params.lang))
         |> Map.put(:shipping, shipping["source_id"])
         |> Map.put_new(:shipping_code, shipping["code"])
         |> Map.put(:payment_code, "banktransfer")
@@ -291,6 +291,8 @@ defmodule Perseids.Order do
     |> Enum.reduce([], &update_product(&1, &2, lang, params[:discount_code]))
     Map.put(params, :products, new_products)
   end
+
+  defp calc_order_total(products, lang), do: products |> calc_order_total(nil, lang)
 
   defp calc_order_total(products, discount_code, lang) do
     products
