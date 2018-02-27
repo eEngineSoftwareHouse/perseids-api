@@ -3,7 +3,7 @@
 dockerdata
 *.swp
 *.pyc
-
+.vscode
 image-server/tmp/**
 !image-server/tmp/.keep
 image-server/images/**
