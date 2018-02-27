@@ -30,9 +30,10 @@ config :phoenix, :generators,
 
 # Configure Magento Access
 config :perseids, :magento,
-  magento_api_endpoint: System.get_env("MAGENTO_API_ENDPOINT"),
-  admin_username:       System.get_env("MAGENTO_ADMIN_USERNAME"),
-  admin_password:       System.get_env("MAGENTO_ADMIN_PASSWORD")
+  magento_api_endpoint:   System.get_env("MAGENTO_API_ENDPOINT"),
+  admin_username:         System.get_env("MAGENTO_ADMIN_USERNAME"),
+  admin_password:         System.get_env("MAGENTO_ADMIN_PASSWORD"),
+  default_category_id:    System.get_env("MAGENTO_DEFAULT_CATEGORY_ID")
 
 # Configure GetResponse
 config :perseids, :get_response,
