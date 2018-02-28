@@ -5,9 +5,6 @@ defmodule Perseids.Product do
   @filterable_params ["category_ids", "color","pattern"]
 
   def find(opts) do
-    # exclude_giftboxes: If no categories.id filter is specified, return products only from root Default Category, 
-    # to prevent displaying gift boxes with other products
-    # case Mongo.command(:mongo, %{"eval" => exclude_giftboxes(opts) |> prepare_mongo_query }) do
     case Mongo.command(:mongo, %{"eval" => opts |> prepare_mongo_query }) do
       {:ok, return} -> return["retval"]
       er -> IO.inspect(er); raise "Mongo custom command error"
@@ -22,10 +19,6 @@ defmodule Perseids.Product do
     |> ORMongo.find_with_lang(options)
     |> item_response
   end
-
-  # def exclude_giftboxes([{:filter, filter}, {:options, options} | tail]),            do: exclude_giftboxes(filter, options, tail)
-  # def exclude_giftboxes(%{"categories.id" => _category_id} = filter, options, tail), do: [ {:filter, filter}, {:options, options} | tail ]
-  # def exclude_giftboxes(filter, options, tail),                                      do: [ {:filter, filter |> Map.put_new("categories.id", [default_category_id()])}, {:options, options} | tail ]
 
   defp prepare_mongo_query(opts) do
     "productFilter("
@@ -66,6 +59,4 @@ defmodule Perseids.Product do
   defp item_response(product) do
     product |> List.first
   end
-
-  # defp default_category_id, do: Application.get_env(:perseids, :magento)[:default_category_id]
 end
