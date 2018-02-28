@@ -50,6 +50,7 @@ defmodule Perseids.Router do
     get "/products/search", ProductController, :index
     get "/products/stock/:sku", ProductController, :check_stock
     get "/products/stock", ProductController, :check_stock
+    get "/products/gift_boxes/:category_id", ProductController, :gift_boxes
     get "/product/:url_key", ProductController, :show
 
     get "/params", ParamController, :index

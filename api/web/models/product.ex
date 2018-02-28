@@ -3,7 +3,7 @@ defmodule Perseids.Product do
 
   @collection_name "products"
   @filterable_params ["category_ids", "color","pattern"]
-
+  
   def find(opts, group_id) do
     case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts, group_id)}) do
       {:ok, return} -> mongo_return(return["retval"], group_id)
