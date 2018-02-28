@@ -28,7 +28,7 @@ defmodule Perseids.CustomerController do
   end
 
   def update(conn, params) do
-    case conn.assigns[:store_view] |> Magento.update_account(filtered_params(params), customer_id: conn.assigns[:customer_id], customer_token: conn.assigns[:magento_token]) do
+    case conn.assigns[:store_view] |> Magento.update_account(filtered_params(params), customer_id: conn.assigns[:customer_id], customer_token: conn.assigns[:magento_token], group_id: conn.assigns[:group_id]) do
         {:ok, response} -> 
           response = Perseids.CustomerHelper.default_lang(response)
           json(conn, Map.put_new(response, :session_id, conn.assigns[:session_id]))

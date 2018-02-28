@@ -41,12 +41,6 @@ defmodule Perseids.Order do
      |> validate_required_subfields([address: [:payment]], if: :invoice) # validated only if 'invoice' checkbox is sent
   end
 
-  def create(%{wholesale: true} = params) do
-    @collection_name
-    |> ORMongo.insert_one(append_proper_wholesale_shipping_and_payment(params))
-    |> item_response
-  end
-
   def create(%{payment: "payu-pre"} = params) do
     @collection_name
     |> ORMongo.insert_one(update_shipping_and_payment_info(params))
@@ -65,20 +59,6 @@ defmodule Perseids.Order do
     @collection_name
     |> ORMongo.insert_one(update_shipping_and_payment_info(params))
     |> item_response
-  end
-
-  def append_proper_wholesale_shipping_and_payment(params) do
-    products_count = products_count(params)
-    shipping = get_wholesale_shipping_for(params.address["shipping"]["country"], products_count, params.lang).shipping |> List.first
-    case shipping do
-      nil -> raise "Wholesale shipping for such order doesn't exist"
-      shipping -> 
-        Perseids.Shipping.find_one(source_id: shipping["source_id"], lang: params.lang) 
-        Map.put(params, :shipping_price, shipping["price"])
-        |> Map.put(:shipping, shipping["source_id"])
-        |> Map.put_new(:shipping_code, shipping["code"])
-        |> Map.put(:payment_code, "banktransfer")
-    end
   end
 
   def delivery_options(opts \\ [where: %{}]) do
@@ -114,7 +94,11 @@ defmodule Perseids.Order do
   defp list_response(list), do: list
   defp item_response(list), do: list |> List.first
 
+
+  # ===================================================
   # Custom validations
+  # ===================================================
+
 
   def validate_email(changeset) do
     get_field(changeset, :email)
@@ -272,7 +256,26 @@ defmodule Perseids.Order do
     end
   end
 
+  # ===================================================
   # Additional order calculations
+  # ===================================================
+
+  # WHOLESALE order additional fields
+  defp update_shipping_and_payment_info(%{wholesale: true} = params) do
+    products_count = products_count(params)
+    shipping = get_wholesale_shipping_for(params.address["shipping"]["country"], products_count, params.lang).shipping |> List.first
+    case shipping do
+      nil -> raise "Wholesale shipping for such order doesn't exist"
+      shipping -> 
+        Map.put(params, :shipping_price, shipping["price"])
+        |> Map.put_new(:order_total_price, calc_order_total(params.products, params.lang))
+        |> Map.put(:shipping, shipping["source_id"])
+        |> Map.put_new(:shipping_code, shipping["code"])
+        |> Map.put(:payment_code, "banktransfer")
+    end
+  end
+
+  # NORMAL order additional fields
   defp update_shipping_and_payment_info(params) do
     shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
     payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang) 
@@ -291,6 +294,8 @@ defmodule Perseids.Order do
     |> Enum.reduce([], &update_product(&1, &2, lang, params[:discount_code]))
     Map.put(params, :products, new_products)
   end
+
+  defp calc_order_total(products, lang), do: products |> calc_order_total(nil, lang)
 
   defp calc_order_total(products, discount_code, lang) do
     products

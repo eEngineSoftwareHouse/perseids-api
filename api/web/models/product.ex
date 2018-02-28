@@ -3,16 +3,24 @@ defmodule Perseids.Product do
 
   @collection_name "products"
   @filterable_params ["category_ids", "color","pattern"]
-
-  def find(opts) do
-    case Mongo.command(:mongo, %{"eval" => opts |> prepare_mongo_query }) do
-      {:ok, return} -> return["retval"]
+  
+  def find(opts, group_id) do
+    case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts, group_id)}) do
+      {:ok, return} -> mongo_return(return["retval"], group_id)
       er -> IO.inspect(er); raise "Mongo custom command error"
     end
   end
 
+  def find_one(group_id, [{:url_key, _source_id} | _tail] = options), do: find_one_with(options, group_id)
+  def find_one(group_id, [{:source_id, _source_id} | _tail] = options), do: find_one_with(options, group_id)
   def find_one([{:url_key, _source_id} | _tail] = options), do: find_one_with(options)
   def find_one([{:source_id, _source_id} | _tail] = options), do: find_one_with(options)
+
+  defp find_one_with(options, group_id) do
+    @collection_name
+    |> ORMongo.find_with_lang(options)
+    |> item_response(group_id)
+  end
 
   defp find_one_with(options) do
     @collection_name
@@ -20,8 +28,9 @@ defmodule Perseids.Product do
     |> item_response
   end
 
-  defp prepare_mongo_query(opts) do
+  defp prepare_mongo_query(opts, group_id) do
     "productFilter("
+      <> ( if group_id do group_id else "undefined" end) <> ","
       <> map_to_key_value_pair_json(opts[:filter]) <> ","
       <> Poison.encode!(@filterable_params) <> ","
       <> map_to_key_value_pair_json(opts[:options][:projection]) <> ","
@@ -58,5 +67,35 @@ defmodule Perseids.Product do
 
   defp item_response(product) do
     product |> List.first
+  end
+
+  defp item_response(product, group_id) do
+    variants = product
+    |> List.first
+    |> group_price([], group_id)
+  end
+
+  defp mongo_return(retval, nil), do: retval
+
+  defp mongo_return(retval, group_id) do
+    retval
+    |> Map.put("products", retval["products"] |> Enum.reduce([], &list_swap_group_price(&1, &2, group_id)) |> Enum.reverse)
+  end
+
+  defp list_swap_group_price(product, products_list, group_id) do 
+    [ group_price(product, products_list, group_id) | products_list ] 
+  end
+
+  defp group_price(elem, acc, group_id) do 
+    elem 
+    |> Map.put("variants", elem["variants"] |> Enum.reduce([], &single_swap_group_price(&1, &2, group_id)))
+  end
+
+  defp single_swap_group_price(variant, variant_list, group_id) do
+    case variant["groups_prices"][group_id] do
+      nil -> [variant | variant_list]
+      group_price -> [ Map.put(variant, "price", group_price) | variant_list ]
+      _ -> [variant | variant_list]
+    end
   end
 end
