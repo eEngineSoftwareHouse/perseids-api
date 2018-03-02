@@ -1,7 +1,5 @@
 defmodule Perseids.OrderControllerTest do
-  use Perseids.ConnCase, async: true
-
-  import Perseids.Gettext
+  use Perseids.ConnCase
 
   alias Perseids
   alias Perseids.Order
@@ -15,19 +13,21 @@ defmodule Perseids.OrderControllerTest do
     {:ok, conn: conn}
   end
   
-  describe "Orders listing" do
+  describe "Orders listing - " do
     test "guest user cannot display orders list", %{conn: conn} do
       conn = conn 
       |> guest
       |> get(order_path(conn, :index))
-      assert json_response(conn, 401) == %{"errors" => [gettext "You do not have sufficient permissions."]}
+
+      assert json_response(conn, 401)
     end
 
     test "logged in user can display his orders", %{conn: conn} do
       conn = conn 
       |> logged_in
       |> get(order_path(conn, :index))
-      assert json_response(conn, 200) == %{"count" => 0, "orders" => []}
+      
+      assert json_response(conn, 200)
     end
   end
   
