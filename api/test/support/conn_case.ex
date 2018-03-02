@@ -20,7 +20,6 @@ defmodule Perseids.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
-      # alias Perseids.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
@@ -33,7 +32,6 @@ defmodule Perseids.ConnCase do
   end
 
   setup tags do
-
 
     # unless tags[:async] do
     #   Mongo.Ecto.truncate(Perseids.Repo, [])

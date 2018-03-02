@@ -5,6 +5,8 @@ defmodule Perseids.OrderController do
   alias Perseids.Order
   alias Perseids.Discount
 
+  # action_fallback Perseids.FallbackController
+
   def index(conn, params) do
     orders = Order.find(filter: %{"customer_id" => [conn.assigns.customer_id]})
 
