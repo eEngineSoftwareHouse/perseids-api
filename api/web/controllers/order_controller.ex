@@ -44,7 +44,9 @@ defmodule Perseids.OrderController do
     if changeset.valid? do
       render conn, "order.json", order: Order.create(changeset.changes)
     else
-      render conn, "errors.json", changeset: changeset
+      conn
+      |> put_status(400)
+      |> render "errors.json", changeset: changeset
     end
   end
 
