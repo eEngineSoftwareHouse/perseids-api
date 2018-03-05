@@ -31,12 +31,33 @@ defmodule Perseids.ConnCase do
     end
   end
 
-  setup tags do
+  setup do
+    conn = Phoenix.ConnTest.build_conn()
+    |> Plug.Conn.put_req_header("accept", "application/json")
 
     # unless tags[:async] do
     #   Mongo.Ecto.truncate(Perseids.Repo, [])
     # end
-
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    {:ok, conn: conn}
   end
+
+  def login(conn, %{"email" => email, "password" => password} = credentials, lang) do
+    conn = conn |> guest(lang)
+
+    %Plug.Conn{resp_body: response} = Perseids.SessionController.create(conn, credentials)
+
+    conn |> Plug.Conn.put_req_header("authorization", Poison.decode!(response)["session_id"])
+  end
+
+  def guest(conn, lang) do
+    conn = conn
+    |> Plug.Conn.put_req_header("client-language", lang)
+    |> Perseids.Plugs.Language.call(%{})
+  end
+
+  def logout(conn, params) do
+    conn = conn
+    |> Perseids.SessionController.destroy(params)
+    # |> Plug.Conn.delete_req_header("authorization")
+  end 
 end
