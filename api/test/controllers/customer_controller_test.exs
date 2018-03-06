@@ -4,12 +4,17 @@ defmodule Perseids.CustomerControllerTest do
   alias Perseids.Plugs.CurrentUser
 
   @valid_email Time.utc_now |> to_string() |> String.replace(~r/\W/, "-")
-  @valid_credentials %{"email" => "test-api@test.pl", "password" => "Tajnafraza12"}
+  @valid_credentials %{"email" => "test-api@niepodam.pl", "password" => "Tajnafraza12"}
   @valid_params %{customer: %{email: "testowy-#{@valid_email}@testowy.pl", firstname: "Stefan", lastname: "Testowy"}, password: "Tajnafraza12"}
 
   
   defp logged_in(conn), do: conn |> Perseids.ConnCase.login(@valid_credentials, "pl_pln")
   defp guest(conn), do: conn |> Perseids.ConnCase.guest("pl_pln")
+  defp reset_password(conn, params) do
+    conn
+    |> guest
+    |> CustomerController.password_reset(params)
+  end
   defp valid_adresses do
     [
       %{
@@ -34,7 +39,8 @@ defmodule Perseids.CustomerControllerTest do
   end
 
   setup %{conn: conn} do 
-    conn = put_req_header(conn, "content-type", "application/json")
+    conn 
+    |> put_req_header("content-type", "application/json")
     {:ok, conn: conn}
   end
 
@@ -59,28 +65,51 @@ defmodule Perseids.CustomerControllerTest do
       conn = conn
       |> guest
       |> CustomerController.create(invalid_params)
-      assert json_response(conn, 200) # odpowiada 200 przy błędzie a nie powinien 400 ??
+      assert json_response(conn, 406)
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "customer"
     end
 
-    # test "cannot create new account without password", %{conn: conn} do
-    #   invalid_params = %{customer: %{email: "testowy-#{@valid_email}1@testowy.pl", firstname: "Stefan", lastname: "Testowy"}}
-    #   IO.inspect invalid_params
-    #   conn = conn
-    #   |> guest
-    #   |> CustomerController.create(invalid_params)
-    #   assert json_response(conn, 400)
-    #   assert conn.resp_body =~ "errors"
-    #   assert conn.resp_body =~ "password"
-    # end
-
-    test "password reset", %{conn: conn} do
+    test "cannot create new account without password", %{conn: conn} do
+      invalid_params = %{customer: %{email: "testowy-#{@valid_email}1@testowy.pl", firstname: "Stefan", lastname: "Testowy"}}
       conn = conn
-      |> logged_in
-      |> CustomerController.password_reset(%{"email" => @valid_credentials["email"], "website_id" => 1})
+      |> guest
+      |> CustomerController.create(invalid_params)
+      assert json_response(conn, 406)
+      assert conn.resp_body =~ "errors"
+      assert conn.resp_body =~ "hasła"
+    end
+
+    test "password reset -- can send reset email", %{conn: conn} do
+      conn = conn
+      |> reset_password(%{"email" => @valid_credentials["email"], "website_id" => 1})
       assert conn.resp_body =~ "true"
       assert json_response(conn, 200)
+    end
+
+    test "password reset -- cannot reset without token", %{conn: conn} do
+      conn = conn
+      |> reset_password(%{"password" => "Tajnafraza10", "password_confirmation" => "Tajnafraza10", "token" => "token", "email" => @valid_credentials["email"]})
+      assert conn.resp_body =~ "errors"
+      assert conn.resp_body =~ "token"
+      assert json_response(conn, 406)
+    end
+
+    test "password reset -- cannot reset without email", %{conn: conn} do
+      conn = conn
+      |> reset_password(%{"password" => "Tajnafraza10", "password_confirmation" => "Tajnafraza10", "token" => "token", "email" => ""})
+      assert conn.resp_body =~ "errors"
+      assert conn.resp_body =~ "email"
+      assert json_response(conn, 406)
+    end
+
+    test "password reset -- cannot reset with diffrence password", %{conn: conn} do
+      conn = conn
+      |> reset_password(%{"password" => "Another", "password_confirmation" => "Password", "token" => "token", "email" => @valid_credentials["email"]})
+      assert conn.resp_body =~ "errors"
+      assert conn.resp_body =~ "Wpisane hasła różnią się od siebie"
+      assert json_response(conn, 406)
+
     end
 
     test "can update account", %{conn: conn} do

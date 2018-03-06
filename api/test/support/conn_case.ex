@@ -58,6 +58,5 @@ defmodule Perseids.ConnCase do
   def logout(conn, params) do
     conn = conn
     |> Perseids.SessionController.destroy(params)
-    # |> Plug.Conn.delete_req_header("authorization")
   end 
 end
