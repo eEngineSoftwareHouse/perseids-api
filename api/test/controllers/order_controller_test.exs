@@ -37,7 +37,7 @@ defmodule Perseids.OrderControllerTest do
 
       conn = conn |> place_order(order_params, :guest)
 
-      assert json_response(conn, 400)
+      assert json_response(conn, 422)
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "products"
     end
@@ -48,7 +48,7 @@ defmodule Perseids.OrderControllerTest do
 
       conn = conn |> place_order(order_params, :guest)
 
-      assert json_response(conn, 400)
+      assert json_response(conn, 422)
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "email"
     end
@@ -59,7 +59,7 @@ defmodule Perseids.OrderControllerTest do
 
       conn = conn |> place_order(order_params, :guest)
 
-      assert json_response(conn, 400)
+      assert json_response(conn, 422)
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "payment"
     end
@@ -70,7 +70,7 @@ defmodule Perseids.OrderControllerTest do
 
       conn = conn |> place_order(order_params, :guest)
 
-      assert json_response(conn, 400)
+      assert json_response(conn, 422)
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "shipping"
     end
@@ -81,7 +81,7 @@ defmodule Perseids.OrderControllerTest do
 
       conn = conn |> place_order(order_params, :guest)
 
-      assert json_response(conn, 400)
+      assert json_response(conn, 422)
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "address"
     end
