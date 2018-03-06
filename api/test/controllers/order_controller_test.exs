@@ -92,7 +92,7 @@ defmodule Perseids.OrderControllerTest do
 
   defp place_order(conn, order_params, :logged_in) do
     conn 
-    |> guest 
+    |> logged_in 
     |> place_order(order_params)
   end
   
