@@ -23,7 +23,10 @@ defmodule Perseids.CustomerController do
         {:ok, response} -> 
           response = Perseids.CustomerHelper.default_lang(response)
           json(conn, response)
-        {:error, message} -> json(conn, %{ errors: [message] })
+        {:error, message} -> 
+          conn
+          |> put_status(406)
+          |> json(%{ errors: [message] })
     end
   end
 
@@ -40,11 +43,14 @@ defmodule Perseids.CustomerController do
   def password_reset(conn, %{"password" => password, "password_confirmation" => password_confirmation, "token" => _token, "email" => _email} = params), do: reset_password(password_confirmation == password, params, conn)
 
 
-  defp reset_password(false, _params, conn), do: json(conn, %{errors: [gettext "Passwords are not the same"]})
+  defp reset_password(false, _params, conn), do: conn |> put_status(406) |> json(%{errors: [gettext "Passwords are not the same"]})
   defp reset_password(true, params, conn) do
     case conn.assigns[:store_view] |> Magento.reset_password(params) do
         {:ok, response} -> json(conn, response)
-        {:error, message} -> json(conn, %{ errors: [message] })
+        {:error, message} -> 
+          conn
+          |> put_status(406)
+          |> json(%{ errors: [message] })
     end
   end
 
