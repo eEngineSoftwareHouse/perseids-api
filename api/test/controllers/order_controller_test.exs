@@ -1,5 +1,5 @@
 defmodule Perseids.OrderControllerTest do
-  use Perseids.ConnCase
+  use Perseids.ConnCase, async: true
   
   alias Perseids
 
@@ -11,6 +11,10 @@ defmodule Perseids.OrderControllerTest do
   setup %{conn: conn} do
     {:ok, conn: conn}
   end
+
+  # ===================================================
+  # Orders listing
+  # ===================================================
   
   describe "Orders listing - " do
     test "guest user cannot display orders list", %{conn: conn} do
@@ -30,65 +34,296 @@ defmodule Perseids.OrderControllerTest do
     end
   end
 
-  describe "Guest Order - " do
+  # ===================================================
+  # Guest user
+  # ===================================================
+
+  describe "Guest order - " do
     test "cannot place order without products", %{conn: conn} do
-      order_params = valid_order()
-      |> Map.drop(["products"])
-
-      conn = conn |> place_order(order_params, :guest)
-
-      assert json_response(conn, 422)
-      assert conn.resp_body =~ "errors"
-      assert conn.resp_body =~ "products"
+      conn
+      |> place_order(valid_order() |> Map.drop(["products"]), :guest)
+      |> assert_json_error("products")
     end
 
     test "cannot place order without email", %{conn: conn} do
-      order_params = valid_order()
-      |> Map.drop(["email"])
-
-      conn = conn |> place_order(order_params, :guest)
-
-      assert json_response(conn, 422)
-      assert conn.resp_body =~ "errors"
-      assert conn.resp_body =~ "email"
+      conn
+      |> place_order(valid_order() |> Map.drop(["email"]), :guest)
+      |> assert_json_error("email")
     end
 
     test "cannot place order without payment", %{conn: conn} do
-      order_params = valid_order()
-      |> Map.drop(["payment"])
-
-      conn = conn |> place_order(order_params, :guest)
-
-      assert json_response(conn, 422)
-      assert conn.resp_body =~ "errors"
-      assert conn.resp_body =~ "payment"
+      conn
+      |> place_order(valid_order() |> Map.drop(["payment"]), :guest)
+      |> assert_json_error("payment")
     end
 
     test "cannot place order without shipping", %{conn: conn} do
-      order_params = valid_order()
-      |> Map.drop(["shipping"])
-
-      conn = conn |> place_order(order_params, :guest)
-
-      assert json_response(conn, 422)
-      assert conn.resp_body =~ "errors"
-      assert conn.resp_body =~ "shipping"
+      conn
+      |> place_order(valid_order() |> Map.drop(["shipping"]), :guest)
+      |> assert_json_error("shipping")
     end
 
     test "cannot place order without address", %{conn: conn} do
-      order_params = valid_order()
-      |> Map.drop(["address"])
+      conn
+      |> place_order(valid_order() |> Map.drop(["address"]), :guest)
+      |> assert_json_error("address")
+    end
 
-      conn = conn |> place_order(order_params, :guest)
+    test "cannot place order if invoice is chosen but payment address fields are missing", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("invoice", true)
+      
+      conn
+      |> place_order(order_params, :guest)
+      |> assert_json_error("address")
+    end
+
+    test "can place order if invoice is chosen and payment address fields are send properly", %{conn: conn} do
+      address =  %{
+        "customer" => %{
+          "city" => "TestCity",
+          "country" => "PL",
+          "name" => "John",
+          "phone-number" => "123123123",
+          "post-code" => "95-070",
+          "street" => "TestStreet 1",
+          "surname" => "Tester"
+        },
+        "payment" => %{
+          "city" => "TestCity",
+          "company" => "Test Inc.",
+          "country" => "PL",
+          "name" => "John",
+          "nip" => "1231231212",
+          "phone-number" => "123123123",
+          "post-code" => "95-070",
+          "street" => "TestStreet 1",
+          "surname" => "Tester"
+        },
+        "shipping" => %{
+          "city" => "TestCity",
+          "country" => "PL",
+          "name" => "John",
+          "phone-number" => "123123123",
+          "post-code" => "95-070",
+          "street" => "TestStreet 1",
+          "surname" => "Tester"
+        }
+      }
+
+      order_params = valid_order()
+      |> Map.put("invoice", true)
+      |> Map.put("address", address)
+      
+      conn = conn
+      |> place_order(order_params, :guest)
+
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "payment_id"
+    end
+
+    test "should return redirect link if PayPal payment was chosen", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("payment", "paypal-pre")
+
+      conn = conn
+      |> place_order(order_params, :guest)
+
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "redirect_url"
+    end
+
+    test "should return redirect link if PayU payment was chosen", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("payment", "payu-pre")
+
+      conn = conn
+      |> place_order(order_params, :guest)
+
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "redirect_url"
+    end
+
+    test "should fail if paczkomat-PL shipping was chosen but no inpost_code was sent", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("shipping", "paczkomat-PL")
+
+      conn = conn
+      |> place_order(order_params, :guest)
 
       assert json_response(conn, 422)
       assert conn.resp_body =~ "errors"
-      assert conn.resp_body =~ "address"
+      assert conn.resp_body =~ "inpost_code"
+    end
+
+    test "can place order if paczkomat-PL shipping was chosen and inpost_code was sent", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("shipping", "paczkomat-PL")
+      |> Map.put("inpost_code", "PAR01")
+
+      conn = conn
+      |> place_order(order_params, :guest)
+
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "payment_id"
     end
   end
 
+  # ===================================================
+  # Logged in user
+  # ===================================================
+
+  describe "Logged in user order - " do
+    test "cannot place order without products", %{conn: conn} do
+      conn
+      |> place_order(valid_order() |> Map.drop(["products"]), :logged_in)
+      |> assert_json_error("products")
+    end
+
+    test "cannot place order without email", %{conn: conn} do
+      conn
+      |> place_order(valid_order() |> Map.drop(["email"]), :logged_in)
+      |> assert_json_error("email")
+    end
+
+    test "cannot place order without payment", %{conn: conn} do
+      conn
+      |> place_order(valid_order() |> Map.drop(["payment"]), :logged_in)
+      |> assert_json_error("payment")
+    end
+
+    test "cannot place order without shipping", %{conn: conn} do
+      conn
+      |> place_order(valid_order() |> Map.drop(["shipping"]), :logged_in)
+      |> assert_json_error("shipping")
+    end
+
+    test "cannot place order without address", %{conn: conn} do
+      conn
+      |> place_order(valid_order() |> Map.drop(["address"]), :logged_in)
+      |> assert_json_error("address")
+    end
+
+    test "cannot place order if invoice is chosen but payment address fields are missing", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("invoice", true)
+      
+      conn
+      |> place_order(order_params, :logged_in)
+      |> assert_json_error("address")
+    end
+
+    test "can place order if invoice is chosen and payment address fields are send properly", %{conn: conn} do
+      address =  %{
+        "customer" => %{
+          "city" => "TestCity",
+          "country" => "PL",
+          "name" => "John",
+          "phone-number" => "123123123",
+          "post-code" => "95-070",
+          "street" => "TestStreet 1",
+          "surname" => "Tester"
+        },
+        "payment" => %{
+          "city" => "TestCity",
+          "company" => "Test Inc.",
+          "country" => "PL",
+          "name" => "John",
+          "nip" => "1231231212",
+          "phone-number" => "123123123",
+          "post-code" => "95-070",
+          "street" => "TestStreet 1",
+          "surname" => "Tester"
+        },
+        "shipping" => %{
+          "city" => "TestCity",
+          "country" => "PL",
+          "name" => "John",
+          "phone-number" => "123123123",
+          "post-code" => "95-070",
+          "street" => "TestStreet 1",
+          "surname" => "Tester"
+        }
+      }
+
+      order_params = valid_order()
+      |> Map.put("invoice", true)
+      |> Map.put("address", address)
+      
+      conn = conn
+      |> place_order(order_params, :logged_in)
+
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "payment_id"
+    end
+
+    test "should return redirect link if PayPal payment was chosen", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("payment", "paypal-pre")
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "redirect_url"
+    end
+
+    test "should return redirect link if PayU payment was chosen", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("payment", "payu-pre")
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "redirect_url"
+    end
+
+    test "should fail if paczkomat-PL shipping was chosen but no inpost_code was sent", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("shipping", "paczkomat-PL")
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+
+      assert json_response(conn, 422)
+      assert conn.resp_body =~ "errors"
+      assert conn.resp_body =~ "inpost_code"
+    end
+
+    test "can place order if paczkomat-PL shipping was chosen and inpost_code was sent", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("shipping", "paczkomat-PL")
+      |> Map.put("inpost_code", "PAR01")
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "payment_id"
+    end
+  end
+
+  # ===================================================
+  # Wholesale user
+  # ===================================================
+  describe "Wholesale user order - " do
+    test "should always have automatically added \"banktransfer\" payment", %{conn: _conn} do
+      assert false
+    end
+
+    test "should always have automatically added shipping code", %{conn: _conn} do
+      assert false
+    end
+  end
 
   # Utilities
+
+  defp assert_json_error(conn, fieldname, status \\ 422) do
+    assert json_response(conn, status)
+    assert conn.resp_body =~ "errors"
+    assert conn.resp_body =~ fieldname
+  end
 
   defp place_order(conn, order_params, :logged_in) do
     conn 
