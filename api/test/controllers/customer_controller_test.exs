@@ -65,7 +65,7 @@ defmodule Perseids.CustomerControllerTest do
       conn = conn
       |> guest
       |> CustomerController.create(invalid_params)
-      assert json_response(conn, 406)
+      assert json_response(conn, 422)
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "customer"
     end
@@ -75,7 +75,7 @@ defmodule Perseids.CustomerControllerTest do
       conn = conn
       |> guest
       |> CustomerController.create(invalid_params)
-      assert json_response(conn, 406)
+      assert json_response(conn, 422)
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "hasła"
     end
@@ -92,7 +92,7 @@ defmodule Perseids.CustomerControllerTest do
       |> reset_password(%{"password" => "Tajnafraza10", "password_confirmation" => "Tajnafraza10", "token" => "token", "email" => @valid_credentials["email"]})
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "token"
-      assert json_response(conn, 406)
+      assert json_response(conn, 422)
     end
 
     test "password reset -- cannot reset without email", %{conn: conn} do
@@ -100,7 +100,7 @@ defmodule Perseids.CustomerControllerTest do
       |> reset_password(%{"password" => "Tajnafraza10", "password_confirmation" => "Tajnafraza10", "token" => "token", "email" => ""})
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "email"
-      assert json_response(conn, 406)
+      assert json_response(conn, 422)
     end
 
     test "password reset -- cannot reset with diffrence password", %{conn: conn} do
@@ -108,7 +108,7 @@ defmodule Perseids.CustomerControllerTest do
       |> reset_password(%{"password" => "Another", "password_confirmation" => "Password", "token" => "token", "email" => @valid_credentials["email"]})
       assert conn.resp_body =~ "errors"
       assert conn.resp_body =~ "Wpisane hasła różnią się od siebie"
-      assert json_response(conn, 406)
+      assert json_response(conn, 422)
 
     end
 
