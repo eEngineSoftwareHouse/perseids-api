@@ -60,3 +60,22 @@ For more examples go to API documentation (link at the top)
 
 To use methods such as `/api/v1/status/magento` you have to provide magento access data, such as host and admin credentials in your `.env` file.
 See `.env.sample` for details.
+
+
+## Running tests
+
+Test config uses `perseids_test` database.
+This database is not created automatically.
+You can easly clone your dev database by running:
+
+```
+db.copyDatabase(sourceDBName, targetDBName)
+db.copyDatabase("perseids", "perseids_test")
+```
+
+Then,you can run tests:
+
+```
+docker-compose exec api bash -c "MIX_ENV=test mix test"
+```
+
