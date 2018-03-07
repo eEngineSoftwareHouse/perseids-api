@@ -11,7 +11,7 @@ config :logger, level: :warn
 
 # Configure your database
 config :perseids, :db,
-  name: "perseids",
+  name: "perseids_test",
   hostname: "mongo"
 
 # Mailer config
