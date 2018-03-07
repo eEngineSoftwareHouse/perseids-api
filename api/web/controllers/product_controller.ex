@@ -16,7 +16,10 @@ defmodule Perseids.ProductController do
   end
 
   def show(%{assigns: %{lang: lang}} = conn, params) do
-    render conn, "product.json", product: maybe_slug_or_id(params, lang, conn)
+    case product = maybe_slug_or_id(params, lang, conn) do
+      nil -> conn |> put_status(404) |> json(%{error: gettext "Not found"})
+      _ -> render conn, "product.json", product: product
+    end
   end
 
   def check_stock(conn, %{"sku" => sku}) do

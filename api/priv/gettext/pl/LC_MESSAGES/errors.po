@@ -93,4 +93,4 @@ msgid "must be equal to %{number}"
 msgstr "musi być równe %{number}"
 
 msgid "Passwords are not the same"
-msgstr ""
+msgstr "Hasła nie są identyczne"
