@@ -4,8 +4,10 @@ defmodule Perseids.OrderControllerTest do
   alias Perseids
 
   @valid_credentials %{"email" => "szymon.ciolkowski@eengine.pl", "password" => "Tajnafraza12"}
+  @wholesale_valid_credentials %{"email" => "szymon.ciolkowski+1@eengine.pl", "password" => "Tajnafraza12"}
   
   defp logged_in(conn), do: conn |> Perseids.ConnCase.login(@valid_credentials, "pl_pln")
+  defp wholesaler_logged_in(conn), do: conn |> Perseids.ConnCase.login(@wholesale_valid_credentials, "pl_pln")
   defp guest(conn), do: conn |> Perseids.ConnCase.guest("pl_pln")
 
   setup %{conn: conn} do
@@ -308,12 +310,25 @@ defmodule Perseids.OrderControllerTest do
   # Wholesale user
   # ===================================================
   describe "Wholesale user order - " do
-    test "should always have automatically added \"banktransfer\" payment", %{conn: _conn} do
-      assert false
-    end
+    test "should always have automatically added \"banktransfer\" payment and some shipping_code", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("wholesale", true)
+      |> Map.put("shipping", "wholesale-PL1")
+      |> Map.put("payment", "placeholder")
 
-    test "should always have automatically added shipping code", %{conn: _conn} do
-      assert false
+      conn = conn
+      |> place_order(order_params, :wholesaler)
+
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "payment_id"
+
+      order_id = Poison.decode!(conn.resp_body)["payment_id"]
+      order = Mongo.find(:mongo, "orders", %{_id: BSON.ObjectId.decode!(order_id)}) |> Enum.to_list |> List.first
+
+      assert Map.has_key?(order, "payment_code")
+      assert Map.has_key?(order, "shipping_code")
+      assert order["shipping_code"] == "dpd_default"
+      assert order["payment_code"] == "banktransfer"
     end
   end
 
@@ -334,6 +349,12 @@ defmodule Perseids.OrderControllerTest do
   defp place_order(conn, order_params, :guest) do
     conn 
     |> guest 
+    |> place_order(order_params)
+  end
+
+  defp place_order(conn, order_params, :wholesaler) do
+    conn 
+    |> wholesaler_logged_in 
     |> place_order(order_params)
   end
   
