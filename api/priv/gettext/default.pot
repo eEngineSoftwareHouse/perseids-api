@@ -18,39 +18,39 @@ msgstr ""
 msgid "Passwords are not the same"
 msgstr ""
 
-#: web/models/order.ex:221
+#: web/models/order.ex:205
 msgid " - city"
 msgstr ""
 
-#: web/models/order.ex:223
+#: web/models/order.ex:207
 msgid " - company"
 msgstr ""
 
-#: web/models/order.ex:220
+#: web/models/order.ex:204
 msgid " - country"
 msgstr ""
 
-#: web/models/order.ex:218
+#: web/models/order.ex:202
 msgid " - name"
 msgstr ""
 
-#: web/models/order.ex:228
+#: web/models/order.ex:212
 msgid " - phone number"
 msgstr ""
 
-#: web/models/order.ex:242
+#: web/models/order.ex:226
 msgid " - post code"
 msgstr ""
 
-#: web/models/order.ex:222
+#: web/models/order.ex:206
 msgid " - street"
 msgstr ""
 
-#: web/models/order.ex:219
+#: web/models/order.ex:203
 msgid " - surname"
 msgstr ""
 
-#: web/models/order.ex:124 web/models/order.ex:125
+#: web/models/order.ex:108 web/models/order.ex:109
 msgid "E-mail can't be blank"
 msgstr ""
 
@@ -58,11 +58,11 @@ msgstr ""
 msgid "Logout failed"
 msgstr ""
 
-#: web/models/order.ex:208
+#: web/models/order.ex:192
 msgid "Payment"
 msgstr ""
 
-#: web/models/order.ex:201
+#: web/models/order.ex:185
 msgid "Shipping"
 msgstr ""
 
@@ -74,27 +74,27 @@ msgstr ""
 msgid "Unknown error occured"
 msgstr ""
 
-#: web/models/order.ex:129
+#: web/models/order.ex:113
 msgid "Wrong e-mail"
 msgstr ""
 
-#: web/models/order.ex:271
+#: web/models/order.ex:255
 msgid "You must accept rules to continue"
 msgstr ""
 
-#: web/models/order.ex:186
+#: web/models/order.ex:170
 msgid "field is required"
 msgstr ""
 
-#: web/models/order.ex:263
+#: web/models/order.ex:247
 msgid "is too short"
 msgstr ""
 
-#: web/models/order.ex:257
+#: web/models/order.ex:241
 msgid "nip should contain only numbers"
 msgstr ""
 
-#: web/models/order.ex:231
+#: web/models/order.ex:215
 msgid "phone number should contain only numbers"
 msgstr ""
 
@@ -106,14 +106,18 @@ msgstr ""
 msgid "Email was not passed"
 msgstr ""
 
-#: web/models/order.ex:172
+#: web/models/order.ex:156
 msgid "You must select parcel locker"
 msgstr ""
 
-#: web/models/order.ex:247
+#: web/models/order.ex:231
 msgid "phone number should be exactly 9 characters long"
 msgstr ""
 
-#: web/models/order.ex:238
+#: web/models/order.ex:222
 msgid "post code should have format XX-XXX"
+msgstr ""
+
+#: web/controllers/product_controller.ex:20
+msgid "Not found"
 msgstr ""

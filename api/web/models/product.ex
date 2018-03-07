@@ -65,10 +65,14 @@ defmodule Perseids.Product do
     acc ++  [%{name: name, content: content}]
   end
 
+  defp item_response([]), do: nil
+
   defp item_response(product) do
     product |> List.first
   end
 
+  defp item_response([], _group_id), do: nil
+  
   defp item_response(product, group_id) do
     variants = product
     |> List.first
