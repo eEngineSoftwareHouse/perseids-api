@@ -8,17 +8,18 @@ defmodule Perseids.Banner do
    field :alt,                  :string
    field :order,                :integer
    field :grid,                 :string
-   field :img,                  :string
+   field :size,                 :string
+   field :image,                  :string
    field :lang,                 :string
   end
 
-  def changeset(order, params \\ %{}) do
-    order
-    |> cast(params, [:url, :alt, :order, :grid, :img, :lang])
-    |> validate_required([:url, :alt, :order, :grid, :img])
+  def changeset(banner, params \\ %{}) do
+    banner
+    |> cast(params, [:url, :alt, :order, :grid, :image, :lang, :size])
+    |> validate_required([:url, :alt, :order, :grid, :image, :size])
   end
 
-  def update(%{grid: grid, order: order, img: image_base64, lang: lang} = params) do
+  def update(%{grid: grid, order: order, image: image_base64, lang: lang} = params) do
     params = params
     |> Map.drop([:lang])
     |> Map.put_new(:image_url, Perseids.AssetStore.upload_image(image_base64))
