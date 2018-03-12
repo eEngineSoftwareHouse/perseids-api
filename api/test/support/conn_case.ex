@@ -52,12 +52,6 @@ defmodule Perseids.ConnCase do
     |> Perseids.Plugs.Language.call(%{})
   end
 
-  def guest(conn, lang) do
-    conn = conn
-    |> Plug.Conn.put_req_header("client-language", lang)
-    |> Perseids.Plugs.Language.call(%{})
-  end
-
   def logout(conn, params) do
     conn = conn
     |> Perseids.SessionController.destroy(params)

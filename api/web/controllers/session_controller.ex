@@ -38,10 +38,7 @@ defmodule Perseids.SessionController do
       |> Session.destroy
       json(conn, true)
     rescue
-      _ -> json(conn, %{errors: gettext "Logout failed"})
+      _ -> conn |> put_status(422) |> json(%{errors: gettext "Logout failed"})
     end
-  end
-
-  def options(_conn) do
   end
 end
