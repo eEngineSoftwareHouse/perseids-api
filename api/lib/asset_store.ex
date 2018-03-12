@@ -16,7 +16,7 @@ defmodule Perseids.AssetStore do
   def upload_image(image_base64) do
 
     # Remove base64 headers and decode the image
-    {:ok, image_binary} = Regex.replace(~r/data:image\/jpeg;base64,/, image_base64, "")
+    {:ok, image_binary} = Regex.replace(~r/(data:image\/jpeg;base64,|data:image\/png;base64,)/, image_base64, "")
     |> Base.decode64(ignore: :whitespace, padding: false)
 
     # Generate a unique filename
