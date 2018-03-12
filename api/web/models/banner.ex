@@ -4,13 +4,13 @@ defmodule Perseids.Banner do
   @collection_name "banners"
 
   schema @collection_name do
-   field :url,                  :string
-   field :alt,                  :string
-   field :order,                :integer
-   field :grid,                 :string
-   field :size,                 :string
+   field :url,                    :string
+   field :alt,                    :string
+   field :order,                  :integer
+   field :grid,                   :string
+   field :size,                   :string
    field :image,                  :string
-   field :lang,                 :string
+   field :lang,                   :string
   end
 
   def changeset(banner, params \\ %{}) do
