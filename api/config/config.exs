@@ -11,7 +11,8 @@ config :perseids,
 
 # Configures the endpoint
 config :perseids, Perseids.Endpoint,
-  url: [host: "localhost"],
+  url: [host: System.get_env("APP_URL")],
+  http: [port: System.get_env("APP_PORT")],
   secret_key_base: "7m/fcLNBZQlSrbrKk3+bcT8t75UfDEerlhzw7odrTQl0IO6w9am5MjBpncbPMsj9",
   render_errors: [view: Perseids.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Perseids.PubSub,
