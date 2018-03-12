@@ -12,7 +12,7 @@ defmodule Perseids.AssetStore do
       "http://localhost:4000/dbaaee81609747ba82bea2453cc33b83.png"
       
   """
-  @spec upload_image(String.t) :: s3_url :: String.t
+  
   def upload_image(image_base64) do
 
     # Remove base64 headers and decode the image
