@@ -15,8 +15,9 @@ defmodule Perseids.AssetStore do
   @spec upload_image(String.t) :: s3_url :: String.t
   def upload_image(image_base64) do
 
-    # Decode the image
-    {:ok, image_binary} = Base.decode64(image_base64)
+    # Remove base64 headers and decode the image
+    {:ok, image_binary} = Regex.replace(~r/data:image\/jpeg;base64,/, image_base64, "")
+    |> Base.decode64(ignore: :whitespace, padding: false)
 
     # Generate a unique filename
     filename =
