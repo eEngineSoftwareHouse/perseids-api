@@ -37,6 +37,8 @@ defmodule Perseids.Router do
 
   scope "/", Perseids do
     get "/robots.txt",  StatusController, :robots
+
+    post "/images", AssetController, :create
   end
 
   scope "/api/v1", Perseids do
