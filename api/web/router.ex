@@ -49,7 +49,6 @@ defmodule Perseids.Router do
   scope "/api/v1", Perseids do
     pipe_through :api
     
-
     options "/*path", SessionController, :options
     
     get "/banners", BannerController, :index
