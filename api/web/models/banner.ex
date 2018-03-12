@@ -24,7 +24,6 @@ defmodule Perseids.Banner do
   def update(%{grid: grid, order: order, lang: lang} = params) do
     params = params
     |> Map.drop([:lang])
-    # |> Map.put(:image, Perseids.AssetStore.upload_image(image_base64))
     
     lang <> "_" <> @collection_name
     |> ORMongo.update_one(%{"grid" => grid, "order" => order}, params, upsert: true)
