@@ -42,8 +42,8 @@ defmodule Perseids.Router do
 
   scope "/api/v1", Perseids do
     pipe_through :api
-    
-    post "/images", AssetController, :create
+
+    post "/images", BannerController, :create
   end
   
   scope "/api/v1", Perseids do
@@ -51,7 +51,8 @@ defmodule Perseids.Router do
     
 
     options "/*path", SessionController, :options
-
+    
+    get "/banners", BannerController, :index
     get "/status/magento", StatusController, :magento
 
     get "/products", ProductController, :index

@@ -1,4 +1,4 @@
-defmodule Perseids.AssetController do
+defmodule Perseids.BannerController do
   use Perseids.Web, :controller
   
   def create(conn, %{"image" => image_base64}) do
