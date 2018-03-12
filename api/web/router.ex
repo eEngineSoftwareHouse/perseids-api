@@ -12,20 +12,16 @@ defmodule Perseids.Router do
     plug CurrentUser
     if Mix.env == :dev, do: plug Phoenix.CodeReloader
   end
-
-  pipeline :authorized do
-    plug Session
-  end
-
-  pipeline :wholesale do
-    plug Perseids.Plugs.Wholesale
-  end
-
+  
   pipeline :order_checker_api do
     plug Corsica, origins: "*", allow_headers: ~w(content-type authorization Client-Language accept origin)
     plug :accepts, ["json"]
     if Mix.env == :dev, do: plug Phoenix.CodeReloader
   end
+
+  pipeline :authorized, do: plug Session
+  pipeline :wholesale,  do: plug Perseids.Plugs.Wholesale
+  pipeline :admin,      do: plug Perseids.Plugs.Admin
 
   scope "/api/v2" do
     forward "/", Absinthe.Plug,
@@ -42,6 +38,8 @@ defmodule Perseids.Router do
 
   scope "/api/v1", Perseids do
     pipe_through :api
+    pipe_through :authorized
+    pipe_through :admin
 
     post "/images", BannerController, :create
   end
