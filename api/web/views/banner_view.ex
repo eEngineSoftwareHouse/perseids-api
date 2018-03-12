@@ -20,7 +20,7 @@ defmodule Perseids.BannerView do
       grid: banner["grid"],
       order: banner["order"],
       alt: banner["alt"],
-      image_url: banner["image_url"]
+      image: banner["image"]
     }
   end
 end

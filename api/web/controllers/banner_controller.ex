@@ -11,7 +11,7 @@ defmodule Perseids.BannerController do
     render conn, "index.json", banners: banners
   end
 
-  def create(conn, %{"image" => image_base64} = params) do
+  def create(conn, params) do
     changeset = Banner.changeset(%Perseids.Banner{}, prepare_params(conn, params))
 
     if changeset.valid? do

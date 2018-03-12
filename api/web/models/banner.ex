@@ -9,20 +9,20 @@ defmodule Perseids.Banner do
    field :order,                  :integer
    field :grid,                   :string
    field :size,                   :string
-   field :image,                  :string
+   field :base64,                  :string
    field :lang,                   :string
   end
 
   def changeset(banner, params \\ %{}) do
     banner
-    |> cast(params, [:url, :alt, :order, :grid, :image, :lang, :size])
-    |> validate_required([:url, :alt, :order, :grid, :image, :size])
+    |> cast(params, [:url, :alt, :order, :grid, :base64, :lang, :size])
+    |> validate_required([:url, :alt, :order, :grid, :base64, :size])
   end
 
-  def update(%{grid: grid, order: order, image: image_base64, lang: lang} = params) do
+  def update(%{grid: grid, order: order, base64: image_base64, lang: lang} = params) do
     params = params
     |> Map.drop([:lang])
-    |> Map.put_new(:image_url, Perseids.AssetStore.upload_image(image_base64))
+    |> Map.put(:image, Perseids.AssetStore.upload_image(image_base64))
     
     lang <> "_" <> @collection_name
     |> ORMongo.update_one(%{"grid" => grid, "order" => order}, params, upsert: true)
