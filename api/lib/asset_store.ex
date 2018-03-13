@@ -26,7 +26,7 @@ defmodule Perseids.AssetStore do
       |> unique_filename()
           
     # Save the image locally here
-    Path.absname("priv/static/images/uploads/#{filename}")
+    Path.absname("#{System.get_env("API_STATIC_FILES_PATH")}#{filename}")
     |> File.write(image_binary, [:binary])
     |> maybe_image_saved?(filename) # Generate the full URL to the newly uploaded image
   end
