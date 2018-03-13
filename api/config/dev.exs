@@ -8,6 +8,7 @@ use Mix.Config
 # with brunch.io to recompile .js and .css sources.
 
 config :perseids, Perseids.Endpoint,
+  http: [port: 4000],
   code_reloader: true,
   debug_errors: true
   # check_origin: false,

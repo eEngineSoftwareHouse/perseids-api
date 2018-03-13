@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :perseids, Perseids.Endpoint,
+  http: [port: 4000],
+
 config :logger, level: :warn
 
 config :perseids, :db,
