@@ -12,7 +12,8 @@ defmodule Perseids.SessionController do
           magento_token: magento_token, 
           customer_id: customer_info["id"], 
           group_id: customer_info["group_id"], 
-          wholesale: customer_info["is_wholesaler"]
+          wholesale: customer_info["is_wholesaler"],
+          admin: customer_info["admin"]
         }
 
         changeset = Session.changeset(%Perseids.Session{}, session_data)

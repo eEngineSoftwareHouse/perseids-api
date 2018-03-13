@@ -56,9 +56,9 @@ defmodule ORMongo do
     |> result
   end
 
-  def update_one(collection, filter, new_value) do
+  def update_one(collection, filter, new_value, options \\ []) do
     # Mongo.update_one(:mongo, "orders", %{"_id" => BSON.ObjectId.decode!("59cb77c63d7ae90069f449df")}, %{"$set" => %{"redirect_url" => "TESTURL"}})
-    Mongo.update_one(:mongo, collection, filter, %{"$set" => new_value})
+    Mongo.update_one(:mongo, collection, filter, %{"$set" => new_value}, options)
   end
 
   defp search_options(options) do
