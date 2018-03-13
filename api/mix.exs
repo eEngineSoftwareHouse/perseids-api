@@ -33,7 +33,8 @@ defmodule Perseids.Mixfile do
        :httpoison,
        :scrivener_list,
        :bamboo,
-       :bamboo_smtp
+       :bamboo_smtp,
+       :uuid
      ]
     ]
   end
@@ -62,6 +63,7 @@ defmodule Perseids.Mixfile do
      {:scrivener_list, "~> 1.0"},
      {:bamboo, "~> 0.8"},
      {:bamboo_smtp, "~> 1.4.0"},
+     {:uuid, "~> 1.1"}
    ]
   end
 

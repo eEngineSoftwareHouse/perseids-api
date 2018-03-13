@@ -24,6 +24,7 @@ defmodule Perseids.Plugs.Session do
          |> assign(:customer_id, session["customer_id"])
          |> assign(:group_id, session["group_id"] |> Integer.to_string)
          |> assign(:wholesale, session["wholesale"])
+         |> assign(:admin, session["admin"])
       end
     rescue
         _ -> conn |> unauthorized
