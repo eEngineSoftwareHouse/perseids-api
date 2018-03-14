@@ -82,4 +82,11 @@ defmodule Perseids.OrderController do
 
     render conn, "orders.json", orders: orders, count: orders_count
   end
+
+  def update_order(conn, %{ "id" => id } = params) do
+    case id |> Order.update(%{"payment_code" => "banktransfer", "payment" => "banktransfer-pre", "payment_name" => "Przelew", "manually_changed" => true}, true) do
+      { :ok, respone } -> conn |> json("Succesfully updated")
+      { :error, response } -> conn |> put_status(404) |> json("Not found")
+    end
+  end
 end
