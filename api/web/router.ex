@@ -119,6 +119,7 @@ defmodule Perseids.Router do
   scope "/api/v1/checker", Perseids do
     pipe_through :order_checker_api
     get "/orders", OrderController, :check_orders
+    post "/order", OrderController, :update_order
   end
 
 end

@@ -87,8 +87,8 @@ defmodule Perseids.Order do
     |> item_response
   end
 
-  def update(id, new_value) do
-    @collection_name |> ORMongo.update_one(%{"_id" => BSON.ObjectId.decode!(id)}, new_value)
+  def update(id, new_value, upsert \\ false) do
+    @collection_name |> ORMongo.update_one(%{"_id" => BSON.ObjectId.decode!(id)}, new_value, upsert: upsert)
   end
 
   defp list_response(list), do: list
