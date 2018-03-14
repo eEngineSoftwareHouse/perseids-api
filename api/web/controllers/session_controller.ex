@@ -24,11 +24,18 @@ defmodule Perseids.SessionController do
 
         response = Perseids.CustomerHelper.default_lang(customer_info)
         |> Map.put_new(:session_id, session_id)
-
+        
         json(conn, response)
 
-      {:error, message} -> render conn, "error.json", message: message
-      _ -> render conn, "error.json", message: gettext "Unknown error occured"
+      {:error, message} ->
+        conn
+        |> put_status(422)
+        |> render("error.json", message: message)
+
+      _ -> 
+        conn
+        |> put_status(422)
+        |> render("error.json", message: gettext "Unknown error occured")
     end
   end
 

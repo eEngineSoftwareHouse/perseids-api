@@ -25,8 +25,14 @@ defmodule Perseids.ProductController do
   def check_stock(conn, %{"sku" => sku}) do
     case conn.assigns[:store_view] |> Magento.product_stock(sku) do
       {:ok, stock} -> json(conn, stock)
-      {:error, reason} -> json(conn, %{errors: [reason]})
-      _ -> json(conn, %{errors: ["Wystąpił błąd"]})
+      {:error, reason} -> 
+        conn
+        |> put_status(422)
+        |> json(%{errors: [reason]})
+      _ ->
+        conn
+        |> put_status(422)
+        |> json(%{errors: ["Wystąpił błąd"]})
     end
   end
 

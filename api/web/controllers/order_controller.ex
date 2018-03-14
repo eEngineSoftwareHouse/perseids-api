@@ -56,7 +56,10 @@ defmodule Perseids.OrderController do
     |> Discount.find_one
 
     case discount do
-      nil -> json(conn, %{errors: [gettext "There's no such code"]})
+      nil ->
+        conn
+        |> put_status(422)
+        |> json(%{errors: [gettext "There's no such code"]})
       code -> json(conn, code["value"])
     end
   end

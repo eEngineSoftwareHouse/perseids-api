@@ -7,14 +7,20 @@ defmodule Perseids.CustomerController do
         {:ok, response} -> 
           response = Perseids.CustomerHelper.default_lang(response)
           json(conn, response)
-        {:error, message} -> json(conn, %{ errors: [message] })
+        {:error, message} -> 
+          conn
+          |> put_status(422)
+          |> json(%{ errors: [message] })
     end
   end
 
   def address(conn, %{"address_type" => address}) do
     case conn.assigns[:store_view] |> Magento.address_info(conn.assigns[:magento_token], address) do
         {:ok, response} -> json(conn, response)
-        {:error, message} -> json(conn, %{ errors: [message] })
+        {:error, message} -> 
+          conn
+          |> put_status(422)
+          |> json(%{ errors: [message] })
     end
   end
 
@@ -35,7 +41,10 @@ defmodule Perseids.CustomerController do
         {:ok, response} -> 
           response = Perseids.CustomerHelper.default_lang(response)
           json(conn, Map.put_new(response, :session_id, conn.assigns[:session_id]))
-        {:error, message} -> json(conn, %{ errors: [message] })
+        {:error, message} -> 
+          conn
+          |> put_status(422)
+          |> json(%{ errors: [message] })
     end
   end
 
