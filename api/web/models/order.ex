@@ -333,7 +333,7 @@ defmodule Perseids.Order do
     end
   end
 
-  defp maybe_free_shipping?(%{"type" => "shipping"} = discount), do: true
+  defp maybe_free_shipping?(%{"type" => "shipping"} = _discount), do: true
   defp maybe_free_shipping?(_discount), do: false
   
   defp get_threshold(lang) do
