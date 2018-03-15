@@ -5,6 +5,8 @@ defmodule Perseids.OrderController do
   alias Perseids.Order
   alias Perseids.Discount
 
+  # action_fallback Perseids.FallbackController
+
   def index(conn, params) do
     orders = Order.find(filter: %{"customer_id" => [conn.assigns.customer_id]})
 
@@ -42,7 +44,9 @@ defmodule Perseids.OrderController do
     if changeset.valid? do
       render conn, "order.json", order: Order.create(changeset.changes)
     else
-      render conn, "errors.json", changeset: changeset
+      conn
+      |> put_status(422)
+      |> render "errors.json", changeset: changeset
     end
   end
 
@@ -52,8 +56,11 @@ defmodule Perseids.OrderController do
     |> Discount.find_one
 
     case discount do
-      nil -> json(conn, %{errors: [gettext "There's no such code"]})
-      code -> json(conn, code["value"])
+      nil ->
+        conn
+        |> put_status(422)
+        |> json(%{errors: [gettext "There's no such code"]})
+      code -> json(conn, %{value: code["value"], type: code["type"]})
     end
   end
 

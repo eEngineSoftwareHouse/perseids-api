@@ -12,7 +12,10 @@ defmodule Perseids.PaymentController do
   def paypal_accept(conn, %{"PayerID" => payer_id, "paymentId" => payment_id} = _params) do
     case PayPal.execute_payment(payment_id, payer_id) do
       {:ok, _saved} -> json(conn, "ok")
-      {:error, message} -> json(conn, %{errors: [message]})
+      {:error, message} ->
+        conn
+        |> put_status(422)
+        |> json(%{errors: [message]})
     end
   end
 
@@ -26,6 +29,8 @@ defmodule Perseids.PaymentController do
   end
 
   defp maybe_success(false, _order_id, _status, conn) do
-    json(conn, %{errors: "SIG don't match"})
+    conn
+    |> put_status(422)
+    |> json(%{errors: "SIG don't match"})
   end
 end
