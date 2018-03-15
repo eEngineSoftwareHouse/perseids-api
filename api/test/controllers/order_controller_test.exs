@@ -14,10 +14,19 @@ defmodule Perseids.OrderControllerTest do
     {:ok, conn: conn}
   end
 
+  setup_all do 
+    Mongo.delete_many(:mongo, "pl_pln_discount", %{"code" => %{"$regex" => "TEST"}} )
+    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 0, "code" => "TEST_SHIPPING", "type" => "shipping"})
+    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 11, "code" => "TEST_FIXED_11", "type" => "fixed"})
+    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 50, "code" => "TEST_FIXED_50", "type" => "fixed"})
+    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 10, "code" => "TEST_PERCENT", "type" => "percent"})
+    {:ok, mongo: "ok"}
+  end
+
   # ===================================================
   # Orders listing
   # ===================================================
-  
+
   describe "Orders listing - " do
     test "guest user cannot display orders list", %{conn: conn} do
       conn = conn 
@@ -169,6 +178,47 @@ defmodule Perseids.OrderControllerTest do
       assert json_response(conn, 200)
       assert conn.resp_body =~ "payment_id"
     end
+
+    test "can use shipping discount code", %{conn: conn} do
+    
+      order_params = valid_order()
+      |> Map.put("discount_code", "TEST_SHIPPING")
+
+      conn = conn
+      |> place_order(order_params, :guest)
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "\"shipping_price\":0"
+    end
+
+    test "can use fixed_11 discount code", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("discount_code", "TEST_FIXED_11")
+
+      conn = conn
+      |> place_order(order_params, :guest)
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "\"order_total_price\":14.0"
+    end
+
+    test "can use fixed_50 discount code and it should return 0", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("discount_code", "TEST_FIXED_50")
+
+      conn = conn
+      |> place_order(order_params, :guest)
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "\"order_total_price\":0"
+    end
+
+    test "can use percent discount code", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("discount_code", "TEST_PERCENT")
+
+      conn = conn
+      |> place_order(order_params, :guest)
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "\"order_total_price\":22.5"
+    end
   end
 
   # ===================================================
@@ -303,6 +353,47 @@ defmodule Perseids.OrderControllerTest do
 
       assert json_response(conn, 200)
       assert conn.resp_body =~ "payment_id"
+    end
+
+    test "can use shipping discount code", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("discount_code", "TEST_SHIPPING")
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "\"shipping_price\":0"
+    end
+
+
+    test "can use fixed_11 discount code", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("discount_code", "TEST_FIXED_11")
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "\"order_total_price\":14.0"
+    end
+
+    test "can use fixed_50 discount code and it should return 0", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("discount_code", "TEST_FIXED_50")
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "\"order_total_price\":0"
+    end
+
+    test "can use percent discount code", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("discount_code", "TEST_PERCENT")
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+      assert json_response(conn, 200)
+      assert conn.resp_body =~ "\"order_total_price\":22.5"
     end
   end
 
