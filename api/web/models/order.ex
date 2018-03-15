@@ -322,7 +322,10 @@ defmodule Perseids.Order do
 
   defp add_shipping_price(%{order_total_price: order_total_price} = order, shipping, lang, discount_code) do
     threshold = get_threshold(lang)
-    free_shipping = maybe_free_shipping?(discount_code, lang)
+    
+    free_shipping = Discount.find_one(code: discount_code, lang: lang) 
+    |> maybe_free_shipping?
+    
     if order_total_price >= threshold || free_shipping do
       Map.put(order, :shipping_price, 0)
     else
@@ -330,15 +333,9 @@ defmodule Perseids.Order do
     end
   end
 
-  defp maybe_free_shipping?(discount_code, lang) do
-    with %{"type" => type} <- Discount.find_one(code: discount_code, lang: lang),
-      true <- type == "shipping" do 
-        true
-      else
-        _ -> false
-    end
-  end
-
+  defp maybe_free_shipping?(%{"type" => "shipping"} = discount), do: true
+  defp maybe_free_shipping?(_discount), do: false
+  
   defp get_threshold(lang) do
     Perseids.Threshold.find(lang: lang)
     |> item_response
