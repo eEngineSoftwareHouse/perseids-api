@@ -306,10 +306,20 @@ defmodule Perseids.Order do
   defp maybe_discount?(original_price, nil, _lang), do: original_price
   defp maybe_discount?(original_price, discount_code, lang) do
     case Discount.find_one(code: discount_code, lang: lang) do
-      %{"value" => discount_value } -> original_price - (original_price * (discount_value * 0.01))
+      %{"type" => discount_type, "value" => discount_value } -> 
+        discount_type 
+        |> String.to_atom
+        |> discount_type?(original_price, discount_value)
+
       _ -> original_price
     end
   end
+
+  defp discount_type?(:fixed, original_price, discount_value) when discount_value > original_price, do: 0
+  defp discount_type?(:fixed, original_price, discount_value),    do: original_price - discount_value
+  defp discount_type?(:percent, original_price, discount_value),  do: original_price - (original_price * (discount_value * 0.01))
+  # defp discount_type?(:shipping, original_price, discount_value), do:
+  defp discount_type?(_default, original_price, _discount_value), do: original_price 
 
   defp add_shipping_price(%{order_total_price: order_total_price} = order, shipping, lang) do
     threshold = get_threshold(lang)
