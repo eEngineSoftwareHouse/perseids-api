@@ -60,7 +60,7 @@ defmodule Perseids.OrderController do
         conn
         |> put_status(422)
         |> json(%{errors: [gettext "There's no such code"]})
-      code -> json(conn, code["value"])
+      code -> json(conn, %{value: code["value"], type: code["type"]})
     end
   end
 
