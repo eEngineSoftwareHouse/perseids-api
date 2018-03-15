@@ -282,7 +282,7 @@ defmodule Perseids.Order do
     
     update_products(params, params.products, params.lang)
     |> Map.put_new(:order_total_price, calc_order_total(params.products, params[:discount_code], params.lang))
-    |> add_shipping_price(shipping, params.lang)
+    |> add_shipping_price(shipping, params.lang, params[:discount_code])
     |> Map.put_new(:shipping_code, shipping["code"])
     |> Map.put_new(:shipping_name, shipping["name"])
     |> Map.put_new(:payment_name, payment["name"])
@@ -318,12 +318,12 @@ defmodule Perseids.Order do
   defp discount_type?(:fixed, original_price, discount_value) when discount_value > original_price, do: 0
   defp discount_type?(:fixed, original_price, discount_value),    do: original_price - discount_value
   defp discount_type?(:percent, original_price, discount_value),  do: original_price - (original_price * (discount_value * 0.01))
-  # defp discount_type?(:shipping, original_price, discount_value), do:
-  defp discount_type?(_default, original_price, _discount_value), do: original_price 
+  defp discount_type?(:shipping, original_price, _discount_value), do: original_price
 
-  defp add_shipping_price(%{order_total_price: order_total_price} = order, shipping, lang) do
+  defp add_shipping_price(%{order_total_price: order_total_price} = order, shipping, lang, discount_code) do
     threshold = get_threshold(lang)
-    if order_total_price >= threshold do
+    %{ "type" => type } = Discount.find_one(code: discount_code, lang: lang)
+    if order_total_price >= threshold || type == "shipping" do
       Map.put(order, :shipping_price, 0)
     else
       Map.put(order, :shipping_price, get_default_shipping_price(shipping))
