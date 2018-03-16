@@ -7,7 +7,7 @@ defmodule Perseids.Complaint do
    field :email,          :string
    field :order_id,       :string
    field :comment,        :string
-   field :base64,          :string
+   field :base64,         :string
    field :image,          :string
   end
 
