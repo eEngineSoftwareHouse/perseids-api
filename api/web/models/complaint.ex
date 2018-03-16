@@ -33,11 +33,16 @@ defmodule Perseids.Complaint do
   defp list_response(list), do: list
   defp item_response(list), do: list |> List.first
 
-  def save_image(changeset) do
-    case get_field(changeset, :base64) |> Perseids.AssetStore.upload_image do
+  def save_image(changeset), do: get_field(changeset, :base64) |> save_image(changeset)
+
+  defp save_image(nil, changeset), do: changeset
+  
+  defp save_image(base64, changeset) do
+    case base64 |> Perseids.AssetStore.upload_image do
       {:ok, image_url} -> changeset |> put_change(:image, image_url)
       {:error, reason} -> add_error(changeset, :image, "Unable to save image on server, reason: #{reason}")
       _ -> add_error(changeset, :image, "Unable to save image on server due to internal error. Check API logs.")
     end
   end
+
 end

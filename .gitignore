@@ -9,5 +9,7 @@ image-server/tmp/**
 image-server/images/**
 !image-server/images/.keep
 !image-server/images/no_picture.png
+api/assets/images
 /assets/images/*
 !/assets/images/.keep
+
