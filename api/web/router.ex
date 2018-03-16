@@ -92,6 +92,7 @@ defmodule Perseids.Router do
     get "/paypal_cancel", PaymentController, :paypal_cancel
 
     post "/contact", ContactController, :contact_form
+    post "/contact/complaint", ContactController, :complaint_form
   end
 
   scope "/api/v1", Perseids do
