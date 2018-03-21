@@ -368,7 +368,7 @@ defmodule Perseids.Order do
       acc 
       |> Enum.map(fn(x) -> x["free"] == free_type end)
       |> Enum.filter(&!is_nil(&1))
-      |> maybe_add_product?(product, acc)
+      |> maybe_add_free_product?(product, acc)
     else
       acc
     end
@@ -376,17 +376,13 @@ defmodule Perseids.Order do
 
   defp update_free_count(product, acc, _conditions), do: acc ++ [product]
 
-  defp maybe_add_product?([], product, list), do: list ++ ensure_single(product)
+  defp maybe_add_free_product?([], product, list), do: list ++ ensure_single(product)
 
-  defp maybe_add_product?([free_type], product, list) do
-    if (product["free"] != free_type)  do
+  defp maybe_add_free_product?([free_type], %{"free" => free_product} = product, list) when free_product != free_type do
       list ++ ensure_single(product)
-    else
-      list
-    end
   end
-
-  defp maybe_add_product?(_free_products, product, list), do: list
+  
+  defp maybe_add_free_product?(_free_products, product, list), do: list
   
   defp ensure_single(product), do: [product |> Map.put("count", 1)]
 
