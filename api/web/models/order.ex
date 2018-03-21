@@ -323,7 +323,7 @@ defmodule Perseids.Order do
 
   defp add_shipping_price(%{order_total_price: order_total_price} = order, shipping, lang, discount_code) do
     threshold = lang 
-    |> get_threshold("FREE_SHIPPING")
+    |> get_threshold("free_shipping")
 
     free_shipping = Discount.find_one(code: discount_code, lang: lang) 
     |> maybe_free_shipping?
@@ -336,68 +336,57 @@ defmodule Perseids.Order do
   end
 
   defp check_free_products(%{order_total_price: order_total_price} = order, lang) do
-    lang 
-    |> get_threshold_list(order_total_price)
+    Perseids.Threshold.find([{:lang, lang}, {:value, order_total_price}])
+    |> List.first
+    |> get_threshold_name
     |> validate_free_products(order, lang)
   end
 
-  defp validate_free_products(nil, order, lang), do: order |> delete_free_products_if_there(lang)
-  defp validate_free_products(:FREE_LOW, order, lang), do: order |> order_should_have(lang, true, false)
-  defp validate_free_products(:FREE_SHIPPING, order, lang), do: order |> order_should_have(lang, true, false)
-  defp validate_free_products(:FREE_REGULAR, order, lang), do: order |> order_should_have(lang, true, true)
+  defp validate_free_products(nil, order, lang), do: order |> order_should_have(lang, [])
+  defp validate_free_products(:free_low, order, lang), do: order |> order_should_have(lang, ["free_low"])
+  defp validate_free_products(:free_shipping, order, lang), do: order |> order_should_have(lang, ["free_low"])
+  defp validate_free_products(:free_regular, order, lang), do: order |> order_should_have(lang, ["free_low", "free_regular"])
 
-  defp delete_free_products_if_there(%{products: products} = order, lang) do
-    case  products |> check_is_free_item(lang, ["low_socks", "regular_socks"]) do
-      [] -> order
-      products -> Map.put(order, :products, order[:products] -- products)
-    end
-  end 
+  defp order_should_have(%{products: products} = order, lang, conditions) do
 
-  defp order_should_have(%{products: products} = order, lang, agree_with_low, agree_with_regular) do
-    [low_socks, low_socks_count] = get_free_product_list_and_count(products, "low_socks", lang)
-    [regular_socks, regular_socks_count] = get_free_product_list_and_count(products, "regular_socks", lang)
-
-    with { :ok, _message } <- check_qty(low_socks_count, low_socks, agree_with_low),
-         { :ok, _message } <- check_qty(regular_socks_count, regular_socks, agree_with_regular)
-    do
-      order
-    else
-      { :error, reason }-> { :error, reason }
-      { :error, reason }-> { :error, reason }
-    end
+    new_products = products
+    |> Enum.map(&add_free_field(&1, lang))
+    |> Enum.reduce([], &update_free_count(&1, &2, conditions))
+    
+    order |> Map.put(:products, new_products)
   end
 
-  defp get_free_product_list_and_count(products, filter_by, lang) do
-    socks = 
-      products 
-      |> check_is_free_item(lang, filter_by)
-
-    socks_count = socks |> Enum.count
-
-    [socks, socks_count]
+  defp add_free_field(order_product, lang) do
+    order_product
+    |> Map.put_new("free", Perseids.Product.find_one(source_id: order_product["id"], lang: lang)["free"])
   end
 
-  defp check_is_free_item([head | tail], lang, filter, list \\ []) do
-    with product <- Perseids.Product.find_one(source_id: head["id"], lang: lang),
-        true <- String.contains?(product["free"], filter)
-    do
-      check_is_free_item(tail, lang, filter, list ++ [head])
-    else 
-      [] -> { :error, "Product not found" }
-      false -> check_is_free_item(tail, lang, filter, list)
-    end
-  end
-  defp check_is_free_item([], _lang, _filter, list), do: list
-
-  defp check_qty(0, _list, true),     do: {:error, "Choose your free item"}
-  defp check_qty(0, _list, false),    do: {:ok , "ok"}
-  defp check_qty(1, list, true),      do: list |> List.first |> check_count
-  defp check_qty(1, _list, false),    do: {:error, "You cant add this item as free beacuse is not valid for that price ammount"}
-  defp check_qty(_, _list, _boolean), do: {:error, "Too much products"}
-
-  defp check_count(%{ "count" => 1} = _list), do: {:ok , "ok"} 
-  defp check_count(_count), do: {:error, "Too much item count"} 
+  defp update_free_count(%{"free" => nil} = product, acc, _conditions), do: acc ++ [product]
   
+  defp update_free_count(%{"free" => free_type} = product, acc, conditions) do
+    if String.contains?(free_type, conditions) do
+      acc 
+      |> Enum.map(fn(x) -> x["free"] == free_type end)
+      |> Enum.filter(&!is_nil(&1))
+      |> maybe_add_product?(product, acc)
+    else
+      acc
+    end
+  end
+
+  defp update_free_count(product, acc, _conditions), do: acc ++ [product]
+
+  defp maybe_add_product?([], product, list), do: list ++ [product]
+
+  defp maybe_add_product?([free_type], product, list) do
+    if (product["free"] != free_type)  do
+      list ++ [product]
+    else
+      list
+    end
+  end
+
+  defp maybe_add_product?(_free_products, product, list), do: list 
 
   defp maybe_free_shipping?(%{"type" => "shipping"} = _discount), do: true
   defp maybe_free_shipping?(_discount), do: false
@@ -407,19 +396,14 @@ defmodule Perseids.Order do
     |> item_response
     |> get_value 
   end 
-
-  defp get_threshold_list(lang, order_total_price) do
-    Perseids.Threshold.find([{:lang, lang}, {:value, order_total_price}])
-    |> List.first
-    |> get_name
-  end
-
-  defp get_name(nil), do: nil
-
-  defp get_name(threshold) do
+  
+  defp get_threshold_name(nil), do: nil
+  defp get_threshold_name(threshold) do
     threshold["name"]
+    |> String.downcase
     |> String.to_atom
   end
+
 
   defp get_value(threshold) do
     threshold["value"]
