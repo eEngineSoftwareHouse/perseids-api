@@ -349,11 +349,11 @@ defmodule Perseids.Order do
 
   defp order_should_have(%{products: products} = order, lang, conditions) do
 
-    new_products = products
+    filtered_products = products
     |> Enum.map(&add_free_field(&1, lang))
     |> Enum.reduce([], &update_free_count(&1, &2, conditions))
     
-    order |> Map.put(:products, new_products)
+    order |> Map.put(:products, filtered_products)
   end
 
   defp add_free_field(order_product, lang) do
@@ -376,17 +376,19 @@ defmodule Perseids.Order do
 
   defp update_free_count(product, acc, _conditions), do: acc ++ [product]
 
-  defp maybe_add_product?([], product, list), do: list ++ [product]
+  defp maybe_add_product?([], product, list), do: list ++ ensure_single(product)
 
   defp maybe_add_product?([free_type], product, list) do
     if (product["free"] != free_type)  do
-      list ++ [product]
+      list ++ ensure_single(product)
     else
       list
     end
   end
 
-  defp maybe_add_product?(_free_products, product, list), do: list 
+  defp maybe_add_product?(_free_products, product, list), do: list
+  
+  defp ensure_single(product), do: [product |> Map.put("count", 1)]
 
   defp maybe_free_shipping?(%{"type" => "shipping"} = _discount), do: true
   defp maybe_free_shipping?(_discount), do: false
