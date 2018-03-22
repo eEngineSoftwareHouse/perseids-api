@@ -5,6 +5,9 @@ defmodule Perseids.Router do
   alias Perseids.Plugs.CurrentUser
   alias Perseids.Plugs.Session
 
+  #######################
+  ### Pipelines
+  #######################
   pipeline :api do
     plug Corsica, origins: "*", allow_headers: ~w(content-type authorization Client-Language accept origin)
     plug :accepts, ["json"]
@@ -23,19 +26,11 @@ defmodule Perseids.Router do
   pipeline :wholesale,  do: plug Perseids.Plugs.Wholesale
   pipeline :admin,      do: plug Perseids.Plugs.Admin
 
-  scope "/api/v2" do
-    forward "/", Absinthe.Plug,
-      schema: Perseids.Schema
-  end
+  #######################
+  ### Route scopes
+  #######################
 
-  forward "/graphiql", Absinthe.Plug.GraphiQL,
-    schema: Perseids.Schema
-
-  scope "/", Perseids do
-    get "/robots.txt",  StatusController, :robots
-
-  end
-
+  # Only for logged in "admin" user
   scope "/api/v1", Perseids do
     pipe_through :api
     pipe_through :authorized
@@ -44,6 +39,7 @@ defmodule Perseids.Router do
     post "/images", BannerController, :create
   end
   
+  # For everyone (guest)
   scope "/api/v1", Perseids do
     pipe_through :api
     
@@ -95,6 +91,7 @@ defmodule Perseids.Router do
     post "/contact/complaint", ContactController, :complaint_form
   end
 
+  # For logged in users only
   scope "/api/v1", Perseids do
     pipe_through :api
     pipe_through :authorized
@@ -107,6 +104,7 @@ defmodule Perseids.Router do
     post "/account/update", CustomerController, :update
   end
 
+  # For logged in wholesaler only
   scope "/api/v1", Perseids do
     pipe_through :api
     pipe_through :authorized
@@ -116,11 +114,11 @@ defmodule Perseids.Router do
     get "/wholesale/order/delivery_options", OrderController, :wholesale_delivery_options
   end
 
-  # Limit access to this route on load balancer in production
+  # Endpoints for order checker (manymornings.com/checker)
+  # Limit access to this route on HaProxy in production
   scope "/api/v1/checker", Perseids do
     pipe_through :order_checker_api
     get "/orders", OrderController, :check_orders
     post "/order", OrderController, :update_order
   end
-
 end
