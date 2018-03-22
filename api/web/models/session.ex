@@ -9,7 +9,7 @@ defmodule Perseids.Session do
    field :wholesale,     :boolean
    field :group_id,      :integer
    field :admin,         :boolean
-   field :tax_rate,      :float
+   field :tax_rate,      :integer
   end
 
   def changeset(order, params \\ %{}) do
