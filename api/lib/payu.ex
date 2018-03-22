@@ -27,8 +27,8 @@ defmodule PayU do
       currencyCode: currency,
       totalAmount: payu_format_price(order_total_price + shipping_price),
       extOrderId: BSON.ObjectId.encode!(order["_id"]),
-      products: order["products"]
-      |> Enum.map(&payu_prepare_product(&1, lang))
+      products: products
+      |> Enum.map(&payu_prepare_product(&1))
       |> Kernel.++([shipping |> payu_prepare_shipping(shipping_price)])
     }
 
@@ -58,18 +58,14 @@ defmodule PayU do
     }
   end
 
-  defp payu_prepare_product(product, lang) do
+  defp payu_prepare_product(product) do
     %{
       name: product["name"],
       unitPrice: product["price"] |> payu_format_price,
       quantity: product["count"]
     }
   end
-
-  defp get_product_price(product, lang) do
-    Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]
-  end
-
+  
   defp payu_format_price(price) do
     price
     |> Kernel./(1) # be sure that price is INT
@@ -85,7 +81,7 @@ defmodule PayU do
     end
   end
 
-  defp post(currency, url, params, headers, options \\ []) do
+  defp post(currency, url, params, headers, options) do
     HTTPoison.post(
       payu_config(currency, :api_url) <> @payu_api_version_endpoint <> url,
       params,

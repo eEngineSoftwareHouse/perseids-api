@@ -46,7 +46,7 @@ defmodule Perseids.OrderController do
     else
       conn
       |> put_status(422)
-      |> render "errors.json", changeset: changeset
+      |> render("errors.json", changeset: changeset)
     end
   end
 
