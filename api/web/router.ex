@@ -1,5 +1,6 @@
 defmodule Perseids.Router do
   use Perseids.Web, :router
+  use Plug.ErrorHandler
 
   alias Perseids.Plugs.Language
   alias Perseids.Plugs.CurrentUser
@@ -120,5 +121,28 @@ defmodule Perseids.Router do
     pipe_through :order_checker_api
     get "/orders", OrderController, :check_orders
     post "/order", OrderController, :update_order
+  end
+
+  ################################
+  ### Rollbar error handling rules
+  ################################
+  defp handle_errors(conn, %{kind: kind, reason: reason, stack: stacktrace}) do
+    conn =
+      conn
+      |> Plug.Conn.fetch_cookies()
+      |> Plug.Conn.fetch_query_params()
+
+    conn_data = %{
+      "request" => %{
+        "cookies" => conn.req_cookies,
+        "url" => "#{conn.scheme}://#{conn.host}:#{conn.port}#{conn.request_path}",
+        "user_ip" => List.to_string(:inet.ntoa(conn.remote_ip)),
+        "headers" => Enum.into(conn.req_headers, %{}),
+        "params" => conn.params,
+        "method" => conn.method,
+      }
+    }
+
+    Rollbax.report(kind, reason, stacktrace, %{}, conn_data)
   end
 end
