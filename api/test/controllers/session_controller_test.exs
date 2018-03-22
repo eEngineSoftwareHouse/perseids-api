@@ -1,6 +1,6 @@
 defmodule Perseids.SessionControllerTest do
   use Perseids.ConnCase, async: true
-
+  
   @valid_credentials %{"email" => "szymon.ciolkowski@eengine.pl", "password" => "Tajnafraza12"}
   
   alias Perseids.Plugs.CurrentUser

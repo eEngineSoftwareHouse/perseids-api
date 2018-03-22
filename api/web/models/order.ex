@@ -74,18 +74,13 @@ defmodule Perseids.Order do
     |> ORMongo.find(opts)
     |> list_response
   end
-
-  def find([query: query] = opts) do
-    @collection_name
-    |> ORMongo.find(opts)
-    |> list_response
-  end
-
+  
   def find_one(object_id) do
     @collection_name
     |> ORMongo.find([_id: object_id])
     |> item_response
   end
+
 
   def update(id, new_value, upsert \\ false) do
     @collection_name |> ORMongo.update_one(%{"_id" => BSON.ObjectId.decode!(id)}, new_value, upsert: upsert)
@@ -114,16 +109,18 @@ defmodule Perseids.Order do
     end
   end
 
+  
+
+
+  def validate_required_subfields(changeset, list, optional \\ [optional: false])
   def validate_required_subfields(changeset, subfields, if: key ) do
     case get_field(changeset, key) do
       true -> validate_required_subfields(changeset, subfields, optional: true)
       _ -> changeset
     end
   end
-
   def validate_required_subfields(changeset, [], _optional), do: changeset
-
-  def validate_required_subfields(changeset, [head | tail], optional \\ [optional: false]) do
+  def validate_required_subfields(changeset, [head | tail], optional) do
     { key, required_subfields } = head
     subfields = get_field(changeset, key) |> Helpers.atomize_keys
     
@@ -351,10 +348,6 @@ defmodule Perseids.Order do
     |> format_price
   end
 
-  defp get_product_price(product, lang) do
-    Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]
-  end
-
   # Total product price
   defp get_product_price(product, acc, lang) do
     acc + (product["count"] * (Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]))
@@ -367,12 +360,6 @@ defmodule Perseids.Order do
     |> Map.put_new("total_price", maybe_discount?(price * product["count"], discount, lang))
 
     List.insert_at(acc, -1, updated_product)
-  end
-
-  defp products_price_sum(prices_list) do
-    prices_list
-    |> Enum.sum
-    |> format_price
   end
 
   defp format_price(price) do

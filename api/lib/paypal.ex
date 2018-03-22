@@ -6,9 +6,7 @@ defmodule PayPal do
   @paypal_cancel_url Application.get_env(:perseids, :paypal)[:cancel_url]
   @paypal_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
 
-  def create_payment(%{"products" => products, "shipping" => shipping, "lang" => lang, "currency" => currency, "shipping_price" => shipping_price, "order_total_price" => order_total_price} = order) do
-    shipping = Perseids.Shipping.find_one(source_id: shipping, lang: lang)
-
+  def create_payment(%{"currency" => currency, "shipping_price" => shipping_price, "order_total_price" => order_total_price} = order) do
     payment_info = %{
       "intent" => "sale",
       "redirect_urls" => %{

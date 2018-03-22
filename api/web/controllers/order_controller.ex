@@ -13,7 +13,7 @@ defmodule Perseids.OrderController do
     conn |> render_orders(orders, params)
   end
 
-  def check_orders(conn, %{"id" => object_id} = params) do
+  def check_orders(conn, %{"id" => object_id} = _params) do
     orders = Order.find( query: %{ "id" => object_id} )
     |> Enum.filter(fn(elem) -> !Map.has_key?(elem, "synchronized") end)
     
@@ -90,7 +90,7 @@ defmodule Perseids.OrderController do
     render conn, "orders.json", orders: orders, count: orders_count
   end
 
-  def update_order(conn, %{ "id" => id } = params) do
+  def update_order(conn, %{ "id" => id } = _params) do
     case id |> Order.update(%{"payment_code" => "banktransfer", "payment" => "banktransfer-pre", "payment_name" => "Przelew", "manually_changed" => true}, true) do
       { :ok, _response } -> conn |> json(:ok)
       { :error, message } -> conn |> put_status(404) |> json(%{ errors: message })

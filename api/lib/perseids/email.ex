@@ -9,7 +9,7 @@ defmodule Perseids.Email do
     |> text_body(content)
   end
 
-  def compliant_form(%{"email" => from, "order_id" => order_id, "_id" => complaint_id, "comment" => comment } = complaint) do
+  def compliant_form(%{"email" => from, "order_id" => order_id, "_id" => _complaint_id, "comment" => comment } = complaint) do
     new_email()
     |> to(Application.get_env(:perseids, :contact_form)[:email])
     |> from(from)

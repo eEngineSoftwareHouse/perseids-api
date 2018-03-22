@@ -2,7 +2,7 @@ defmodule Perseids.PaymentController do
   use Perseids.Web, :controller
   alias Perseids.Order
 
-  def payu_notify(conn, %{"order" => %{"extOrderId" => order_id, "status" => status, "currencyCode" => currency}} = params) do
+  def payu_notify(conn, %{"order" => %{"extOrderId" => order_id, "status" => status, "currencyCode" => currency}} = _params) do
     %{"signature" => signature} = Regex.named_captures(~r/signature=(?<signature>.{32})/, conn |> get_req_header("openpayu-signature") |> List.first)
 
     PayU.check_sig(currency, conn.private.raw_body, signature)
