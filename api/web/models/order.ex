@@ -348,7 +348,6 @@ defmodule Perseids.Order do
   defp validate_free_products(:free_regular, order, lang), do: order |> order_should_have(lang, ["free_low", "free_regular"])
 
   defp order_should_have(%{products: products} = order, lang, conditions) do
-
     filtered_products = products
     |> Enum.map(&add_free_field(&1, lang))
     |> Enum.reduce([], &update_free_count(&1, &2, conditions))
@@ -361,27 +360,22 @@ defmodule Perseids.Order do
     |> Map.put_new("free", Perseids.Product.find_one(source_id: order_product["id"], lang: lang)["free"])
   end
 
-  defp update_free_count(%{"free" => nil} = product, acc, _conditions), do: acc ++ [product]
-  
+  defp update_free_count(%{"free" => nil} = product, acc, _conditions), do: acc ++ [product] 
   defp update_free_count(%{"free" => free_type} = product, acc, conditions) do
     if String.contains?(free_type, conditions) do
       acc 
-      |> Enum.map(fn(x) -> x["free"] == free_type end)
-      |> Enum.filter(&!is_nil(&1))
+      |> Enum.map(fn(x) -> x["free"] end)
       |> maybe_add_free_product?(product, acc)
     else
       acc
     end
   end
-
   defp update_free_count(product, acc, _conditions), do: acc ++ [product]
-
-  defp maybe_add_free_product?([], product, list), do: list ++ ensure_single(product)
 
   defp maybe_add_free_product?([free_type], %{"free" => free_product} = product, list) when free_product != free_type do
       list ++ ensure_single(product)
   end
-  
+  defp maybe_add_free_product?([], product, list), do: list ++ ensure_single(product)
   defp maybe_add_free_product?(_free_products, product, list), do: list
   
   defp ensure_single(product), do: [product |> Map.put("count", 1)]
