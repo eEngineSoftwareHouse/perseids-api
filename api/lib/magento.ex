@@ -1,6 +1,5 @@
 defmodule Magento do
-  import Perseids.Gettext
-
+  
   @magento_host Application.get_env(:perseids, :magento)[:magento_api_endpoint]
   @magento_timeout [connect_timeout: 60000, recv_timeout: 60000, timeout: 60000]
   @magento_admin_credentials %{
