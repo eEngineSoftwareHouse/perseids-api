@@ -81,6 +81,7 @@ defmodule Perseids.OrderController do
     |> Map.put_new("currency", conn.assigns.currency)
     |> Map.put_new("wholesale", conn.assigns[:wholesale])
     |> Map.put_new("group_id", conn.assigns[:group_id])
+    |> Map.put_new("tax_rate", conn.assigns[:tax_rate])
   end
 
   defp render_orders(conn, orders, params) do

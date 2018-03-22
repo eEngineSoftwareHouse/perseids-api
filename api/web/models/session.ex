@@ -9,11 +9,12 @@ defmodule Perseids.Session do
    field :wholesale,     :boolean
    field :group_id,      :integer
    field :admin,         :boolean
+   field :tax_rate,      :float
   end
 
   def changeset(order, params \\ %{}) do
    order
-     |> cast(params, [:magento_token, :customer_id, :wholesale, :group_id, :admin])
+     |> cast(params, [:magento_token, :customer_id, :wholesale, :group_id, :admin, :tax_rate])
      |> validate_required([:magento_token])
   end
 

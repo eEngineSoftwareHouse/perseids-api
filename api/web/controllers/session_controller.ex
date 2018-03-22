@@ -13,7 +13,8 @@ defmodule Perseids.SessionController do
           customer_id: customer_info["id"], 
           group_id: customer_info["group_id"], 
           wholesale: customer_info["is_wholesaler"],
-          admin: customer_info["admin"]
+          admin: customer_info["admin"],
+          tax_rate: customer_info["tax_rate"]
         }
 
         changeset = Session.changeset(%Perseids.Session{}, session_data)
