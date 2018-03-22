@@ -22,6 +22,27 @@ defmodule Perseids.OrderControllerTest do
     Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 11, "code" => "TEST_FIXED_11", "type" => "fixed"})
     Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 50, "code" => "TEST_FIXED_50", "type" => "fixed"})
     Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 10, "code" => "TEST_PERCENT", "type" => "percent"})
+    Mongo.update_one(:mongo, "pl_pln_products", %{"source_id" =>  "155"}, 
+      %{"$set" =>  
+        %{"free" =>  "free_low",
+          "variants.0.price" =>  0,
+          "variants.1.price" =>  0,
+          "variants.2.price" =>  0,
+          "price.152" =>  0,
+          "price.153" =>  0,
+          "price.154" =>  0
+      }}, upsert: true )
+    Mongo.update_one(:mongo, "pl_pln_products", %{"source_id" =>  "458"}, 
+      %{"$set" =>  
+        %{"free" =>  "free_regular",
+          "variants.0.price" =>  0,
+          "variants.1.price" =>  0,
+          "variants.2.price" =>  0,
+          "price.456" =>  0,
+          "price.457" =>  0,
+          "price.455" =>  0
+      }}, upsert:  true )
+
     {:ok, mongo: "ok"}
   end
 
@@ -278,6 +299,52 @@ defmodule Perseids.OrderControllerTest do
       assert json_response(conn, 200)
       assert_json_response(conn, valid_response)
     end
+    test "can obtain only 1 pair of low socks when credentials are met", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("products", invalid_free_products(5))
+
+      conn = conn
+      |> place_order(order_params, :guest)
+
+      valid_response = [
+        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":5}",
+        "\"name\":\"PIGGY TALES LOW-35-38\",\"id\":\"155\",\"free\":\"free_low\",\"count\":1",
+        "\"order_total_price\":125"
+      ]
+      invalid_response = [
+        "\"name\":\"EL LEOPARDO-43-46\",\"id\":\"458\",\"free\":\"free_regular\",\"count\":1",
+      ]
+      assert json_response(conn, 200)
+      assert_json_response(conn, valid_response)
+      refute_json_response(conn, invalid_response)
+
+      response_json = conn.resp_body |> Poison.decode!
+
+      assert response_json["products"] |> check_field_count("name", "PIGGY TALES LOW-35-38") == 1
+    end
+
+    test "can obtain only 1 pair of low socks and 1 pair of regular socks when credentials are met", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("products", invalid_free_products(10))
+
+      conn = conn
+      |> place_order(order_params, :guest)
+
+      valid_response = [
+        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":10}",
+        "\"name\":\"PIGGY TALES LOW-35-38\",\"id\":\"155\",\"free\":\"free_low\",\"count\":1",
+        "\"name\":\"EL LEOPARDO-43-46\",\"id\":\"458\",\"free\":\"free_regular\",\"count\":1",
+        "\"order_total_price\":250"
+      ]
+
+      assert json_response(conn, 200)
+      assert_json_response(conn, valid_response)
+
+      response_json = conn.resp_body |> Poison.decode!
+
+      assert response_json["products"] |> check_field_count("name", "PIGGY TALES LOW-35-38") == 1
+      assert response_json["products"] |> check_field_count("name", "EL LEOPARDO-43-46") == 1
+    end
   end
 
   # ===================================================
@@ -511,6 +578,53 @@ defmodule Perseids.OrderControllerTest do
       assert json_response(conn, 200)
       assert_json_response(conn, valid_response)
     end
+
+    test "can obtain only 1 pair of low socks when credentials are met", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("products", invalid_free_products(5))
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+
+      valid_response = [
+        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":5}",
+        "\"name\":\"PIGGY TALES LOW-35-38\",\"id\":\"155\",\"free\":\"free_low\",\"count\":1",
+        "\"order_total_price\":125"
+      ]
+      invalid_response = [
+        "\"name\":\"EL LEOPARDO-43-46\",\"id\":\"458\",\"free\":\"free_regular\",\"count\":1",
+      ]
+      assert json_response(conn, 200)
+      assert_json_response(conn, valid_response)
+      refute_json_response(conn, invalid_response)
+
+      response_json = conn.resp_body |> Poison.decode!
+
+      assert response_json["products"] |> check_field_count("name", "PIGGY TALES LOW-35-38") == 1
+    end
+
+    test "obtain only 1 pair of low socks and 1 pair of regular socks when credentials are met", %{conn: conn} do
+      order_params = valid_order()
+      |> Map.put("products", invalid_free_products(10))
+
+      conn = conn
+      |> place_order(order_params, :logged_in)
+
+      valid_response = [
+        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":10}",
+        "\"name\":\"PIGGY TALES LOW-35-38\",\"id\":\"155\",\"free\":\"free_low\",\"count\":1",
+        "\"name\":\"EL LEOPARDO-43-46\",\"id\":\"458\",\"free\":\"free_regular\",\"count\":1",
+        "\"order_total_price\":250"
+      ]
+
+      assert json_response(conn, 200)
+      assert_json_response(conn, valid_response)
+
+      response_json = conn.resp_body |> Poison.decode!
+      
+      assert response_json["products"] |> check_field_count("name", "PIGGY TALES LOW-35-38") == 1
+      assert response_json["products"] |> check_field_count("name", "EL LEOPARDO-43-46") == 1
+    end
   end
 
   # ===================================================
@@ -540,6 +654,12 @@ defmodule Perseids.OrderControllerTest do
   end
 
   # Utilities
+
+  defp check_field_count(list, field, compare) do
+    list
+      |> Enum.filter(fn(elem) -> elem[field] == compare end) 
+      |> Enum.count
+  end
 
   defp assert_json_error(conn, fieldname, status \\ 422) do
     assert json_response(conn, status)
@@ -621,19 +741,19 @@ defmodule Perseids.OrderControllerTest do
     }
   end
   
-  defp valid_free_products(count \\ 1) do
+  defp valid_free_products(count) do
     [
       %{
         "id" => "155",
         "variant_id" => "152",
-        "count" => 5,
+        "count" => 1,
         "sku" => "F-L13-43-46",
         "name" => "PIGGY TALES LOW-35-38"
       },
       %{
         "id" => "458",
         "variant_id" => "457",
-        "count" => 5,
+        "count" => 1,
         "sku" => "R67-43-46",
         "name" => "EL LEOPARDO-43-46"
       },
@@ -644,6 +764,67 @@ defmodule Perseids.OrderControllerTest do
         "sku" => "R2-39-42",
         "name" => "BEETROOT-39-42"
       }
+    ]
+  end
+
+  defp invalid_free_products(count) do 
+    [
+        %{
+          "id" => "155",
+          "variant_id" => "152",
+          "count" => 100,
+          "sku" => "F-L13-43-46",
+          "name" => "PIGGY TALES LOW-35-38"
+        },
+        %{
+          "id" => "155",
+          "variant_id" => "152",
+          "count" => 100,
+          "sku" => "F-L13-43-46",
+          "name" => "PIGGY TALES LOW-35-38"
+        },
+        %{
+          "id" => "155",
+          "variant_id" => "152",
+          "count" => 100,
+          "sku" => "F-L13-43-46",
+          "name" => "PIGGY TALES LOW-35-38"
+        },
+        %{
+          "id" => "458",
+          "variant_id" => "457",
+          "count" => 5,
+          "sku" => "R67-43-46",
+          "name" => "EL LEOPARDO-43-46"
+        },
+        %{
+          "id" => "458",
+          "variant_id" => "457",
+          "count" => 5,
+          "sku" => "R67-43-46",
+          "name" => "EL LEOPARDO-43-46"
+        },
+        %{
+          "id" => "458",
+          "variant_id" => "457",
+          "count" => 10,
+          "sku" => "R67-43-46",
+          "name" => "EL LEOPARDO-43-46"
+        },
+        %{
+          "id" => "155",
+          "variant_id" => "152",
+          "count" => 100,
+          "sku" => "F-L13-43-46",
+          "name" => "PIGGY TALES LOW-35-38"
+        },
+        %{
+          "id" => "51",
+          "variant_id" => "49",
+          "count" => count,
+          "sku" => "R2-39-42",
+          "name" => "BEETROOT-39-42"
+        }
     ]
   end
 end
