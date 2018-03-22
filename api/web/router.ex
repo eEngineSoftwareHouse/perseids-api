@@ -67,8 +67,9 @@ defmodule Perseids.Router do
     get "/thresholds", ThresholdController, :index
     get "/threshold/:source_id", ThresholdController, :show
 
-    get "/pages", PageController, :index
-    get "/pages/:slug", PageController, :show
+    # Disabled until pages are stored in DB
+    # get "/pages", PageController, :index
+    # get "/pages/:slug", PageController, :show
 
     get "/order/delivery_options", OrderController, :delivery_options
     post "/order/discount", OrderController, :discount

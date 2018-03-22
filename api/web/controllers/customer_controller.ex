@@ -3,7 +3,7 @@ defmodule Perseids.CustomerController do
   import Perseids.Gettext
 
   def info(conn, _params) do
-    case conn.assigns[:store_view] |> conn.assigns[:store_view] |> Magento.customer_info(conn.assigns[:magento_token]) do
+    case conn.assigns[:store_view] |> Magento.customer_info(conn.assigns[:magento_token]) do
         {:ok, response} -> 
           response = Perseids.CustomerHelper.default_lang(response)
           json(conn, response)
