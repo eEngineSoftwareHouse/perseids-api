@@ -373,7 +373,7 @@ defmodule Perseids.Order do
       list ++ ensure_single(product)
   end
   defp maybe_add_free_product?([], product, list), do: list ++ ensure_single(product)
-  defp maybe_add_free_product?(_free_products, product, list), do: list
+  defp maybe_add_free_product?(_free_products, _product, list), do: list
   
   defp ensure_single(product), do: [product |> Map.put("count", 1)]
 
