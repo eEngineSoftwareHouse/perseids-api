@@ -23,13 +23,13 @@ defmodule Perseids.ProductControllerTest do
 
   describe "Product -" do 
     test "test without params", %{conn: conn} do 
-      conn = conn
+      conn
       |> get(product_path(conn, :index))
       |> assert_json_response(["products"])
     end
 
     test "test with pagination", %{conn: conn} do 
-      conn = conn
+      conn
       |> get(product_path(conn, :index), 
           %{"filter" => %{"categories.id" => ["2"]}, "page" => "2", 
             "select" => "name,price,categories,params,variants.price,variants.name,variants.old_price,source_id,url_key,images"})
@@ -37,7 +37,7 @@ defmodule Perseids.ProductControllerTest do
     end
 
     test "test with choosed category", %{conn: conn} do 
-      conn = conn
+      conn
       |> get(product_path(conn, :index), 
           %{"filter" => %{"categories.id" => ["28"]}, 
             "select" => "name,price,categories,params,variants.price,variants.name,variants.old_price,source_id,url_key,images"})
@@ -45,7 +45,7 @@ defmodule Perseids.ProductControllerTest do
     end
 
     test "test with choosed color", %{conn: conn} do
-      conn = conn
+      conn
         |> get(product_path(conn, :index), 
           %{"filter" => %{"categories.id" => ["2"], "params.color" => ["green"]}, 
             "select" => "name,price,categories,params,variants.price,variants.name,variants.old_price,source_id,url_key,images"})
@@ -53,7 +53,7 @@ defmodule Perseids.ProductControllerTest do
     end
 
     test "test with choosed category and selected one pattern", %{conn: conn} do 
-      conn = conn
+      conn
       |> get(product_path(conn, :index), 
           %{"filter" => %{"categories.id" => ["28"], "params.pattern" => ["animals"]}, 
             "select" => "name,price,categories,params,variants.price,variants.name,variants.old_price,source_id,url_key,images"})
@@ -61,7 +61,7 @@ defmodule Perseids.ProductControllerTest do
     end
 
     test "test with choosed category and selected multiple pattern", %{conn: conn} do 
-      conn = conn
+      conn
       |> get(product_path(conn, :index), 
           %{"filter" => %{"categories.id" => ["29"], "params.pattern" => ["winter", "other-stories", "food"]}, 
             "select" => "name,price,categories,params,variants.price,variants.name,variants.old_price,source_id,url_key,images"})
@@ -69,7 +69,7 @@ defmodule Perseids.ProductControllerTest do
     end
 
     test "test with choosed category and selected multiple pattern and one color", %{conn: conn} do 
-      conn = conn
+      conn
       |> get(product_path(conn, :index), 
           %{"filter" => %{"categories.id" => ["29"], "params.color" => ["red"], "params.pattern" => ["winter", "other-stories", "food"]}, 
             "select" => "name,price,categories,params,variants.price,variants.name,variants.old_price,source_id,url_key,images"})
@@ -77,7 +77,7 @@ defmodule Perseids.ProductControllerTest do
     end
 
     test "test with choosed category and selected multiple patterns and multiple colors", %{conn: conn} do 
-      conn = conn
+      conn
       |> get(product_path(conn, :index), 
           %{"filter" => %{"categories.id" => ["27"], "params.color" => ["green", "claret", "orange"], 
             "params.pattern" => ["winter", "food", "black-white", "geometric"]}, 
@@ -120,13 +120,13 @@ defmodule Perseids.ProductControllerTest do
     end
 
     test "test show product", %{conn: conn} do
-      conn = conn
+      conn
       |> get(product_path(conn, :show, @currently_valid_product))
       |> assert_json_response(["variants", @currently_valid_product])
     end
 
     test "test invalid show product", %{conn: conn} do
-      conn = conn
+      conn
       |> get(product_path(conn, :show, @invalid_product))
       |> assert_json_response(["error", "Not found"], 404)
     end  
