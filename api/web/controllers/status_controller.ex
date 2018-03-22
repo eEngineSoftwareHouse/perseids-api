@@ -7,9 +7,4 @@ defmodule Perseids.StatusController do
     }
     render conn, "magento.json", magento: magento
   end
-
-  def robots(conn, _params) do
-    text conn, "User-agent: *\nAllow: /"
-  end
-
 end

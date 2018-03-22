@@ -31,6 +31,8 @@ config :perseids, Perseids.Endpoint,
 config :logger, :console, format: "[$level] $message\n"
 # config :logger, level: :info # Do not print debug messages
 
+config :rollbax, enabled: :log
+
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.

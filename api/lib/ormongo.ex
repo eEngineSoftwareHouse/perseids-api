@@ -31,7 +31,7 @@ defmodule ORMongo do
   def find(collection, url_key: url_key),                   do: mongo_find_one_by_field(collection, %{ url_key: url_key })
   def find(collection, slug: slug),                         do: mongo_find_one_by_field(collection, %{ slug: slug })
   def find(collection, where: query),                       do: mongo_where(collection, %{ "$and" => query })
-  def find(collection, query: %{"id" => object_id} = query),do: mongo_query(collection, query) # return one element, as collection
+  def find(collection, query: %{"id" => _object_id} = query),do: mongo_query(collection, query) # return one element, as collection
   def find(collection, query: query, options: options),     do: mongo_query(collection, query, options)
 
   def count(collection, [{:keywords, keywords} | _]) do
@@ -108,7 +108,7 @@ defmodule ORMongo do
     |> result
   end
 
-  defp mongo_query(collection, %{ "id" => object_id }, here) do
+  defp mongo_query(collection, %{ "id" => object_id } = _where) do
     Mongo.find(:mongo, collection, %{_id: BSON.ObjectId.decode!(object_id)})
     |> result
   end

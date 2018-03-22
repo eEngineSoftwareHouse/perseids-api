@@ -1,6 +1,5 @@
 defmodule Perseids.Plugs.Wholesale do
   import Plug.Conn
-  alias Perseids.Session
   import Perseids.Gettext
 
   def init(options), do: options

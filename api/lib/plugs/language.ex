@@ -39,5 +39,5 @@ defmodule Perseids.Plugs.Language do
   end
 
   defp get_response_campaign_id("pl"), do: Application.get_env(:perseids, :get_response)[:api_campaign_token_pl]
-  defp get_response_campaign_id(locale), do: Application.get_env(:perseids, :get_response)[:api_campaign_token_en]
+  defp get_response_campaign_id(_locale), do: Application.get_env(:perseids, :get_response)[:api_campaign_token_en]
 end

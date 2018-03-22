@@ -1,6 +1,5 @@
 defmodule Magento do
-  import Perseids.Gettext
-
+  
   @magento_host Application.get_env(:perseids, :magento)[:magento_api_endpoint]
   @magento_timeout [connect_timeout: 60000, recv_timeout: 60000, timeout: 60000]
   @magento_admin_credentials %{
@@ -77,7 +76,7 @@ defmodule Magento do
   defp set_customer_email(store_view, token, params) do
     case customer_info(store_view, token) do
       {:ok, customer} -> params["customer"] |> Map.put("email", customer["email"])
-      {:error, reason} -> params
+      {:error, _reason} -> params
     end
   end
 
@@ -165,7 +164,7 @@ defmodule Magento do
     HTTPoison.put(magento_api_url(url, store_view), params, [{"Content-Type", "application/json"} | headers], @magento_timeout)
   end
   
-  defp magento_api_url(url, store_view \\ "plpl"), do: @magento_host <> "rest/" <> store_view <> "/V1/" <> url
+  defp magento_api_url(url, store_view), do: @magento_host <> "rest/" <> store_view <> "/V1/" <> url
 
   defp translated_message(message), do: Gettext.gettext(Perseids.Gettext, message)
 end

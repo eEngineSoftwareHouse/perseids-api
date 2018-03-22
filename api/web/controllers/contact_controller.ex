@@ -12,6 +12,8 @@ defmodule Perseids.ContactController do
 
     json(conn, "ok")
   end
+  
+  def contact_form(conn, _params), do: json(conn, %{errors: gettext "Lack of `from` or `content` fields in request"})
 
   def complaint_form(conn, params) do
     changeset = Complaint.changeset(%Perseids.Complaint{}, params)
@@ -32,5 +34,4 @@ defmodule Perseids.ContactController do
     end
   end
 
-  def contact_form(conn, _params), do: json(conn, %{errors: gettext "Lack of `from` or `content` fields in request"})
 end
