@@ -3,9 +3,7 @@ defmodule Perseids.SessionControllerTest do
   
   @valid_credentials %{"email" => "szymon.ciolkowski@eengine.pl", "password" => "Tajnafraza12"}
   
-  alias Perseids.Plugs.CurrentUser
   defp logged_in(conn), do: conn |> Perseids.ConnCase.login(@valid_credentials, "pl_pln")
-  defp guest(conn), do: conn |> Perseids.ConnCase.guest("pl_pln")
   defp logout(conn), do: conn |> Perseids.ConnCase.logout(%{})
 
   setup %{conn: conn} do

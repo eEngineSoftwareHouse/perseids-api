@@ -38,7 +38,7 @@ defmodule Perseids.ConnCase do
     {:ok, conn: conn}
   end
   
-  def login(conn, %{"email" => email, "password" => password} = credentials, lang) do
+  def login(conn, %{"email" => _email, "password" => _password} = credentials, lang) do
     conn = conn |> guest(lang)
 
     %Plug.Conn{resp_body: response} = Perseids.SessionController.create(conn, credentials)
@@ -47,13 +47,13 @@ defmodule Perseids.ConnCase do
   end
 
   def guest(conn, lang) do
-    conn = conn
+    conn
     |> Plug.Conn.put_req_header("client-language", lang)
     |> Perseids.Plugs.Language.call(%{})
   end
 
   def logout(conn, params) do
-    conn = conn
+    conn
     |> Perseids.SessionController.destroy(params)
   end 
 end
