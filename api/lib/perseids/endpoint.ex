@@ -1,24 +1,19 @@
 defmodule Perseids.Endpoint do
   use Phoenix.Endpoint, otp_app: :perseids
-
-  # socket "/socket", Perseids.UserSocket
-
   # Serve at "/" the static files from "priv/static" directory.
-  #
+  
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
     at: "images/uploads/", 
     from: "/webapps/perseids/assets/images/", 
     gzip: false
-
-  # Code reloading can be explicitly enabled under the
-  # :code_reloader configuration of your endpoint.
-  # if code_reloading? do
-  #   socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
-  #   plug Phoenix.LiveReloader
-  #   plug Phoenix.CodeReloader
-  # end
+  
+  plug Plug.Static,
+    # "at" must be the same as scope defined in router to work properly on production setup
+    at: "api/v1/", 
+    from: "/webapps/perseids/priv/static/", 
+    gzip: false    
 
   plug Plug.RequestId
   plug Plug.Logger
