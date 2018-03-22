@@ -5,6 +5,11 @@
 # is restricted to this project.
 use Mix.Config
 
+# Rollbar
+config :rollbax,
+  access_token: "02bccc369038482996d891efa5781cb4",
+  environment: "production"
+
 # General application configuration
 config :perseids,
   ecto_repos: []
