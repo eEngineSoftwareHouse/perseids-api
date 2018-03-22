@@ -25,6 +25,8 @@ defmodule ORMongo do
   def find(collection, keywords: phrase),                   do: mongo_search(collection, %{"$text" => %{"$search" => phrase}}, [limit: @default_limit])
   def find(collection, _id: id),                            do: mongo_find_one_by_id(collection, id)
   def find(collection, source_id: source_id),               do: mongo_find_one_by_field(collection, %{ source_id: source_id })
+  def find(collection, name: name),                         do: mongo_find_one_by_field(collection, %{ name: name })
+  def find(collection, value: value),                       do: mongo_find_value_with_sort(collection, %{ value: %{ "$lte" => value}})
   def find(collection, code: code),                         do: mongo_find_one_by_field(collection, %{ code: code })
   def find(collection, url_key: url_key),                   do: mongo_find_one_by_field(collection, %{ url_key: url_key })
   def find(collection, slug: slug),                         do: mongo_find_one_by_field(collection, %{ slug: slug })
@@ -123,6 +125,11 @@ defmodule ORMongo do
 
   defp mongo_find_one_by_field(collection, field) do
     Mongo.find(:mongo, collection, field)
+    |> result
+  end
+
+  defp mongo_find_value_with_sort(collection, field) do
+    Mongo.find(:mongo, collection, field, sort: %{value: -1})
     |> result
   end
 

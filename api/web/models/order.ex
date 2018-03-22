@@ -275,11 +275,12 @@ defmodule Perseids.Order do
   # NORMAL order additional fields
   defp update_shipping_and_payment_info(params) do
     shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
-    payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang) 
-    
+    payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang)
+
     update_products(params, params.products, params.lang)
     |> Map.put_new(:order_total_price, calc_order_total(params.products, params[:discount_code], params.lang))
     |> add_shipping_price(shipping, params.lang, params[:discount_code])
+    |> check_free_products(params.lang)
     |> Map.put_new(:shipping_code, shipping["code"])
     |> Map.put_new(:shipping_name, shipping["name"])
     |> Map.put_new(:payment_name, payment["name"])
@@ -318,8 +319,9 @@ defmodule Perseids.Order do
   defp discount_type?(:shipping, original_price, _discount_value), do: original_price
 
   defp add_shipping_price(%{order_total_price: order_total_price} = order, shipping, lang, discount_code) do
-    threshold = get_threshold(lang)
-    
+    threshold = lang 
+    |> get_threshold("free_shipping")
+
     free_shipping = Discount.find_one(code: discount_code, lang: lang) 
     |> maybe_free_shipping?
     
@@ -330,14 +332,67 @@ defmodule Perseids.Order do
     end
   end
 
+  defp check_free_products(%{order_total_price: order_total_price} = order, lang) do
+    Perseids.Threshold.find([{:lang, lang}, {:value, order_total_price}])
+    |> List.first
+    |> get_threshold_name
+    |> validate_free_products(order, lang)
+  end
+
+  defp validate_free_products(nil, order, lang), do: order |> order_should_have(lang, [])
+  defp validate_free_products(:free_low, order, lang), do: order |> order_should_have(lang, ["free_low"])
+  defp validate_free_products(:free_shipping, order, lang), do: order |> order_should_have(lang, ["free_low"])
+  defp validate_free_products(:free_regular, order, lang), do: order |> order_should_have(lang, ["free_low", "free_regular"])
+
+  defp order_should_have(%{products: products} = order, lang, conditions) do
+    filtered_products = products
+    |> Enum.map(&add_free_field(&1, lang))
+    |> Enum.reduce([], &update_free_count(&1, &2, conditions))
+    
+    order |> Map.put(:products, filtered_products)
+  end
+
+  defp add_free_field(order_product, lang) do
+    order_product
+    |> Map.put_new("free", Perseids.Product.find_one(source_id: order_product["id"], lang: lang)["free"])
+  end
+
+  defp update_free_count(%{"free" => nil} = product, acc, _conditions), do: acc ++ [product] 
+  defp update_free_count(%{"free" => free_type} = product, acc, conditions) do
+    if String.contains?(free_type, conditions) do
+      acc 
+      |> Enum.map(fn(x) -> x["free"] end)
+      |> maybe_add_free_product?(product, acc)
+    else
+      acc
+    end
+  end
+  defp update_free_count(product, acc, _conditions), do: acc ++ [product]
+
+  defp maybe_add_free_product?([free_type], %{"free" => free_product} = product, list) when free_product != free_type do
+      list ++ ensure_single(product)
+  end
+  defp maybe_add_free_product?([], product, list), do: list ++ ensure_single(product)
+  defp maybe_add_free_product?(_free_products, _product, list), do: list
+  
+  defp ensure_single(product), do: [product |> Map.put("count", 1)]
+
   defp maybe_free_shipping?(%{"type" => "shipping"} = _discount), do: true
   defp maybe_free_shipping?(_discount), do: false
   
-  defp get_threshold(lang) do
-    Perseids.Threshold.find(lang: lang)
+  defp get_threshold(lang, name) do
+    Perseids.Threshold.find([{:lang, lang}, {:name, name}])
     |> item_response
-    |> get_value
+    |> get_value 
+  end 
+  
+  defp get_threshold_name(nil), do: nil
+  defp get_threshold_name(threshold) do
+    threshold["name"]
+    |> String.downcase
+    |> String.to_atom
   end
+
 
   defp get_value(threshold) do
     threshold["value"]

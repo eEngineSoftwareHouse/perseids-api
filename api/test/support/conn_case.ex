@@ -55,5 +55,15 @@ defmodule Perseids.ConnCase do
   def logout(conn, params) do
     conn
     |> Perseids.SessionController.destroy(params)
-  end 
+  end
+
+  def check_json_response(conn, [], _conditions), do: conn
+  def check_json_response(conn, [head | tail], :assert) do 
+    assert conn.resp_body =~ head
+    check_json_response(conn, tail, :assert) 
+  end
+  def check_json_response(conn, [head | tail], :refute) do 
+    refute conn.resp_body =~ head
+    check_json_response(conn, tail, :refute) 
+  end
 end
