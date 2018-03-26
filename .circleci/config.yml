@@ -3,8 +3,8 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: debian:9.2
+    machine: true
+      # - image: debian:9.2
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
