@@ -4,7 +4,6 @@ version: 2
 jobs:
   build:
     machine: true
-      # - image: debian:9.2
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -16,18 +15,17 @@ jobs:
       - checkout
       # specify any bash command here prefixed with `run: `
       - run:
-          name: Install curl
+          name: Install cURL
           command: sudo apt-get update && sudo apt-get -y install curl
       - run:
-          name: Install Docker Compose
+          name: Install docker-compose
           command: |
             curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
-      # - setup_remote_docker
       - run: cp .env.sample .env
       - run:
-          name: Start container and verify it's working
+          name: Run application containers
           command: docker-compose up -d
       - run:
           name: Init MongoDB
@@ -36,10 +34,6 @@ jobs:
           name: Create test DB
           command: docker-compose exec mongo mongo --eval "db.copyDatabase('perseids', 'perseids_test')"
       - run:
-          name: Show current folder
-          command: ls -la && ls -la api/
-      - run:
-          # Workaround with blind timeout, because deps are being downloaded and installed as a API container run command
-          name: Wait 60s and then run tests
-          command: sleep 60 && docker-compose ps && docker-compose logs api && docker-compose exec api bash -c "MIX_ENV=test mix test"
+          name: Run tests
+          command: docker-compose exec api bash -c "MIX_ENV=test mix test"
 
