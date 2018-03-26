@@ -16,16 +16,16 @@ jobs:
       - checkout
       # specify any bash command here prefixed with `run: `
       - run:
-        name: Install Docker Compose
-        command: |
-          curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-          chmod +x ~/docker-compose
-          sudo mv ~/docker-compose /usr/local/bin/docker-compose
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - setup_remote_docker
       - run: cp .env.sample .env
       - run:
-        name: Start container and verify it's working
-        command: |
-          set -x
-          docker-compose -f docker-compose-production.yml -d
+          name: Start container and verify it's working
+          command: |
+            set -x
+            docker-compose -f docker-compose-production.yml -d
 
