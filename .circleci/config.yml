@@ -34,13 +34,10 @@ jobs:
           command: docker-compose exec mongo mongo --eval "$(< prepare_mongo.js)"
       - run:
           name: Create test DB
-          command: docker-compose exec mongo mongo --eval "db.copyDatabase('perseids', 'perseids_test')"    
-      - run:
-          name: Show API container logs
-          command: sleep 30 && ls -la && docker-compose logs api
+          command: docker-compose exec mongo mongo --eval "db.copyDatabase('perseids', 'perseids_test')"
       - run:
           name: Show current folder
-          command: ls -la && pwd
+          command: ls -la && ls -la api/
       - run:
           # Workaround with blind timeout, because deps are being downloaded and installed as a API container run command
           name: Wait 60s and then run tests
