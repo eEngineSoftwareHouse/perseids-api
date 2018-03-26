@@ -28,7 +28,5 @@ jobs:
       - run: cp .env.sample .env
       - run:
           name: Start container and verify it's working
-          command: |
-            set -x
-            docker-compose -f docker-compose-production.yml -d
+          command: docker-compose -f docker-compose-production.yml -d
 
