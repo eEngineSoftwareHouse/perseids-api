@@ -4,7 +4,6 @@ version: 2
 jobs:
   build:
     machine: true
-      - docker_layer_caching: true
       # - image: debian:9.2
       
       # Specify service dependencies here if necessary
