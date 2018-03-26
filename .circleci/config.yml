@@ -41,5 +41,5 @@ jobs:
       - run:
           # Workaround with blind timeout, because deps are being downloaded and installed as a API container run command
           name: Wait 60s and then run tests
-          command: sleep 60 && docker-compose exec api bash -c "MIX_ENV=test mix test"
+          command: sleep 60 && docker-compose ps && docker-compose logs api && docker-compose exec api bash -c "MIX_ENV=test mix test"
 
