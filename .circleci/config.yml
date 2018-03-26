@@ -4,6 +4,7 @@ version: 2
 jobs:
   build:
     machine: true
+      docker_layer_caching: true
       # - image: debian:9.2
       
       # Specify service dependencies here if necessary
@@ -24,7 +25,7 @@ jobs:
             curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
             mv ~/docker-compose /usr/local/bin/docker-compose
-      - setup_remote_docker
+      # - setup_remote_docker
       - run: cp .env.sample .env
       - run:
           name: Start container and verify it's working
