@@ -4,7 +4,7 @@ services:
     build: .
     volumes:
       - ./api:/webapps/perseids
-    command: bash -c "mix deps.get && npm install && mix ecto.create && mix phx.server"
+    command: bash -c "ls -la && mix deps.get && npm install && mix ecto.create && mix phx.server"
     # command: bash -c "mix deps.get && npm install && mix ecto.create && MIX_ENV=prod PORT=4000 iex -S mix phoenix.server"
     # command: bash -c "sleep 100000"
     env_file:
