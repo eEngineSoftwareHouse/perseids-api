@@ -36,7 +36,10 @@ jobs:
           name: Create test DB
           command: docker-compose exec mongo mongo --eval "db.copyDatabase('perseids', 'perseids_test')"    
       - run:
+          name: Show API container logs
+          command: sleep 30 && docker-compose logs api
+      - run:
           # Workaround with blind timeout, because deps are being downloaded and installed as a API container run command
           name: Wait 60s and then run tests
-          command: sleep 120 && docker-compose exec api bash -c "MIX_ENV=test mix test"
+          command: sleep 60 && docker-compose exec api bash -c "MIX_ENV=test mix test"
 
