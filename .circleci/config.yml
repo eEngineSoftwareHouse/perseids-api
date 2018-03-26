@@ -29,4 +29,13 @@ jobs:
       - run:
           name: Start container and verify it's working
           command: docker-compose up -d
+      - run:
+          name: Init MongoDB
+          command: docker-compose exec mongo mongo --eval "$(< prepare_mongo.js)"
+      - run:
+          name: Create test DB
+          command: docker-compose exec mongo mongo --eval "db.copyDatabase('perseids', 'perseids_test')"    
+      - run:
+          name: Run tests
+          command: docker-compose exec api bash -c "MIX_ENV=test mix test"
 
