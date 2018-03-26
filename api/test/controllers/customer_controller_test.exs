@@ -70,6 +70,7 @@ defmodule Perseids.CustomerControllerTest do
       assert conn.resp_body =~ "customer"
     end
 
+    @tag :pending
     test "cannot create new account without password", %{conn: conn} do
       invalid_params = %{customer: %{email: "testowy-#{@valid_email}1@testowy.pl", firstname: "Stefan", lastname: "Testowy"}}
       conn = conn
