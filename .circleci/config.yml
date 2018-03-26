@@ -36,6 +36,6 @@ jobs:
           name: Create test DB
           command: docker-compose exec mongo mongo --eval "db.copyDatabase('perseids', 'perseids_test')"    
       - run:
-          name: Run tests
-          command: docker-compose exec api bash -c "MIX_ENV=test mix test"
+          name: Wait 60s and then run tests
+          command: sleep 60000 && docker-compose exec api bash -c "MIX_ENV=test mix test"
 
