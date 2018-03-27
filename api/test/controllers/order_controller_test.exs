@@ -349,7 +349,6 @@ defmodule Perseids.OrderControllerTest do
     test "should return list of countries", %{conn: conn} do
       conn = conn 
       |> guest 
-      |> Phoenix.Controller.put_view(Perseids.OrderView)
       |> Perseids.OrderController.delivery_options(%{})
       |> assert_json_response(["PL", "Polska"])
 
@@ -639,7 +638,6 @@ defmodule Perseids.OrderControllerTest do
     test "should return list of countries", %{conn: conn} do
       conn = conn 
       |> logged_in 
-      |> Phoenix.Controller.put_view(Perseids.OrderView)
       |> Perseids.OrderController.delivery_options(%{})
       |> assert_json_response(["PL", "Polska"])
 
@@ -675,7 +673,6 @@ defmodule Perseids.OrderControllerTest do
     test "should return list of countries", %{conn: conn} do
       conn = conn 
       |> wholesaler_logged_in  
-      |> Phoenix.Controller.put_view(Perseids.OrderView)
       |> Perseids.OrderController.wholesale_delivery_options(%{})
       |> assert_json_response(["PL", "Polska"])
 

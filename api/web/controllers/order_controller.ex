@@ -66,7 +66,7 @@ defmodule Perseids.OrderController do
 
   # fallback for non-authorized wholesale shippings, to be removed after proper production update
   def delivery_options(conn, %{}) do
-    render conn, "index.json", countries: Order.get_countries([where: [%{ "wholesale" => false }], lang: conn.assigns[:lang]])
+    json(conn, Order.get_countries([where: [%{ "wholesale" => false }], lang: conn.assigns[:lang]]))
   end
   def delivery_options(conn, %{"country" => _country, "wholesale" => "true", "count" => _count} = params),  do: wholesale_delivery_options(conn, params)
   def delivery_options(conn, %{"country" => country}) do
@@ -74,7 +74,7 @@ defmodule Perseids.OrderController do
   end
 
   def wholesale_delivery_options(conn, %{}) do
-    render conn, "index.json", countries: Order.get_countries([where: [%{ "wholesale" => true }], lang: conn.assigns[:lang]])
+    json(conn, Order.get_countries([where: [%{ "wholesale" => true }], lang: conn.assigns[:lang]]))
   end
   def wholesale_delivery_options(conn, %{"country" => country, "count" => count}) do
     render conn, "index.json", Order.get_wholesale_shipping_for(country, count |> String.to_integer, conn.assigns[:lang])
