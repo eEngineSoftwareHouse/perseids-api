@@ -17,10 +17,6 @@ defmodule Perseids.OrderView do
     }
   end
 
-  def render("index.json", %{countries: countries}) do
-    countries
-  end
-
   def render("errors.json", %{changeset: changeset}) do
     %{
       errors: Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
