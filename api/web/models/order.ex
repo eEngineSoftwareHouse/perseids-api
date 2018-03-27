@@ -69,6 +69,14 @@ defmodule Perseids.Order do
     }
   end
 
+  def get_countries(opts \\ [where: %{}]) do
+    "shipping" 
+    |> ORMongo.find_with_lang(opts) 
+    |> list_response
+    |> Enum.map(&(%{ key: &1["country"], name: &1["country_full"] }))
+    |> Enum.uniq
+  end
+
   def find(opts \\ [filter: %{}]) do
     @collection_name
     |> ORMongo.find(opts)
