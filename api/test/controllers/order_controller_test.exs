@@ -345,6 +345,16 @@ defmodule Perseids.OrderControllerTest do
       assert response_json["products"] |> check_field_count("name", "PIGGY TALES LOW-35-38") == 1
       assert response_json["products"] |> check_field_count("name", "EL LEOPARDO-43-46") == 1
     end
+
+    test "should return list of countries", %{conn: conn} do
+      conn = conn 
+      |> guest 
+      |> Phoenix.Controller.put_view(Perseids.OrderView)
+      |> Perseids.OrderController.delivery_options(%{})
+      |> assert_json_response(["PL", "Polska"])
+
+      assert json_response(conn, 200)
+    end
   end
 
   # ===================================================
@@ -625,6 +635,16 @@ defmodule Perseids.OrderControllerTest do
       assert response_json["products"] |> check_field_count("name", "PIGGY TALES LOW-35-38") == 1
       assert response_json["products"] |> check_field_count("name", "EL LEOPARDO-43-46") == 1
     end
+
+    test "should return list of countries", %{conn: conn} do
+      conn = conn 
+      |> logged_in 
+      |> Phoenix.Controller.put_view(Perseids.OrderView)
+      |> Perseids.OrderController.delivery_options(%{})
+      |> assert_json_response(["PL", "Polska"])
+
+      assert json_response(conn, 200)
+    end
   end
 
   # ===================================================
@@ -650,6 +670,16 @@ defmodule Perseids.OrderControllerTest do
       assert Map.has_key?(order, "shipping_code")
       assert order["shipping_code"] == "dpd_default"
       assert order["payment_code"] == "banktransfer"
+    end
+
+    test "should return list of countries", %{conn: conn} do
+      conn = conn 
+      |> wholesaler_logged_in  
+      |> Phoenix.Controller.put_view(Perseids.OrderView)
+      |> Perseids.OrderController.wholesale_delivery_options(%{})
+      |> assert_json_response(["PL", "Polska"])
+
+      assert json_response(conn, 200)
     end
   end
 
