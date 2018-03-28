@@ -248,7 +248,7 @@ defmodule Perseids.Order do
   end
   
   def validate_field_length(value, changeset, name) do
-    case String.length(value) do
+    case value |> String.trim |> String.length do
       0 -> add_error(changeset, :address, "#{name} " <> gettext "is too short")
       _ -> changeset
     end
