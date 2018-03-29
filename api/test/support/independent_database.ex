@@ -1,4 +1,9 @@
 defmodule Perseids.IndependentDatabase do
+  ####################################
+  ##            IMPORTANT           ##
+  ##       AFTER ANY CHANGES HERE   ##
+  ## UPDATE DATE IN TEST_HELPER.EXS ##
+  ####################################
 
   def initialize(lang) do
     Mongo.delete_many(:mongo, "orders", %{})
@@ -9,33 +14,43 @@ defmodule Perseids.IndependentDatabase do
 
   defp create_discount(lang) do
     Mongo.delete_many(:mongo, "#{lang}_discount", %{})
-    Mongo.insert_one(:mongo, "#{lang}_discount", %{ "value" => 0, "code" => "TEST_SHIPPING", "type" => "shipping"})
-    Mongo.insert_one(:mongo, "#{lang}_discount", %{ "value" => 11, "code" => "TEST_FIXED_11", "type" => "fixed"})
-    Mongo.insert_one(:mongo, "#{lang}_discount", %{ "value" => 50, "code" => "TEST_FIXED_50", "type" => "fixed"})
-    Mongo.insert_one(:mongo, "#{lang}_discount", %{ "value" => 10, "code" => "TEST_PERCENT", "type" => "percent"})
+    [
+      %{ "value" => 0, "code" => "TEST_SHIPPING", "type" => "shipping"},
+      %{ "value" => 11, "code" => "TEST_FIXED_11", "type" => "fixed"},
+      %{ "value" => 50, "code" => "TEST_FIXED_50", "type" => "fixed"},
+      %{ "value" => 10, "code" => "TEST_PERCENT", "type" => "percent"}
+    ]
+    |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_discount", &1)))
   end
 
   defp create_products(lang) do 
     Mongo.delete_many(:mongo, "#{lang}_products", %{})
     [
-      "/webapps/perseids/test/support/#{lang}/product_1.json"
+      "#{lang}/product_1.json",
+      "#{lang}/product_2.json",
+      "#{lang}/product_3.json",
+      "#{lang}/product_free_regular.json",
+      "#{lang}/product_free_low.json"
     ]
-    |> Enum.map(&create_single_product(&1))
+    |> Enum.map(&decode_single_product(&1))
     |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_products", &1)))
   end
 
-  defp create_single_product(file) do
-    case file |> File.read do 
+  defp decode_single_product(file) do
+    case "/webapps/perseids/test/support/" <> file |> File.read do 
       { :ok, file } -> file |> Poison.decode!
-      { :error, _}  -> []
+      { :error, _ } -> []
     end
   end
 
   defp create_thresholds(lang) do
     Mongo.delete_many(:mongo, "#{lang}_threshold", %{})
-    Mongo.insert_one(:mongo, "#{lang}_threshold", %{"value" => 99.0,"name" => "free_low" })
-    Mongo.insert_one(:mongo, "#{lang}_threshold", %{"value" => 149.0,"name" => "free_shipping" })
-    Mongo.insert_one(:mongo, "#{lang}_threshold", %{"value" => 199.0,"name" => "free_regular" })
+    [
+      %{"value" => 99.0,"name" => "free_low" },
+      %{"value" => 149.0,"name" => "free_shipping" },
+      %{"value" => 199.0,"name" => "free_regular" }
+    ]
+    |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_threshold", &1)))
   end
 
     # Mongo.update_one(:mongo, "#{lang}_products", %{"source_id" =>  "155"}, 

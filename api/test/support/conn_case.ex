@@ -37,12 +37,6 @@ defmodule Perseids.ConnCase do
 
     {:ok, conn: conn}
   end
-
-  setup_all do
-    Perseids.IndependentDatabase.initialize("pl_pln")
-    IO.puts "---==== DATABASE LAST UPDATE 29.03.2018r ====---"
-    { :ok, mongo: "---==== DATABASE LAST UPDATE 29.03.2018r ====---" }
-  end
   
   def login(conn, %{"email" => _email, "password" => _password} = credentials, lang) do
     conn = conn |> guest(lang)
