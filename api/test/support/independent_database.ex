@@ -23,8 +23,7 @@ defmodule Perseids.IndependentDatabase do
     |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_discount", &1)))
   end
 
-  defp create_products(lang) do 
-    Mongo.delete_many(:mongo, "#{lang}_products", %{})
+  defp create_products(lang) do
     [
       "#{lang}/product_1.json",
       "#{lang}/product_2.json",
@@ -32,15 +31,19 @@ defmodule Perseids.IndependentDatabase do
       "#{lang}/product_free_regular.json",
       "#{lang}/product_free_low.json"
     ]
-    |> Enum.map(&decode_single_product(&1))
-    |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_products", &1)))
+    |> Enum.reduce([], &decode_single_product(&1, &2))
+    |> Enum.each(&(replace_one("#{lang}_products", &1, &1)))
   end
 
-  defp decode_single_product(file) do
+  defp decode_single_product(file, acc) do
     case "/webapps/perseids/test/support/" <> file |> File.read do 
-      { :ok, file } -> file |> Poison.decode!
-      { :error, _ } -> []
+      { :ok, file } -> [ file |> Poison.decode! ] ++ acc
+      { :error, _ } -> acc
     end
+  end
+
+  defp replace_one(collection, %{ "source_id" => filter }, replacement) do
+    Mongo.replace_one(:mongo, collection, %{ "source_id" => filter }, replacement, upsert: true)
   end
 
   defp create_thresholds(lang) do
@@ -52,28 +55,4 @@ defmodule Perseids.IndependentDatabase do
     ]
     |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_threshold", &1)))
   end
-
-    # Mongo.update_one(:mongo, "#{lang}_products", %{"source_id" =>  "155"}, 
-    #   %{"$set" =>  
-    #     %{"free" =>  "free_low",
-    #       "variants.0.price" =>  0,
-    #       "variants.1.price" =>  0,
-    #       "variants.2.price" =>  0,
-    #       "price.152" =>  0,
-    #       "price.153" =>  0,
-    #       "price.154" =>  0
-    #   }}, upsert: true )
-    # Mongo.update_one(:mongo, "#{lang}_products", %{"source_id" =>  "458"}, 
-    #   %{"$set" =>  
-    #     %{"free" =>  "free_regular",
-    #       "variants.0.price" =>  0,
-    #       "variants.1.price" =>  0,
-    #       "variants.2.price" =>  0,
-    #       "price.456" =>  0,
-    #       "price.457" =>  0,
-    #       "price.455" =>  0
-    #   }}, upsert:  true )
-
-    # {:ok, mongo: "ok"}
-
 end

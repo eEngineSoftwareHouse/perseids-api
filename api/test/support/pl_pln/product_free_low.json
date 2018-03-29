@@ -1,0 +1,465 @@
+{
+  "free": "free_low",
+  "recommended": "0",
+  "price": {
+    "152": 0,
+    "154": 0,
+    "153": 0
+  },
+  "variants": [
+    {
+      "price": 0,
+      "url_key": "piggy-tales-low-35-38",
+      "old_price": null,
+      "source_id": "152",
+      "params": {
+        "recommended": [
+          "No"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:14:38"
+        ],
+        "thumbnail": [
+          "/m/m/mm_piggytales_low_packshot_72dpi.png"
+        ],
+        "meta_keyword": [
+          "PIGGY TALES LOW"
+        ],
+        "url_key": [
+          "piggy-tales-low-35-38"
+        ],
+        "meta_description": [
+          "PIGGY TALES LOW ŚWINSKIE SKARPETKI DLA MIĘSOLUBNYCH. UWAGA - NIE UCIERPIAŁY ŻADNE ZWIERZĘTA :)"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "special_price": [
+          "13.0000"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "product_size": [
+          "35-38"
+        ],
+        "pattern": [
+          "animals"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_piggytales_low_packshot_72dpi.png"
+        ],
+        "meta_title": [
+          "PIGGY TALES LOW"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "category_ids": [
+          "11",
+          "20",
+          "28"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:14:38"
+        ],
+        "small_image": [
+          "/m/m/mm_piggytales_low_packshot_72dpi.png"
+        ],
+        "color": [
+          "red"
+        ],
+        "pos1_quantity": [
+          "19"
+        ],
+        "warehouse_position": [
+          "108"
+        ],
+        "listing_position": [
+          "999"
+        ]
+      },
+      "description": "<p>ŚWINSKIE SKARPETKI DLA MIĘSOLUBNYCH. UWAGA - NIE UCIERPIAŁY ŻADNE ZWIERZĘTA :)</p>",
+      "images": [],
+      "quantity": 1,
+      "groups_prices": {},
+      "name": "PIGGY TALES LOW-35-38",
+      "netto_price": 0,
+      "sku": "L13-35-38",
+      "netto_old_price": null
+    },
+    {
+      "price": 0,
+      "url_key": "piggy-tales-low-39-42",
+      "old_price": null,
+      "source_id": "153",
+      "params": {
+        "recommended": [
+          "No"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:14:38"
+        ],
+        "thumbnail": [
+          "/m/m/mm_piggytales_low_packshot_72dpi.png"
+        ],
+        "meta_keyword": [
+          "PIGGY TALES LOW"
+        ],
+        "url_key": [
+          "piggy-tales-low-39-42"
+        ],
+        "meta_description": [
+          "PIGGY TALES LOW ŚWINSKIE SKARPETKI DLA MIĘSOLUBNYCH. UWAGA - NIE UCIERPIAŁY ŻADNE ZWIERZĘTA :)"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "special_price": [
+          "13.0000"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "product_size": [
+          "39-42"
+        ],
+        "pattern": [
+          "animals"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_piggytales_low_packshot_72dpi.png"
+        ],
+        "meta_title": [
+          "PIGGY TALES LOW"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "category_ids": [
+          "11",
+          "20",
+          "28"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:14:38"
+        ],
+        "small_image": [
+          "/m/m/mm_piggytales_low_packshot_72dpi.png"
+        ],
+        "color": [
+          "red"
+        ],
+        "pos1_quantity": [
+          "7"
+        ],
+        "warehouse_position": [
+          "108"
+        ],
+        "listing_position": [
+          "999"
+        ]
+      },
+      "description": "<p>ŚWINSKIE SKARPETKI DLA MIĘSOLUBNYCH. UWAGA - NIE UCIERPIAŁY ŻADNE ZWIERZĘTA :)</p>",
+      "images": [],
+      "quantity": 1,
+      "groups_prices": {},
+      "name": "PIGGY TALES LOW-39-42",
+      "netto_price": 0,
+      "sku": "L13-39-42",
+      "netto_old_price": null
+    },
+    {
+      "price": 0,
+      "url_key": "piggy-tales-low-43-46",
+      "old_price": null,
+      "source_id": "154",
+      "params": {
+        "recommended": [
+          "No"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:14:39"
+        ],
+        "thumbnail": [
+          "/m/m/mm_piggytales_low_packshot_72dpi.png"
+        ],
+        "meta_keyword": [
+          "PIGGY TALES LOW"
+        ],
+        "url_key": [
+          "piggy-tales-low-43-46"
+        ],
+        "meta_description": [
+          "PIGGY TALES LOW ŚWINSKIE SKARPETKI DLA MIĘSOLUBNYCH. UWAGA - NIE UCIERPIAŁY ŻADNE ZWIERZĘTA :)"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "special_price": [
+          "13.0000"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "product_size": [
+          "43-46"
+        ],
+        "pattern": [
+          "animals"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_piggytales_low_packshot_72dpi.png"
+        ],
+        "meta_title": [
+          "PIGGY TALES LOW"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "category_ids": [
+          "11",
+          "20",
+          "28"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:14:39"
+        ],
+        "small_image": [
+          "/m/m/mm_piggytales_low_packshot_72dpi.png"
+        ],
+        "color": [
+          "red"
+        ],
+        "pos1_quantity": [
+          "10"
+        ],
+        "warehouse_position": [
+          "108"
+        ],
+        "listing_position": [
+          "999"
+        ]
+      },
+      "description": "<p>ŚWINSKIE SKARPETKI DLA MIĘSOLUBNYCH. UWAGA - NIE UCIERPIAŁY ŻADNE ZWIERZĘTA :)</p>",
+      "images": [],
+      "quantity": 1,
+      "groups_prices": {},
+      "name": "PIGGY TALES LOW-43-46",
+      "netto_price": 0,
+      "sku": "L13-43-46",
+      "netto_old_price": null
+    }
+  ],
+  "url_key": "piggy-tales-low",
+  "source_id": "155",
+  "name": "PIGGY TALES LOW",
+  "bestseller": "0",
+  "netto_old_price": [],
+  "params": {
+    "recommended": [
+      "No"
+    ],
+    "gift_message_available": [
+      "No"
+    ],
+    "thumbnail": [
+      "/m/m/mm_piggytales_low_packshot_72dpi.png"
+    ],
+    "meta_keyword": [
+      "PIGGY TALES LOW"
+    ],
+    "url_key": [
+      "piggy-tales-low-35-38",
+      "piggy-tales-low-39-42",
+      "piggy-tales-low-43-46"
+    ],
+    "meta_description": [
+      "PIGGY TALES LOW ŚWINSKIE SKARPETKI DLA MIĘSOLUBNYCH. UWAGA - NIE UCIERPIAŁY ŻADNE ZWIERZĘTA :)"
+    ],
+    "has_options": [
+      "0"
+    ],
+    "category_ids": [
+      "11",
+      "9",
+      "34",
+      "1",
+      "0",
+      "20",
+      "18",
+      "28",
+      "2"
+    ],
+    "tax_class_id": [
+      "Taxable Goods"
+    ],
+    "product_size": [
+      "35-38",
+      "39-42",
+      "43-46"
+    ],
+    "pattern": [
+      "animals"
+    ],
+    "required_options": [
+      "0"
+    ],
+    "options_container": [
+      "Block after Info Column"
+    ],
+    "image": [
+      "/m/m/mm_piggytales_low_packshot_72dpi.png"
+    ],
+    "news_from_date": [
+      "2018-03-23 12:14:38",
+      "2018-03-23 12:14:39"
+    ],
+    "special_from_date": [
+      "2018-02-09 00:00:00"
+    ],
+    "is_product_lacked": [
+      "0"
+    ],
+    "warehouse_position": [
+      "108"
+    ],
+    "custom_design_from": [
+      "2018-03-23 12:14:38",
+      "2018-03-23 12:14:39"
+    ],
+    "special_price": [
+      "13.0000"
+    ],
+    "meta_title": [
+      "PIGGY TALES LOW"
+    ],
+    "small_image": [
+      "/m/m/mm_piggytales_low_packshot_72dpi.png"
+    ],
+    "color": [
+      "red"
+    ],
+    "pos1_quantity": [
+      "19",
+      "7",
+      "10"
+    ],
+    "special_to_date": [
+      "2018-02-11 00:00:00"
+    ],
+    "listing_position": [
+      "999"
+    ]
+  },
+  "description": "<p><span>Damskie i męskie stopki w świnki i ich części. Wymyślone z miłości do dobrych dodatk&oacute;w i wyprodukowane ze smakiem. Do noszenia z przymrużeniem oka, do biegania po mieście i do świńskiego truchtu po łące. Bez obaw &ndash; żadna chrumka nie ucierpiała w procesie tw&oacute;rczym.</span><br /><br /><span>To skarpetki stopki dla mięsolubnych i dla tych, kt&oacute;rzy doceniają fantastyczną jakość. Niebanalnym wzorem ozdabiają damskie i męskie raciczki, wywołując pomruki uznania i chrumknięcia aprobaty. Świński, kr&oacute;tki model &ndash; z poczuciem humoru, z klasą i odwagą.</span></p>",
+  "images": [
+    {
+      "disabled": false,
+      "file": "/m/m/mm_piggytales_low_packshot_72dpi.png",
+      "media_type": "image",
+      "label": null,
+      "types": [
+        "image",
+        "small_image",
+        "thumbnail"
+      ],
+      "id": 98,
+      "position": 1
+    },
+    {
+      "disabled": false,
+      "file": "/m/m/mm_piggytales_regular_1_.jpg",
+      "media_type": "image",
+      "label": null,
+      "types": [],
+      "id": 99,
+      "position": 2
+    }
+  ],
+  "currency": "PLN",
+  "groups_prices": {},
+  "categories": [
+    {
+      "id": "11"
+    },
+    {
+      "id": "9"
+    },
+    {
+      "id": "34"
+    },
+    {
+      "id": "1"
+    },
+    {
+      "id": "0"
+    },
+    {
+      "id": "20"
+    },
+    {
+      "id": "18"
+    },
+    {
+      "id": "28"
+    },
+    {
+      "id": "2"
+    }
+  ],
+  "sku": "L13",
+  "netto_price": {
+    "152": 0,
+    "154": 0,
+    "153": 0
+  },
+  "old_price": [],
+  "listing_position": 37.0,
+  "quantity": 1
+}
