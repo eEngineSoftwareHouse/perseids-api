@@ -93,7 +93,6 @@ defmodule Perseids.Product do
   defp group_price(elem, _acc, group_id) do
     elem 
     |> Map.put("variants", elem["variants"] |> Enum.reduce([], &single_swap_group_price(&1, &2, group_id)))
-    |> Map.put("netto_price", Enum.reduce(elem["netto_price"], %{}, &check_netto_value(&1, &2, elem["variants"], group_id)))
   end
 
   defp single_swap_group_price(variant, variant_list, group_id) do
@@ -101,23 +100,5 @@ defmodule Perseids.Product do
       nil -> [variant | variant_list]
       group_price -> [ Map.put(variant, "netto_price", group_price) | variant_list ]
     end
-  end
-
-  defp check_netto_value({key, _value}, acc, variants, group_id) do 
-    new_price = 
-      variants 
-      |> Enum.filter(&(&1["source_id"] == key))
-      |> List.first
-      |> get_price(group_id)
-
-    Map.put(acc, key, new_price)
-  end
-
-  defp get_price(variant, group_id) do
-    case variant["groups_prices"][group_id] do
-      nil -> variant["netto_price"]
-      group_price -> group_price
-    end
-    
   end
 end
