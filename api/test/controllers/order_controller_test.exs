@@ -16,36 +16,6 @@ defmodule Perseids.OrderControllerTest do
     {:ok, conn: conn}
   end
 
-  setup_all do 
-    Mongo.delete_many(:mongo, "pl_pln_discount", %{"code" => %{"$regex" => "TEST"}} )
-    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 0, "code" => "TEST_SHIPPING", "type" => "shipping"})
-    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 11, "code" => "TEST_FIXED_11", "type" => "fixed"})
-    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 50, "code" => "TEST_FIXED_50", "type" => "fixed"})
-    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 10, "code" => "TEST_PERCENT", "type" => "percent"})
-    Mongo.update_one(:mongo, "pl_pln_products", %{"source_id" =>  "155"}, 
-      %{"$set" =>  
-        %{"free" =>  "free_low",
-          "variants.0.price" =>  0,
-          "variants.1.price" =>  0,
-          "variants.2.price" =>  0,
-          "price.152" =>  0,
-          "price.153" =>  0,
-          "price.154" =>  0
-      }}, upsert: true )
-    Mongo.update_one(:mongo, "pl_pln_products", %{"source_id" =>  "458"}, 
-      %{"$set" =>  
-        %{"free" =>  "free_regular",
-          "variants.0.price" =>  0,
-          "variants.1.price" =>  0,
-          "variants.2.price" =>  0,
-          "price.456" =>  0,
-          "price.457" =>  0,
-          "price.455" =>  0
-      }}, upsert:  true )
-
-    {:ok, mongo: "ok"}
-  end
-
   # ===================================================
   # Orders listing
   # ===================================================

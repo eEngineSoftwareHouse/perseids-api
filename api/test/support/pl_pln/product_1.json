@@ -1,0 +1,506 @@
+{
+  "url_key": "true-blue",
+  "quantity": 1,
+  "images": [
+    {
+      "types": [
+        "image",
+        "small_image",
+        "thumbnail"
+      ],
+      "media_type": "image",
+      "id": 13,
+      "label": null,
+      "position": 1,
+      "file": "/m/m/mm_trueblue_basic_packshot_72dpi.png",
+      "disabled": false
+    },
+    {
+      "types": [],
+      "media_type": "image",
+      "id": 14,
+      "label": null,
+      "position": 2,
+      "file": "/m/m/mm_trueblue_basic.jpg",
+      "disabled": false
+    }
+  ],
+  "variants": [
+    {
+      "url_key": "true-blue-35-38",
+      "quantity": 1,
+      "source_id": "24",
+      "price": 19.900047,
+      "netto_price": 16.1789,
+      "images": [],
+      "netto_old_price": null,
+      "old_price": null,
+      "name": "TRUE BLUE-35-38",
+      "params": {
+        "color": [
+          "blue"
+        ],
+        "url_key": [
+          "true-blue-35-38"
+        ],
+        "thumbnail": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "category_ids": [
+          "12",
+          "24"
+        ],
+        "pos1_quantity": [
+          "6"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "pattern": [
+          "solid"
+        ],
+        "image": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "small_image": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "swatch_image": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "product_size": [
+          "35-38"
+        ],
+        "meta_description": [
+          "TRUE BLUE NIEBIESKIE",
+          " CZY BŁĘKITNE? MORSKIE",
+          " CZY GRANATOWE? CHABROWE",
+          " CZY SZAFIROWE? A JAKIE TO MA ZNACZENIE",
+          " KIEDY MÓWIMY O ELEKTRYZUJĄCEJ MIESZANCE KLASYKI: NONSZALANCJI I ELEGANCJI? PRAWDA?"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "meta_title": [
+          "TRUE BLUE"
+        ],
+        "special_price": [
+          "17.0000"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:13:17"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "warehouse_position": [
+          "59"
+        ],
+        "meta_keyword": [
+          "TRUE BLUE"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:13:17"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ]
+      },
+      "groups_prices": {
+        "4": 15,
+        "8": 10
+      },
+      "sku": "B4-35-38",
+      "description": "<p>NIEBIESKIE, CZY BŁĘKITNE? MORSKIE, CZY GRANATOWE? CHABROWE, CZY SZAFIROWE? A JAKIE TO MA ZNACZENIE, KIEDY MÓWIMY O ELEKTRYZUJĄCEJ MIESZANCE KLASYKI: NONSZALANCJI I ELEGANCJI? PRAWDA?</p>"
+    },
+    {
+      "url_key": "true-blue-39-42",
+      "quantity": 1,
+      "source_id": "25",
+      "price": 19.900047,
+      "netto_price": 16.1789,
+      "images": [],
+      "netto_old_price": null,
+      "old_price": null,
+      "name": "TRUE BLUE-39-42",
+      "params": {
+        "color": [
+          "blue"
+        ],
+        "url_key": [
+          "true-blue-39-42"
+        ],
+        "thumbnail": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "category_ids": [
+          "12",
+          "24"
+        ],
+        "pos1_quantity": [
+          "6"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "pattern": [
+          "solid"
+        ],
+        "image": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "small_image": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "swatch_image": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "product_size": [
+          "39-42"
+        ],
+        "meta_description": [
+          "TRUE BLUE NIEBIESKIE",
+          " CZY BŁĘKITNE? MORSKIE",
+          " CZY GRANATOWE? CHABROWE",
+          " CZY SZAFIROWE? A JAKIE TO MA ZNACZENIE",
+          " KIEDY MÓWIMY O ELEKTRYZUJĄCEJ MIESZANCE KLASYKI: NONSZALANCJI I ELEGANCJI? PRAWDA?"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "meta_title": [
+          "TRUE BLUE"
+        ],
+        "special_price": [
+          "17.0000"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:13:18"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "warehouse_position": [
+          "59"
+        ],
+        "meta_keyword": [
+          "TRUE BLUE"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:13:18"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ]
+      },
+      "groups_prices": {
+        "4": 15,
+        "8": 10
+      },
+      "sku": "B4-39-42",
+      "description": "<p>NIEBIESKIE, CZY BŁĘKITNE? MORSKIE, CZY GRANATOWE? CHABROWE, CZY SZAFIROWE? A JAKIE TO MA ZNACZENIE, KIEDY MÓWIMY O ELEKTRYZUJĄCEJ MIESZANCE KLASYKI: NONSZALANCJI I ELEGANCJI? PRAWDA?</p>"
+    },
+    {
+      "url_key": "true-blue-43-46",
+      "quantity": 1,
+      "source_id": "26",
+      "price": 19.900047,
+      "netto_price": 16.1789,
+      "images": [],
+      "netto_old_price": null,
+      "old_price": null,
+      "name": "TRUE BLUE-43-46",
+      "params": {
+        "color": [
+          "blue"
+        ],
+        "url_key": [
+          "true-blue-43-46"
+        ],
+        "thumbnail": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "category_ids": [
+          "12",
+          "24"
+        ],
+        "pos1_quantity": [
+          "3"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "production_quantity": [
+          "-150"
+        ],
+        "pattern": [
+          "solid"
+        ],
+        "image": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "small_image": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "swatch_image": [
+          "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+        ],
+        "product_size": [
+          "43-46"
+        ],
+        "meta_description": [
+          "TRUE BLUE NIEBIESKIE",
+          " CZY BŁĘKITNE? MORSKIE",
+          " CZY GRANATOWE? CHABROWE",
+          " CZY SZAFIROWE? A JAKIE TO MA ZNACZENIE",
+          " KIEDY MÓWIMY O ELEKTRYZUJĄCEJ MIESZANCE KLASYKI: NONSZALANCJI I ELEGANCJI? PRAWDA?"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "meta_title": [
+          "TRUE BLUE"
+        ],
+        "special_price": [
+          "17.0000"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:13:19"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "warehouse_position": [
+          "59"
+        ],
+        "meta_keyword": [
+          "TRUE BLUE"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:13:19"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ]
+      },
+      "groups_prices": {},
+      "sku": "B4-43-46",
+      "description": "<p>NIEBIESKIE, CZY BŁĘKITNE? MORSKIE, CZY GRANATOWE? CHABROWE, CZY SZAFIROWE? A JAKIE TO MA ZNACZENIE, KIEDY MÓWIMY O ELEKTRYZUJĄCEJ MIESZANCE KLASYKI: NONSZALANCJI I ELEGANCJI? PRAWDA?</p>"
+    }
+  ],
+  "name": "TRUE BLUE",
+  "sku": "B4",
+  "netto_price": {
+    "24": 16.1789,
+    "26": 16.1789,
+    "25": 16.1789
+  },
+  "categories": [
+    {
+      "id": "12"
+    },
+    {
+      "id": "9"
+    },
+    {
+      "id": "34"
+    },
+    {
+      "id": "1"
+    },
+    {
+      "id": "0"
+    },
+    {
+      "id": "24"
+    },
+    {
+      "id": "18"
+    },
+    {
+      "id": "235"
+    },
+    {
+      "id": "234"
+    },
+    {
+      "id": "35"
+    }
+  ],
+  "netto_old_price": [],
+  "old_price": [],
+  "source_id": "27",
+  "currency": "PLN",
+  "params": {
+    "color": [
+      "blue"
+    ],
+    "url_key": [
+      "true-blue-35-38",
+      "true-blue-39-42",
+      "true-blue-43-46"
+    ],
+    "thumbnail": [
+      "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+    ],
+    "category_ids": [
+      "12",
+      "9",
+      "34",
+      "1",
+      "0",
+      "24",
+      "18",
+      "235",
+      "234",
+      "35"
+    ],
+    "pos1_quantity": [
+      "6",
+      "3"
+    ],
+    "pattern": [
+      "solid"
+    ],
+    "required_options": [
+      "0"
+    ],
+    "production_quantity": [
+      "-150"
+    ],
+    "tax_class_id": [
+      "Taxable Goods"
+    ],
+    "options_container": [
+      "Block after Info Column"
+    ],
+    "small_image": [
+      "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+    ],
+    "has_options": [
+      "0"
+    ],
+    "swatch_image": [
+      "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+    ],
+    "product_size": [
+      "35-38",
+      "39-42",
+      "43-46"
+    ],
+    "meta_description": [
+      "TRUE BLUE NIEBIESKIE",
+      " CZY BŁĘKITNE? MORSKIE",
+      " CZY GRANATOWE? CHABROWE",
+      " CZY SZAFIROWE? A JAKIE TO MA ZNACZENIE",
+      " KIEDY MÓWIMY O ELEKTRYZUJĄCEJ MIESZANCE KLASYKI: NONSZALANCJI I ELEGANCJI? PRAWDA?"
+    ],
+    "special_to_date": [
+      "2018-02-11 00:00:00"
+    ],
+    "meta_title": [
+      "TRUE BLUE"
+    ],
+    "special_price": [
+      "17.0000"
+    ],
+    "news_from_date": [
+      "2018-03-23 12:13:17",
+      "2018-03-23 12:13:18",
+      "2018-03-23 12:13:19"
+    ],
+    "special_from_date": [
+      "2018-02-09 00:00:00"
+    ],
+    "warehouse_position": [
+      "59"
+    ],
+    "meta_keyword": [
+      "TRUE BLUE"
+    ],
+    "is_product_lacked": [
+      "0"
+    ],
+    "custom_design_from": [
+      "2018-03-23 12:13:17",
+      "2018-03-23 12:13:18",
+      "2018-03-23 12:13:19"
+    ],
+    "recommended": [
+      "No"
+    ],
+    "listing_position": [
+      "999"
+    ],
+    "image": [
+      "/m/m/mm_trueblue_basic_packshot_72dpi.png"
+    ],
+    "gift_message_available": [
+      "No"
+    ]
+  },
+  "recommended": "0",
+  "listing_position": 89.0,
+  "groups_prices": {},
+  "price": {
+    "24": 19.900047,
+    "26": 19.900047,
+    "25": 19.900047
+  },
+  "description": "<p>Niebieskie, czy błękitne? Morskie, czy granatowe? Chabrowe, czy szafirowe? A jakie to ma znaczenie, kiedy mówimy o elektryzującej mieszance klasyki: nonszalancji i elegancji? Prawda?<br /> <br /> Granatowe skarpetki produkowane w polsce przez bardzo fajnych</p>",
+  "bestseller": "1"
+}
