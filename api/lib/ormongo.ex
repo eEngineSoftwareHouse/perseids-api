@@ -114,9 +114,11 @@ defmodule ORMongo do
   end
 
   defp mongo_query(collection, where, options \\ %{}) do
-    Mongo.find(:mongo, collection, where, options)
+    # Mongo.find(:mongo, collection, where, options)
+    Mongo.find(:mongo, collection, %{"$query" => where} |> Map.merge(options))
     |> result
   end
+  
 
   defp mongo_find_one_by_id(collection, id) do
     Mongo.find(:mongo, collection, %{_id: BSON.ObjectId.decode!(id)})
