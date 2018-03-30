@@ -469,7 +469,8 @@ defmodule Perseids.OrderControllerTest do
       assert json_response(conn, 200)
       assert conn.resp_body =~ "\"shipping_price\":0"
     end
-
+    
+    @tag :pending
     test "can use fixed_11 discount code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("discount_code", "TEST_FIXED_11")
@@ -490,6 +491,7 @@ defmodule Perseids.OrderControllerTest do
       assert conn.resp_body =~ "\"order_total_price\":0"
     end
 
+    @tag :pending
     test "can use percent discount code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("discount_code", "TEST_PERCENT")

@@ -29,6 +29,24 @@ defmodule Perseids.IndependentDatabase do
     "/product_free_low.json" #source_id : "155"
   ]
 
+  @list_of_shipping [
+    %{ "pay_type" => "pre", "can_be_free" => true, "name" => "Kurier", "enable_with_payment" => true, "price" => 9.99, 
+        "source_id" => "kurier-PL", "country_full" => "Polska", "wholesale" => false, "code" => "dpd_default", "country" => "PL"
+     },
+    %{ "pay_type" => "pre", "can_be_free" => true, "name" => "Paczkomat", "enable_with_payment" => true, "price" => 8.99, 
+        "source_id" => "paczkomat-PL", "country_full" => "Polska", "wholesale" => false, "code" => "paczkomaty_default", "country" => "PL"
+     },
+    %{ "pay_type" => "pre", "can_be_free" => true, "to" => 75, "wholesale" => true, "from" => 1, "country" => "PL", "price" => 10, 
+        "enable_with_payment" => true, "source_id" => "wholesale-PL1", "country_full" => "Polska", "name" => "Kurier", "code" => "dpd_default"
+     },
+    %{ "pay_type" => "pre", "can_be_free" => true, "to" => 230, "wholesale" => true, "from" => 76, "country" => "PL", "price" => 10, 
+        "enable_with_payment" => true, "source_id" => "wholesale-PL2", "country_full" => "Polska", "name" => "Kurier", "code" => "dpd_default"
+     },
+    %{ "pay_type" => "pre", "can_be_free" => true, "to" => 99999, "wholesale" => true, "from" => 231, "country" => "PL", "price" => 10, 
+        "enable_with_payment" => true, "source_id" => "wholesale-PL3", "country_full" => "Polska", "name" => "Kurier", "code" => "dpd_default"
+     }
+  ]
+
   @list_of_tresholds [
     %{"value" => 99.0,"name" => "free_low" },
     %{"value" => 149.0,"name" => "free_shipping" },
@@ -45,9 +63,11 @@ defmodule Perseids.IndependentDatabase do
     Mongo.delete_many(:mongo, "#{lang}_threshold", %{})
     Mongo.delete_many(:mongo, "#{lang}_products", %{})
     Mongo.delete_many(:mongo, "#{lang}_discount", %{})
+    Mongo.delete_many(:mongo, "#{lang}_shipping", %{})
 
     create_discount(lang)
     create_products(lang)
+    create_shipping(lang)
     create_thresholds(lang)
   end
 
@@ -77,6 +97,11 @@ defmodule Perseids.IndependentDatabase do
 
   defp replace_one(collection, %{ "source_id" => filter }, replacement) do
     Mongo.replace_one(:mongo, collection, %{ "source_id" => filter }, replacement, upsert: true)
+  end
+
+  defp create_shipping(lang) do
+    @list_of_shipping
+    |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_shipping", &1)))
   end
 
   defp create_thresholds(lang) do
