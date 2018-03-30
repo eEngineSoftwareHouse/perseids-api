@@ -3,6 +3,7 @@ defmodule Perseids.OrderControllerTest do
   
   alias Perseids
 
+
   @valid_credentials %{"email" => "szymon.ciolkowski@eengine.pl", "password" => "Tajnafraza12"}
   @wholesale_valid_credentials %{"email" => "szymon.ciolkowski+1@eengine.pl", "password" => "Tajnafraza12"}
   
@@ -328,6 +329,7 @@ defmodule Perseids.OrderControllerTest do
   # ===================================================
 
   describe "Logged in user order - " do
+    @describetag :magento  
     test "cannot place order without products", %{conn: conn} do
       conn
       |> place_order(valid_order() |> Map.drop(["products"]), :logged_in)
@@ -468,7 +470,6 @@ defmodule Perseids.OrderControllerTest do
       assert conn.resp_body =~ "\"shipping_price\":0"
     end
 
-    @tag :pending
     test "can use fixed_11 discount code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("discount_code", "TEST_FIXED_11")
@@ -489,7 +490,6 @@ defmodule Perseids.OrderControllerTest do
       assert conn.resp_body =~ "\"order_total_price\":0"
     end
 
-    @tag :pending
     test "can use percent discount code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("discount_code", "TEST_PERCENT")
@@ -612,7 +612,9 @@ defmodule Perseids.OrderControllerTest do
   # ===================================================
   # Wholesale user
   # ===================================================
+
   describe "Wholesale user order - " do
+    @describetag :magento  
     test "should always have automatically added \"banktransfer\" payment and some shipping_code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("wholesale", true)
