@@ -1,4 +1,4 @@
-ExUnit.configure(exclude: [pending: true, magento: true])
+ExUnit.configure(exclude: [pending: true])
 ExUnit.start
 Perseids.IndependentDatabase.initialize("pl_pln")
 IO.puts "---===============================================================---"
