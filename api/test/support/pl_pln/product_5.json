@@ -1,49 +1,52 @@
 {
   "recommended": "0",
   "price": {
-    "433": 14.999973,
-    "432": 14.999973,
-    "431": 14.999973
+    "142": 24.999996,
+    "140": 24.999996,
+    "141": 24.999996
   },
   "variants": [
     {
-      "price": 14.999973,
-      "url_key": "sweet-x-mass-kids-23-26",
+      "price": 24.999996,
+      "url_key": "fries-and-soda-35-38",
       "old_price": null,
-      "source_id": "431",
+      "source_id": "140",
       "params": {
         "recommended": [
           "No"
         ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
         "custom_design_from": [
-          "2018-03-23 12:17:39"
+          "2018-03-23 12:14:30"
         ],
         "thumbnail": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
         ],
         "meta_keyword": [
-          "Sweet X-Mass Kids"
+          "FRIES AND SODA"
         ],
         "url_key": [
-          "sweet-x-mass-kids-23-26"
+          "fries-and-soda-35-38"
         ],
         "meta_description": [
-          "Sweet X-Mass Kids "
+          "FRIES AND SODA "
         ],
         "has_options": [
           "0"
         ],
         "special_price": [
-          "13.0000"
+          "21.0000"
         ],
         "tax_class_id": [
           "Taxable Goods"
         ],
         "product_size": [
-          "23-26"
+          "35-38"
         ],
         "pattern": [
-          "winter"
+          "food"
         ],
         "required_options": [
           "0"
@@ -52,10 +55,10 @@
           "Block after Info Column"
         ],
         "image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
         ],
         "meta_title": [
-          "Sweet X-Mass Kids"
+          "FRIES AND SODA"
         ],
         "special_from_date": [
           "2018-02-09 00:00:00"
@@ -68,28 +71,28 @@
         ],
         "category_ids": [
           "11",
-          "13",
-          "25",
-          "29"
+          "12",
+          "19",
+          "27"
         ],
         "news_from_date": [
-          "2018-03-23 12:17:39"
+          "2018-03-23 12:14:30"
         ],
         "small_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
         ],
         "color": [
           "red",
-          "dark-blue"
+          "blue"
         ],
         "swatch_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi_1.png"
         ],
         "pos1_quantity": [
-          "14"
+          "10"
         ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
+        "warehouse_position": [
+          "42"
         ],
         "listing_position": [
           "999"
@@ -99,49 +102,52 @@
       "images": [],
       "quantity": 1,
       "groups_prices": {},
-      "name": "SWEET X-MASS KIDS-23-26",
-      "netto_price": 12.1951,
-      "sku": "K16-23-26",
+      "name": "FRIES AND SODA-35-38",
+      "netto_price": 20.3252,
+      "sku": "R12-35-38",
       "netto_old_price": null
     },
     {
-      "price": 14.999973,
-      "url_key": "sweet-x-mass-kids-27-30",
+      "price": 24.999996,
+      "url_key": "fries-and-soda-39-42",
       "old_price": null,
-      "source_id": "432",
+      "source_id": "141",
       "params": {
         "recommended": [
           "No"
         ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
         "custom_design_from": [
-          "2018-03-23 12:17:40"
+          "2018-03-23 12:14:31"
         ],
         "thumbnail": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
         ],
         "meta_keyword": [
-          "Sweet X-Mass Kids"
+          "FRIES AND SODA"
         ],
         "url_key": [
-          "sweet-x-mass-kids-27-30"
+          "fries-and-soda-39-42"
         ],
         "meta_description": [
-          "Sweet X-Mass Kids "
+          "FRIES AND SODA "
         ],
         "has_options": [
           "0"
         ],
         "special_price": [
-          "13.0000"
+          "21.0000"
         ],
         "tax_class_id": [
           "Taxable Goods"
         ],
         "product_size": [
-          "27-30"
+          "39-42"
         ],
         "pattern": [
-          "winter"
+          "food"
         ],
         "required_options": [
           "0"
@@ -150,10 +156,10 @@
           "Block after Info Column"
         ],
         "image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
         ],
         "meta_title": [
-          "Sweet X-Mass Kids"
+          "FRIES AND SODA"
         ],
         "special_from_date": [
           "2018-02-09 00:00:00"
@@ -166,28 +172,28 @@
         ],
         "category_ids": [
           "11",
-          "13",
-          "25",
-          "29"
+          "12",
+          "19",
+          "27"
         ],
         "news_from_date": [
-          "2018-03-23 12:17:40"
+          "2018-03-23 12:14:31"
         ],
         "small_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
         ],
         "color": [
           "red",
-          "dark-blue"
+          "blue"
         ],
         "swatch_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_1.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi_1_1.png"
         ],
         "pos1_quantity": [
-          "7"
+          "6"
         ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
+        "warehouse_position": [
+          "42"
         ],
         "listing_position": [
           "999"
@@ -197,49 +203,52 @@
       "images": [],
       "quantity": 1,
       "groups_prices": {},
-      "name": "SWEET X-MASS KIDS-27-30",
-      "netto_price": 12.1951,
-      "sku": "K16-27-30",
+      "name": "FRIES AND SODA-39-42",
+      "netto_price": 20.3252,
+      "sku": "R12-39-42",
       "netto_old_price": null
     },
     {
-      "price": 14.999973,
-      "url_key": "sweet-x-mass-kids-31-34",
+      "price": 24.999996,
+      "url_key": "fries-and-soda-43-46",
       "old_price": null,
-      "source_id": "433",
+      "source_id": "142",
       "params": {
         "recommended": [
           "No"
         ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
         "custom_design_from": [
-          "2018-03-23 12:17:41"
+          "2018-03-23 12:14:32"
         ],
         "thumbnail": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
         ],
         "meta_keyword": [
-          "Sweet X-Mass Kids"
+          "FRIES AND SODA"
         ],
         "url_key": [
-          "sweet-x-mass-kids-31-34"
+          "fries-and-soda-43-46"
         ],
         "meta_description": [
-          "Sweet X-Mass Kids "
+          "FRIES AND SODA "
         ],
         "has_options": [
           "0"
         ],
         "special_price": [
-          "13.0000"
+          "21.0000"
         ],
         "tax_class_id": [
           "Taxable Goods"
         ],
         "product_size": [
-          "31-34"
+          "43-46"
         ],
         "pattern": [
-          "winter"
+          "food"
         ],
         "required_options": [
           "0"
@@ -248,10 +257,10 @@
           "Block after Info Column"
         ],
         "image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
         ],
         "meta_title": [
-          "Sweet X-Mass Kids"
+          "FRIES AND SODA"
         ],
         "special_from_date": [
           "2018-02-09 00:00:00"
@@ -264,28 +273,28 @@
         ],
         "category_ids": [
           "11",
-          "13",
-          "25",
-          "29"
+          "12",
+          "19",
+          "27"
         ],
         "news_from_date": [
-          "2018-03-23 12:17:41"
+          "2018-03-23 12:14:32"
         ],
         "small_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
         ],
         "color": [
           "red",
-          "dark-blue"
+          "blue"
         ],
         "swatch_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_2.png"
+          "/m/m/mm_friesandsoda_regular_packshot_72dpi_2.png"
         ],
         "pos1_quantity": [
           "8"
         ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
+        "warehouse_position": [
+          "42"
         ],
         "listing_position": [
           "999"
@@ -295,54 +304,67 @@
       "images": [],
       "quantity": 1,
       "groups_prices": {},
-      "name": "SWEET X-MASS KIDS-31-34",
-      "netto_price": 12.1951,
-      "sku": "K16-31-34",
+      "name": "FRIES AND SODA-43-46",
+      "netto_price": 20.3252,
+      "sku": "R12-43-46",
       "netto_old_price": null
     }
   ],
-  "url_key": "sweet-x-mass-kids",
-  "source_id": "434",
-  "name": "SWEET X-MASS KIDS",
-  "bestseller": "0",
+  "url_key": "fries-and-soda",
+  "source_id": "143",
+  "name": "FRIES AND SODA",
+  "bestseller": "1",
   "netto_old_price": [],
   "params": {
     "recommended": [
       "No"
     ],
-    "small_image": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+    "gift_message_available": [
+      "No"
     ],
     "thumbnail": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+      "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
     ],
     "meta_keyword": [
-      "Sweet X-Mass Kids"
+      "FRIES AND SODA"
     ],
     "url_key": [
-      "sweet-x-mass-kids-23-26",
-      "sweet-x-mass-kids-27-30",
-      "sweet-x-mass-kids-31-34"
+      "fries-and-soda-35-38",
+      "fries-and-soda-39-42",
+      "fries-and-soda-43-46"
     ],
     "meta_description": [
-      "Sweet X-Mass Kids "
+      "FRIES AND SODA "
     ],
-    "pattern": [
-      "winter"
+    "has_options": [
+      "0"
     ],
-    "special_price": [
-      "13.0000"
+    "category_ids": [
+      "11",
+      "9",
+      "34",
+      "1",
+      "0",
+      "12",
+      "19",
+      "18",
+      "27",
+      "2",
+      "223",
+      "203",
+      "35",
+      "224"
     ],
     "tax_class_id": [
       "Taxable Goods"
     ],
     "product_size": [
-      "23-26",
-      "27-30",
-      "31-34"
+      "35-38",
+      "39-42",
+      "43-46"
     ],
-    "has_options": [
-      "0"
+    "pattern": [
+      "food"
     ],
     "required_options": [
       "0"
@@ -351,12 +373,12 @@
       "Block after Info Column"
     ],
     "image": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+      "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
     ],
     "news_from_date": [
-      "2018-03-23 12:17:39",
-      "2018-03-23 12:17:40",
-      "2018-03-23 12:17:41"
+      "2018-03-23 12:14:30",
+      "2018-03-23 12:14:31",
+      "2018-03-23 12:14:32"
     ],
     "special_from_date": [
       "2018-02-09 00:00:00"
@@ -364,74 +386,78 @@
     "is_product_lacked": [
       "0"
     ],
-    "custom_design_from": [
-      "2018-03-23 12:17:39",
-      "2018-03-23 12:17:40",
-      "2018-03-23 12:17:41"
+    "warehouse_position": [
+      "42"
     ],
-    "category_ids": [
-      "11",
-      "9",
-      "34",
-      "1",
-      "0",
-      "13",
-      "25",
-      "18",
-      "29",
-      "2"
+    "custom_design_from": [
+      "2018-03-23 12:14:30",
+      "2018-03-23 12:14:31",
+      "2018-03-23 12:14:32"
+    ],
+    "special_price": [
+      "21.0000"
     ],
     "meta_title": [
-      "Sweet X-Mass Kids"
+      "FRIES AND SODA"
     ],
-    "gift_message_available": [
-      "No"
+    "small_image": [
+      "/m/m/mm_friesandsoda_regular_packshot_72dpi.png"
     ],
     "listing_position": [
       "999"
     ],
     "color": [
       "red",
-      "dark-blue"
+      "blue"
     ],
     "pos1_quantity": [
-      "14",
-      "7",
+      "10",
+      "6",
       "8"
     ],
     "special_to_date": [
       "2018-02-11 00:00:00"
     ],
     "swatch_image": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3.png",
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_1.png",
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_2.png"
+      "/m/m/mm_friesandsoda_regular_packshot_72dpi_1.png",
+      "/m/m/mm_friesandsoda_regular_packshot_72dpi_1_1.png",
+      "/m/m/mm_friesandsoda_regular_packshot_72dpi_2.png"
     ]
   },
-  "description": "Świąteczne skarpetki dla dzieci od Many Mornings pasują do czekoladowego piernika, prezentów, makowca, pierogów i wspaniałej atmosfery, którą maluchy wprost uwielbiają! Ten model jest kropką nad „i”, ukoronowaniem oczekiwania na Mikołaja, a także spełnieniem marzeń małych odkrywców. A przynajmniej jednego z tych marzeń.\r\n\r\nStowrzyliśmy model Sweet X-mas, by udowodnić, że dziecięce skarpetki wcale nie muszą być nudne. Wystarczy odrobina kreatywności, szczypta świątecznej magii, trochę lukru do ciasta i... elegancki dodatek do wigilijnej kolacji gotowy! Szykownie, z klasą i dbalością o słodki smak szczęścia – dla małych i dużych dzieciaków.",
+  "description": "<p>Apetyt na dobry gust rośnie w miarę... Noszenia skarpet dla mężczyzn oraz kobiet z frytkami i oranżadą. Pasują do siebie jak flip do flapa, jak przemijanie do wiatru, jak blogerki do gratis&oacute;w. Pysznij się swoim stylem w frytkowo-sodowych skarpetkach. Poczuj na sobie głodne spojrzenia innych.</p>",
   "images": [
     {
       "disabled": false,
-      "file": "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png",
+      "file": "/m/m/mm_friesandsoda_regular_packshot_72dpi.png",
       "media_type": "image",
       "label": null,
       "types": [
         "image",
         "small_image",
-        "thumbnail",
-        "swatch_image"
+        "thumbnail"
       ],
-      "id": 404,
+      "id": 431,
       "position": 1
     },
     {
       "disabled": false,
-      "file": "/m/m/mm_sweetx-mas_regular_2.jpg",
+      "file": "/m/m/mm_friesandsoda_regular_01.jpg",
+      "media_type": "image",
+      "label": null,
+      "types": [
+        "swatch_image"
+      ],
+      "id": 432,
+      "position": 2
+    },
+    {
+      "disabled": false,
+      "file": "/m/m/mm_friesandsoda_regular_02.jpg",
       "media_type": "image",
       "label": null,
       "types": [],
-      "id": 405,
-      "position": 2
+      "id": 433,
+      "position": 3
     }
   ],
   "currency": "PLN",
@@ -453,28 +479,40 @@
       "id": "0"
     },
     {
-      "id": "13"
+      "id": "12"
     },
     {
-      "id": "25"
+      "id": "19"
     },
     {
       "id": "18"
     },
     {
-      "id": "29"
+      "id": "27"
     },
     {
       "id": "2"
+    },
+    {
+      "id": "223"
+    },
+    {
+      "id": "203"
+    },
+    {
+      "id": "35"
+    },
+    {
+      "id": "224"
     }
   ],
-  "sku": "K16",
+  "sku": "R12",
   "netto_price": {
-    "433": 12.1951,
-    "432": 12.1951,
-    "431": 12.1951
+    "142": 20.3252,
+    "140": 20.3252,
+    "141": 20.3252
   },
   "old_price": [],
-  "listing_position": 93.0,
+  "listing_position": 64.0,
   "quantity": 1
 }

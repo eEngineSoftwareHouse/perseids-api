@@ -1,49 +1,51 @@
 {
   "recommended": "0",
   "price": {
-    "433": 14.999973,
-    "432": 14.999973,
-    "431": 14.999973
+    "117": 24.999996,
+    "116": 24.999996,
+    "118": 24.999996
   },
-  "variants": [
-    {
-      "price": 14.999973,
-      "url_key": "sweet-x-mass-kids-23-26",
+  "variants": [{
+      "price": 24.999996,
+      "url_key": "strawberries-35-38",
       "old_price": null,
-      "source_id": "431",
+      "source_id": "116",
       "params": {
         "recommended": [
           "No"
         ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
         "custom_design_from": [
-          "2018-03-23 12:17:39"
+          "2018-03-23 12:14:15"
         ],
         "thumbnail": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi.png"
         ],
         "meta_keyword": [
-          "Sweet X-Mass Kids"
+          "STRAWBERRIES"
         ],
         "url_key": [
-          "sweet-x-mass-kids-23-26"
+          "strawberries-35-38"
         ],
         "meta_description": [
-          "Sweet X-Mass Kids "
+          "STRAWBERRIES "
         ],
         "has_options": [
           "0"
         ],
         "special_price": [
-          "13.0000"
+          "21.0000"
         ],
         "tax_class_id": [
           "Taxable Goods"
         ],
         "product_size": [
-          "23-26"
+          "35-38"
         ],
         "pattern": [
-          "winter"
+          "food"
         ],
         "required_options": [
           "0"
@@ -52,10 +54,10 @@
           "Block after Info Column"
         ],
         "image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi.png"
         ],
         "meta_title": [
-          "Sweet X-Mass Kids"
+          "STRAWBERRIES"
         ],
         "special_from_date": [
           "2018-02-09 00:00:00"
@@ -69,27 +71,29 @@
         "category_ids": [
           "11",
           "13",
-          "25",
-          "29"
+          "15",
+          "19",
+          "27"
         ],
         "news_from_date": [
-          "2018-03-23 12:17:39"
+          "2018-03-23 12:14:15"
         ],
         "small_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi.png"
         ],
         "color": [
           "red",
-          "dark-blue"
+          "dark-blue",
+          "green"
         ],
         "swatch_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi_1.png"
         ],
         "pos1_quantity": [
-          "14"
+          "13"
         ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
+        "warehouse_position": [
+          "26"
         ],
         "listing_position": [
           "999"
@@ -99,49 +103,52 @@
       "images": [],
       "quantity": 1,
       "groups_prices": {},
-      "name": "SWEET X-MASS KIDS-23-26",
-      "netto_price": 12.1951,
-      "sku": "K16-23-26",
+      "name": "STRAWBERRIES-35-38",
+      "netto_price": 20.3252,
+      "sku": "R10-35-38",
       "netto_old_price": null
     },
     {
-      "price": 14.999973,
-      "url_key": "sweet-x-mass-kids-27-30",
+      "price": 24.999996,
+      "url_key": "strawberries-39-42",
       "old_price": null,
-      "source_id": "432",
+      "source_id": "117",
       "params": {
         "recommended": [
           "No"
         ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
         "custom_design_from": [
-          "2018-03-23 12:17:40"
+          "2018-03-23 12:14:15"
         ],
         "thumbnail": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi.png"
         ],
         "meta_keyword": [
-          "Sweet X-Mass Kids"
+          "STRAWBERRIES"
         ],
         "url_key": [
-          "sweet-x-mass-kids-27-30"
+          "strawberries-39-42"
         ],
         "meta_description": [
-          "Sweet X-Mass Kids "
+          "STRAWBERRIES "
         ],
         "has_options": [
           "0"
         ],
         "special_price": [
-          "13.0000"
+          "21.0000"
         ],
         "tax_class_id": [
           "Taxable Goods"
         ],
         "product_size": [
-          "27-30"
+          "39-42"
         ],
         "pattern": [
-          "winter"
+          "food"
         ],
         "required_options": [
           "0"
@@ -150,10 +157,10 @@
           "Block after Info Column"
         ],
         "image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi.png"
         ],
         "meta_title": [
-          "Sweet X-Mass Kids"
+          "STRAWBERRIES"
         ],
         "special_from_date": [
           "2018-02-09 00:00:00"
@@ -167,27 +174,29 @@
         "category_ids": [
           "11",
           "13",
-          "25",
-          "29"
+          "15",
+          "19",
+          "27"
         ],
         "news_from_date": [
-          "2018-03-23 12:17:40"
+          "2018-03-23 12:14:15"
         ],
         "small_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi.png"
         ],
         "color": [
           "red",
-          "dark-blue"
+          "dark-blue",
+          "green"
         ],
         "swatch_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_1.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi_1_1.png"
         ],
         "pos1_quantity": [
-          "7"
+          "12"
         ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
+        "warehouse_position": [
+          "26"
         ],
         "listing_position": [
           "999"
@@ -197,61 +206,67 @@
       "images": [],
       "quantity": 1,
       "groups_prices": {},
-      "name": "SWEET X-MASS KIDS-27-30",
-      "netto_price": 12.1951,
-      "sku": "K16-27-30",
+      "name": "STRAWBERRIES-39-42",
+      "netto_price": 20.3252,
+      "sku": "R10-39-42",
       "netto_old_price": null
     },
     {
-      "price": 14.999973,
-      "url_key": "sweet-x-mass-kids-31-34",
+      "price": 24.999996,
+      "url_key": "strawberries-43-46",
       "old_price": null,
-      "source_id": "433",
+      "source_id": "118",
       "params": {
         "recommended": [
           "No"
         ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
         "custom_design_from": [
-          "2018-03-23 12:17:41"
+          "2018-03-23 12:14:16"
         ],
         "thumbnail": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi.png"
         ],
         "meta_keyword": [
-          "Sweet X-Mass Kids"
+          "STRAWBERRIES"
         ],
         "url_key": [
-          "sweet-x-mass-kids-31-34"
+          "strawberries-43-46"
         ],
         "meta_description": [
-          "Sweet X-Mass Kids "
+          "STRAWBERRIES "
         ],
         "has_options": [
           "0"
         ],
         "special_price": [
-          "13.0000"
+          "21.0000"
         ],
         "tax_class_id": [
           "Taxable Goods"
         ],
         "product_size": [
-          "31-34"
+          "43-46"
         ],
         "pattern": [
-          "winter"
+          "food"
         ],
         "required_options": [
           "0"
+        ],
+        "production_quantity": [
+          "-15"
         ],
         "options_container": [
           "Block after Info Column"
         ],
         "image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi.png"
         ],
         "meta_title": [
-          "Sweet X-Mass Kids"
+          "STRAWBERRIES"
         ],
         "special_from_date": [
           "2018-02-09 00:00:00"
@@ -265,27 +280,29 @@
         "category_ids": [
           "11",
           "13",
-          "25",
-          "29"
+          "15",
+          "19",
+          "27"
         ],
         "news_from_date": [
-          "2018-03-23 12:17:41"
+          "2018-03-23 12:14:16"
         ],
         "small_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi.png"
         ],
         "color": [
           "red",
-          "dark-blue"
+          "dark-blue",
+          "green"
         ],
         "swatch_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_2.png"
+          "/m/m/mm_strawberries_regular_packshot_72dpi_2.png"
         ],
         "pos1_quantity": [
-          "8"
+          "496"
         ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
+        "warehouse_position": [
+          "26"
         ],
         "listing_position": [
           "999"
@@ -295,79 +312,40 @@
       "images": [],
       "quantity": 1,
       "groups_prices": {},
-      "name": "SWEET X-MASS KIDS-31-34",
-      "netto_price": 12.1951,
-      "sku": "K16-31-34",
+      "name": "STRAWBERRIES-43-46",
+      "netto_price": 20.3252,
+      "sku": "R10-43-46",
       "netto_old_price": null
     }
   ],
-  "url_key": "sweet-x-mass-kids",
-  "source_id": "434",
-  "name": "SWEET X-MASS KIDS",
-  "bestseller": "0",
+  "url_key": "strawberries",
+  "source_id": "119",
+  "name": "STRAWBERRIES",
+  "bestseller": "1",
   "netto_old_price": [],
   "params": {
     "recommended": [
       "No"
     ],
-    "small_image": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+    "gift_message_available": [
+      "No"
     ],
     "thumbnail": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+      "/m/m/mm_strawberries_regular_packshot_72dpi.png"
     ],
     "meta_keyword": [
-      "Sweet X-Mass Kids"
+      "STRAWBERRIES"
     ],
     "url_key": [
-      "sweet-x-mass-kids-23-26",
-      "sweet-x-mass-kids-27-30",
-      "sweet-x-mass-kids-31-34"
+      "strawberries-35-38",
+      "strawberries-39-42",
+      "strawberries-43-46"
     ],
     "meta_description": [
-      "Sweet X-Mass Kids "
-    ],
-    "pattern": [
-      "winter"
-    ],
-    "special_price": [
-      "13.0000"
-    ],
-    "tax_class_id": [
-      "Taxable Goods"
-    ],
-    "product_size": [
-      "23-26",
-      "27-30",
-      "31-34"
+      "STRAWBERRIES "
     ],
     "has_options": [
       "0"
-    ],
-    "required_options": [
-      "0"
-    ],
-    "options_container": [
-      "Block after Info Column"
-    ],
-    "image": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-    ],
-    "news_from_date": [
-      "2018-03-23 12:17:39",
-      "2018-03-23 12:17:40",
-      "2018-03-23 12:17:41"
-    ],
-    "special_from_date": [
-      "2018-02-09 00:00:00"
-    ],
-    "is_product_lacked": [
-      "0"
-    ],
-    "custom_design_from": [
-      "2018-03-23 12:17:39",
-      "2018-03-23 12:17:40",
-      "2018-03-23 12:17:41"
     ],
     "category_ids": [
       "11",
@@ -376,68 +354,134 @@
       "1",
       "0",
       "13",
-      "25",
+      "15",
+      "19",
       "18",
-      "29",
-      "2"
+      "27",
+      "2",
+      "294",
+      "286",
+      "35",
+      "298"
+    ],
+    "tax_class_id": [
+      "Taxable Goods"
+    ],
+    "product_size": [
+      "35-38",
+      "39-42",
+      "43-46"
+    ],
+    "pattern": [
+      "food"
+    ],
+    "required_options": [
+      "0"
+    ],
+    "production_quantity": [
+      "-15"
+    ],
+    "options_container": [
+      "Block after Info Column"
+    ],
+    "image": [
+      "/m/m/mm_strawberries_regular_packshot_72dpi.png"
+    ],
+    "news_from_date": [
+      "2018-03-23 12:14:15",
+      "2018-03-23 12:14:16"
+    ],
+    "special_from_date": [
+      "2018-02-09 00:00:00"
+    ],
+    "is_product_lacked": [
+      "0"
+    ],
+    "warehouse_position": [
+      "26"
+    ],
+    "custom_design_from": [
+      "2018-03-23 12:14:15",
+      "2018-03-23 12:14:16"
+    ],
+    "special_price": [
+      "21.0000"
     ],
     "meta_title": [
-      "Sweet X-Mass Kids"
+      "STRAWBERRIES"
     ],
-    "gift_message_available": [
-      "No"
+    "small_image": [
+      "/m/m/mm_strawberries_regular_packshot_72dpi.png"
     ],
     "listing_position": [
       "999"
     ],
     "color": [
       "red",
-      "dark-blue"
+      "dark-blue",
+      "green"
     ],
     "pos1_quantity": [
-      "14",
-      "7",
-      "8"
+      "13",
+      "12",
+      "496"
     ],
     "special_to_date": [
       "2018-02-11 00:00:00"
     ],
     "swatch_image": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3.png",
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_1.png",
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_2.png"
+      "/m/m/mm_strawberries_regular_packshot_72dpi_1.png",
+      "/m/m/mm_strawberries_regular_packshot_72dpi_1_1.png",
+      "/m/m/mm_strawberries_regular_packshot_72dpi_2.png"
     ]
   },
-  "description": "Świąteczne skarpetki dla dzieci od Many Mornings pasują do czekoladowego piernika, prezentów, makowca, pierogów i wspaniałej atmosfery, którą maluchy wprost uwielbiają! Ten model jest kropką nad „i”, ukoronowaniem oczekiwania na Mikołaja, a także spełnieniem marzeń małych odkrywców. A przynajmniej jednego z tych marzeń.\r\n\r\nStowrzyliśmy model Sweet X-mas, by udowodnić, że dziecięce skarpetki wcale nie muszą być nudne. Wystarczy odrobina kreatywności, szczypta świątecznej magii, trochę lukru do ciasta i... elegancki dodatek do wigilijnej kolacji gotowy! Szykownie, z klasą i dbalością o słodki smak szczęścia – dla małych i dużych dzieciaków.",
-  "images": [
-    {
+  "description": "<p>Są prawie tak słodkie, jak wakacyjne chwile na hamaku w babcinym ogrodzie. Są prawie tak rozkoszne, jak smak pierwszych truskawek ze śmietaną i cukrem.<br /> <br /> Skarpetki dla kobiet i mężczyzn, którzy nie boją się słodyczy, bo używają jej jako dodatku.<br /> <br /> Kolorowe skarpetki w truskawki. Słit.</p>",
+  "images": [{
       "disabled": false,
-      "file": "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png",
+      "file": "/m/m/mm_strawberries_regular_packshot_72dpi.png",
       "media_type": "image",
       "label": null,
       "types": [
         "image",
         "small_image",
-        "thumbnail",
-        "swatch_image"
+        "thumbnail"
       ],
-      "id": 404,
+      "id": 418,
       "position": 1
     },
     {
       "disabled": false,
-      "file": "/m/m/mm_sweetx-mas_regular_2.jpg",
+      "file": "/m/m/mm_strawberries_regular_01.jpg",
+      "media_type": "image",
+      "label": null,
+      "types": [
+        "swatch_image"
+      ],
+      "id": 419,
+      "position": 2
+    },
+    {
+      "disabled": false,
+      "file": "/m/m/mm_strawberries_regular_02.jpg",
       "media_type": "image",
       "label": null,
       "types": [],
-      "id": 405,
-      "position": 2
+      "id": 420,
+      "position": 3
+    },
+    {
+      "disabled": false,
+      "file": "/m/m/mm_strawberries_regular_03_4.jpg",
+      "media_type": "image",
+      "label": null,
+      "types": [],
+      "id": 421,
+      "position": 4
     }
   ],
   "currency": "PLN",
   "groups_prices": {},
-  "categories": [
-    {
+  "categories": [{
       "id": "11"
     },
     {
@@ -456,25 +500,40 @@
       "id": "13"
     },
     {
-      "id": "25"
+      "id": "15"
+    },
+    {
+      "id": "19"
     },
     {
       "id": "18"
     },
     {
-      "id": "29"
+      "id": "27"
     },
     {
       "id": "2"
+    },
+    {
+      "id": "294"
+    },
+    {
+      "id": "286"
+    },
+    {
+      "id": "35"
+    },
+    {
+      "id": "298"
     }
   ],
-  "sku": "K16",
+  "sku": "R10",
   "netto_price": {
-    "433": 12.1951,
-    "432": 12.1951,
-    "431": 12.1951
+    "117": 20.3252,
+    "116": 20.3252,
+    "118": 20.3252
   },
   "old_price": [],
-  "listing_position": 93.0,
+  "listing_position": 58.0,
   "quantity": 1
 }
