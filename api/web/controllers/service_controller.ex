@@ -4,7 +4,11 @@ defmodule Perseids.ServiceController do
 
   def newsletter(conn, params) do 
     body = params |> Map.put_new("campaign", %{"campaignId" => conn.assigns.get_response_campaign_id})
-    json(conn, GetResponse.save_email(body))
+    { status, response } = GetResponse.save_email(body)
+
+    conn
+    |> put_status(status)
+    |> json(response)
   end
   
   def show(%{assigns: %{lang: lang}} = conn, %{"source_id" => source_id}) do
