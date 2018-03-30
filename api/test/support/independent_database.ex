@@ -5,32 +5,60 @@ defmodule Perseids.IndependentDatabase do
   ## UPDATE DATE IN TEST_HELPER.EXS ##
   ####################################
 
+  #==================================#
+  #=         LIST OF ITEMS          =#
+  #==================================#
+  
+  @list_of_discounts [
+    %{ "value" => 0, "code" => "TEST_SHIPPING", "type" => "shipping"},
+    %{ "value" => 11, "code" => "TEST_FIXED_11", "type" => "fixed"},
+    %{ "value" => 50, "code" => "TEST_FIXED_50", "type" => "fixed"},
+    %{ "value" => 10, "code" => "TEST_PERCENT", "type" => "percent"}
+  ]
+
+  @list_of_products [
+    "/product_1.json",
+    "/product_2.json",
+    "/product_3.json",
+    "/product_valid_order.json",
+    "/product_free_regular.json",
+    "/product_free_low.json"
+  ]
+
+  @list_of_tresholds [
+    %{"value" => 99.0,"name" => "free_low" },
+    %{"value" => 149.0,"name" => "free_shipping" },
+    %{"value" => 199.0,"name" => "free_regular" }
+  ]
+
+  #==================================#
+  #=          METHODS               =#
+  #==================================#
+
+
   def initialize(lang) do
     Mongo.delete_many(:mongo, "orders", %{})
+    Mongo.delete_many(:mongo, "#{lang}_threshold", %{})
+    Mongo.delete_many(:mongo, "#{lang}_discount", %{})
+
     create_discount(lang)
     create_products(lang)
     create_thresholds(lang)
   end
 
+
+  #==================================#
+  #=            PRIVATE             =#
+  #==================================#
+
   defp create_discount(lang) do
-    Mongo.delete_many(:mongo, "#{lang}_discount", %{})
-    [
-      %{ "value" => 0, "code" => "TEST_SHIPPING", "type" => "shipping"},
-      %{ "value" => 11, "code" => "TEST_FIXED_11", "type" => "fixed"},
-      %{ "value" => 50, "code" => "TEST_FIXED_50", "type" => "fixed"},
-      %{ "value" => 10, "code" => "TEST_PERCENT", "type" => "percent"}
-    ]
+    @list_of_discounts
     |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_discount", &1)))
   end
 
   defp create_products(lang) do
-    [
-      "#{lang}/product_1.json",
-      "#{lang}/product_2.json",
-      "#{lang}/product_3.json",
-      "#{lang}/product_free_regular.json",
-      "#{lang}/product_free_low.json"
-    ]
+    @list_of_products
+    |> Enum.map(&( lang <> &1))
     |> Enum.reduce([], &decode_single_product(&1, &2))
     |> Enum.each(&(replace_one("#{lang}_products", &1, &1)))
   end
@@ -47,12 +75,7 @@ defmodule Perseids.IndependentDatabase do
   end
 
   defp create_thresholds(lang) do
-    Mongo.delete_many(:mongo, "#{lang}_threshold", %{})
-    [
-      %{"value" => 99.0,"name" => "free_low" },
-      %{"value" => 149.0,"name" => "free_shipping" },
-      %{"value" => 199.0,"name" => "free_regular" }
-    ]
+    @list_of_tresholds
     |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_threshold", &1)))
   end
 end

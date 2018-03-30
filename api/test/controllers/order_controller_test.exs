@@ -726,7 +726,7 @@ defmodule Perseids.OrderControllerTest do
       "other_shipping_address" => false,
       "payment" => "banktransfer-pre",
       "products" => [
-          %{"count" => 1, "id" => "455", "name" => "TRUE BLUE-35-38", "sku" => "R67-35-38", "variant_id" => "455"}
+          %{"count" => 1, "id" => "455", "name" => "EL LEOPARDO-35-38", "sku" => "R67-35-38", "variant_id" => "455"}
         ],
       "shipping" => "kurier-PL"
     }
