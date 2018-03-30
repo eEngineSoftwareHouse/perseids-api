@@ -8,7 +8,7 @@ defmodule GetResponse do
   def save_email(%{"email" => _email, "campaign" => %{"campaignId" => _campaign_id}} = params) do
     case post("contacts", params) do
       { :ok, response } -> response(response)
-      { :error, reason } -> {:error, reason}
+      { :error, reason } -> { 500, reason }
     end
   end
 
@@ -19,8 +19,8 @@ defmodule GetResponse do
   defp response(response) do
     case response.status_code do
       # GetResponse return 202 on success, because email will be visible about 1 minute later
-      202 -> Poison.decode!(response.body)
-      _ -> %{ errors: [response.body |> Poison.decode! |> Map.get("codeDescription") |> translated_message] }
+      202 -> {200, "ok"}
+      _ -> {response.status_code, %{ errors: [response.body |> Poison.decode! |> Map.get("codeDescription") |> translated_message] } }
     end
   end
 
