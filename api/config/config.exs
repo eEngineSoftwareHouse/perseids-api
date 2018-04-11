@@ -40,12 +40,13 @@ config :perseids, :magento,
   admin_password:         System.get_env("MAGENTO_ADMIN_PASSWORD"),
   default_category_id:    System.get_env("MAGENTO_DEFAULT_CATEGORY_ID")
 
-# Configure GetResponse
-config :perseids, :get_response,
-  api_url: System.get_env("GETRESPONSE_API_URL"),
-  api_key: System.get_env("GETRESPONSE_API_KEY"),
-  api_campaign_token_pl: System.get_env("GETRESPONSE_API_CAMPAIGN_TOKEN_PL"),
-  api_campaign_token_en: System.get_env("GETRESPONSE_API_CAMPAIGN_TOKEN_EN")
+# Configure FreshMail
+config :perseids, :fresh_mail,
+  api_url: System.get_env("FRESHMAIL_API_URL"),
+  api_key: System.get_env("FRESHMAIL_API_KEY"),
+  api_secret: System.get_env("FRESHMAIL_API_SECRET"),
+  api_list_token_pl: System.get_env("FRESHMAIL_API_LIST_TOKEN_PL"),
+  api_list_token_en: System.get_env("FRESHMAIL_API_LIST_TOKEN_EN")
 
 # Configure PayU
 config :perseids, :payu_pln,
