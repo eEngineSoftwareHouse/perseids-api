@@ -9,6 +9,17 @@ defmodule Perseids.PaymentController do
     |> maybe_success(order_id, status, conn)
   end
 
+  def payu_notify(conn, %{"extOrderId" => order_id, "refund" => %{"status" => "FINALIZED"}}) do
+    with false <- order_id |> Order.find_one |> is_nil,
+      { :ok, _ } <- Order.update(order_id, %{ "payment_status" => "REFUND" }) 
+    do
+      json(conn, "ok")
+    else
+      true -> conn |> put_status(404) |> json(%{ errors: "Not Found" })
+      _   -> conn |> put_status(422) |> json(%{ errors: "Unprocessable Entity" })
+    end  
+  end
+
   def paypal_accept(conn, %{"PayerID" => payer_id, "paymentId" => payment_id} = _params) do
     case PayPal.execute_payment(payment_id, payer_id) do
       {:ok, _saved} -> json(conn, "ok")
