@@ -25,7 +25,7 @@ defmodule Perseids.Plugs.Language do
     |> assign(:locale, locale)
     |> assign(:store_view, get_corresponding_store_view(prefix))
     |> assign(:currency, currency |> String.upcase)
-    |> assign(:get_response_campaign_id, get_response_campaign_id(locale))
+    |> assign(:fresh_mail_list_id, fresh_mail_list_id(locale))
   end
 
   defp get_corresponding_store_view(lang) do
@@ -38,6 +38,6 @@ defmodule Perseids.Plugs.Language do
     store_views[lang]
   end
 
-  defp get_response_campaign_id("pl"), do: Application.get_env(:perseids, :get_response)[:api_campaign_token_pl]
-  defp get_response_campaign_id(_locale), do: Application.get_env(:perseids, :get_response)[:api_campaign_token_en]
+  defp fresh_mail_list_id("pl"), do: Application.get_env(:perseids, :fresh_mail)[:api_list_token_pl]
+  defp fresh_mail_list_id(_locale), do: Application.get_env(:perseids, :fresh_mail)[:api_list_token_en]
 end
