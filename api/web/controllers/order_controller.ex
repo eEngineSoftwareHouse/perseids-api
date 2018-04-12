@@ -27,7 +27,11 @@ defmodule Perseids.OrderController do
         # "$and" => params |> Map.drop(["sort"]) |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
         "$and" => maybe_all(params)
       }, 
-      options: [sort: %{"created_at" => (params["sort"] || "-1") |> String.to_integer}]
+      options: %{
+        "sort" => %{
+          "created_at" => (params["sort"] || "-1") |> String.to_integer
+        }
+      }
     )
 
     render conn, "orders.json", orders: orders, count: orders |> Enum.count
