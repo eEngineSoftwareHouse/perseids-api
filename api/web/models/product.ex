@@ -113,7 +113,7 @@ defmodule Perseids.Product do
   def update_variant_qty(_id, _variant_id, _count,  variant, acc), do: acc ++ [ variant ]
 
   def update_product(filter, new_value, lang, upsert \\ false) do
-    collection = lang <> "_" <> @collection_name
+    lang <> "_" <> @collection_name
     |> ORMongo.update_one(filter, new_value, upsert: upsert)
   end
 
