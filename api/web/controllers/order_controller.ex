@@ -4,6 +4,7 @@ defmodule Perseids.OrderController do
   alias Perseids.Pagination
   alias Perseids.Order
   alias Perseids.Discount
+  alias Perseids.Product
 
   # action_fallback Perseids.FallbackController
 
@@ -46,7 +47,12 @@ defmodule Perseids.OrderController do
     changeset = Perseids.Order.changeset(%Perseids.Order{}, prepare_params(conn, params))
 
     if changeset.valid? do
-      render conn, "order.json", order: Order.create(changeset.changes)
+      order = Order.create(changeset.changes)
+
+      changeset.changes.products
+      |> Enum.each(&(product_qty_update(&1, conn.assigns.lang)))
+
+      render conn, "order.json", order: order
     else
       conn
       |> put_status(422)
@@ -107,5 +113,10 @@ defmodule Perseids.OrderController do
       { :ok, _response } -> conn |> json(:ok)
       { :error, message } -> conn |> put_status(404) |> json(%{ errors: message })
     end
+  end
+
+  defp product_qty_update(%{ "count" => count, "variant_id" => id }, lang) do
+    count = Product.find_one(source_id: id, lang: lang)["quantity"] - count
+    Product.update(id, %{ "count" => count }, lang)
   end
 end

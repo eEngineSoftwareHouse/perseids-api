@@ -39,6 +39,7 @@ defmodule Perseids.Order do
      |> validate_shipping
      |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
      |> validate_required_subfields([address: [:payment]], if: :invoice) # validated only if 'invoice' checkbox is sent
+     |> validate_products(params["lang"])
   end
 
   def create(%{payment: "payu-pre"} = params) do
@@ -445,4 +446,19 @@ defmodule Perseids.Order do
   end
 
   defp products_count(params), do: params.products |> Enum.reduce(0, &(&1["count"] + &2))
+
+  defp validate_products(changeset, lang) do
+    get_field(changeset, :products) 
+    |> Enum.reduce(changeset, &(validate_single_product(&1, lang, &2)))
+  end
+
+  defp validate_single_product(product, lang, changeset) do
+    Perseids.Product.find_one(source_id: product["variant_id"], lang: lang)["quantity"]
+    |> validate_product_qty(product, changeset)
+  end
+
+  defp validate_product_qty(current_state, %{ "count" => count, "name" => name }, changeset) when count > current_state, do: add_error(changeset, :products, name <> gettext " - product out of stock")
+  defp validate_product_qty(nil, _count, changeset ), do: add_error(changeset, :products, gettext "Product not exsist")
+  defp validate_product_qty(_current_state, _count, changeset ), do: changeset
+
 end

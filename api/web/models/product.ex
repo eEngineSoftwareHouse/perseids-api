@@ -101,4 +101,11 @@ defmodule Perseids.Product do
       group_price -> [ Map.put(variant, "netto_price", group_price) | variant_list ]
     end
   end
+
+  def update(id, new_value, lang, upsert \\ false) do
+    IO.inspect id
+    lang <> @collection_name 
+    |> ORMongo.update_one(%{"variant_id" => id}, new_value, upsert: upsert)
+    |> IO.inspect
+  end
 end
