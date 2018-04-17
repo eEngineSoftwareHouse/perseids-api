@@ -453,12 +453,20 @@ defmodule Perseids.Order do
   end
 
   defp validate_single_product(product, lang, changeset) do
-    Perseids.Product.find_one(source_id: product["variant_id"], lang: lang)["quantity"]
-    |> validate_product_qty(product, changeset)
+    case Perseids.Product.find_one(source_id: product["id"], lang: lang) do
+      nil -> 
+        add_error(changeset, :products, gettext "Product not exsist")
+      variants ->
+        variants["variants"]
+        |> Enum.filter(&(&1["source_id"] == product["variant_id"]))
+        |> List.first
+        |> validate_product_qty(product, changeset)
+    end
   end
 
-  defp validate_product_qty(current_state, %{ "count" => count, "name" => name }, changeset) when count > current_state, do: add_error(changeset, :products, name <> gettext " - product out of stock")
-  defp validate_product_qty(nil, _count, changeset ), do: add_error(changeset, :products, gettext "Product not exsist")
+  defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, changeset) when count > current_state do 
+    add_error(changeset, :products, name <> gettext " - product out of stock")
+  end
   defp validate_product_qty(_current_state, _count, changeset ), do: changeset
 
 end

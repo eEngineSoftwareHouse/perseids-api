@@ -102,10 +102,19 @@ defmodule Perseids.Product do
     end
   end
 
-  def update(id, new_value, lang, upsert \\ false) do
-    IO.inspect id
-    lang <> @collection_name 
-    |> ORMongo.update_one(%{"variant_id" => id}, new_value, upsert: upsert)
-    |> IO.inspect
+  def product_qty_update(%{ "count" => count, "id" => id, "variant_id" => variant_id }, lang) do
+    variants = 
+      Perseids.Product.find_one(source_id: id, lang: lang)["variants"]
+      |> Enum.reduce([], &(update_variant_qty(&1["source_id"], variant_id, count, &1, &2)))
+    Perseids.Product.update_product(%{"source_id" => id}, %{"variants" => variants}, lang)
   end
+
+  def update_variant_qty(id, id, count, variant, acc), do: acc ++ [ Map.put(variant, "quantity", variant["quantity"] - count) ]
+  def update_variant_qty(_id, _variant_id, _count,  variant, acc), do: acc ++ [ variant ]
+
+  def update_product(filter, new_value, lang, upsert \\ false) do
+    collection = lang <> "_" <> @collection_name
+    |> ORMongo.update_one(filter, new_value, upsert: upsert)
+  end
+
 end

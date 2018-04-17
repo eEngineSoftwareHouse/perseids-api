@@ -48,9 +48,9 @@ defmodule Perseids.OrderController do
 
     if changeset.valid? do
       order = Order.create(changeset.changes)
-
-      changeset.changes.products
-      |> Enum.each(&(product_qty_update(&1, conn.assigns.lang)))
+      
+      order["products"]
+      |> Enum.each(&(Product.product_qty_update(&1, conn.assigns.lang)))
 
       render conn, "order.json", order: order
     else
@@ -113,10 +113,5 @@ defmodule Perseids.OrderController do
       { :ok, _response } -> conn |> json(:ok)
       { :error, message } -> conn |> put_status(404) |> json(%{ errors: message })
     end
-  end
-
-  defp product_qty_update(%{ "count" => count, "variant_id" => id }, lang) do
-    count = Product.find_one(source_id: id, lang: lang)["quantity"] - count
-    Product.update(id, %{ "count" => count }, lang)
   end
 end
