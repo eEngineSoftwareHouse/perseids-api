@@ -448,17 +448,14 @@ defmodule Perseids.Order do
   defp products_count(params), do: params.products |> Enum.reduce(0, &(&1["count"] + &2))
 
   defp validate_products(changeset, lang) do
-    case get_field(changeset, :products) do
-      [] -> 
-        add_error(changeset, :products, gettext "You can't place order without products")
-      nil ->
-        add_error(changeset, :products, gettext "You can't place order without products")
-      products ->
-        products
-        |> Enum.reduce(changeset, &(validate_single_product(&1, lang, &2)))
-    end
+    get_field(changeset, :products) 
+    |> products_in?(lang, changeset) 
   end
 
+  defp products_in?([], _lang, changeset), do: add_error(changeset, :products, gettext "You can't place order without products")
+  defp products_in?(nil, _lang, changeset), do: add_error(changeset, :products, gettext "You can't place order without products")
+  defp products_in?(products, lang, changeset), do: products |> Enum.reduce(changeset, &(validate_single_product(&1, lang, &2)))
+  
   defp validate_single_product(product, lang, changeset) do
     case Perseids.Product.find_one(source_id: product["id"], lang: lang) do
       nil -> 
