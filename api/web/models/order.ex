@@ -448,8 +448,15 @@ defmodule Perseids.Order do
   defp products_count(params), do: params.products |> Enum.reduce(0, &(&1["count"] + &2))
 
   defp validate_products(changeset, lang) do
-    get_field(changeset, :products) 
-    |> Enum.reduce(changeset, &(validate_single_product(&1, lang, &2)))
+    case get_field(changeset, :products) do
+      [] -> 
+        add_error(changeset, :products, gettext "You can't place order without products")
+      nil ->
+        add_error(changeset, :products, gettext "You can't place order without products")
+      products ->
+        products
+        |> Enum.reduce(changeset, &(validate_single_product(&1, lang, &2)))
+    end
   end
 
   defp validate_single_product(product, lang, changeset) do
