@@ -3,6 +3,7 @@ defmodule Perseids.OrderControllerTest do
   
   alias Perseids
 
+
   @valid_credentials %{"email" => "szymon.ciolkowski@eengine.pl", "password" => "Tajnafraza12"}
   @wholesale_valid_credentials %{"email" => "szymon.ciolkowski+1@eengine.pl", "password" => "Tajnafraza12"}
   
@@ -14,36 +15,6 @@ defmodule Perseids.OrderControllerTest do
 
   setup %{conn: conn} do
     {:ok, conn: conn}
-  end
-
-  setup_all do 
-    Mongo.delete_many(:mongo, "pl_pln_discount", %{"code" => %{"$regex" => "TEST"}} )
-    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 0, "code" => "TEST_SHIPPING", "type" => "shipping"})
-    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 11, "code" => "TEST_FIXED_11", "type" => "fixed"})
-    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 50, "code" => "TEST_FIXED_50", "type" => "fixed"})
-    Mongo.insert_one(:mongo, "pl_pln_discount", %{ "value" => 10, "code" => "TEST_PERCENT", "type" => "percent"})
-    Mongo.update_one(:mongo, "pl_pln_products", %{"source_id" =>  "155"}, 
-      %{"$set" =>  
-        %{"free" =>  "free_low",
-          "variants.0.price" =>  0,
-          "variants.1.price" =>  0,
-          "variants.2.price" =>  0,
-          "price.152" =>  0,
-          "price.153" =>  0,
-          "price.154" =>  0
-      }}, upsert: true )
-    Mongo.update_one(:mongo, "pl_pln_products", %{"source_id" =>  "458"}, 
-      %{"$set" =>  
-        %{"free" =>  "free_regular",
-          "variants.0.price" =>  0,
-          "variants.1.price" =>  0,
-          "variants.2.price" =>  0,
-          "price.456" =>  0,
-          "price.457" =>  0,
-          "price.455" =>  0
-      }}, upsert:  true )
-
-    {:ok, mongo: "ok"}
   end
 
   # ===================================================
@@ -59,6 +30,7 @@ defmodule Perseids.OrderControllerTest do
       assert json_response(conn, 401)
     end
 
+    @tag :magento
     test "logged in user can display his orders", %{conn: conn} do
       conn = conn 
       |> logged_in
@@ -358,6 +330,7 @@ defmodule Perseids.OrderControllerTest do
   # ===================================================
 
   describe "Logged in user order - " do
+    @describetag :magento  
     test "cannot place order without products", %{conn: conn} do
       conn
       |> place_order(valid_order() |> Map.drop(["products"]), :logged_in)
@@ -497,7 +470,7 @@ defmodule Perseids.OrderControllerTest do
       assert json_response(conn, 200)
       assert conn.resp_body =~ "\"shipping_price\":0"
     end
-
+    
     @tag :pending
     test "can use fixed_11 discount code", %{conn: conn} do
       order_params = valid_order()
@@ -642,7 +615,9 @@ defmodule Perseids.OrderControllerTest do
   # ===================================================
   # Wholesale user
   # ===================================================
+
   describe "Wholesale user order - " do
+    @describetag :magento  
     test "should always have automatically added \"banktransfer\" payment and some shipping_code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("wholesale", true)

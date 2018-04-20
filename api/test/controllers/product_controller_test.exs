@@ -2,7 +2,7 @@ defmodule Perseids.ProductControllerTest do
   use Perseids.ConnCase, async: true
 
 
-  @currently_valid_product "watermelon-splash-low"
+  @currently_valid_product "piggy-tales-low"
   @invalid_product "ThisIsInvalidProduct"
 
   defp assert_json_response(conn, list), do: conn |> Perseids.ConnCase.check_json_response(list, :assert) 
@@ -20,6 +20,7 @@ defmodule Perseids.ProductControllerTest do
       assert json_response(conn, 200)      
     end
 
+    @tag :pending
     test "test with pagination", %{conn: conn} do 
       conn = conn
       |> get(product_path(conn, :index), 

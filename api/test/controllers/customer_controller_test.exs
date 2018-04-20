@@ -3,6 +3,8 @@ defmodule Perseids.CustomerControllerTest do
   alias Perseids.CustomerController
   alias Perseids.Plugs.CurrentUser
 
+  @moduletag :magento
+
   @valid_email Time.utc_now |> to_string() |> String.replace(~r/\W/, "-")
   @valid_credentials %{"email" => "test-api@niepodam.pl", "password" => "Tajnafraza12"}
   @valid_params %{customer: %{email: "testowy-#{@valid_email}@testowy.pl", firstname: "Stefan", lastname: "Testowy"}, password: "Tajnafraza12"}
@@ -43,7 +45,6 @@ defmodule Perseids.CustomerControllerTest do
     |> put_req_header("content-type", "application/json")
     {:ok, conn: conn}
   end
-
 
 
   describe "Customer -" do
