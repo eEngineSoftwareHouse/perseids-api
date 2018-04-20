@@ -34,6 +34,9 @@ jobs:
           name: Create test DB
           command: docker-compose exec mongo mongo --eval "db.copyDatabase('perseids', 'perseids_test')"
       - run:
+          name: Mix Deps
+          command: docker-compose exec api bash -c "mix deps.get"
+      - run:
           name: Run tests
           command: docker-compose exec api bash -c "MIX_ENV=test mix test --exclude magento:true"
 
