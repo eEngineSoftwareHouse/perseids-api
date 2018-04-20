@@ -5,6 +5,7 @@ defmodule Perseids.OrderView do
 
   def render("orders.json", %{orders: orders, count: count}) do
     %{
+      page_size: orders.page_size,
       count: count,
       orders: Enum.map(orders, &order_json/1)
     }

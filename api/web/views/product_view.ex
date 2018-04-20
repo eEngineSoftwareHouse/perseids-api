@@ -3,6 +3,7 @@ defmodule Perseids.ProductView do
 
   def render("index.json", %{products: products, count: count, params: params}) do
     %{
+      "page_size" => 24,
       "count" => count,
       "products" => Enum.map(products, &product_json/1),
       "params" => params
