@@ -30,6 +30,7 @@ defmodule Perseids.OrderControllerTest do
       assert json_response(conn, 401)
     end
 
+    @tag :magento
     test "logged in user can display his orders", %{conn: conn} do
       conn = conn 
       |> logged_in
