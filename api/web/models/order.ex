@@ -39,7 +39,7 @@ defmodule Perseids.Order do
      |> validate_shipping
      |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
      |> validate_required_subfields([address: [:payment]], if: :invoice) # validated only if 'invoice' checkbox is sent
-     |> validate_products(params["lang"])
+    #  |> validate_products(params["lang"])
   end
 
   def create(%{payment: "payu-pre"} = params, group_id, tax_rate) do
@@ -338,7 +338,10 @@ defmodule Perseids.Order do
     if order_total_price >= threshold || free_shipping do
       Map.put(order, :shipping_price, 0)
     else
-      Map.put(order, :shipping_price, get_default_shipping_price(shipping))
+      get_default_shipping_price = get_default_shipping_price(shipping)
+      order 
+      |> Map.put(:shipping_price, get_default_shipping_price)
+      |> Map.put(:order_total_price, order_total_price + get_default_shipping_price)
     end
   end
 
