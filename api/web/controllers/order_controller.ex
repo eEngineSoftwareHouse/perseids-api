@@ -47,7 +47,7 @@ defmodule Perseids.OrderController do
     changeset = Perseids.Order.changeset(%Perseids.Order{}, prepare_params(conn, params))
 
     if changeset.valid? do
-      order = Order.create(changeset.changes)
+      order = Order.create(changeset.changes, conn.assigns[:group_id], conn.assigns[:tax_rate])
       
       order["products"]
       |> Enum.each(&(Product.product_qty_update(&1, conn.assigns.lang)))

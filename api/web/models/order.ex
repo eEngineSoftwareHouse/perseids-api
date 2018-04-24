@@ -39,26 +39,26 @@ defmodule Perseids.Order do
      |> validate_shipping
      |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
      |> validate_required_subfields([address: [:payment]], if: :invoice) # validated only if 'invoice' checkbox is sent
-     |> validate_products(params["lang"])
+    #  |> validate_products(params["lang"])
   end
 
-  def create(%{payment: "payu-pre"} = params) do
+  def create(%{payment: "payu-pre"} = params, group_id, tax_rate) do
     @collection_name
-    |> ORMongo.insert_one(update_shipping_and_payment_info(params))
+    |> ORMongo.insert_one(update_shipping_and_payment_info(params, group_id, tax_rate))
     |> item_response
     |> PayU.place_order
   end
 
-  def create(%{payment: "paypal-pre"} = params) do
+  def create(%{payment: "paypal-pre"} = params, group_id, tax_rate) do
     @collection_name
-    |> ORMongo.insert_one(update_shipping_and_payment_info(params))
+    |> ORMongo.insert_one(update_shipping_and_payment_info(params, group_id, tax_rate))
     |> item_response
     |> PayPal.create_payment
   end
 
-  def create(params) do
+  def create(params, group_id, tax_rate) do
     @collection_name
-    |> ORMongo.insert_one(update_shipping_and_payment_info(params))
+    |> ORMongo.insert_one(update_shipping_and_payment_info(params, group_id, tax_rate))
     |> item_response
   end
 
@@ -267,14 +267,15 @@ defmodule Perseids.Order do
   # ===================================================
 
   # WHOLESALE order additional fields
-  defp update_shipping_and_payment_info(%{wholesale: true} = params) do
+  defp update_shipping_and_payment_info(%{wholesale: true} = params, group_id, tax_rate) do
     products_count = products_count(params)
     shipping = get_wholesale_shipping_for(params.address["shipping"]["country"], products_count, params.lang).shipping |> List.first
     case shipping do
       nil -> raise "Wholesale shipping for such order doesn't exist"
       shipping -> 
+        total_price = calc_order_total(params.products, params.lang, group_id) + shipping["price"]
         Map.put(params, :shipping_price, shipping["price"])
-        |> Map.put_new(:order_total_price, calc_order_total(params.products, params.lang))
+        |> Map.put_new(:order_total_price, total_price + total_price * (tax_rate/100))
         |> Map.put(:shipping, shipping["source_id"])
         |> Map.put_new(:shipping_code, shipping["code"])
         |> Map.put(:payment_code, "banktransfer")
@@ -282,12 +283,12 @@ defmodule Perseids.Order do
   end
 
   # NORMAL order additional fields
-  defp update_shipping_and_payment_info(params) do
+  defp update_shipping_and_payment_info(params, _group_id, tax_rate) do
     shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
     payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang)
 
     update_products(params, params.products, params.lang)
-    |> Map.put_new(:order_total_price, calc_order_total(params.products, params[:discount_code], params.lang))
+    |> Map.put_new(:order_total_price, calc_order_total(params.products, params[:discount_code], params.lang, nil))
     |> add_shipping_price(shipping, params.lang, params[:discount_code])
     |> check_free_products(params.lang)
     |> Map.put_new(:shipping_code, shipping["code"])
@@ -302,11 +303,11 @@ defmodule Perseids.Order do
     Map.put(params, :products, new_products)
   end
 
-  defp calc_order_total(products, lang), do: products |> calc_order_total(nil, lang)
+  defp calc_order_total(products, lang, group_id), do: products |> calc_order_total(nil, lang, group_id)
 
-  defp calc_order_total(products, discount_code, lang) do
+  defp calc_order_total(products, discount_code, lang, group_id) do
     products
-    |> Enum.reduce(0, &get_product_price(&1, &2, lang))
+    |> Enum.reduce(0, &get_product_price(&1, &2, lang, group_id))
     |> maybe_discount?(discount_code, lang)
   end
 
@@ -413,8 +414,19 @@ defmodule Perseids.Order do
   end
 
   # Total product price
-  defp get_product_price(product, acc, lang) do
+  defp get_product_price(product, acc, lang, nil) do
     acc + (product["count"] * (Perseids.Product.find_one(source_id: product["id"], lang: lang)["price"][product["variant_id"]]))
+  end
+
+  defp get_product_price(product, acc, lang, group_id) do
+    variant =
+      Perseids.Product.find_one(source_id: product["id"], lang: lang)["variants"]
+      |> find_variant(product["variant_id"])
+
+    case variant["groups_prices"][group_id] do
+      group_price -> acc + (product["count"] * group_price)
+      _ ->  acc + (product["count"] * variant["netto_price"])
+    end
   end
 
   defp update_product(product, acc, lang, discount) do
@@ -460,10 +472,9 @@ defmodule Perseids.Order do
     case Perseids.Product.find_one(source_id: product["id"], lang: lang) do
       nil -> 
         add_error(changeset, :products, gettext "Product not exsist")
-      variants ->
-        variants["variants"]
-        |> Enum.filter(&(&1["source_id"] == product["variant_id"]))
-        |> List.first
+      product_mongo ->
+        product_mongo["variants"]
+        |> find_variant(product["variant_id"])
         |> validate_product_qty(product, changeset)
     end
   end
@@ -472,5 +483,11 @@ defmodule Perseids.Order do
     add_error(changeset, :products, name <> gettext " - product out of stock")
   end
   defp validate_product_qty(_current_state, _count, changeset ), do: changeset
+
+  defp find_variant(variants, source_id) do
+    variants
+    |> Enum.filter(&(&1["source_id"] == source_id))
+    |> List.first
+  end
 
 end
