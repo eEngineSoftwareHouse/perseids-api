@@ -424,8 +424,8 @@ defmodule Perseids.Order do
       |> find_variant(product["variant_id"])
 
     case variant["groups_prices"][group_id] do
+      nil ->  acc + (product["count"] * variant["netto_price"])
       group_price -> acc + (product["count"] * group_price)
-      _ ->  acc + (product["count"] * variant["netto_price"])
     end
   end
 
