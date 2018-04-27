@@ -105,7 +105,7 @@ defmodule Perseids.OrderController do
     orders_count = orders |> Enum.count
     orders = orders |> Pagination.paginate_collection(params)
 
-    render conn, "orders.json", orders: orders, count: orders_count
+    render conn, "orders.json", orders: orders, count: orders_count, page_size: orders.page_size
   end
 
   def update_order(conn, %{ "id" => id } = _params) do
