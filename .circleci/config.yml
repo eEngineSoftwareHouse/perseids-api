@@ -23,7 +23,7 @@ jobs:
             curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
-      - run: cp .env.sample .env
+      - run: cp .env.circle-ci .env
       - run:
           name: Run application containers
           command: docker-compose up -d
@@ -38,5 +38,5 @@ jobs:
           command: docker-compose exec api bash -c "mix deps.get"
       - run:
           name: Run tests
-          command: docker-compose exec api bash -c "MIX_ENV=test mix test --exclude magento:true"
+          command: docker-compose exec api bash -c "MIX_ENV=test mix test"
 
