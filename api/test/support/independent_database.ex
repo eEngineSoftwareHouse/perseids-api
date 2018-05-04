@@ -48,8 +48,8 @@ defmodule Perseids.IndependentDatabase do
   ]
 
   @list_of_tresholds [
-    %{"value" => 99.0,"name" => "free_low" },
-    %{"value" => 149.0,"name" => "free_shipping" },
+    %{"value" => 99.0,"name" => "free_shipping" },
+    %{"value" => 149.0,"name" => "free_low" },
     %{"value" => 199.0,"name" => "free_regular" }
   ]
 
