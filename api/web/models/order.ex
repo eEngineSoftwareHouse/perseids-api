@@ -353,8 +353,8 @@ defmodule Perseids.Order do
   end
 
   defp validate_free_products(nil, order, lang), do: order |> order_should_have(lang, [])
+  defp validate_free_products(:free_shipping, order, lang), do: order |> order_should_have(lang, [])
   defp validate_free_products(:free_low, order, lang), do: order |> order_should_have(lang, ["free_low"])
-  defp validate_free_products(:free_shipping, order, lang), do: order |> order_should_have(lang, ["free_low"])
   defp validate_free_products(:free_regular, order, lang), do: order |> order_should_have(lang, ["free_low", "free_regular"])
 
   defp order_should_have(%{products: products} = order, lang, conditions) do
