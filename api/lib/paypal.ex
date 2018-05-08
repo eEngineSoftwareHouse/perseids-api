@@ -6,7 +6,7 @@ defmodule PayPal do
   @paypal_cancel_url Application.get_env(:perseids, :paypal)[:cancel_url]
   @paypal_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
 
-  def create_payment(%{"currency" => currency, "shipping_price" => shipping_price, "order_total_price" => order_total_price} = order) do
+  def create_payment(%{"currency" => currency, "order_total_price" => order_total_price} = order) do
     payment_info = %{
       "intent" => "sale",
       "redirect_urls" => %{
