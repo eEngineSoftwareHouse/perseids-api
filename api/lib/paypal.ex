@@ -19,7 +19,7 @@ defmodule PayPal do
       "transactions" => [
         %{
           "amount" => %{
-            "total" => paypal_format_price(order_total_price + shipping_price),
+            "total" => paypal_format_price(order_total_price),
             "currency" => currency
           },
           "custom" => BSON.ObjectId.encode!(order["_id"]),
@@ -28,7 +28,7 @@ defmodule PayPal do
               %{
                 "name" => "Zamówienie " <> BSON.ObjectId.encode!(order["_id"]) <> " - pl.manymornings.com",
                 "quantity" => "1",
-                "price" => paypal_format_price(order_total_price + shipping_price),
+                "price" => paypal_format_price(order_total_price),
                 "currency" => order["currency"]
               }
             ],
