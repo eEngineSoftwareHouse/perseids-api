@@ -25,7 +25,7 @@ defmodule PayU do
       merchantPosId: payu_config(currency, :pos_id),
       description: email <> "-" <> BSON.ObjectId.encode!(order["_id"]),
       currencyCode: currency,
-      totalAmount: payu_format_price(order_total_price + shipping_price),
+      totalAmount: payu_format_price(order_total_price),
       extOrderId: BSON.ObjectId.encode!(order["_id"]),
       products: products
       |> Enum.map(&payu_prepare_product(&1))

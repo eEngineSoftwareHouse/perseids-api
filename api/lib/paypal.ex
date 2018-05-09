@@ -6,7 +6,7 @@ defmodule PayPal do
   @paypal_cancel_url Application.get_env(:perseids, :paypal)[:cancel_url]
   @paypal_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
 
-  def create_payment(%{"currency" => currency, "shipping_price" => shipping_price, "order_total_price" => order_total_price} = order) do
+  def create_payment(%{"currency" => currency, "order_total_price" => order_total_price} = order) do
     payment_info = %{
       "intent" => "sale",
       "redirect_urls" => %{
@@ -19,7 +19,7 @@ defmodule PayPal do
       "transactions" => [
         %{
           "amount" => %{
-            "total" => paypal_format_price(order_total_price + shipping_price),
+            "total" => paypal_format_price(order_total_price),
             "currency" => currency
           },
           "custom" => BSON.ObjectId.encode!(order["_id"]),
@@ -28,7 +28,7 @@ defmodule PayPal do
               %{
                 "name" => "Zamówienie " <> BSON.ObjectId.encode!(order["_id"]) <> " - pl.manymornings.com",
                 "quantity" => "1",
-                "price" => paypal_format_price(order_total_price + shipping_price),
+                "price" => paypal_format_price(order_total_price),
                 "currency" => order["currency"]
               }
             ],
