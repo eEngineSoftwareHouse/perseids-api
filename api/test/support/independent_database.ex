@@ -24,9 +24,9 @@ defmodule Perseids.IndependentDatabase do
     "/product_5.json", #source_id : "143"
     "/product_6.json", #source_id : "203"
     "/product_7.json", #source_id : "107"
-    "/product_valid_order.json", #source_id : "455"
-    "/product_free_regular.json", #source_id : "458"
-    "/product_free_low.json" #source_id : "155"
+    "/product_free_low.json", #source_id : "155" set price && netto_price -> 0
+    "/product_free_regular.json", #source_id : "458" set price && netto_price -> 0
+    "/product_valid_order.json" #source_id : "183"
   ]
 
   @list_of_shipping [
@@ -48,8 +48,8 @@ defmodule Perseids.IndependentDatabase do
   ]
 
   @list_of_tresholds [
-    %{"value" => 99.0,"name" => "free_low" },
-    %{"value" => 149.0,"name" => "free_shipping" },
+    %{"value" => 99.0,"name" => "free_shipping" },
+    %{"value" => 149.0,"name" => "free_low" },
     %{"value" => 199.0,"name" => "free_regular" }
   ]
 

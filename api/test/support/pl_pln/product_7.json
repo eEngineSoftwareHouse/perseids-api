@@ -1,481 +1,54 @@
 {
-  "recommended": "0",
-  "price": {
-    "105": 14.999973,
-    "104": 14.999973,
-    "106": 14.999973
-  },
-  "variants": [
-    {
-      "price": 14.999973,
-      "url_key": "watermelon-splash-kids-23-26",
-      "old_price": null,
-      "source_id": "104",
-      "params": {
-        "recommended": [
-          "No"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:14:05"
-        ],
-        "thumbnail": [
-          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-        ],
-        "meta_keyword": [
-          "WATERMELON SPLASH KIDS"
-        ],
-        "url_key": [
-          "watermelon-splash-kids-23-26"
-        ],
-        "meta_description": [
-          "WATERMELON SPLASH KIDS SŁODKIE ARBUZY I KOLORY LATA",
-          " TO SKARPETKI DLA DZIECI",
-          " KTÓRE CENIĄ ŚWIEŻE DODATKI.\r\nSKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO",
-          " LEKKIEGO ŻYCIA. W KAŻDYM WIEKU."
-        ],
-        "has_options": [
-          "0"
-        ],
-        "special_price": [
-          "13.0000"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "product_size": [
-          "23-26"
-        ],
-        "pattern": [
-          "food"
-        ],
-        "required_options": [
-          "0"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "image": [
-          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-        ],
-        "meta_title": [
-          "WATERMELON SPLASH KIDS"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "category_ids": [
-          "11",
-          "15",
-          "16",
-          "19",
-          "29"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:14:05"
-        ],
-        "small_image": [
-          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-        ],
-        "color": [
-          "red",
-          "green",
-          "yellow"
-        ],
-        "pos1_quantity": [
-          "10"
-        ],
-        "warehouse_position": [
-          "69"
-        ],
-        "listing_position": [
-          "999"
-        ]
-      },
-      "description": "<p>SŁODKIE ARBUZY I KOLORY LATA, TO SKARPETKI DLA DZIECI, KTÓRE CENIĄ ŚWIEŻE DODATKI.</p>\r\n<p>SKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO, LEKKIEGO ŻYCIA. W KAŻDYM WIEKU.</p>",
-      "images": [],
-      "quantity": 1,
-      "groups_prices": {},
-      "name": "WATERMELON SPLASH KIDS-23-26",
-      "netto_price": 12.1951,
-      "sku": "K4-23-26",
-      "netto_old_price": null
-    },
-    {
-      "price": 14.999973,
-      "url_key": "watermelon-splash-kids-27-30",
-      "old_price": null,
-      "source_id": "105",
-      "params": {
-        "recommended": [
-          "No"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:14:06"
-        ],
-        "thumbnail": [
-          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-        ],
-        "meta_keyword": [
-          "WATERMELON SPLASH KIDS"
-        ],
-        "url_key": [
-          "watermelon-splash-kids-27-30"
-        ],
-        "meta_description": [
-          "WATERMELON SPLASH KIDS SŁODKIE ARBUZY I KOLORY LATA",
-          " TO SKARPETKI DLA DZIECI",
-          " KTÓRE CENIĄ ŚWIEŻE DODATKI.\r\nSKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO",
-          " LEKKIEGO ŻYCIA. W KAŻDYM WIEKU."
-        ],
-        "has_options": [
-          "0"
-        ],
-        "special_price": [
-          "13.0000"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "product_size": [
-          "27-30"
-        ],
-        "pattern": [
-          "food"
-        ],
-        "required_options": [
-          "0"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "image": [
-          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-        ],
-        "meta_title": [
-          "WATERMELON SPLASH KIDS"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "category_ids": [
-          "11",
-          "15",
-          "16",
-          "19",
-          "29"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:14:06"
-        ],
-        "small_image": [
-          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-        ],
-        "color": [
-          "red",
-          "green",
-          "yellow"
-        ],
-        "pos1_quantity": [
-          "8"
-        ],
-        "warehouse_position": [
-          "69"
-        ],
-        "listing_position": [
-          "999"
-        ]
-      },
-      "description": "<p>SŁODKIE ARBUZY I KOLORY LATA, TO SKARPETKI DLA DZIECI, KTÓRE CENIĄ ŚWIEŻE DODATKI.</p>\r\n<p>SKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO, LEKKIEGO ŻYCIA. W KAŻDYM WIEKU.</p>",
-      "images": [],
-      "quantity": 1,
-      "groups_prices": {},
-      "name": "WATERMELON SPLASH KIDS-27-30",
-      "netto_price": 12.1951,
-      "sku": "K4-27-30",
-      "netto_old_price": null
-    },
-    {
-      "price": 14.999973,
-      "url_key": "watermelon-splash-kids-31-34",
-      "old_price": null,
-      "source_id": "106",
-      "params": {
-        "recommended": [
-          "No"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:14:07"
-        ],
-        "thumbnail": [
-          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-        ],
-        "meta_keyword": [
-          "WATERMELON SPLASH KIDS"
-        ],
-        "url_key": [
-          "watermelon-splash-kids-31-34"
-        ],
-        "meta_description": [
-          "WATERMELON SPLASH KIDS SŁODKIE ARBUZY I KOLORY LATA",
-          " TO SKARPETKI DLA DZIECI",
-          " KTÓRE CENIĄ ŚWIEŻE DODATKI.\r\nSKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO",
-          " LEKKIEGO ŻYCIA. W KAŻDYM WIEKU."
-        ],
-        "has_options": [
-          "0"
-        ],
-        "special_price": [
-          "13.0000"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "product_size": [
-          "31-34"
-        ],
-        "pattern": [
-          "food"
-        ],
-        "required_options": [
-          "0"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "image": [
-          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-        ],
-        "meta_title": [
-          "WATERMELON SPLASH KIDS"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "category_ids": [
-          "11",
-          "15",
-          "16",
-          "19",
-          "29"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:14:07"
-        ],
-        "small_image": [
-          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-        ],
-        "color": [
-          "red",
-          "green",
-          "yellow"
-        ],
-        "pos1_quantity": [
-          "12"
-        ],
-        "warehouse_position": [
-          "69"
-        ],
-        "listing_position": [
-          "999"
-        ]
-      },
-      "description": "<p>SŁODKIE ARBUZY I KOLORY LATA, TO SKARPETKI DLA DZIECI, KTÓRE CENIĄ ŚWIEŻE DODATKI.</p>\r\n<p>SKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO, LEKKIEGO ŻYCIA. W KAŻDYM WIEKU.</p>",
-      "images": [],
-      "quantity": 1,
-      "groups_prices": {},
-      "name": "WATERMELON SPLASH KIDS-31-34",
-      "netto_price": 12.1951,
-      "sku": "K4-31-34",
-      "netto_old_price": null
-    }
-  ],
-  "url_key": "watermelon-splash-kids",
-  "source_id": "107",
-  "name": "WATERMELON SPLASH KIDS",
-  "bestseller": "1",
-  "netto_old_price": [],
-  "params": {
-    "recommended": [
-      "No"
-    ],
-    "gift_message_available": [
-      "No"
-    ],
-    "thumbnail": [
-      "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-    ],
-    "meta_keyword": [
-      "WATERMELON SPLASH KIDS"
-    ],
-    "url_key": [
-      "watermelon-splash-kids-23-26",
-      "watermelon-splash-kids-27-30",
-      "watermelon-splash-kids-31-34"
-    ],
-    "meta_description": [
-      "WATERMELON SPLASH KIDS SŁODKIE ARBUZY I KOLORY LATA",
-      " TO SKARPETKI DLA DZIECI",
-      " KTÓRE CENIĄ ŚWIEŻE DODATKI.\r\nSKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO",
-      " LEKKIEGO ŻYCIA. W KAŻDYM WIEKU."
-    ],
-    "has_options": [
-      "0"
-    ],
-    "category_ids": [
-      "11",
-      "9",
-      "34",
-      "1",
-      "0",
-      "15",
-      "16",
-      "19",
-      "18",
-      "29",
-      "2",
-      "197",
-      "185",
-      "35",
-      "201",
-      "202"
-    ],
-    "tax_class_id": [
-      "Taxable Goods"
-    ],
-    "product_size": [
-      "23-26",
-      "27-30",
-      "31-34"
-    ],
-    "pattern": [
-      "food"
-    ],
-    "required_options": [
-      "0"
-    ],
-    "options_container": [
-      "Block after Info Column"
-    ],
-    "image": [
-      "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-    ],
-    "news_from_date": [
-      "2018-03-23 12:14:05",
-      "2018-03-23 12:14:06",
-      "2018-03-23 12:14:07"
-    ],
-    "special_from_date": [
-      "2018-02-09 00:00:00"
-    ],
-    "is_product_lacked": [
-      "0"
-    ],
-    "warehouse_position": [
-      "69"
-    ],
-    "custom_design_from": [
-      "2018-03-23 12:14:05",
-      "2018-03-23 12:14:06",
-      "2018-03-23 12:14:07"
-    ],
-    "special_price": [
-      "13.0000"
-    ],
-    "meta_title": [
-      "WATERMELON SPLASH KIDS"
-    ],
-    "small_image": [
-      "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
-    ],
-    "color": [
-      "red",
-      "green",
-      "yellow"
-    ],
-    "pos1_quantity": [
-      "10",
-      "8",
-      "12"
-    ],
-    "special_to_date": [
-      "2018-02-11 00:00:00"
-    ],
-    "listing_position": [
-      "999"
-    ]
-  },
   "description": "<p>Słodkie arbuzy i kolory lata, to skarpetki dla dzieci, które cenią świeże dodatki.<br /> <br /> Skarpety doskonałe na prezent dla smakoszy słodkiego, lekkiego życia. W każdym wieku.</p>",
+  "old_price": [],
+  "name": "WATERMELON SPLASH KIDS",
+  "recommended": "0",
   "images": [
     {
+      "id": 64,
       "disabled": false,
-      "file": "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png",
-      "media_type": "image",
-      "label": null,
       "types": [
         "image",
         "small_image",
         "thumbnail"
       ],
-      "id": 64,
+      "media_type": "image",
+      "file": "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png",
+      "label": null,
       "position": 1
     },
     {
-      "disabled": false,
-      "file": "/m/m/mm_watermelonsplash_kids_01.jpg",
-      "media_type": "image",
-      "label": null,
-      "types": [],
       "id": 65,
+      "disabled": false,
+      "types": [],
+      "media_type": "image",
+      "file": "/m/m/mm_watermelonsplash_kids_01.jpg",
+      "label": null,
       "position": 2
     },
     {
-      "disabled": false,
-      "file": "/m/m/mm_watermelonsplash_kids_02.jpg",
-      "media_type": "image",
-      "label": null,
-      "types": [],
       "id": 66,
+      "disabled": false,
+      "types": [],
+      "media_type": "image",
+      "file": "/m/m/mm_watermelonsplash_kids_02.jpg",
+      "label": null,
       "position": 3
     },
     {
-      "disabled": false,
-      "file": "/m/m/mm_watermelonsplash_kids_03.jpg",
-      "media_type": "image",
-      "label": null,
-      "types": [],
       "id": 67,
+      "disabled": false,
+      "types": [],
+      "media_type": "image",
+      "file": "/m/m/mm_watermelonsplash_kids_03.jpg",
+      "label": null,
       "position": 4
     }
   ],
+  "bestseller": "1",
+  "free": null,
+  "source_id": "107",
   "currency": "PLN",
-  "groups_prices": {},
   "categories": [
     {
       "id": "11"
@@ -526,13 +99,443 @@
       "id": "202"
     }
   ],
-  "sku": "K4",
-  "netto_price": {
-    "105": 12.1951,
-    "104": 12.1951,
-    "106": 12.1951
+  "price": {
+    "104": 15.0,
+    "106": 15.0,
+    "105": 15.0
   },
-  "old_price": [],
+  "params": {
+    "tax_class_id": [
+      "Taxable Goods"
+    ],
+    "meta_title": [
+      "WATERMELON SPLASH KIDS"
+    ],
+    "is_product_lacked": [
+      "0"
+    ],
+    "meta_description": [
+      "WATERMELON SPLASH KIDS SŁODKIE ARBUZY I KOLORY LATA",
+      " TO SKARPETKI DLA DZIECI",
+      " KTÓRE CENIĄ ŚWIEŻE DODATKI.\r\nSKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO",
+      " LEKKIEGO ŻYCIA. W KAŻDYM WIEKU."
+    ],
+    "required_options": [
+      "0"
+    ],
+    "special_price": [
+      "13.0000"
+    ],
+    "gift_message_available": [
+      "No"
+    ],
+    "news_from_date": [
+      "2018-03-23 12:14:05",
+      "2018-03-23 12:14:06",
+      "2018-03-23 12:14:07"
+    ],
+    "color": [
+      "red",
+      "green",
+      "yellow"
+    ],
+    "meta_keyword": [
+      "WATERMELON SPLASH KIDS"
+    ],
+    "special_to_date": [
+      "2018-02-11 00:00:00"
+    ],
+    "listing_position": [
+      "999"
+    ],
+    "thumbnail": [
+      "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+    ],
+    "category_ids": [
+      "11",
+      "9",
+      "34",
+      "1",
+      "0",
+      "15",
+      "16",
+      "19",
+      "18",
+      "29",
+      "2",
+      "197",
+      "185",
+      "35",
+      "201",
+      "202"
+    ],
+    "recommended": [
+      "No"
+    ],
+    "has_options": [
+      "0"
+    ],
+    "warehouse_position": [
+      "69"
+    ],
+    "pos1_quantity": [
+      "10",
+      "8",
+      "12"
+    ],
+    "image": [
+      "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+    ],
+    "product_size": [
+      "23-26",
+      "27-30",
+      "31-34"
+    ],
+    "custom_design_from": [
+      "2018-03-23 12:14:05",
+      "2018-03-23 12:14:06",
+      "2018-03-23 12:14:07"
+    ],
+    "pattern": [
+      "food"
+    ],
+    "options_container": [
+      "Block after Info Column"
+    ],
+    "url_key": [
+      "watermelon-splash-kids-23-26",
+      "watermelon-splash-kids-27-30",
+      "watermelon-splash-kids-31-34"
+    ],
+    "small_image": [
+      "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+    ],
+    "special_from_date": [
+      "2018-02-09 00:00:00"
+    ]
+  },
+  "variants": [
+    {
+      "description": "<p>SŁODKIE ARBUZY I KOLORY LATA, TO SKARPETKI DLA DZIECI, KTÓRE CENIĄ ŚWIEŻE DODATKI.</p>\r\n<p>SKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO, LEKKIEGO ŻYCIA. W KAŻDYM WIEKU.</p>",
+      "old_price": null,
+      "name": "WATERMELON SPLASH KIDS-23-26",
+      "params": {
+        "meta_title": [
+          "WATERMELON SPLASH KIDS"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "meta_description": [
+          "WATERMELON SPLASH KIDS SŁODKIE ARBUZY I KOLORY LATA",
+          " TO SKARPETKI DLA DZIECI",
+          " KTÓRE CENIĄ ŚWIEŻE DODATKI.\r\nSKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO",
+          " LEKKIEGO ŻYCIA. W KAŻDYM WIEKU."
+        ],
+        "required_options": [
+          "0"
+        ],
+        "special_price": [
+          "13.0000"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:14:05"
+        ],
+        "color": [
+          "red",
+          "green",
+          "yellow"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "product_size": [
+          "23-26"
+        ],
+        "thumbnail": [
+          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+        ],
+        "category_ids": [
+          "11",
+          "15",
+          "16",
+          "19",
+          "29"
+        ],
+        "meta_keyword": [
+          "WATERMELON SPLASH KIDS"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "warehouse_position": [
+          "69"
+        ],
+        "image": [
+          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:14:05"
+        ],
+        "pattern": [
+          "food"
+        ],
+        "pos1_quantity": [
+          "10"
+        ],
+        "url_key": [
+          "watermelon-splash-kids-23-26"
+        ],
+        "small_image": [
+          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ]
+      },
+      "free": null,
+      "source_id": "104",
+      "netto_old_price": null,
+      "quantity": 2000,
+      "images": [],
+      "sku": "K4-23-26",
+      "price": 15.0,
+      "groups_prices": {},
+      "netto_price": 12.1951,
+      "url_key": "watermelon-splash-kids-23-26"
+    },
+    {
+      "description": "<p>SŁODKIE ARBUZY I KOLORY LATA, TO SKARPETKI DLA DZIECI, KTÓRE CENIĄ ŚWIEŻE DODATKI.</p>\r\n<p>SKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO, LEKKIEGO ŻYCIA. W KAŻDYM WIEKU.</p>",
+      "old_price": null,
+      "name": "WATERMELON SPLASH KIDS-27-30",
+      "params": {
+        "meta_title": [
+          "WATERMELON SPLASH KIDS"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "meta_description": [
+          "WATERMELON SPLASH KIDS SŁODKIE ARBUZY I KOLORY LATA",
+          " TO SKARPETKI DLA DZIECI",
+          " KTÓRE CENIĄ ŚWIEŻE DODATKI.\r\nSKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO",
+          " LEKKIEGO ŻYCIA. W KAŻDYM WIEKU."
+        ],
+        "required_options": [
+          "0"
+        ],
+        "special_price": [
+          "13.0000"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:14:06"
+        ],
+        "color": [
+          "red",
+          "green",
+          "yellow"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "product_size": [
+          "27-30"
+        ],
+        "thumbnail": [
+          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+        ],
+        "category_ids": [
+          "11",
+          "15",
+          "16",
+          "19",
+          "29"
+        ],
+        "meta_keyword": [
+          "WATERMELON SPLASH KIDS"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "warehouse_position": [
+          "69"
+        ],
+        "image": [
+          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:14:06"
+        ],
+        "pattern": [
+          "food"
+        ],
+        "pos1_quantity": [
+          "8"
+        ],
+        "url_key": [
+          "watermelon-splash-kids-27-30"
+        ],
+        "small_image": [
+          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ]
+      },
+      "free": null,
+      "source_id": "105",
+      "netto_old_price": null,
+      "quantity": 1999,
+      "images": [],
+      "sku": "K4-27-30",
+      "price": 15.0,
+      "groups_prices": {},
+      "netto_price": 12.1951,
+      "url_key": "watermelon-splash-kids-27-30"
+    },
+    {
+      "description": "<p>SŁODKIE ARBUZY I KOLORY LATA, TO SKARPETKI DLA DZIECI, KTÓRE CENIĄ ŚWIEŻE DODATKI.</p>\r\n<p>SKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO, LEKKIEGO ŻYCIA. W KAŻDYM WIEKU.</p>",
+      "old_price": null,
+      "name": "WATERMELON SPLASH KIDS-31-34",
+      "params": {
+        "meta_title": [
+          "WATERMELON SPLASH KIDS"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "meta_description": [
+          "WATERMELON SPLASH KIDS SŁODKIE ARBUZY I KOLORY LATA",
+          " TO SKARPETKI DLA DZIECI",
+          " KTÓRE CENIĄ ŚWIEŻE DODATKI.\r\nSKARPETY DOSKONAŁE NA PREZENT DLA SMAKOSZY SŁODKIEGO",
+          " LEKKIEGO ŻYCIA. W KAŻDYM WIEKU."
+        ],
+        "required_options": [
+          "0"
+        ],
+        "special_price": [
+          "13.0000"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:14:07"
+        ],
+        "color": [
+          "red",
+          "green",
+          "yellow"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "product_size": [
+          "31-34"
+        ],
+        "thumbnail": [
+          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+        ],
+        "category_ids": [
+          "11",
+          "15",
+          "16",
+          "19",
+          "29"
+        ],
+        "meta_keyword": [
+          "WATERMELON SPLASH KIDS"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "warehouse_position": [
+          "69"
+        ],
+        "image": [
+          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:14:07"
+        ],
+        "pattern": [
+          "food"
+        ],
+        "pos1_quantity": [
+          "12"
+        ],
+        "url_key": [
+          "watermelon-splash-kids-31-34"
+        ],
+        "small_image": [
+          "/m/m/mm_watermelonsplash_kids_packshot_72dpi.png"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ]
+      },
+      "free": null,
+      "source_id": "106",
+      "netto_old_price": null,
+      "quantity": 2000,
+      "images": [],
+      "sku": "K4-31-34",
+      "price": 15.0,
+      "groups_prices": {},
+      "netto_price": 12.1951,
+      "url_key": "watermelon-splash-kids-31-34"
+    }
+  ],
+  "sku": "K4",
+  "netto_old_price": [],
+  "groups_prices": {},
+  "netto_price": {
+    "104": 12.1951,
+    "106": 12.1951,
+    "105": 12.1951
+  },
   "listing_position": 40.0,
-  "quantity": 1
+  "url_key": "watermelon-splash-kids"
 }

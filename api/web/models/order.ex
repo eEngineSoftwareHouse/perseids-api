@@ -283,14 +283,14 @@ defmodule Perseids.Order do
   end
 
   # NORMAL order additional fields
-  defp update_shipping_and_payment_info(params, _group_id, tax_rate) do
+  defp update_shipping_and_payment_info(params, _group_id, _tax_rate) do
     shipping = Perseids.Shipping.find_one(source_id: params.shipping, lang: params.lang) 
     payment = Perseids.Payment.find_one(source_id: params.payment, lang: params.lang)
 
     update_products(params, params.products, params.lang)
     |> Map.put_new(:order_total_price, calc_order_total(params.products, params[:discount_code], params.lang, nil))
-    |> add_shipping_price(shipping, params.lang, params[:discount_code])
     |> check_free_products(params.lang)
+    |> add_shipping_price(shipping, params.lang, params[:discount_code])
     |> Map.put_new(:shipping_code, shipping["code"])
     |> Map.put_new(:shipping_name, shipping["name"])
     |> Map.put_new(:payment_name, payment["name"])
@@ -353,8 +353,8 @@ defmodule Perseids.Order do
   end
 
   defp validate_free_products(nil, order, lang), do: order |> order_should_have(lang, [])
+  defp validate_free_products(:free_shipping, order, lang), do: order |> order_should_have(lang, [])
   defp validate_free_products(:free_low, order, lang), do: order |> order_should_have(lang, ["free_low"])
-  defp validate_free_products(:free_shipping, order, lang), do: order |> order_should_have(lang, ["free_low"])
   defp validate_free_products(:free_regular, order, lang), do: order |> order_should_have(lang, ["free_low", "free_regular"])
 
   defp order_should_have(%{products: products} = order, lang, conditions) do

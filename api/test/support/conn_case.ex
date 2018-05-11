@@ -43,7 +43,9 @@ defmodule Perseids.ConnCase do
 
     %Plug.Conn{resp_body: response} = Perseids.SessionController.create(conn, credentials)
 
-    conn |> Plug.Conn.put_req_header("authorization", Poison.decode!(response)["session_id"])
+    conn 
+    |> Plug.Conn.put_req_header("authorization", Poison.decode!(response)["session_id"])
+    |> Perseids.Plugs.CurrentUser.call(%{})
   end
 
   def guest(conn, lang) do

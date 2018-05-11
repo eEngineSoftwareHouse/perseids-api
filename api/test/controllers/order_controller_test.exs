@@ -185,7 +185,6 @@ defmodule Perseids.OrderControllerTest do
       assert conn.resp_body =~ "\"shipping_price\":0"
     end
 
-    @tag :pending
     test "can use fixed_11 discount code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("discount_code", "TEST_FIXED_11")
@@ -193,7 +192,7 @@ defmodule Perseids.OrderControllerTest do
       conn = conn
       |> place_order(order_params, :guest)
       assert json_response(conn, 200)
-      assert conn.resp_body =~ "\"order_total_price\":14.0"
+      assert conn.resp_body =~ "\"order_total_price\":13.99"
     end
 
     test "can use fixed_50 discount code and it should return 0", %{conn: conn} do
@@ -203,10 +202,9 @@ defmodule Perseids.OrderControllerTest do
       conn = conn
       |> place_order(order_params, :guest)
       assert json_response(conn, 200)
-      assert conn.resp_body =~ "\"order_total_price\":0"
+      assert conn.resp_body =~ "\"order_total_price\":9.99"
     end
 
-    @tag :pending
     test "can use percent discount code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("discount_code", "TEST_PERCENT")
@@ -214,7 +212,7 @@ defmodule Perseids.OrderControllerTest do
       conn = conn
       |> place_order(order_params, :guest)
       assert json_response(conn, 200)
-      assert conn.resp_body =~ "\"order_total_price\":22.5"
+      assert conn.resp_body =~ "\"order_total_price\":23.490000000000002"
     end
 
     test "can't obtain free low/regular socks if total price < 99", %{conn: conn} do
@@ -236,15 +234,15 @@ defmodule Perseids.OrderControllerTest do
       refute_json_response(conn, invalid_response)
     end
 
-    test "can obtain free low socks if total price < 199 and total price >= 99", %{conn: conn} do
+    test "can obtain free low socks if total price < 199 and total price >= 149", %{conn: conn} do
       order_params = valid_order()
-      |> Map.put("products", valid_free_products(5))
+      |> Map.put("products", valid_free_products(7))
 
       conn = conn
       |> place_order(order_params, :guest)
 
       valid_response = [
-        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":5}",
+        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":7}",
         "\"name\":\"PIGGY TALES LOW-35-38\",\"id\":\"155\",\"free\":\"free_low\",\"count\":1"
       ]
       invalid_response = [
@@ -272,13 +270,13 @@ defmodule Perseids.OrderControllerTest do
     end
     test "can obtain only 1 pair of low socks when credentials are met", %{conn: conn} do
       order_params = valid_order()
-      |> Map.put("products", invalid_free_products(5))
+      |> Map.put("products", invalid_free_products(7))
 
       conn = conn
       |> place_order(order_params, :guest)
 
       valid_response = [
-        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":5}",
+        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":7}",
         "\"name\":\"PIGGY TALES LOW-35-38\",\"id\":\"155\",\"free\":\"free_low\",\"count\":1"
       ]
       invalid_response = [
@@ -471,7 +469,6 @@ defmodule Perseids.OrderControllerTest do
       assert conn.resp_body =~ "\"shipping_price\":0"
     end
     
-    @tag :pending
     test "can use fixed_11 discount code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("discount_code", "TEST_FIXED_11")
@@ -479,7 +476,7 @@ defmodule Perseids.OrderControllerTest do
       conn = conn
       |> place_order(order_params, :logged_in)
       assert json_response(conn, 200)
-      assert conn.resp_body =~ "\"order_total_price\":14.0"
+      assert conn.resp_body =~ "\"order_total_price\":13.99"
     end
 
     test "can use fixed_50 discount code and it should return 0", %{conn: conn} do
@@ -489,10 +486,9 @@ defmodule Perseids.OrderControllerTest do
       conn = conn
       |> place_order(order_params, :logged_in)
       assert json_response(conn, 200)
-      assert conn.resp_body =~ "\"order_total_price\":0"
+      assert conn.resp_body =~ "\"order_total_price\":9.99"
     end
 
-    @tag :pending
     test "can use percent discount code", %{conn: conn} do
       order_params = valid_order()
       |> Map.put("discount_code", "TEST_PERCENT")
@@ -500,7 +496,7 @@ defmodule Perseids.OrderControllerTest do
       conn = conn
       |> place_order(order_params, :logged_in)
       assert json_response(conn, 200)
-      assert conn.resp_body =~ "\"order_total_price\":22.5"
+      assert conn.resp_body =~ "\"order_total_price\":23.490000000000002"
     end
 
     test "can't obtain free low/regular socks if total price < 99", %{conn: conn} do
@@ -522,15 +518,15 @@ defmodule Perseids.OrderControllerTest do
       refute_json_response(conn, invalid_response)
     end
 
-    test "can obtain free low socks if total price < 199 and total price >= 99", %{conn: conn} do
+    test "can obtain free low socks if total price < 199 and total price >= 149", %{conn: conn} do
       order_params = valid_order()
-      |> Map.put("products", valid_free_products(5))
+      |> Map.put("products", valid_free_products(7))
 
       conn = conn
       |> place_order(order_params, :logged_in)
 
       valid_response = [
-        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":5}",
+        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":7}",
         "\"name\":\"PIGGY TALES LOW-35-38\",\"id\":\"155\",\"free\":\"free_low\",\"count\":1"
       ]
       invalid_response = [
@@ -559,13 +555,13 @@ defmodule Perseids.OrderControllerTest do
 
     test "can obtain only 1 pair of low socks when credentials are met", %{conn: conn} do
       order_params = valid_order()
-      |> Map.put("products", invalid_free_products(5))
+      |> Map.put("products", invalid_free_products(7))
 
       conn = conn
       |> place_order(order_params, :logged_in)
 
       valid_response = [
-        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":5}",
+        "\"name\":\"BEETROOT-39-42\",\"id\":\"51\",\"free\":null,\"count\":7}",
         "\"name\":\"PIGGY TALES LOW-35-38\",\"id\":\"155\",\"free\":\"free_low\",\"count\":1"
       ]
       invalid_response = [
@@ -731,7 +727,7 @@ defmodule Perseids.OrderControllerTest do
       "other_shipping_address" => false,
       "payment" => "banktransfer-pre",
       "products" => [
-          %{"count" => 1, "id" => "455", "name" => "EL LEOPARDO-35-38", "sku" => "R67-35-38", "variant_id" => "455"}
+          %{"count" => 1, "id" => "183", "name" => "THE LEMONS LOW-35-38", "sku" => "L10-35-38", "variant_id" => "180"}
         ],
       "shipping" => "kurier-PL"
     }
