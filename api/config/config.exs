@@ -7,7 +7,7 @@ use Mix.Config
 
 # Rollbar
 config :rollbax,
-  access_token: "02bccc369038482996d891efa5781cb4",
+  access_token: System.get_env("ROLLBAR_TOKEN"),
   environment: "production"
 
 # General application configuration
