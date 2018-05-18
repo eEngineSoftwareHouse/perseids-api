@@ -23,6 +23,7 @@ defmodule Perseids.Plugs.CurrentUser do
          |> assign(:group_id, session["group_id"] |> Integer.to_string)
          |> assign(:customer_id, session["customer_id"])
          |> assign(:tax_rate, session["tax_rate"])
+         |> assign(:wholesale, session["wholesale"])
       end
     rescue
         _ -> conn
