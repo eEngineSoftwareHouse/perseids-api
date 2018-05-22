@@ -4,7 +4,7 @@ defmodule Perseids.ProductControllerTest do
 
   @currently_valid_product "piggy-tales-low"
   @invalid_product "ThisIsInvalidProduct"
-  @wholesale_valid_credentials %{"email" => "szymon.ciolkowski+1@eengine.pl", "password" => "Tajnafraza12"}
+  @wholesale_valid_credentials %{"email" => "wholesaler@example.com", "password" => "Tajnafraza12"}
 
   defp wholesaler_logged_in(conn), do: conn |> Perseids.ConnCase.login(@wholesale_valid_credentials, "pl_pln")
   defp assert_json_response(conn, list), do: conn |> Perseids.ConnCase.check_json_response(list, :assert) 
