@@ -2,7 +2,7 @@ defmodule Perseids.SessionControllerTest do
   use Perseids.ConnCase, async: true
   
   @moduletag :magento
-  @valid_credentials %{"email" => "szymon.ciolkowski@eengine.pl", "password" => "Tajnafraza12"}
+  @valid_credentials %{"email" => "test-api@niepodam.pl", "password" => "Tajnafraza12"}
   
   defp logged_in(conn), do: conn |> Perseids.ConnCase.login(@valid_credentials, "pl_pln")
   defp logout(conn), do: conn |> Perseids.ConnCase.logout(%{})

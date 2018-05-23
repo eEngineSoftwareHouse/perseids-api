@@ -10,7 +10,7 @@ defmodule Perseids.ProductController do
     %{"products" => products, "count" => count, "params" => params} = params
     |> Pagination.prepare_params
     |> ORMongo.set_language(conn)
-    |> Product.find(conn.assigns[:group_id])
+    |> Product.find(conn.assigns[:group_id], conn.assigns[:wholesale])
 
     render conn, "index.json", products: products, count: count, params: params
   end

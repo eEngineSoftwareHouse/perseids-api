@@ -48,7 +48,7 @@ db.system.js.remove({"_id" : "productFilter"});
 db.system.js.save(
     {
         _id: "productFilter",
-        value: function (customerGroupId, filters, filterable, selectedFields, keywords, lang, skip, limit, sortDirection) {
+        value: function (customerGroupId, filters, filterable, selectedFields, keywords, lang, wholesale, skip, limit, sortDirection) {
             for (var f of filterable) {
                 filters.push({"name": "params." + f, "content": null});
             }
@@ -112,11 +112,21 @@ db.system.js.save(
             if (customerGroupId !== "") {
                 selectedFieldsQuery["variants.groups_prices"] = 1;
             }
-
+            if (wholesale)
+                productsArray = db.getCollection(lang + '_products')
+                                    .find(productQuery, selectedFieldsQuery)
+                                    .sort({"name": sortDirection})
+                                    .skip(skip).limit(limit).toArray()
+            else
+                productsArray = db.getCollection(lang + '_products')
+                                    .find(productQuery, selectedFieldsQuery)
+                                    .sort({listing_position: sortDirection})
+                                    .skip(skip).limit(limit).toArray()
+            
             var output = {
                     count: db.getCollection(lang + '_products').find(productQuery).length(),
                     params: filterableParams,
-                    products: db.getCollection(lang + '_products').find(productQuery, selectedFieldsQuery).sort({listing_position: sortDirection}).skip(skip).limit(limit).toArray()
+                    products: productsArray
             }
 
             return output;

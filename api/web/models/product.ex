@@ -4,8 +4,8 @@ defmodule Perseids.Product do
   @collection_name "products"
   @filterable_params ["category_ids", "color","pattern"]
   
-  def find(opts, group_id) do
-    case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts, group_id)}) do
+  def find(opts, group_id, wholesale) do
+    case Mongo.command(:mongo, %{"eval" => prepare_mongo_query(opts, group_id, wholesale)}) do
       {:ok, return} -> mongo_return(return["retval"], group_id)
       er -> IO.inspect(er); raise "Mongo custom command error"
     end
@@ -28,7 +28,7 @@ defmodule Perseids.Product do
     |> item_response
   end
 
-  defp prepare_mongo_query(opts, group_id) do
+  defp prepare_mongo_query(opts, group_id, wholesale) do
     "productFilter("
       <> ( if group_id do group_id else "undefined" end) <> ","
       <> map_to_key_value_pair_json(opts[:filter]) <> ","
@@ -36,6 +36,7 @@ defmodule Perseids.Product do
       <> map_to_key_value_pair_json(opts[:options][:projection]) <> ","
       <> (nil_to_null_string(opts[:keywords]) |> escape_value) <> ","
       <> "\"" <> (opts[:lang] |> escape_value) <> "\","
+      <> if wholesale do "1" else "0" end  <> "," # if true sorting products by name
       <> (Integer.to_string(opts[:options][:skip]) |> escape_value) <> ","
       <> (Integer.to_string(opts[:options][:limit]) |> escape_value) <> ","
       <> Integer.to_string(1) <> ");" # sorting setting: 1 is ascending, -1 descending

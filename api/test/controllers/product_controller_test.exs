@@ -4,10 +4,13 @@ defmodule Perseids.ProductControllerTest do
 
   @currently_valid_product "piggy-tales-low"
   @invalid_product "ThisIsInvalidProduct"
+  @wholesale_valid_credentials %{"email" => "wholesaler@example.com", "password" => "Tajnafraza12"}
 
+  defp wholesaler_logged_in(conn), do: conn |> Perseids.ConnCase.login(@wholesale_valid_credentials, "pl_pln")
   defp assert_json_response(conn, list), do: conn |> Perseids.ConnCase.check_json_response(list, :assert) 
   defp refute_json_response(conn, list), do: conn |> Perseids.ConnCase.check_json_response(list, :refute) 
-
+  defp decode_resp_body(conn), do: conn.resp_body |> Poison.decode!
+  defp select_first_product(resp_body), do: resp_body["products"] |> List.first
   setup %{conn: conn} do 
     {:ok, conn: conn}
   end
@@ -135,6 +138,29 @@ defmodule Perseids.ProductControllerTest do
       |> get(product_path(conn, :show, @invalid_product))
       |> assert_json_response(["error", "Not found"])
       assert json_response(conn, 404)
-    end  
+    end
+    
+    test "sorting products for wholesaler is alphabetically", %{conn: conn} do
+      conn = conn 
+      |> wholesaler_logged_in
+      |> get(product_path(conn, :index))
+      
+      product = 
+        conn
+        |> decode_resp_body
+        |> select_first_product
+      assert product["name"] == "BEETROOT"
+    end
+
+    test "sorting products for user is randomized", %{conn: conn} do
+      conn = conn 
+      |> get(product_path(conn, :index))
+       
+      product = 
+        conn
+        |> decode_resp_body
+        |> select_first_product
+      assert product["name"] != "BEETROOT"
+    end
   end 
 end
