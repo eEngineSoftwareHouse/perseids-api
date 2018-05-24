@@ -17,15 +17,15 @@ defmodule Perseids.IndependentDatabase do
   ]
 
   @list_of_products [
-    "/product_1.json", #source_id : "434"
+    "/product_1.json", #source_id : "434", "detail_only" : true
     "/product_2.json", #source_id : "51"
     "/product_3.json", #source_id : "111"
     "/product_4.json", #source_id : "119"
     "/product_5.json", #source_id : "143"
     "/product_6.json", #source_id : "203"
     "/product_7.json", #source_id : "107"
-    "/product_free_low.json", #source_id : "155" set price && netto_price -> 0
-    "/product_free_regular.json", #source_id : "458" set price && netto_price -> 0
+    "/product_free_low.json", #source_id : "155" set price && netto_price -> 0, free -> free_low
+    "/product_free_regular.json", #source_id : "458" set price && netto_price -> 0, free -> free_regular
     "/product_valid_order.json" #source_id : "183"
   ]
 

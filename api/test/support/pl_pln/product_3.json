@@ -1,45 +1,10 @@
 {
-  "description": "<p>Skarpetki dla mężczyzn oraz kobiet, którzy wszędzie czują się jak na drużynowy na biwaku. Ta stonowana kolorystycznie propozycja to idealny prezent dla miejskich skautów i imprezowych zuchów.<br /> <br /> Skarpetki bambusowe są dla amatorów. Scout memory to propozycja dla wytrawnych miejskich drwali oraz miejskich skautek.<br /> <br /> Gustowne skarpetki w kolorach ziemi z motywami biwakowymi.</p>",
-  "old_price": [],
-  "name": "SCOUT MEMORY",
-  "recommended": "0",
-  "images": [
-    {
-      "id": 643,
-      "disabled": false,
-      "types": [
-        "image",
-        "small_image",
-        "thumbnail"
-      ],
-      "media_type": "image",
-      "file": "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png",
-      "label": null,
-      "position": 3
-    },
-    {
-      "id": 644,
-      "disabled": false,
-      "types": [],
-      "media_type": "image",
-      "file": "/m/m/mm_scoutmemory_regular_01_1_1.jpg",
-      "label": null,
-      "position": 4
-    },
-    {
-      "id": 645,
-      "disabled": false,
-      "types": [],
-      "media_type": "image",
-      "file": "/m/m/mm_scoutmemory_regular_02_1_1.jpg",
-      "label": null,
-      "position": 5
-    }
-  ],
-  "bestseller": "1",
+  "netto_old_price": [],
   "free": null,
+  "description": "<p>Skarpetki dla mężczyzn oraz kobiet, którzy wszędzie czują się jak na drużynowy na biwaku. Ta stonowana kolorystycznie propozycja to idealny prezent dla miejskich skautów i imprezowych zuchów.<br /> <br /> Skarpetki bambusowe są dla amatorów. Scout memory to propozycja dla wytrawnych miejskich drwali oraz miejskich skautek.<br /> <br /> Gustowne skarpetki w kolorach ziemi z motywami biwakowymi.</p>",
+  "groups_prices": {},
+  "bestseller": "1",
   "source_id": "111",
-  "currency": "PLN",
   "categories": [
     {
       "id": "15"
@@ -84,59 +49,394 @@
       "id": "35"
     }
   ],
-  "price": {
-    "109": 25.0,
-    "108": 25.0,
-    "110": 25.0
+  "variants": [
+    {
+      "quantity": 1998,
+      "free": null,
+      "params": {
+        "color": [
+          "green",
+          "brown",
+          "orange"
+        ],
+        "category_ids": [
+          "15",
+          "21",
+          "27",
+          "32",
+          "33"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:14:08"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "product_size": [
+          "35-38"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "special_price": [
+          "21.0000"
+        ],
+        "swatch_image": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1.png"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:14:08"
+        ],
+        "url_key": [
+          "scout-memory-35-38"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "warehouse_position": [
+          "20"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "image": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+        ],
+        "meta_title": [
+          "SCOUT MEMORY"
+        ],
+        "meta_description": [
+          "SCOUT MEMORY "
+        ],
+        "meta_keyword": [
+          "SCOUT MEMORY"
+        ],
+        "pattern": [
+          "other-stories"
+        ],
+        "small_image": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+        ],
+        "pos1_quantity": [
+          "11"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {
+        "8": 20.33
+      },
+      "netto_old_price": null,
+      "source_id": "108",
+      "old_price": null,
+      "name": "SCOUT MEMORY-35-38",
+      "netto_price": 20.3252,
+      "images": [],
+      "sku": "R9-35-38",
+      "url_key": "scout-memory-35-38",
+      "price": 25.0,
+      "detail_only": false,
+      "description": ""
+    },
+    {
+      "quantity": 2000,
+      "free": null,
+      "params": {
+        "color": [
+          "green",
+          "brown",
+          "orange"
+        ],
+        "category_ids": [
+          "15",
+          "21",
+          "27",
+          "32",
+          "33"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:14:10"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "product_size": [
+          "39-42"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "special_price": [
+          "21.0000"
+        ],
+        "swatch_image": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_2.png"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:14:10"
+        ],
+        "url_key": [
+          "scout-memory-39-42"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "warehouse_position": [
+          "20"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "image": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+        ],
+        "meta_title": [
+          "SCOUT MEMORY"
+        ],
+        "meta_description": [
+          "SCOUT MEMORY "
+        ],
+        "meta_keyword": [
+          "SCOUT MEMORY"
+        ],
+        "pattern": [
+          "other-stories"
+        ],
+        "small_image": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+        ],
+        "pos1_quantity": [
+          "12"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {
+        "8": 20.33
+      },
+      "netto_old_price": null,
+      "source_id": "109",
+      "old_price": null,
+      "name": "SCOUT MEMORY-39-42",
+      "netto_price": 20.3252,
+      "images": [],
+      "sku": "R9-39-42",
+      "url_key": "scout-memory-39-42",
+      "price": 25.0,
+      "detail_only": false,
+      "description": ""
+    },
+    {
+      "quantity": 1998,
+      "free": null,
+      "params": {
+        "color": [
+          "green",
+          "brown",
+          "orange"
+        ],
+        "category_ids": [
+          "15",
+          "21",
+          "27",
+          "32",
+          "33"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:14:11"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "product_size": [
+          "43-46"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "special_price": [
+          "21.0000"
+        ],
+        "swatch_image": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_3.png"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:14:11"
+        ],
+        "url_key": [
+          "scout-memory-43-46"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "warehouse_position": [
+          "20"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "image": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+        ],
+        "meta_title": [
+          "SCOUT MEMORY"
+        ],
+        "meta_description": [
+          "SCOUT MEMORY "
+        ],
+        "meta_keyword": [
+          "SCOUT MEMORY"
+        ],
+        "pattern": [
+          "other-stories"
+        ],
+        "small_image": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+        ],
+        "pos1_quantity": [
+          "12"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {
+        "8": 20.33
+      },
+      "netto_old_price": null,
+      "source_id": "110",
+      "old_price": null,
+      "name": "SCOUT MEMORY-43-46",
+      "netto_price": 20.3252,
+      "images": [],
+      "sku": "R9-43-46",
+      "url_key": "scout-memory-43-46",
+      "price": 25.0,
+      "detail_only": false,
+      "description": ""
+    }
+  ],
+  "listing_position": 16.0,
+  "old_price": [],
+  "name": "SCOUT MEMORY",
+  "recommended": "0",
+  "currency": "PLN",
+  "images": [
+    {
+      "position": 3,
+      "media_type": "image",
+      "id": 643,
+      "file": "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png",
+      "disabled": false,
+      "types": [
+        "image",
+        "small_image",
+        "thumbnail"
+      ],
+      "label": null
+    },
+    {
+      "position": 4,
+      "media_type": "image",
+      "id": 644,
+      "file": "/m/m/mm_scoutmemory_regular_01_1_1.jpg",
+      "disabled": false,
+      "types": [],
+      "label": null
+    },
+    {
+      "position": 5,
+      "media_type": "image",
+      "id": 645,
+      "file": "/m/m/mm_scoutmemory_regular_02_1_1.jpg",
+      "disabled": false,
+      "types": [],
+      "label": null
+    }
+  ],
+  "sku": "R9",
+  "url_key": "scout-memory",
+  "netto_price": {
+    "110": 20.3252,
+    "109": 20.3252,
+    "108": 20.3252
   },
+  "price": {
+    "110": 25.0,
+    "109": 25.0,
+    "108": 25.0
+  },
+  "detail_only": false,
   "params": {
-    "tax_class_id": [
-      "Taxable Goods"
-    ],
-    "meta_title": [
-      "SCOUT MEMORY"
-    ],
-    "is_product_lacked": [
-      "0"
-    ],
-    "meta_description": [
-      "SCOUT MEMORY "
-    ],
-    "required_options": [
-      "0"
-    ],
-    "swatch_image": [
-      "/m/m/mm_scoutmemory_regular_packshot_72dpi_1.png",
-      "/m/m/mm_scoutmemory_regular_packshot_72dpi_2.png",
-      "/m/m/mm_scoutmemory_regular_packshot_72dpi_3.png"
-    ],
-    "special_price": [
-      "21.0000"
-    ],
-    "gift_message_available": [
-      "No"
-    ],
-    "news_from_date": [
-      "2018-03-23 12:14:08",
-      "2018-03-23 12:14:10",
-      "2018-03-23 12:14:11"
-    ],
     "color": [
       "green",
       "brown",
       "orange"
-    ],
-    "meta_keyword": [
-      "SCOUT MEMORY"
-    ],
-    "special_to_date": [
-      "2018-02-11 00:00:00"
-    ],
-    "listing_position": [
-      "999"
-    ],
-    "thumbnail": [
-      "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
     ],
     "category_ids": [
       "15",
@@ -154,372 +454,94 @@
       "252",
       "35"
     ],
-    "recommended": [
-      "No"
-    ],
-    "has_options": [
-      "0"
+    "news_from_date": [
+      "2018-03-23 12:14:08",
+      "2018-03-23 12:14:10",
+      "2018-03-23 12:14:11"
     ],
     "warehouse_position": [
       "20"
-    ],
-    "pos1_quantity": [
-      "11",
-      "12"
-    ],
-    "image": [
-      "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
     ],
     "product_size": [
       "35-38",
       "39-42",
       "43-46"
     ],
-    "custom_design_from": [
-      "2018-03-23 12:14:08",
-      "2018-03-23 12:14:10",
-      "2018-03-23 12:14:11"
+    "is_product_lacked": [
+      "0"
     ],
-    "pattern": [
-      "other-stories"
+    "required_options": [
+      "0"
     ],
-    "options_container": [
-      "Block after Info Column"
+    "gift_message_available": [
+      "No"
+    ],
+    "has_options": [
+      "0"
     ],
     "url_key": [
       "scout-memory-35-38",
       "scout-memory-39-42",
       "scout-memory-43-46"
     ],
+    "recommended": [
+      "No"
+    ],
+    "listing_position": [
+      "999"
+    ],
+    "special_price": [
+      "21.0000"
+    ],
+    "custom_design_from": [
+      "2018-03-23 12:14:08",
+      "2018-03-23 12:14:10",
+      "2018-03-23 12:14:11"
+    ],
     "small_image": [
       "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
     ],
+    "special_to_date": [
+      "2018-02-11 00:00:00"
+    ],
+    "options_container": [
+      "Block after Info Column"
+    ],
+    "image": [
+      "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+    ],
+    "swatch_image": [
+      "/m/m/mm_scoutmemory_regular_packshot_72dpi_1.png",
+      "/m/m/mm_scoutmemory_regular_packshot_72dpi_2.png",
+      "/m/m/mm_scoutmemory_regular_packshot_72dpi_3.png"
+    ],
+    "meta_title": [
+      "SCOUT MEMORY"
+    ],
+    "tax_class_id": [
+      "Taxable Goods"
+    ],
+    "meta_description": [
+      "SCOUT MEMORY "
+    ],
+    "meta_keyword": [
+      "SCOUT MEMORY"
+    ],
+    "pattern": [
+      "other-stories"
+    ],
     "special_from_date": [
       "2018-02-09 00:00:00"
+    ],
+    "thumbnail": [
+      "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
+    ],
+    "pos1_quantity": [
+      "11",
+      "12"
+    ],
+    "detail_only": [
+      "No"
     ]
-  },
-  "variants": [
-    {
-      "description": "",
-      "old_price": null,
-      "name": "SCOUT MEMORY-35-38",
-      "params": {
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "meta_title": [
-          "SCOUT MEMORY"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "SCOUT MEMORY "
-        ],
-        "required_options": [
-          "0"
-        ],
-        "swatch_image": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1.png"
-        ],
-        "special_price": [
-          "21.0000"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:14:08"
-        ],
-        "color": [
-          "green",
-          "brown",
-          "orange"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "product_size": [
-          "35-38"
-        ],
-        "thumbnail": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
-        ],
-        "category_ids": [
-          "15",
-          "21",
-          "27",
-          "32",
-          "33"
-        ],
-        "meta_keyword": [
-          "SCOUT MEMORY"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "warehouse_position": [
-          "20"
-        ],
-        "image": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
-        ],
-        "listing_position": [
-          "999"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:14:08"
-        ],
-        "pattern": [
-          "other-stories"
-        ],
-        "pos1_quantity": [
-          "11"
-        ],
-        "url_key": [
-          "scout-memory-35-38"
-        ],
-        "small_image": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ]
-      },
-      "free": null,
-      "source_id": "108",
-      "netto_old_price": null,
-      "quantity": 1998,
-      "images": [],
-      "sku": "R9-35-38",
-      "price": 25.0,
-      "groups_prices": {},
-      "netto_price": 20.3252,
-      "url_key": "scout-memory-35-38"
-    },
-    {
-      "description": "",
-      "old_price": null,
-      "name": "SCOUT MEMORY-39-42",
-      "params": {
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "meta_title": [
-          "SCOUT MEMORY"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "SCOUT MEMORY "
-        ],
-        "required_options": [
-          "0"
-        ],
-        "swatch_image": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_2.png"
-        ],
-        "special_price": [
-          "21.0000"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:14:10"
-        ],
-        "color": [
-          "green",
-          "brown",
-          "orange"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "product_size": [
-          "39-42"
-        ],
-        "thumbnail": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
-        ],
-        "category_ids": [
-          "15",
-          "21",
-          "27",
-          "32",
-          "33"
-        ],
-        "meta_keyword": [
-          "SCOUT MEMORY"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "warehouse_position": [
-          "20"
-        ],
-        "image": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
-        ],
-        "listing_position": [
-          "999"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:14:10"
-        ],
-        "pattern": [
-          "other-stories"
-        ],
-        "pos1_quantity": [
-          "12"
-        ],
-        "url_key": [
-          "scout-memory-39-42"
-        ],
-        "small_image": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ]
-      },
-      "free": null,
-      "source_id": "109",
-      "netto_old_price": null,
-      "quantity": 2000,
-      "images": [],
-      "sku": "R9-39-42",
-      "price": 25.0,
-      "groups_prices": {},
-      "netto_price": 20.3252,
-      "url_key": "scout-memory-39-42"
-    },
-    {
-      "description": "",
-      "old_price": null,
-      "name": "SCOUT MEMORY-43-46",
-      "params": {
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "meta_title": [
-          "SCOUT MEMORY"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "SCOUT MEMORY "
-        ],
-        "required_options": [
-          "0"
-        ],
-        "swatch_image": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_3.png"
-        ],
-        "special_price": [
-          "21.0000"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:14:11"
-        ],
-        "color": [
-          "green",
-          "brown",
-          "orange"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "product_size": [
-          "43-46"
-        ],
-        "thumbnail": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
-        ],
-        "category_ids": [
-          "15",
-          "21",
-          "27",
-          "32",
-          "33"
-        ],
-        "meta_keyword": [
-          "SCOUT MEMORY"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "warehouse_position": [
-          "20"
-        ],
-        "image": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
-        ],
-        "listing_position": [
-          "999"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:14:11"
-        ],
-        "pattern": [
-          "other-stories"
-        ],
-        "pos1_quantity": [
-          "12"
-        ],
-        "url_key": [
-          "scout-memory-43-46"
-        ],
-        "small_image": [
-          "/m/m/mm_scoutmemory_regular_packshot_72dpi_1_1.png"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ]
-      },
-      "free": null,
-      "source_id": "110",
-      "netto_old_price": null,
-      "quantity": 1998,
-      "images": [],
-      "sku": "R9-43-46",
-      "price": 25.0,
-      "groups_prices": {},
-      "netto_price": 20.3252,
-      "url_key": "scout-memory-43-46"
-    }
-  ],
-  "sku": "R9",
-  "netto_old_price": [],
-  "groups_prices": {},
-  "netto_price": {
-    "109": 20.3252,
-    "108": 20.3252,
-    "110": 20.3252
-  },
-  "listing_position": 16.0,
-  "url_key": "scout-memory"
+  }
 }

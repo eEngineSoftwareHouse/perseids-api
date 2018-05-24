@@ -1,37 +1,10 @@
 {
-  "description": "<p>Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wz&oacute;r w cętki pasujący każdej kr&oacute;lowej i kr&oacute;lowi miejskiej dżungli. Czy może być bardziej drapieżnie</p>\r\n<p>To&nbsp;zabawne skarpetki, kt&oacute;re wypełniają ciało dziką energią od st&oacute;p do gł&oacute;w. Podkreślają kocie ruchy i gwarantują miękkie lądowanie na czterech łapach. Śmiało &ndash; możesz mruczeć z zachwytu.</p>",
-  "old_price": [],
-  "name": "EL LEOPARDO",
-  "recommended": "0",
-  "images": [
-    {
-      "id": 781,
-      "disabled": false,
-      "types": [
-        "image",
-        "small_image",
-        "thumbnail",
-        "swatch_image"
-      ],
-      "media_type": "image",
-      "file": "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png",
-      "label": null,
-      "position": 1
-    },
-    {
-      "id": 782,
-      "disabled": false,
-      "types": [],
-      "media_type": "image",
-      "file": "/m/m/mm_savannaleopard_regular_1_2.jpg",
-      "label": null,
-      "position": 2
-    }
-  ],
-  "bestseller": "0",
+  "netto_old_price": [],
   "free": "free_regular",
+  "description": "<p>Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wz&oacute;r w cętki pasujący każdej kr&oacute;lowej i kr&oacute;lowi miejskiej dżungli. Czy może być bardziej drapieżnie</p>\r\n<p>To&nbsp;zabawne skarpetki, kt&oacute;re wypełniają ciało dziką energią od st&oacute;p do gł&oacute;w. Podkreślają kocie ruchy i gwarantują miękkie lądowanie na czterech łapach. Śmiało &ndash; możesz mruczeć z zachwytu.</p>",
+  "groups_prices": {},
+  "bestseller": "0",
   "source_id": "458",
-  "currency": "PLN",
   "categories": [
     {
       "id": "15"
@@ -73,63 +46,380 @@
       "id": "384"
     }
   ],
-  "price": {
-    "456": 0,
+  "variants": [
+    {
+      "quantity": 1995,
+      "free": null,
+      "params": {
+        "color": [
+          "green",
+          "yellow",
+          "brown"
+        ],
+        "category_ids": [
+          "15",
+          "16",
+          "20",
+          "27",
+          "32",
+          "380"
+        ],
+        "news_from_date": [
+          "2018-05-18 00:00:00"
+        ],
+        "special_from_date": [
+          "2018-05-18 00:00:00"
+        ],
+        "product_size": [
+          "35-38"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "1"
+        ],
+        "meta_keyword": [
+          "EL LEOPARDO"
+        ],
+        "swatch_image": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_5.png"
+        ],
+        "custom_design_from": [
+          "2018-05-18 00:00:00"
+        ],
+        "url_key": [
+          "el-leopardo-35-38"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+        ],
+        "special_to_date": [
+          "2018-05-20 00:00:00"
+        ],
+        "meta_title": [
+          "EL LEOPARDO"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "meta_description": [
+          "EL LEOPARDO Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wzór w cętki pasujący każdej królowej i królowi miejskiej dżungli. Czy może być bardziej drapieżnie\r\nTo zabawne skarpetki",
+          " które wypełniają ciało dziką energią od stóp do głów."
+        ],
+        "pattern": [
+          "animals"
+        ],
+        "small_image": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+        ],
+        "pos1_quantity": [
+          "24"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {
+        "8": 20.33
+      },
+      "netto_old_price": null,
+      "source_id": "455",
+      "old_price": null,
+      "name": "EL LEOPARDO-35-38",
+      "netto_price": 0,
+      "images": [],
+      "sku": "R67-35-38",
+      "url_key": "el-leopardo-35-38",
+      "price": 0,
+      "detail_only": false,
+      "description": "<p>Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wz&oacute;r w cętki pasujący każdej kr&oacute;lowej i kr&oacute;lowi miejskiej dżungli. Czy może być bardziej drapieżnie</p>\r\n<p>To&nbsp;zabawne skarpetki, kt&oacute;re wypełniają ciało dziką energią od st&oacute;p do gł&oacute;w. Podkreślają kocie ruchy i gwarantują miękkie lądowanie na czterech łapach. Śmiało &ndash; możesz mruczeć z zachwytu.</p>"
+    },
+    {
+      "quantity": 1955,
+      "free": null,
+      "params": {
+        "color": [
+          "green",
+          "yellow",
+          "brown"
+        ],
+        "category_ids": [
+          "15",
+          "16",
+          "20",
+          "27",
+          "32",
+          "380"
+        ],
+        "news_from_date": [
+          "2018-05-18 00:00:00"
+        ],
+        "special_from_date": [
+          "2018-05-18 00:00:00"
+        ],
+        "product_size": [
+          "39-42"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "1"
+        ],
+        "meta_keyword": [
+          "EL LEOPARDO"
+        ],
+        "swatch_image": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_2_2.png"
+        ],
+        "custom_design_from": [
+          "2018-05-18 00:00:00"
+        ],
+        "url_key": [
+          "el-leopardo-39-42"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+        ],
+        "special_to_date": [
+          "2018-05-20 00:00:00"
+        ],
+        "meta_title": [
+          "EL LEOPARDO"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "meta_description": [
+          "EL LEOPARDO Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wzór w cętki pasujący każdej królowej i królowi miejskiej dżungli. Czy może być bardziej drapieżnie\r\nTo zabawne skarpetki",
+          " które wypełniają ciało dziką energią od stóp do głów."
+        ],
+        "pattern": [
+          "animals"
+        ],
+        "small_image": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+        ],
+        "pos1_quantity": [
+          "25"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {
+        "8": 20.33
+      },
+      "netto_old_price": null,
+      "source_id": "456",
+      "old_price": null,
+      "name": "EL LEOPARDO-39-42",
+      "netto_price": 0,
+      "images": [],
+      "sku": "R67-39-42",
+      "url_key": "el-leopardo-39-42",
+      "price": 0,
+      "detail_only": false,
+      "description": "<p>Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wz&oacute;r w cętki pasujący każdej kr&oacute;lowej i kr&oacute;lowi miejskiej dżungli. Czy może być bardziej drapieżnie</p>\r\n<p>To&nbsp;zabawne skarpetki, kt&oacute;re wypełniają ciało dziką energią od st&oacute;p do gł&oacute;w. Podkreślają kocie ruchy i gwarantują miękkie lądowanie na czterech łapach. Śmiało &ndash; możesz mruczeć z zachwytu.</p>"
+    },
+    {
+      "quantity": 1980,
+      "free": null,
+      "params": {
+        "color": [
+          "green",
+          "yellow",
+          "brown"
+        ],
+        "category_ids": [
+          "15",
+          "16",
+          "20",
+          "27",
+          "32",
+          "380"
+        ],
+        "news_from_date": [
+          "2018-05-18 00:00:00"
+        ],
+        "special_from_date": [
+          "2018-05-18 00:00:00"
+        ],
+        "product_size": [
+          "43-46"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "1"
+        ],
+        "meta_keyword": [
+          "EL LEOPARDO"
+        ],
+        "swatch_image": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_3_2.png"
+        ],
+        "custom_design_from": [
+          "2018-05-18 00:00:00"
+        ],
+        "url_key": [
+          "el-leopardo-43-46"
+        ],
+        "warehouse_position": [
+          "0"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+        ],
+        "special_to_date": [
+          "2018-05-20 00:00:00"
+        ],
+        "meta_title": [
+          "EL LEOPARDO"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "meta_description": [
+          "EL LEOPARDO Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wzór w cętki pasujący każdej królowej i królowi miejskiej dżungli. Czy może być bardziej drapieżnie\r\nTo zabawne skarpetki",
+          " które wypełniają ciało dziką energią od stóp do głów."
+        ],
+        "free_regular": [
+          "0.0000"
+        ],
+        "pattern": [
+          "animals"
+        ],
+        "small_image": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+        ],
+        "pos1_quantity": [
+          "24"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {
+        "8": 20.33
+      },
+      "netto_old_price": null,
+      "source_id": "457",
+      "old_price": null,
+      "name": "EL LEOPARDO-43-46",
+      "netto_price": 0,
+      "images": [],
+      "sku": "R67-43-46",
+      "url_key": "el-leopardo-43-46",
+      "price": 0,
+      "detail_only": false,
+      "description": "<p>Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wz&oacute;r w cętki pasujący każdej kr&oacute;lowej i kr&oacute;lowi miejskiej dżungli. Czy może być bardziej drapieżnie</p>\r\n<p>To&nbsp;zabawne skarpetki, kt&oacute;re wypełniają ciało dziką energią od st&oacute;p do gł&oacute;w. Podkreślają kocie ruchy i gwarantują miękkie lądowanie na czterech łapach. Śmiało &ndash; możesz mruczeć z zachwytu.</p>"
+    }
+  ],
+  "listing_position": 1.0,
+  "old_price": [],
+  "name": "EL LEOPARDO",
+  "recommended": "0",
+  "currency": "PLN",
+  "images": [
+    {
+      "position": 1,
+      "media_type": "image",
+      "id": 781,
+      "file": "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png",
+      "disabled": false,
+      "types": [
+        "image",
+        "small_image",
+        "thumbnail",
+        "swatch_image"
+      ],
+      "label": null
+    },
+    {
+      "position": 2,
+      "media_type": "image",
+      "id": 782,
+      "file": "/m/m/mm_savannaleopard_regular_1_2.jpg",
+      "disabled": false,
+      "types": [],
+      "label": null
+    }
+  ],
+  "sku": "R67",
+  "url_key": "el-leopardo",
+  "netto_price": {
     "457": 0,
+    "456": 0,
     "455": 0
   },
+  "price": {
+    "457": 0,
+    "456": 0,
+    "455": 0
+  },
+  "detail_only": false,
   "params": {
-    "meta_title": [
-      "EL LEOPARDO"
-    ],
-    "is_product_lacked": [
-      "0"
-    ],
-    "thumbnail": [
-      "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-    ],
-    "meta_description": [
-      "EL LEOPARDO Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wzór w cętki pasujący każdej królowej i królowi miejskiej dżungli. Czy może być bardziej drapieżnie\r\nTo zabawne skarpetki",
-      " które wypełniają ciało dziką energią od stóp do głów."
-    ],
-    "required_options": [
-      "0"
-    ],
-    "swatch_image": [
-      "/m/m/mm_savannaleopard_packshot_72dpi_5.png",
-      "/m/m/mm_savannaleopard_packshot_72dpi_2_2.png",
-      "/m/m/mm_savannaleopard_packshot_72dpi_3_2.png"
-    ],
-    "options_container": [
-      "Block after Info Column"
-    ],
-    "free_regular": [
-      "0.0000"
-    ],
-    "pos1_quantity": [
-      "24",
-      "25"
-    ],
     "color": [
       "green",
       "yellow",
       "brown"
-    ],
-    "recommended": [
-      "No"
-    ],
-    "tax_class_id": [
-      "Taxable Goods"
-    ],
-    "product_size": [
-      "35-38",
-      "39-42",
-      "43-46"
-    ],
-    "url_key": [
-      "el-leopardo-35-38",
-      "el-leopardo-39-42",
-      "el-leopardo-43-46"
     ],
     "category_ids": [
       "15",
@@ -146,311 +436,91 @@
       "380",
       "384"
     ],
-    "meta_keyword": [
-      "EL LEOPARDO"
+    "news_from_date": [
+      "2018-05-18 00:00:00"
     ],
-    "has_options": [
-      "0"
-    ],
-    "warehouse_position": [
-      "0"
-    ],
-    "image": [
+    "small_image": [
       "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
     ],
-    "listing_position": [
-      "1"
+    "product_size": [
+      "35-38",
+      "39-42",
+      "43-46"
     ],
-    "pattern": [
-      "animals"
+    "is_product_lacked": [
+      "0"
+    ],
+    "required_options": [
+      "0"
     ],
     "gift_message_available": [
       "No"
     ],
-    "small_image": [
+    "has_options": [
+      "0"
+    ],
+    "recommended": [
+      "No"
+    ],
+    "listing_position": [
+      "1"
+    ],
+    "meta_keyword": [
+      "EL LEOPARDO"
+    ],
+    "custom_design_from": [
+      "2018-05-18 00:00:00"
+    ],
+    "special_to_date": [
+      "2018-05-20 00:00:00"
+    ],
+    "warehouse_position": [
+      "0"
+    ],
+    "options_container": [
+      "Block after Info Column"
+    ],
+    "url_key": [
+      "el-leopardo-35-38",
+      "el-leopardo-39-42",
+      "el-leopardo-43-46"
+    ],
+    "swatch_image": [
+      "/m/m/mm_savannaleopard_packshot_72dpi_5.png",
+      "/m/m/mm_savannaleopard_packshot_72dpi_2_2.png",
+      "/m/m/mm_savannaleopard_packshot_72dpi_3_2.png"
+    ],
+    "image": [
       "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+    ],
+    "tax_class_id": [
+      "Taxable Goods"
+    ],
+    "meta_description": [
+      "EL LEOPARDO Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wzór w cętki pasujący każdej królowej i królowi miejskiej dżungli. Czy może być bardziej drapieżnie\r\nTo zabawne skarpetki",
+      " które wypełniają ciało dziką energią od stóp do głów."
+    ],
+    "free_regular": [
+      "0.0000"
+    ],
+    "meta_title": [
+      "EL LEOPARDO"
+    ],
+    "pattern": [
+      "animals"
+    ],
+    "special_from_date": [
+      "2018-05-18 00:00:00"
+    ],
+    "thumbnail": [
+      "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
+    ],
+    "pos1_quantity": [
+      "24",
+      "25"
+    ],
+    "detail_only": [
+      "No"
     ]
-  },
-  "variants": [
-    {
-      "description": "<p>Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wz&oacute;r w cętki pasujący każdej kr&oacute;lowej i kr&oacute;lowi miejskiej dżungli. Czy może być bardziej drapieżnie</p>\r\n<p>To&nbsp;zabawne skarpetki, kt&oacute;re wypełniają ciało dziką energią od st&oacute;p do gł&oacute;w. Podkreślają kocie ruchy i gwarantują miękkie lądowanie na czterech łapach. Śmiało &ndash; możesz mruczeć z zachwytu.</p>",
-      "old_price": null,
-      "name": "EL LEOPARDO-35-38",
-      "params": {
-        "is_product_lacked": [
-          "0"
-        ],
-        "category_ids": [
-          "15",
-          "16",
-          "20",
-          "27",
-          "32",
-          "380"
-        ],
-        "meta_keyword": [
-          "EL LEOPARDO"
-        ],
-        "thumbnail": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "meta_description": [
-          "EL LEOPARDO Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wzór w cętki pasujący każdej królowej i królowi miejskiej dżungli. Czy może być bardziej drapieżnie\r\nTo zabawne skarpetki",
-          " które wypełniają ciało dziką energią od stóp do głów."
-        ],
-        "required_options": [
-          "0"
-        ],
-        "swatch_image": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_5.png"
-        ],
-        "image": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-        ],
-        "listing_position": [
-          "1"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "pos1_quantity": [
-          "24"
-        ],
-        "color": [
-          "green",
-          "yellow",
-          "brown"
-        ],
-        "meta_title": [
-          "EL LEOPARDO"
-        ],
-        "small_image": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-        ],
-        "pattern": [
-          "animals"
-        ],
-        "product_size": [
-          "35-38"
-        ],
-        "url_key": [
-          "el-leopardo-35-38"
-        ]
-      },
-      "free": null,
-      "source_id": "455",
-      "netto_old_price": null,
-      "quantity": 1995,
-      "images": [],
-      "sku": "R67-35-38",
-      "price": 0,
-      "groups_prices": {},
-      "netto_price": 0,
-      "url_key": "el-leopardo-35-38"
-    },
-    {
-      "description": "<p>Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wz&oacute;r w cętki pasujący każdej kr&oacute;lowej i kr&oacute;lowi miejskiej dżungli. Czy może być bardziej drapieżnie</p>\r\n<p>To&nbsp;zabawne skarpetki, kt&oacute;re wypełniają ciało dziką energią od st&oacute;p do gł&oacute;w. Podkreślają kocie ruchy i gwarantują miękkie lądowanie na czterech łapach. Śmiało &ndash; możesz mruczeć z zachwytu.</p>",
-      "old_price": null,
-      "name": "EL LEOPARDO-39-42",
-      "params": {
-        "is_product_lacked": [
-          "0"
-        ],
-        "category_ids": [
-          "15",
-          "16",
-          "20",
-          "27",
-          "32",
-          "380"
-        ],
-        "meta_keyword": [
-          "EL LEOPARDO"
-        ],
-        "thumbnail": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "meta_description": [
-          "EL LEOPARDO Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wzór w cętki pasujący każdej królowej i królowi miejskiej dżungli. Czy może być bardziej drapieżnie\r\nTo zabawne skarpetki",
-          " które wypełniają ciało dziką energią od stóp do głów."
-        ],
-        "required_options": [
-          "0"
-        ],
-        "swatch_image": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_2_2.png"
-        ],
-        "image": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-        ],
-        "listing_position": [
-          "1"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "pos1_quantity": [
-          "25"
-        ],
-        "color": [
-          "green",
-          "yellow",
-          "brown"
-        ],
-        "meta_title": [
-          "EL LEOPARDO"
-        ],
-        "small_image": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-        ],
-        "pattern": [
-          "animals"
-        ],
-        "product_size": [
-          "39-42"
-        ],
-        "url_key": [
-          "el-leopardo-39-42"
-        ]
-      },
-      "free": null,
-      "source_id": "456",
-      "netto_old_price": null,
-      "quantity": 1955,
-      "images": [],
-      "sku": "R67-39-42",
-      "price": 0,
-      "groups_prices": {},
-      "netto_price": 0,
-      "url_key": "el-leopardo-39-42"
-    },
-    {
-      "description": "<p>Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wz&oacute;r w cętki pasujący każdej kr&oacute;lowej i kr&oacute;lowi miejskiej dżungli. Czy może być bardziej drapieżnie</p>\r\n<p>To&nbsp;zabawne skarpetki, kt&oacute;re wypełniają ciało dziką energią od st&oacute;p do gł&oacute;w. Podkreślają kocie ruchy i gwarantują miękkie lądowanie na czterech łapach. Śmiało &ndash; możesz mruczeć z zachwytu.</p>",
-      "old_price": null,
-      "name": "EL LEOPARDO-43-46",
-      "params": {
-        "meta_title": [
-          "EL LEOPARDO"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "EL LEOPARDO Damskie i męskie skarpetki od MM z przyczajonym lampartem. Do tego wzór w cętki pasujący każdej królowej i królowi miejskiej dżungli. Czy może być bardziej drapieżnie\r\nTo zabawne skarpetki",
-          " które wypełniają ciało dziką energią od stóp do głów."
-        ],
-        "required_options": [
-          "0"
-        ],
-        "swatch_image": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_3_2.png"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "free_regular": [
-          "0.0000"
-        ],
-        "pos1_quantity": [
-          "24"
-        ],
-        "color": [
-          "green",
-          "yellow",
-          "brown"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "listing_position": [
-          "1"
-        ],
-        "thumbnail": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-        ],
-        "category_ids": [
-          "15",
-          "16",
-          "20",
-          "27",
-          "32",
-          "380"
-        ],
-        "meta_keyword": [
-          "EL LEOPARDO"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "warehouse_position": [
-          "0"
-        ],
-        "image": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-        ],
-        "product_size": [
-          "43-46"
-        ],
-        "pattern": [
-          "animals"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "small_image": [
-          "/m/m/mm_savannaleopard_packshot_72dpi_1_2.png"
-        ],
-        "url_key": [
-          "el-leopardo-43-46"
-        ]
-      },
-      "free": null,
-      "source_id": "457",
-      "netto_old_price": null,
-      "quantity": 1980,
-      "images": [],
-      "sku": "R67-43-46",
-      "price": 0,
-      "groups_prices": {},
-      "netto_price": 0,
-      "url_key": "el-leopardo-43-46"
-    }
-  ],
-  "sku": "R67",
-  "netto_old_price": [],
-  "groups_prices": {},
-  "netto_price": {
-    "456": 0,
-    "457": 0,
-    "455": 0
-  },
-  "listing_position": 1.0,
-  "url_key": "el-leopardo"
+  }
 }

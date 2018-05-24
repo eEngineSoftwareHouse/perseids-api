@@ -1,37 +1,10 @@
 {
-  "description": "<p>Skarpety bawełniane nowej generacji. Są świąteczne, ciepłe, robione w polsce i... Słodkie! <br /> <br /> Skarpety w świąteczne wzory? To idealne skarpetki na prezent dla tych, dzięki kt&oacute;rym każdy dzień jest nieco słodszy.</p>",
-  "old_price": [],
-  "name": "SWEET X-MAS",
-  "recommended": "0",
-  "images": [
-    {
-      "id": 134,
-      "disabled": false,
-      "types": [
-        "image",
-        "small_image",
-        "thumbnail",
-        "swatch_image"
-      ],
-      "media_type": "image",
-      "file": "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png",
-      "label": null,
-      "position": 1
-    },
-    {
-      "id": 135,
-      "disabled": false,
-      "types": [],
-      "media_type": "image",
-      "file": "/m/m/mm_sweetx-mas_regular.jpg",
-      "label": null,
-      "position": 2
-    }
-  ],
-  "bestseller": "0",
+  "netto_old_price": [],
   "free": null,
+  "description": "<p>Skarpety bawełniane nowej generacji. Są świąteczne, ciepłe, robione w polsce i... Słodkie! <br /> <br /> Skarpety w świąteczne wzory? To idealne skarpetki na prezent dla tych, dzięki kt&oacute;rym każdy dzień jest nieco słodszy.</p>",
+  "groups_prices": {},
+  "bestseller": "0",
   "source_id": "203",
-  "currency": "PLN",
   "categories": [
     {
       "id": "11"
@@ -64,53 +37,370 @@
       "id": "2"
     }
   ],
+  "variants": [
+    {
+      "quantity": 2000,
+      "free": null,
+      "params": {
+        "color": [
+          "red",
+          "dark-blue"
+        ],
+        "category_ids": [
+          "11",
+          "13",
+          "25",
+          "27"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:15:09"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "product_size": [
+          "35-38"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "special_price": [
+          "21.0000"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:15:09"
+        ],
+        "url_key": [
+          "sweet-x-mas-35-38"
+        ],
+        "warehouse_position": [
+          "3"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "meta_title": [
+          "SWEET X-MAS"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "meta_description": [
+          "SWEET X-MAS "
+        ],
+        "meta_keyword": [
+          "SWEET X-MAS"
+        ],
+        "pattern": [
+          "winter"
+        ],
+        "small_image": [
+          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+        ],
+        "pos1_quantity": [
+          "20"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {
+        "8": 20.33
+      },
+      "netto_old_price": null,
+      "source_id": "200",
+      "old_price": null,
+      "name": "SWEET X-MAS-35-38",
+      "netto_price": 20.3252,
+      "images": [],
+      "sku": "R20-35-38",
+      "url_key": "sweet-x-mas-35-38",
+      "price": 25.0,
+      "detail_only": false,
+      "description": ""
+    },
+    {
+      "quantity": 2000,
+      "free": null,
+      "params": {
+        "color": [
+          "red",
+          "dark-blue"
+        ],
+        "category_ids": [
+          "11",
+          "13",
+          "25",
+          "27"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:15:10"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "product_size": [
+          "39-42"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "special_price": [
+          "21.0000"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:15:10"
+        ],
+        "url_key": [
+          "sweet-x-mas-39-42"
+        ],
+        "warehouse_position": [
+          "3"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "meta_title": [
+          "SWEET X-MAS"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "meta_description": [
+          "SWEET X-MAS "
+        ],
+        "meta_keyword": [
+          "SWEET X-MAS"
+        ],
+        "pattern": [
+          "winter"
+        ],
+        "small_image": [
+          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+        ],
+        "pos1_quantity": [
+          "3"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {
+        "8": 20.33
+      },
+      "netto_old_price": null,
+      "source_id": "201",
+      "old_price": null,
+      "name": "SWEET X-MAS-39-42",
+      "netto_price": 20.3252,
+      "images": [],
+      "sku": "R20-39-42",
+      "url_key": "sweet-x-mas-39-42",
+      "price": 25.0,
+      "detail_only": false,
+      "description": ""
+    },
+    {
+      "quantity": 1999,
+      "free": null,
+      "params": {
+        "color": [
+          "red",
+          "dark-blue"
+        ],
+        "category_ids": [
+          "11",
+          "13",
+          "25",
+          "27"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:15:11"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "product_size": [
+          "43-46"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "special_price": [
+          "21.0000"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:15:11"
+        ],
+        "url_key": [
+          "sweet-x-mas-43-46"
+        ],
+        "warehouse_position": [
+          "3"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "meta_title": [
+          "SWEET X-MAS"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "meta_description": [
+          "SWEET X-MAS "
+        ],
+        "meta_keyword": [
+          "SWEET X-MAS"
+        ],
+        "pattern": [
+          "winter"
+        ],
+        "small_image": [
+          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+        ],
+        "pos1_quantity": [
+          "7"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {
+        "8": 20.33
+      },
+      "netto_old_price": null,
+      "source_id": "202",
+      "old_price": null,
+      "name": "SWEET X-MAS-43-46",
+      "netto_price": 20.3252,
+      "images": [],
+      "sku": "R20-43-46",
+      "url_key": "sweet-x-mas-43-46",
+      "price": 25.0,
+      "detail_only": false,
+      "description": ""
+    }
+  ],
+  "listing_position": 92.0,
+  "old_price": [],
+  "name": "SWEET X-MAS",
+  "recommended": "0",
+  "currency": "PLN",
+  "images": [
+    {
+      "position": 1,
+      "media_type": "image",
+      "id": 134,
+      "file": "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png",
+      "disabled": false,
+      "types": [
+        "image",
+        "small_image",
+        "thumbnail",
+        "swatch_image"
+      ],
+      "label": null
+    },
+    {
+      "position": 2,
+      "media_type": "image",
+      "id": 135,
+      "file": "/m/m/mm_sweetx-mas_regular.jpg",
+      "disabled": false,
+      "types": [],
+      "label": null
+    }
+  ],
+  "sku": "R20",
+  "url_key": "sweet-x-mas",
+  "netto_price": {
+    "201": 20.3252,
+    "200": 20.3252,
+    "202": 20.3252
+  },
   "price": {
     "201": 25.0,
-    "202": 25.0,
-    "200": 25.0
+    "200": 25.0,
+    "202": 25.0
   },
+  "detail_only": false,
   "params": {
-    "tax_class_id": [
-      "Taxable Goods"
-    ],
-    "meta_title": [
-      "SWEET X-MAS"
-    ],
-    "is_product_lacked": [
-      "0"
-    ],
-    "meta_description": [
-      "SWEET X-MAS "
-    ],
-    "required_options": [
-      "0"
-    ],
-    "special_price": [
-      "21.0000"
-    ],
-    "gift_message_available": [
-      "No"
-    ],
-    "news_from_date": [
-      "2018-03-23 12:15:09",
-      "2018-03-23 12:15:10",
-      "2018-03-23 12:15:11"
-    ],
     "color": [
       "red",
       "dark-blue"
-    ],
-    "meta_keyword": [
-      "SWEET X-MAS"
-    ],
-    "special_to_date": [
-      "2018-02-11 00:00:00"
-    ],
-    "listing_position": [
-      "999"
-    ],
-    "thumbnail": [
-      "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
     ],
     "category_ids": [
       "11",
@@ -124,358 +414,90 @@
       "27",
       "2"
     ],
-    "recommended": [
-      "No"
-    ],
-    "has_options": [
-      "0"
+    "news_from_date": [
+      "2018-03-23 12:15:09",
+      "2018-03-23 12:15:10",
+      "2018-03-23 12:15:11"
     ],
     "warehouse_position": [
       "3"
-    ],
-    "pos1_quantity": [
-      "20",
-      "3",
-      "7"
-    ],
-    "image": [
-      "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
     ],
     "product_size": [
       "35-38",
       "39-42",
       "43-46"
     ],
+    "is_product_lacked": [
+      "0"
+    ],
+    "required_options": [
+      "0"
+    ],
+    "gift_message_available": [
+      "No"
+    ],
+    "has_options": [
+      "0"
+    ],
+    "recommended": [
+      "No"
+    ],
+    "listing_position": [
+      "999"
+    ],
+    "special_price": [
+      "21.0000"
+    ],
     "custom_design_from": [
       "2018-03-23 12:15:09",
       "2018-03-23 12:15:10",
       "2018-03-23 12:15:11"
     ],
-    "pattern": [
-      "winter"
+    "small_image": [
+      "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+    ],
+    "special_to_date": [
+      "2018-02-11 00:00:00"
     ],
     "options_container": [
       "Block after Info Column"
+    ],
+    "image": [
+      "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
     ],
     "url_key": [
       "sweet-x-mas-35-38",
       "sweet-x-mas-39-42",
       "sweet-x-mas-43-46"
     ],
-    "small_image": [
-      "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+    "meta_title": [
+      "SWEET X-MAS"
+    ],
+    "tax_class_id": [
+      "Taxable Goods"
+    ],
+    "meta_description": [
+      "SWEET X-MAS "
+    ],
+    "meta_keyword": [
+      "SWEET X-MAS"
+    ],
+    "pattern": [
+      "winter"
     ],
     "special_from_date": [
       "2018-02-09 00:00:00"
+    ],
+    "thumbnail": [
+      "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
+    ],
+    "pos1_quantity": [
+      "20",
+      "3",
+      "7"
+    ],
+    "detail_only": [
+      "No"
     ]
-  },
-  "variants": [
-    {
-      "description": "",
-      "old_price": null,
-      "name": "SWEET X-MAS-35-38",
-      "params": {
-        "meta_title": [
-          "SWEET X-MAS"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "SWEET X-MAS "
-        ],
-        "required_options": [
-          "0"
-        ],
-        "special_price": [
-          "21.0000"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:15:09"
-        ],
-        "color": [
-          "red",
-          "dark-blue"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "product_size": [
-          "35-38"
-        ],
-        "thumbnail": [
-          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
-        ],
-        "category_ids": [
-          "11",
-          "13",
-          "25",
-          "27"
-        ],
-        "meta_keyword": [
-          "SWEET X-MAS"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "warehouse_position": [
-          "3"
-        ],
-        "image": [
-          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
-        ],
-        "listing_position": [
-          "999"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:15:09"
-        ],
-        "pattern": [
-          "winter"
-        ],
-        "pos1_quantity": [
-          "20"
-        ],
-        "url_key": [
-          "sweet-x-mas-35-38"
-        ],
-        "small_image": [
-          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ]
-      },
-      "free": null,
-      "source_id": "200",
-      "netto_old_price": null,
-      "quantity": 2000,
-      "images": [],
-      "sku": "R20-35-38",
-      "price": 25.0,
-      "groups_prices": {},
-      "netto_price": 20.3252,
-      "url_key": "sweet-x-mas-35-38"
-    },
-    {
-      "description": "",
-      "old_price": null,
-      "name": "SWEET X-MAS-39-42",
-      "params": {
-        "meta_title": [
-          "SWEET X-MAS"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "SWEET X-MAS "
-        ],
-        "required_options": [
-          "0"
-        ],
-        "special_price": [
-          "21.0000"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:15:10"
-        ],
-        "color": [
-          "red",
-          "dark-blue"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "product_size": [
-          "39-42"
-        ],
-        "thumbnail": [
-          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
-        ],
-        "category_ids": [
-          "11",
-          "13",
-          "25",
-          "27"
-        ],
-        "meta_keyword": [
-          "SWEET X-MAS"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "warehouse_position": [
-          "3"
-        ],
-        "image": [
-          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
-        ],
-        "listing_position": [
-          "999"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:15:10"
-        ],
-        "pattern": [
-          "winter"
-        ],
-        "pos1_quantity": [
-          "3"
-        ],
-        "url_key": [
-          "sweet-x-mas-39-42"
-        ],
-        "small_image": [
-          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ]
-      },
-      "free": null,
-      "source_id": "201",
-      "netto_old_price": null,
-      "quantity": 2000,
-      "images": [],
-      "sku": "R20-39-42",
-      "price": 25.0,
-      "groups_prices": {},
-      "netto_price": 20.3252,
-      "url_key": "sweet-x-mas-39-42"
-    },
-    {
-      "description": "",
-      "old_price": null,
-      "name": "SWEET X-MAS-43-46",
-      "params": {
-        "meta_title": [
-          "SWEET X-MAS"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "SWEET X-MAS "
-        ],
-        "required_options": [
-          "0"
-        ],
-        "special_price": [
-          "21.0000"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:15:11"
-        ],
-        "color": [
-          "red",
-          "dark-blue"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "product_size": [
-          "43-46"
-        ],
-        "thumbnail": [
-          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
-        ],
-        "category_ids": [
-          "11",
-          "13",
-          "25",
-          "27"
-        ],
-        "meta_keyword": [
-          "SWEET X-MAS"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "warehouse_position": [
-          "3"
-        ],
-        "image": [
-          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
-        ],
-        "listing_position": [
-          "999"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:15:11"
-        ],
-        "pattern": [
-          "winter"
-        ],
-        "pos1_quantity": [
-          "7"
-        ],
-        "url_key": [
-          "sweet-x-mas-43-46"
-        ],
-        "small_image": [
-          "/m/m/mm_sweetx-mas_regular_packshot_72dpi.png"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ]
-      },
-      "free": null,
-      "source_id": "202",
-      "netto_old_price": null,
-      "quantity": 2000,
-      "images": [],
-      "sku": "R20-43-46",
-      "price": 25.0,
-      "groups_prices": {},
-      "netto_price": 20.3252,
-      "url_key": "sweet-x-mas-43-46"
-    }
-  ],
-  "sku": "R20",
-  "netto_old_price": [],
-  "groups_prices": {},
-  "netto_price": {
-    "201": 20.3252,
-    "202": 20.3252,
-    "200": 20.3252
-  },
-  "listing_position": 92.0,
-  "url_key": "sweet-x-mas"
+  }
 }

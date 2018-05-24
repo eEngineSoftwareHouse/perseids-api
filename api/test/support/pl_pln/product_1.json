@@ -1,37 +1,10 @@
 {
-  "description": "Świąteczne skarpetki dla dzieci od Many Mornings pasują do czekoladowego piernika, prezentów, makowca, pierogów i wspaniałej atmosfery, którą maluchy wprost uwielbiają! Ten model jest kropką nad „i”, ukoronowaniem oczekiwania na Mikołaja, a także spełnieniem marzeń małych odkrywców. A przynajmniej jednego z tych marzeń.\r\n\r\nStowrzyliśmy model Sweet X-mas, by udowodnić, że dziecięce skarpetki wcale nie muszą być nudne. Wystarczy odrobina kreatywności, szczypta świątecznej magii, trochę lukru do ciasta i... elegancki dodatek do wigilijnej kolacji gotowy! Szykownie, z klasą i dbalością o słodki smak szczęścia – dla małych i dużych dzieciaków.",
-  "old_price": [],
-  "name": "SWEET X-MASS KIDS",
-  "recommended": "0",
-  "images": [
-    {
-      "id": 404,
-      "disabled": false,
-      "types": [
-        "image",
-        "small_image",
-        "thumbnail",
-        "swatch_image"
-      ],
-      "media_type": "image",
-      "file": "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png",
-      "label": null,
-      "position": 1
-    },
-    {
-      "id": 405,
-      "disabled": false,
-      "types": [],
-      "media_type": "image",
-      "file": "/m/m/mm_sweetx-mas_regular_2.jpg",
-      "label": null,
-      "position": 2
-    }
-  ],
-  "bestseller": "0",
+  "netto_old_price": [],
   "free": null,
+  "description": "Świąteczne skarpetki dla dzieci od Many Mornings pasują do czekoladowego piernika, prezentów, makowca, pierogów i wspaniałej atmosfery, którą maluchy wprost uwielbiają! Ten model jest kropką nad „i”, ukoronowaniem oczekiwania na Mikołaja, a także spełnieniem marzeń małych odkrywców. A przynajmniej jednego z tych marzeń.\r\n\r\nStowrzyliśmy model Sweet X-mas, by udowodnić, że dziecięce skarpetki wcale nie muszą być nudne. Wystarczy odrobina kreatywności, szczypta świątecznej magii, trochę lukru do ciasta i... elegancki dodatek do wigilijnej kolacji gotowy! Szykownie, z klasą i dbalością o słodki smak szczęścia – dla małych i dużych dzieciaków.",
+  "groups_prices": {},
+  "bestseller": "0",
   "source_id": "434",
-  "currency": "PLN",
   "categories": [
     {
       "id": "11"
@@ -64,58 +37,364 @@
       "id": "2"
     }
   ],
-  "price": {
-    "431": 15.0,
-    "432": 15.0,
-    "433": 15.0
+  "variants": [
+    {
+      "quantity": 2000,
+      "free": null,
+      "params": {
+        "color": [
+          "red",
+          "dark-blue"
+        ],
+        "category_ids": [
+          "11",
+          "13",
+          "25",
+          "29"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:17:39"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "product_size": [
+          "23-26"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "special_price": [
+          "13.0000"
+        ],
+        "swatch_image": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3.png"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:17:39"
+        ],
+        "url_key": [
+          "sweet-x-mass-kids-23-26"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "meta_title": [
+          "Sweet X-Mass Kids"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "meta_description": [
+          "Sweet X-Mass Kids "
+        ],
+        "meta_keyword": [
+          "Sweet X-Mass Kids"
+        ],
+        "pattern": [
+          "winter"
+        ],
+        "small_image": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+        ],
+        "pos1_quantity": [
+          "14"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {},
+      "netto_old_price": null,
+      "source_id": "431",
+      "old_price": null,
+      "name": "SWEET X-MASS KIDS-23-26",
+      "netto_price": 12.1951,
+      "images": [],
+      "sku": "K16-23-26",
+      "url_key": "sweet-x-mass-kids-23-26",
+      "price": 15.0,
+      "detail_only": false,
+      "description": ""
+    },
+    {
+      "quantity": 1997,
+      "free": null,
+      "params": {
+        "color": [
+          "red",
+          "dark-blue"
+        ],
+        "category_ids": [
+          "11",
+          "13",
+          "25",
+          "29"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:17:40"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "product_size": [
+          "27-30"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "special_price": [
+          "13.0000"
+        ],
+        "swatch_image": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_1.png"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:17:40"
+        ],
+        "url_key": [
+          "sweet-x-mass-kids-27-30"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "meta_title": [
+          "Sweet X-Mass Kids"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "meta_description": [
+          "Sweet X-Mass Kids "
+        ],
+        "meta_keyword": [
+          "Sweet X-Mass Kids"
+        ],
+        "pattern": [
+          "winter"
+        ],
+        "small_image": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+        ],
+        "pos1_quantity": [
+          "7"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {},
+      "netto_old_price": null,
+      "source_id": "432",
+      "old_price": null,
+      "name": "SWEET X-MASS KIDS-27-30",
+      "netto_price": 12.1951,
+      "images": [],
+      "sku": "K16-27-30",
+      "url_key": "sweet-x-mass-kids-27-30",
+      "price": 15.0,
+      "detail_only": false,
+      "description": ""
+    },
+    {
+      "quantity": 2000,
+      "free": null,
+      "params": {
+        "color": [
+          "red",
+          "dark-blue"
+        ],
+        "category_ids": [
+          "11",
+          "13",
+          "25",
+          "29"
+        ],
+        "news_from_date": [
+          "2018-03-23 12:17:41"
+        ],
+        "special_from_date": [
+          "2018-02-09 00:00:00"
+        ],
+        "product_size": [
+          "31-34"
+        ],
+        "is_product_lacked": [
+          "0"
+        ],
+        "required_options": [
+          "0"
+        ],
+        "gift_message_available": [
+          "No"
+        ],
+        "has_options": [
+          "0"
+        ],
+        "recommended": [
+          "No"
+        ],
+        "listing_position": [
+          "999"
+        ],
+        "special_price": [
+          "13.0000"
+        ],
+        "swatch_image": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_2.png"
+        ],
+        "custom_design_from": [
+          "2018-03-23 12:17:41"
+        ],
+        "url_key": [
+          "sweet-x-mass-kids-31-34"
+        ],
+        "options_container": [
+          "Block after Info Column"
+        ],
+        "image": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+        ],
+        "special_to_date": [
+          "2018-02-11 00:00:00"
+        ],
+        "meta_title": [
+          "Sweet X-Mass Kids"
+        ],
+        "tax_class_id": [
+          "Taxable Goods"
+        ],
+        "meta_description": [
+          "Sweet X-Mass Kids "
+        ],
+        "meta_keyword": [
+          "Sweet X-Mass Kids"
+        ],
+        "pattern": [
+          "winter"
+        ],
+        "small_image": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+        ],
+        "thumbnail": [
+          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+        ],
+        "pos1_quantity": [
+          "8"
+        ],
+        "detail_only": [
+          "No"
+        ]
+      },
+      "groups_prices": {},
+      "netto_old_price": null,
+      "source_id": "433",
+      "old_price": null,
+      "name": "SWEET X-MASS KIDS-31-34",
+      "netto_price": 12.1951,
+      "images": [],
+      "sku": "K16-31-34",
+      "url_key": "sweet-x-mass-kids-31-34",
+      "price": 15.0,
+      "detail_only": false,
+      "description": ""
+    }
+  ],
+  "listing_position": 93.0,
+  "old_price": [],
+  "name": "SWEET X-MASS KIDS",
+  "recommended": "0",
+  "currency": "PLN",
+  "images": [
+    {
+      "position": 1,
+      "media_type": "image",
+      "id": 404,
+      "file": "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png",
+      "disabled": false,
+      "types": [
+        "image",
+        "small_image",
+        "thumbnail",
+        "swatch_image"
+      ],
+      "label": null
+    },
+    {
+      "position": 2,
+      "media_type": "image",
+      "id": 405,
+      "file": "/m/m/mm_sweetx-mas_regular_2.jpg",
+      "disabled": false,
+      "types": [],
+      "label": null
+    }
+  ],
+  "sku": "K16",
+  "url_key": "sweet-x-mass-kids",
+  "netto_price": {
+    "433": 12.1951,
+    "431": 12.1951,
+    "432": 12.1951
   },
+  "price": {
+    "433": 15.0,
+    "431": 15.0,
+    "432": 15.0
+  },
+  "detail_only": true,
   "params": {
-    "tax_class_id": [
-      "Taxable Goods"
-    ],
-    "meta_title": [
-      "Sweet X-Mass Kids"
-    ],
-    "is_product_lacked": [
-      "0"
-    ],
-    "meta_description": [
-      "Sweet X-Mass Kids "
-    ],
-    "required_options": [
-      "0"
-    ],
-    "swatch_image": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3.png",
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_1.png",
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_2.png"
-    ],
-    "special_price": [
-      "13.0000"
-    ],
-    "gift_message_available": [
-      "No"
-    ],
-    "news_from_date": [
-      "2018-03-23 12:17:39",
-      "2018-03-23 12:17:40",
-      "2018-03-23 12:17:41"
-    ],
     "color": [
       "red",
       "dark-blue"
-    ],
-    "meta_keyword": [
-      "Sweet X-Mass Kids"
-    ],
-    "special_to_date": [
-      "2018-02-11 00:00:00"
-    ],
-    "listing_position": [
-      "999"
-    ],
-    "thumbnail": [
-      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
     ],
     "category_ids": [
       "11",
@@ -129,18 +408,12 @@
       "29",
       "2"
     ],
-    "recommended": [
-      "No"
+    "news_from_date": [
+      "2018-03-23 12:17:39",
+      "2018-03-23 12:17:40",
+      "2018-03-23 12:17:41"
     ],
-    "has_options": [
-      "0"
-    ],
-    "pos1_quantity": [
-      "14",
-      "7",
-      "8"
-    ],
-    "image": [
+    "small_image": [
       "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
     ],
     "product_size": [
@@ -148,13 +421,34 @@
       "27-30",
       "31-34"
     ],
+    "is_product_lacked": [
+      "0"
+    ],
+    "required_options": [
+      "0"
+    ],
+    "gift_message_available": [
+      "No"
+    ],
+    "has_options": [
+      "0"
+    ],
+    "recommended": [
+      "No"
+    ],
+    "listing_position": [
+      "999"
+    ],
+    "special_price": [
+      "13.0000"
+    ],
     "custom_design_from": [
       "2018-03-23 12:17:39",
       "2018-03-23 12:17:40",
       "2018-03-23 12:17:41"
     ],
-    "pattern": [
-      "winter"
+    "special_to_date": [
+      "2018-02-11 00:00:00"
     ],
     "options_container": [
       "Block after Info Column"
@@ -164,320 +458,42 @@
       "sweet-x-mass-kids-27-30",
       "sweet-x-mass-kids-31-34"
     ],
-    "small_image": [
+    "swatch_image": [
+      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3.png",
+      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_1.png",
+      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_2.png"
+    ],
+    "image": [
       "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+    ],
+    "tax_class_id": [
+      "Taxable Goods"
+    ],
+    "meta_description": [
+      "Sweet X-Mass Kids "
+    ],
+    "meta_keyword": [
+      "Sweet X-Mass Kids"
+    ],
+    "meta_title": [
+      "Sweet X-Mass Kids"
+    ],
+    "pattern": [
+      "winter"
     ],
     "special_from_date": [
       "2018-02-09 00:00:00"
+    ],
+    "thumbnail": [
+      "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
+    ],
+    "pos1_quantity": [
+      "14",
+      "7",
+      "8"
+    ],
+    "detail_only": [
+      "No"
     ]
-  },
-  "variants": [
-    {
-      "description": "",
-      "old_price": null,
-      "name": "SWEET X-MASS KIDS-23-26",
-      "params": {
-        "meta_title": [
-          "Sweet X-Mass Kids"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "Sweet X-Mass Kids "
-        ],
-        "required_options": [
-          "0"
-        ],
-        "swatch_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3.png"
-        ],
-        "special_price": [
-          "13.0000"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:17:39"
-        ],
-        "color": [
-          "red",
-          "dark-blue"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "product_size": [
-          "23-26"
-        ],
-        "thumbnail": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-        ],
-        "category_ids": [
-          "11",
-          "13",
-          "25",
-          "29"
-        ],
-        "meta_keyword": [
-          "Sweet X-Mass Kids"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-        ],
-        "listing_position": [
-          "999"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:17:39"
-        ],
-        "pattern": [
-          "winter"
-        ],
-        "pos1_quantity": [
-          "14"
-        ],
-        "url_key": [
-          "sweet-x-mass-kids-23-26"
-        ],
-        "small_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ]
-      },
-      "free": null,
-      "source_id": "431",
-      "netto_old_price": null,
-      "quantity": 2000,
-      "images": [],
-      "sku": "K16-23-26",
-      "price": 15.0,
-      "groups_prices": {},
-      "netto_price": 12.1951,
-      "url_key": "sweet-x-mass-kids-23-26"
-    },
-    {
-      "description": "",
-      "old_price": null,
-      "name": "SWEET X-MASS KIDS-27-30",
-      "params": {
-        "meta_title": [
-          "Sweet X-Mass Kids"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "Sweet X-Mass Kids "
-        ],
-        "required_options": [
-          "0"
-        ],
-        "swatch_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_1.png"
-        ],
-        "special_price": [
-          "13.0000"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:17:40"
-        ],
-        "color": [
-          "red",
-          "dark-blue"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "product_size": [
-          "27-30"
-        ],
-        "thumbnail": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-        ],
-        "category_ids": [
-          "11",
-          "13",
-          "25",
-          "29"
-        ],
-        "meta_keyword": [
-          "Sweet X-Mass Kids"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-        ],
-        "listing_position": [
-          "999"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:17:40"
-        ],
-        "pattern": [
-          "winter"
-        ],
-        "pos1_quantity": [
-          "7"
-        ],
-        "url_key": [
-          "sweet-x-mass-kids-27-30"
-        ],
-        "small_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ]
-      },
-      "free": null,
-      "source_id": "432",
-      "netto_old_price": null,
-      "quantity": 1997,
-      "images": [],
-      "sku": "K16-27-30",
-      "price": 15.0,
-      "groups_prices": {},
-      "netto_price": 12.1951,
-      "url_key": "sweet-x-mass-kids-27-30"
-    },
-    {
-      "description": "",
-      "old_price": null,
-      "name": "SWEET X-MASS KIDS-31-34",
-      "params": {
-        "meta_title": [
-          "Sweet X-Mass Kids"
-        ],
-        "is_product_lacked": [
-          "0"
-        ],
-        "meta_description": [
-          "Sweet X-Mass Kids "
-        ],
-        "required_options": [
-          "0"
-        ],
-        "swatch_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_3_2.png"
-        ],
-        "special_price": [
-          "13.0000"
-        ],
-        "options_container": [
-          "Block after Info Column"
-        ],
-        "gift_message_available": [
-          "No"
-        ],
-        "news_from_date": [
-          "2018-03-23 12:17:41"
-        ],
-        "color": [
-          "red",
-          "dark-blue"
-        ],
-        "recommended": [
-          "No"
-        ],
-        "tax_class_id": [
-          "Taxable Goods"
-        ],
-        "product_size": [
-          "31-34"
-        ],
-        "thumbnail": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-        ],
-        "category_ids": [
-          "11",
-          "13",
-          "25",
-          "29"
-        ],
-        "meta_keyword": [
-          "Sweet X-Mass Kids"
-        ],
-        "has_options": [
-          "0"
-        ],
-        "special_to_date": [
-          "2018-02-11 00:00:00"
-        ],
-        "image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-        ],
-        "listing_position": [
-          "999"
-        ],
-        "custom_design_from": [
-          "2018-03-23 12:17:41"
-        ],
-        "pattern": [
-          "winter"
-        ],
-        "pos1_quantity": [
-          "8"
-        ],
-        "url_key": [
-          "sweet-x-mass-kids-31-34"
-        ],
-        "small_image": [
-          "/m/m/mm_sweetx-mas_kids_packshot_72dpi_2.png"
-        ],
-        "special_from_date": [
-          "2018-02-09 00:00:00"
-        ]
-      },
-      "free": null,
-      "source_id": "433",
-      "netto_old_price": null,
-      "quantity": 2000,
-      "images": [],
-      "sku": "K16-31-34",
-      "price": 15.0,
-      "groups_prices": {},
-      "netto_price": 12.1951,
-      "url_key": "sweet-x-mass-kids-31-34"
-    }
-  ],
-  "sku": "K16",
-  "netto_old_price": [],
-  "groups_prices": {},
-  "netto_price": {
-    "431": 12.1951,
-    "432": 12.1951,
-    "433": 12.1951
-  },
-  "listing_position": 93.0,
-  "url_key": "sweet-x-mass-kids"
+  }
 }
