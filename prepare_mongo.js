@@ -112,19 +112,22 @@ db.system.js.save(
             if (customerGroupId !== "") {
                 selectedFieldsQuery["variants.groups_prices"] = 1;
             }
-            if (wholesale)
+            if (wholesale){
+                count = db.getCollection(lang + '_products').find({"$and": [{"detail_only": false}, productQuery]}).length();
                 productsArray = db.getCollection(lang + '_products')
-                                    .find(productQuery, selectedFieldsQuery)
+                                    .find({"$and": [{"detail_only": false}, productQuery]}, selectedFieldsQuery)
                                     .sort({"name": sortDirection})
-                                    .skip(skip).limit(limit).toArray()
-            else
+                                    .skip(skip).limit(limit).toArray();
+            }
+            else{
+                count = db.getCollection(lang + '_products').find(productQuery).length();
                 productsArray = db.getCollection(lang + '_products')
                                     .find(productQuery, selectedFieldsQuery)
                                     .sort({listing_position: sortDirection})
-                                    .skip(skip).limit(limit).toArray()
-            
+                                    .skip(skip).limit(limit).toArray();
+            }
             var output = {
-                    count: db.getCollection(lang + '_products').find(productQuery).length(),
+                    count: count,
                     params: filterableParams,
                     products: productsArray
             }
