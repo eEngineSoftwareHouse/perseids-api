@@ -11,6 +11,7 @@ defmodule Perseids.ProductControllerTest do
   defp refute_json_response(conn, list), do: conn |> Perseids.ConnCase.check_json_response(list, :refute) 
   defp decode_resp_body(conn), do: conn.resp_body |> Poison.decode!
   defp select_first_product(resp_body), do: resp_body["products"] |> List.first
+
   setup %{conn: conn} do 
     {:ok, conn: conn}
   end
@@ -94,7 +95,7 @@ defmodule Perseids.ProductControllerTest do
           %{"filter" => %{"categories.id" => ["27"], "params.color" => ["green", "claret", "orange"], 
             "params.pattern" => ["winter", "food", "black-white", "geometric"]}, 
             "select" => "xxxx"})
-      |> assert_json_response(["winter", "green", "params", "{}"])
+      |> assert_json_response(["winter", "green", "params"])
       |> refute_json_response(["name"])
       assert json_response(conn, 200)      
     end
@@ -161,6 +162,35 @@ defmodule Perseids.ProductControllerTest do
         |> decode_resp_body
         |> select_first_product
       assert product["name"] != "BEETROOT"
+    end
+
+    test "sweet-xmas kids socks is disabled for wholesaler", %{conn: conn} do
+      conn = conn 
+      |> wholesaler_logged_in
+      |> get(product_path(conn, :index))
+
+      resp_body =
+        conn
+        |> decode_resp_body
+      
+      should_be_nil =
+        resp_body["products"]
+        |> Enum.find(&(&1["name"] == "SWEET X-MASS KIDS"))
+      assert should_be_nil == nil
+    end
+
+    test "sweet-xmas socks is enabled for detal", %{conn: conn} do
+      conn = conn 
+      |> get(product_path(conn, :index))
+
+      resp_body =
+        conn
+        |> decode_resp_body
+      
+      product =
+        resp_body["products"]
+        |> Enum.find(&(&1["name"] == "SWEET X-MASS KIDS"))
+      assert product |> is_map == true 
     end
   end 
 end
