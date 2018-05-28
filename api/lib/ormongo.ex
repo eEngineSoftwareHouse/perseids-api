@@ -51,6 +51,10 @@ defmodule ORMongo do
     Mongo.find_one_and_delete(:mongo, collection, %{_id: BSON.ObjectId.decode!(id)})
   end
 
+  def destroy_by_slug(collection, slug) do
+    Mongo.find_one_and_delete(:mongo, collection, %{slug: slug})
+  end
+
   def insert_one(collection, params) do
     params = Map.put_new(params, :created_at, DateTime.utc_now |> DateTime.to_string)
     {:ok, id} = Mongo.insert_one(:mongo, collection, params)
@@ -61,6 +65,10 @@ defmodule ORMongo do
   def update_one(collection, filter, new_value, options \\ []) do
     # Mongo.update_one(:mongo, "orders", %{"_id" => BSON.ObjectId.decode!("59cb77c63d7ae90069f449df")}, %{"$set" => %{"redirect_url" => "TESTURL"}})
     Mongo.update_one(:mongo, collection, filter, %{"$set" => new_value}, options)
+  end
+
+  def find_one_and_update(collection, filter, new_value, options \\ []) do
+    Mongo.find_one_and_update(:mongo, collection, filter, %{"$set" => new_value}, options)
   end
 
   defp search_options(options) do
