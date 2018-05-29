@@ -16,7 +16,7 @@ defmodule Perseids.PageController do
 
   def create(conn, params) do
     changeset = 
-      Page.changeset(%Perseids.Page{}, params)
+      Page.changeset(%Perseids.Page{}, prepare_params(conn, params))
       |> valid_changeset?
       |> do_action(conn, :create)
       |> response_with(conn)
@@ -24,7 +24,7 @@ defmodule Perseids.PageController do
 
   def update(conn, params) do
     changeset = 
-      Page.changeset(%Perseids.Page{}, params)
+      Page.changeset(%Perseids.Page{}, prepare_params(conn, params))
       |> valid_changeset?
       |> do_action(conn, :update)
       |> response_with(conn)
@@ -35,15 +35,20 @@ defmodule Perseids.PageController do
     json(conn, :ok)
   end
 
-  def valid_changeset?(changeset) do
+  defp valid_changeset?(changeset) do
     {changeset.valid?, changeset}
   end
 
-  def do_action({false, changeset}, conn, _action), do: render conn, "errors.json", changeset: changeset
-  def do_action({true, changeset}, conn, :create), do: Page.create(changeset.changes, conn.assigns.lang)
-  def do_action({true, changeset}, conn, :update), do: Page.update(changeset.changes, conn.assigns.lang)
+  defp do_action({false, changeset}, conn, _action), do: render conn, "errors.json", changeset: changeset
+  defp do_action({true, changeset}, conn, :create), do: Page.create(changeset.changes)
+  defp do_action({true, changeset}, conn, :update), do: Page.update(changeset.changes)
 
-  def response_with({:error, reason}, conn), do: conn |> put_status(422) |> json(reason)
-  def response_with({:ok, page}, conn), do: render conn, "page.json", page: page
-  def response_with(page, conn), do: render conn, "page.json", page: page
+  defp response_with({:error, reason}, conn), do: conn |> put_status(422) |> json(reason)
+  defp response_with({:ok, page}, conn), do: render conn, "page.json", page: page
+  defp response_with(page, conn), do: render conn, "page.json", page: page
+
+  defp prepare_params(conn, params) do
+    params
+    |> Map.put_new("lang", conn.assigns.lang)
+  end
 end

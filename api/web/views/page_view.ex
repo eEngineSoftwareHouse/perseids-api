@@ -11,6 +11,16 @@ defmodule Perseids.PageView do
     page |> page_json
   end
 
+  def render("errors.json", %{changeset: changeset}) do
+    %{
+      errors: Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
+        Enum.reduce(opts, msg, fn {key, value}, acc ->
+          String.replace(acc, "%{#{key}}", to_string(value))
+        end)
+      end)
+    }
+  end
+
   defp page_json(page) do
     %{
       id: BSON.ObjectId.encode!(page["_id"]),
