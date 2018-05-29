@@ -51,10 +51,6 @@ defmodule ORMongo do
     Mongo.find_one_and_delete(:mongo, collection, %{_id: BSON.ObjectId.decode!(id)})
   end
 
-  def destroy_by_slug(collection, slug) do
-    Mongo.find_one_and_delete(:mongo, collection, %{slug: slug})
-  end
-
   def insert_one(collection, params) do
     params = Map.put_new(params, :created_at, DateTime.utc_now |> DateTime.to_string)
     {:ok, id} = Mongo.insert_one(:mongo, collection, params)
