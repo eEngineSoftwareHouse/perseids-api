@@ -38,6 +38,9 @@ defmodule Perseids.Router do
     pipe_through :admin
 
     post "/images", BannerController, :create
+    post "/page/create", PageController, :create
+    post "/page/update", PageController, :update
+    post "/page/destroy", PageController, :destroy
   end
   
   # For everyone (guest)
@@ -70,9 +73,6 @@ defmodule Perseids.Router do
     # Disabled until pages are stored in DB
     get "/pages", PageController, :index
     get "/page/:slug", PageController, :show
-    post "/page/create", PageController, :create
-    post "/page/update", PageController, :update
-    post "/page/destroy", PageController, :destroy
 
     get "/order/delivery_options", OrderController, :delivery_options
     post "/order/discount", OrderController, :discount

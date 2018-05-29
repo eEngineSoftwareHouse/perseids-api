@@ -53,6 +53,36 @@ defmodule Perseids.IndependentDatabase do
     %{"value" => 199.0,"name" => "free_regular" }
   ]
 
+  @list_of_pages [
+    %{
+      "active" => true,
+      "content" => "<div> test </div>",
+      "position" => "navbar",
+      "seo_description" => "test",
+      "seo_title" => "test",
+      "slug" => "test-page",
+      "title" => "Strona Testowa"
+    },
+    %{
+      "active" => true,
+      "content" => "<div> test </div>",
+      "position" => "navbar",
+      "seo_description" => "test",
+      "seo_title" => "test",
+      "slug" => "test-page_2",
+      "title" => "Strona Testowa_2"
+    },
+    %{
+      "active" => true,
+      "content" => "<div> test </div>",
+      "position" => "navbar",
+      "seo_description" => "test",
+      "seo_title" => "test",
+      "slug" => "test-page_update",
+      "title" => "Strona Testowa_UPDATE"
+    }
+  ]
+
   #==================================#
   #=          METHODS               =#
   #==================================#
@@ -64,11 +94,13 @@ defmodule Perseids.IndependentDatabase do
     Mongo.delete_many(:mongo, "#{lang}_products", %{})
     Mongo.delete_many(:mongo, "#{lang}_discount", %{})
     Mongo.delete_many(:mongo, "#{lang}_shipping", %{})
+    Mongo.delete_many(:mongo, "#{lang}_pages", %{})
 
     create_discount(lang)
     create_products(lang)
     create_shipping(lang)
     create_thresholds(lang)
+    create_pages(lang)
   end
 
 
@@ -107,5 +139,10 @@ defmodule Perseids.IndependentDatabase do
   defp create_thresholds(lang) do
     @list_of_tresholds
     |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_threshold", &1)))
+  end
+
+  defp create_pages(lang) do
+    @list_of_pages
+    |> Enum.each(&(Mongo.insert_one(:mongo, "#{lang}_pages", &1)))
   end
 end

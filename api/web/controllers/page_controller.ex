@@ -11,23 +11,24 @@ defmodule Perseids.PageController do
   end
 
   def show(%{assigns: %{lang: lang}} = conn, %{"slug" => slug}) do
-    render conn, "page.json", page: Page.find_one(slug: slug, lang: lang)
+    case Page.find_one(slug: slug, lang: lang) do
+      nil -> conn |> put_status(404) |> json(:not_found)
+      page -> render conn, "page.json", page: page
+    end
   end
 
   def create(conn, params) do
-    changeset = 
-      Page.changeset(%Perseids.Page{}, prepare_params(conn, params))
-      |> valid_changeset?
-      |> do_action(conn, :create)
-      |> response_with(conn)
+    Page.changeset(%Perseids.Page{}, prepare_params(conn, params))
+    |> valid_changeset?
+    |> do_action(conn, :create)
+    |> response_with(conn)
   end
 
   def update(conn, params) do
-    changeset = 
-      Page.changeset(%Perseids.Page{}, prepare_params(conn, params))
-      |> valid_changeset?
-      |> do_action(conn, :update)
-      |> response_with(conn)
+    Page.changeset(%Perseids.Page{}, prepare_params(conn, params))
+    |> valid_changeset?
+    |> do_action(conn, :update)
+    |> response_with(conn)
   end
 
   def destroy(conn, params) do
@@ -40,8 +41,8 @@ defmodule Perseids.PageController do
   end
 
   defp do_action({false, changeset}, conn, _action), do: render conn, "errors.json", changeset: changeset
-  defp do_action({true, changeset}, conn, :create), do: Page.create(changeset.changes)
-  defp do_action({true, changeset}, conn, :update), do: Page.update(changeset.changes)
+  defp do_action({true, changeset}, _conn, :create), do: Page.create(changeset.changes)
+  defp do_action({true, changeset}, _conn, :update), do: Page.update(changeset.changes)
 
   defp response_with({:error, reason}, conn), do: conn |> put_status(422) |> json(reason)
   defp response_with({:ok, page}, conn), do: render conn, "page.json", page: page
