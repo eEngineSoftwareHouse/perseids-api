@@ -3,7 +3,7 @@ defmodule Perseids.PageControllerTest do
   
   alias Perseids
 
-  @admin_valid_credentials %{"email" => "szymon.ciolkowski+admin@eengine.pl", "password" => "Tajnafraza12"}
+  @admin_valid_credentials %{"email" => "admin@example.com", "password" => "Tajnafraza12"}
   @valid_credentials %{"email" => "test-api@niepodam.pl", "password" => "Tajnafraza12"}
   @wholesale_valid_credentials %{"email" => "wholesaler@example.com", "password" => "Tajnafraza12"}
 
@@ -54,7 +54,7 @@ defmodule Perseids.PageControllerTest do
     end
 
     test "can't destroy page", %{conn: conn} do
-      id = find_product_id("test-page")
+      id = find_page_id("test-page")
 
       conn = conn
       |> guest
@@ -64,7 +64,7 @@ defmodule Perseids.PageControllerTest do
     end
 
     test "can't update page", %{conn: conn} do
-      id = find_product_id("test-page")
+      id = find_page_id("test-page")
 
       conn = conn
       |> guest
@@ -111,7 +111,7 @@ defmodule Perseids.PageControllerTest do
     end
 
     test "can't destroy page", %{conn: conn} do
-      id = find_product_id("test-page")
+      id = find_page_id("test-page")
 
       conn = conn
       |> logged_in
@@ -121,7 +121,7 @@ defmodule Perseids.PageControllerTest do
     end
 
     test "can't update page", %{conn: conn} do
-      id = find_product_id("test-page")
+      id = find_page_id("test-page")
 
       conn = conn
       |> logged_in
@@ -168,7 +168,7 @@ defmodule Perseids.PageControllerTest do
     end
 
     test "can't destroy page", %{conn: conn} do
-      id = find_product_id("test-page")
+      id = find_page_id("test-page")
 
       conn = conn
       |> wholesaler
@@ -178,7 +178,7 @@ defmodule Perseids.PageControllerTest do
     end
 
     test "can't update page", %{conn: conn} do
-      id = find_product_id("test-page")
+      id = find_page_id("test-page")
 
       conn = conn
       |> wholesaler
@@ -225,7 +225,7 @@ defmodule Perseids.PageControllerTest do
     end
 
     test "can destroy page", %{conn: conn} do
-      id = find_product_id("test-page_2")
+      id = find_page_id("test-page_2")
       conn = conn
       |> admin
       |> post(page_path(conn, :destroy, %{"id" => id}))
@@ -234,7 +234,7 @@ defmodule Perseids.PageControllerTest do
     end
 
     test "can update page", %{conn: conn} do
-      id = find_product_id("test-page_update")
+      id = find_page_id("test-page_update")
       conn = conn
       |> admin
       |> post(page_path(conn, :update, edit_page_params() |> Map.put_new("id", id)))
@@ -255,18 +255,6 @@ defmodule Perseids.PageControllerTest do
     }
   end
 
-  defp duplicate_page_params do
-    %{
-      "active" => true,
-      "content" => "<div> test </div>",
-      "position" => "navbar",
-      "seo_description" => "test",
-      "seo_title" => "test",
-      "slug" => "test-page",
-      "title" => "Strona Testowa"
-    }
-  end
-
   defp edit_page_params do
     %{
       "active" => true,
@@ -279,6 +267,5 @@ defmodule Perseids.PageControllerTest do
     }
   end
 
-  defp find_product_id(slug), do: Perseids.Page.find_one(slug: slug, lang: "pl_pln")["_id"] |> BSON.ObjectId.encode!
-  
+  defp find_page_id(slug), do: Perseids.Page.find_one(slug: slug, lang: "pl_pln")["_id"] |> BSON.ObjectId.encode!
 end
