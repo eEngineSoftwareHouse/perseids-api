@@ -11,9 +11,12 @@ defmodule Perseids.PageController do
   end
 
   def show(%{assigns: %{lang: lang}} = conn, %{"slug" => slug}) do
-    case Page.find_one(slug: slug, lang: lang) do
-      nil -> conn |> put_status(404) |> json(:not_found)
-      page -> render conn, "page.json", page: page
+    with page <- Page.find_one(slug: slug, lang: lang),
+      true <- page["active"] 
+    do
+      render conn, "page.json", page: page
+    else 
+      _ -> conn |> put_status(404) |> json(:not_found)
     end
   end
 
