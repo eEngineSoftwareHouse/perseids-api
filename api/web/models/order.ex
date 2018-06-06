@@ -243,7 +243,7 @@ defmodule Perseids.Order do
   end
 
   def validate_nip(value, changeset, address_type) do
-    validate_field_length(value, changeset, address_type <> " - nip")
+    changeset
     |> maybe_pl_nip?(value, get_change(changeset, :lang), address_type)
   end
 
