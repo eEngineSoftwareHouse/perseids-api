@@ -214,14 +214,6 @@ defmodule Perseids.Order do
   
   def validate_post_code(value, changeset, address_type), do: changeset |> maybe_pl_postcode?(value, get_change(changeset, :lang), address_type)
 
-  def validate_phone_number(value, changeset, address_type) do
-    changeset = validate_field_length(value, changeset, address_type <> gettext " - phone number")
-    case Regex.match?(~r/^[0-9]*$/, value) do
-      true -> changeset |> maybe_pl_phone?(value, get_change(changeset, :lang), address_type)
-      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should contain only numbers")
-    end
-  end
-
   defp maybe_pl_postcode?(changeset, value, "pl_pln", address_type) do
     case Regex.match?(~r/^[0-9]{2}-[0-9]{3}$/, value) do
       true -> changeset
@@ -231,22 +223,37 @@ defmodule Perseids.Order do
 
   defp maybe_pl_postcode?(changeset, value, _lang, address_type), do: validate_field_length(value, changeset, address_type <> gettext " - post code")
 
+  def validate_phone_number(value, changeset, address_type) do
+    validate_field_length(value, changeset, address_type <> gettext " - phone number")
+    |> maybe_pl_phone?(value, get_change(changeset, :lang), address_type)
+  end
+
   defp maybe_pl_phone?(changeset, value, "pl_pln", address_type) do
     case Regex.match?(~r/^[0-9]{9}$/, value) do
       true -> changeset
-      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should be exactly 9 characters long")
+      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should contain only numbers and should be exactly 9 characters long")
     end
   end
 
-  defp maybe_pl_phone?(changeset, _value, _lang, _address_type), do: changeset
+  defp maybe_pl_phone?(changeset, value, _lang, address_type) do
+    case Regex.match?(~r/^[+0-9]{9,15}$/, value) do
+      true -> changeset
+      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should be not longer than 15 characters and shorter than 9")
+    end
+  end
 
   def validate_nip(value, changeset, address_type) do
-    changeset = validate_field_length(value, changeset, address_type <> " - nip")
-    case Regex.match?(~r/^[0-9]*$/, value) do
+    validate_field_length(value, changeset, address_type <> " - nip")
+    |> maybe_pl_nip?(value, get_change(changeset, :lang), address_type)
+  end
+
+  defp maybe_pl_nip?(changeset, value, "pl_pln", address_type) do
+    case Regex.match?(~r/^[0-9]{10}$/, value) do
       true -> changeset
-      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "nip should contain only numbers")
+      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "nip should contain only numbers and should be exacly 10 characters long")
     end
   end
+  defp maybe_pl_nip?(changeset, _value, _lang, _adress_type), do: changeset
   
   def validate_field_length(value, changeset, name) do
     case value |> String.trim |> String.length do
