@@ -1,7 +1,7 @@
 defmodule Perseids.Navbar do
   use Perseids.Web, :model
 
-  @collection_name "navbar"
+  @collection_name "navbars"
 
   schema @collection_name do
    field :slug,                    :string

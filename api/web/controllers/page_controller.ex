@@ -11,14 +11,15 @@ defmodule Perseids.PageController do
   end
 
   def show(%{assigns: %{lang: lang}} = conn, %{"slug" => slug}) do
-    with page <- Page.find_one(slug: slug, lang: lang),
-      true <- page["active"] 
-    do
-      render conn, "page.json", page: page
-    else 
-      _ -> conn |> put_status(404) |> json(:not_found)
+    case Page.find_one(slug: slug, lang: lang) do
+      nil -> conn |> put_status(404) |> json(:not_found)
+      page -> conn |> is_active?(page)
     end
   end
+
+  defp is_active?(%{assigns: %{admin: true}} = conn, page), do: render conn, "page.json", page: page
+  defp is_active?(conn, %{"active" => true} = page), do: render conn, "page.json", page: page
+  defp is_active?(conn, _page), do: conn |> put_status(404) |> json(:not_found)
 
   def create(conn, params) do
     Page.changeset(%Perseids.Page{}, prepare_params(conn, params))
