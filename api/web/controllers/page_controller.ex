@@ -45,10 +45,7 @@ defmodule Perseids.PageController do
 
   defp do_action({true, changeset}, _conn, :create), do: Page.create(changeset.changes)
   defp do_action({true, changeset}, _conn, :update), do: Page.update(changeset.changes)
-  defp do_action({false, changeset}, conn, _action) do
-    conn = conn |> put_status(422)
-    render conn, "errors.json", changeset: changeset
-  end
+  defp do_action({false, changeset}, conn, _action), do: render conn |> put_status(422), "errors.json", changeset: changeset
 
   defp response_with({:error, reason}, conn), do: conn |> put_status(422) |> json(reason)
   defp response_with({:ok, page}, conn), do: render conn, "page.json", page: page

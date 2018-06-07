@@ -41,6 +41,7 @@ defmodule Perseids.Router do
     post "/page/create", PageController, :create
     post "/page/update", PageController, :update
     post "/page/destroy", PageController, :destroy
+    post "/navbar/update", NavbarController, :update
   end
   
   # For everyone (guest)
@@ -73,6 +74,8 @@ defmodule Perseids.Router do
     # Disabled until pages are stored in DB
     get "/pages", PageController, :index
     get "/page/:slug", PageController, :show
+
+    get "/navbars", NavbarController, :index
 
     get "/order/delivery_options", OrderController, :delivery_options
     post "/order/discount", OrderController, :discount
