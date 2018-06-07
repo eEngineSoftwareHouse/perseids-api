@@ -43,6 +43,15 @@ defmodule Perseids.PageControllerTest do
         |> get(page_path(conn, :show, "not-found-test-page"))
 
       assert json_response(conn, 404)
+    end
+
+    test "return 404 if single page is inactive", %{conn: conn} do
+      conn = 
+        conn 
+        |> guest
+        |> get(page_path(conn, :show, "inactive-page"))
+
+      assert json_response(conn, 404)
     end  
 
     test "can't create new page", %{conn: conn} do
@@ -98,6 +107,15 @@ defmodule Perseids.PageControllerTest do
         conn 
         |> logged_in
         |> get(page_path(conn, :show, "not-found-test-page"))
+
+      assert json_response(conn, 404)
+    end
+
+    test "return 404 if single page is inactive", %{conn: conn} do
+      conn = 
+        conn 
+        |> logged_in
+        |> get(page_path(conn, :show, "inactive-page"))
 
       assert json_response(conn, 404)
     end  
@@ -157,6 +175,15 @@ defmodule Perseids.PageControllerTest do
         |> get(page_path(conn, :show, "not-found-test-page"))
 
       assert json_response(conn, 404)
+    end
+
+    test "return 404 if single page is inactive", %{conn: conn} do
+      conn = 
+        conn 
+        |> wholesaler
+        |> get(page_path(conn, :show, "inactive-page"))
+
+      assert json_response(conn, 404)
     end  
 
     test "can't create new page", %{conn: conn} do
@@ -214,7 +241,16 @@ defmodule Perseids.PageControllerTest do
         |> get(page_path(conn, :show, "not-found-test-page"))
 
       assert json_response(conn, 404)
-    end 
+    end
+
+    test "return 200 and page if single page is inactive", %{conn: conn} do
+      conn = 
+        conn 
+        |> admin
+        |> get(page_path(conn, :show, "inactive-page"))
+
+      assert json_response(conn, 200)
+    end  
 
     test "can create new page", %{conn: conn} do
       conn = conn
