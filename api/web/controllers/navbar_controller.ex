@@ -6,7 +6,6 @@ defmodule Perseids.NavbarController do
     navbars = Helpers.to_keyword_list(params)
     |> ORMongo.set_language(conn)
     |> Navbar.find
-    |> Enum.sort(&(&1["order"] < &2["order"]))
 
     render conn, "index.json", navbars: navbars
   end
@@ -25,7 +24,7 @@ defmodule Perseids.NavbarController do
   defp do_action({true, changeset}, _conn), do: Navbar.update(changeset.changes) 
   defp do_action({false, changeset}, conn), do: render conn |> put_status(422), "errors.json", changeset: changeset
 
-  defp response_with(navbars, conn), do: render conn, "index.json", navbars: navbars |> Enum.sort(&(&1["order"] < &2["order"]))
+  defp response_with(navbars, conn), do: render conn, "index.json", navbars: navbars
 
   defp prepare_params(conn, params) do
     params

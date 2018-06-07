@@ -1,6 +1,8 @@
 defmodule Perseids.NavbarView do
   def render("index.json", %{navbars: navbars}) do
-    navbars |> Enum.map(&navbar_json/1)
+    navbars 
+    |> Enum.sort(&(&1["order"] < &2["order"]))
+    |> Enum.map(&navbar_json/1)
   end
 
   def render("errors.json", %{changeset: changeset}) do
