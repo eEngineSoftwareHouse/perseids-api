@@ -11,6 +11,7 @@ defmodule Perseids.CategoryView do
     %{
       id: BSON.ObjectId.encode!(category["_id"]),
       name: category["name"],
+      meta_title: category["meta_title"],
       slug: category["name"] |> String.downcase |> String.normalize(:nfd) |> String.replace(~r/[^A-z\s]/u, "") |> String.replace(~r/\s/, "-"),
       source_id: category["source_id"],
       source_parent_id: category["source_parent_id"],
