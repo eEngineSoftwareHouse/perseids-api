@@ -9,32 +9,37 @@ defmodule Perseids.OrderController do
   # action_fallback Perseids.FallbackController
 
   def index(conn, params) do
-    orders = Order.find(filter: %{"customer_id" => [conn.assigns.customer_id]})
+    orders = 
+      Order.find(filter: %{"customer_id" => [conn.assigns.customer_id]})
+      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
 
     conn |> render_orders(orders, params)
   end
 
   def check_orders(conn, %{"id" => object_id} = _params) do
-    orders = Order.find( query: %{ "id" => object_id} )
-    |> Enum.filter(fn(elem) -> !Map.has_key?(elem, "synchronized") end)
+    orders = 
+      Order.find( query: %{ "id" => object_id} )
+      |> Enum.filter(fn(elem) -> !Map.has_key?(elem, "synchronized") end)
+      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
     
     render conn, "orders.json", orders: orders, count: orders |> Enum.count
   end
 
   def check_orders(conn, params) do
-    orders = Order.find(
-      query: %{
-        "synchronized" => %{"$ne" => 1},
-        # "$and" => params |> Map.drop(["sort"]) |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
-        "$and" => maybe_all(params)
-      }, 
-      options: %{
-        "sort" => %{
-          "created_at" => (params["sort"] || "-1") |> String.to_integer
+    orders = 
+      Order.find(
+        query: %{
+          "synchronized" => %{"$ne" => 1},
+          # "$and" => params |> Map.drop(["sort"]) |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
+          "$and" => maybe_all(params)
+        }, 
+        options: %{
+          "sort" => %{
+            "created_at" => (params["sort"] || "-1") |> String.to_integer
+          }
         }
-      }
-    )
-    |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
+      )
+      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
 
     render conn, "orders.json", orders: orders, count: orders |> Enum.count
   end
