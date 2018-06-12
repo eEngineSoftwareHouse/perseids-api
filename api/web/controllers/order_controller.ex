@@ -34,6 +34,7 @@ defmodule Perseids.OrderController do
         }
       }
     )
+    |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
 
     render conn, "orders.json", orders: orders, count: orders |> Enum.count
   end
