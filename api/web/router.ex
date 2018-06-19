@@ -81,6 +81,7 @@ defmodule Perseids.Router do
 
     post "/account/create", CustomerController, :create
     post "/account/reset_password", CustomerController, :password_reset
+    get "/account/:customer_id/check_reset_password_token/:reset_token", CustomerController, :check_reset_password_token
 
     post "/service/newsletter", ServiceController, :newsletter
 

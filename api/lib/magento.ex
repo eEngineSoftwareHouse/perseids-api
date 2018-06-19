@@ -95,6 +95,14 @@ defmodule Magento do
     end
   end
 
+  def check_reset_password_token(store_view, %{"reset_token" => reset_token, "customer_id" => customer_id}) do
+    {:ok, token} = admin_token(store_view)
+    case store_view |> get("customers/#{customer_id}/password/resetLinkToken/#{reset_token}", [{"Authorization", "Bearer #{token}"}]) do
+      { :ok, response } -> magento_response(response)
+      { :error, reason } -> {:error, reason}
+    end
+  end
+
   def product_stock(store_view, sku) do
     {:ok, token} = admin_token(store_view)
     case store_view |> get("stockItems/#{sku}", [{"Authorization", "Bearer #{token}"}]) do
