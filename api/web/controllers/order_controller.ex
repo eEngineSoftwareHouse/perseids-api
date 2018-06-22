@@ -105,6 +105,8 @@ defmodule Perseids.OrderController do
     |> Map.put_new("wholesale", conn.assigns[:wholesale])
     |> Map.put_new("group_id", conn.assigns[:group_id])
     |> Map.put_new("tax_rate", conn.assigns[:tax_rate])
+    |> Map.put_new("store_view", conn.assigns[:store_view])
+    |> Map.put_new("magento_token", conn.assigns[:magento_token])
   end
 
   defp render_orders(conn, orders, params) do
