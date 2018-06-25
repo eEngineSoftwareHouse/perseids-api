@@ -51,7 +51,6 @@ defmodule Perseids.CustomerController do
   def password_reset(conn, %{"email" => _email, "website_id" => _website_id} = params), do: reset_password(true, params, conn)
   def password_reset(conn, %{"password" => password, "password_confirmation" => password_confirmation, "token" => _token, "email" => _email} = params), do: reset_password(password_confirmation == password, params, conn)
 
-
   defp reset_password(false, _params, conn), do: conn |> put_status(422) |> json(%{errors: [gettext "Passwords are not the same"]})
   defp reset_password(true, params, conn) do
     case conn.assigns[:store_view] |> Magento.reset_password(params) do
@@ -60,6 +59,13 @@ defmodule Perseids.CustomerController do
           conn
           |> put_status(422)
           |> json(%{ errors: [message] })
+    end
+  end
+
+  def check_reset_password_token(conn, params) do
+    case conn.assigns[:store_view] |> Magento.check_reset_password_token(params) do
+        {:ok, response} -> json(conn, response)
+        {:error, message} -> conn |> put_status(400) |> json(%{ errors: [message] })
     end
   end
 
