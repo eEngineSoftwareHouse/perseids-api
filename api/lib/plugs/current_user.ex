@@ -24,6 +24,7 @@ defmodule Perseids.Plugs.CurrentUser do
          |> assign(:customer_id, session["customer_id"])
          |> assign(:tax_rate, session["tax_rate"])
          |> assign(:wholesale, session["wholesale"])
+         |> assign(:admin, session["admin"])
       end
     rescue
         _ -> conn

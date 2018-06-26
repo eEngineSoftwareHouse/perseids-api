@@ -38,6 +38,10 @@ defmodule Perseids.Router do
     pipe_through :admin
 
     post "/images", BannerController, :create
+    post "/page/create", PageController, :create
+    post "/page/update", PageController, :update
+    post "/page/destroy", PageController, :destroy
+    post "/navbar/update", NavbarController, :update
   end
   
   # For everyone (guest)
@@ -68,8 +72,10 @@ defmodule Perseids.Router do
     get "/threshold/:source_id", ThresholdController, :show
 
     # Disabled until pages are stored in DB
-    # get "/pages", PageController, :index
-    # get "/pages/:slug", PageController, :show
+    get "/pages", PageController, :index
+    get "/page/:slug", PageController, :show
+
+    get "/navbars", NavbarController, :index
 
     get "/order/delivery_options", OrderController, :delivery_options
     post "/order/discount", OrderController, :discount

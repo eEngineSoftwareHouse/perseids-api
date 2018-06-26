@@ -63,6 +63,10 @@ defmodule ORMongo do
     Mongo.update_one(:mongo, collection, filter, %{"$set" => new_value}, options)
   end
 
+  def find_one_and_update(collection, filter, new_value, options \\ []) do
+    Mongo.find_one_and_update(:mongo, collection, filter, %{"$set" => new_value}, options)
+  end
+
   defp search_options(options) do
     options
     |> Keyword.put_new(:limit, 0)
