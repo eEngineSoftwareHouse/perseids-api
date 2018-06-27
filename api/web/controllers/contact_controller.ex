@@ -18,14 +18,16 @@ defmodule Perseids.ContactController do
   def complaint_form(conn, params) do
     changeset = Complaint.changeset(%Perseids.Complaint{}, params)
     if changeset.valid? do
-      compliant = Complaint.create(changeset.changes)
+      complaint = Complaint.create(changeset.changes)
       
-      Email.compliant_form(compliant)
+      complaint["order_id"] |> Perseids.Order.update(%{"complaint" => true}, true)
+
+      Email.complaint_form(complaint)
       |> Mailer.deliver_later
       
       conn 
       |> put_view(ComplaintView)
-      |> render("complaint.json", complaint: compliant)
+      |> render("complaint.json", complaint: complaint)
     else
       conn 
       |> put_status(401)

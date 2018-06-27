@@ -81,7 +81,8 @@ defmodule Perseids.OrderView do
       order_total_price: order["order_total_price"],
       inpost_code: order["inpost_code"],
       email: order["email"],
-      payment_status: order["payment_status"]
+      payment_status: order["payment_status"],
+      complaint: order["complaint"] == true
     }
     |> maybe_redirect(order["redirect_url"])
   end
