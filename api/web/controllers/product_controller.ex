@@ -52,7 +52,7 @@ defmodule Perseids.ProductController do
 
   defp per_page(nil), do: 24
   defp per_page(number) when number |> is_binary == true, do: Decimal.new(number) |> Decimal.to_integer
-  defp per_page(number), do: number 
+  defp per_page(number), do: number
   defp check_per_page(per_page, count) when per_page > count, do: count
   defp check_per_page(per_page, count), do: per_page
 end
