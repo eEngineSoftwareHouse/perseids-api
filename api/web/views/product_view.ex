@@ -1,9 +1,9 @@
 defmodule Perseids.ProductView do
   #use Perseids.Web, :view
 
-  def render("index.json", %{products: products, count: count, params: params}) do
+  def render("index.json", %{products: products, count: count, params: params, page_size: page_size}) do
     %{
-      "page_size" => 24,
+      "page_size" => page_size,
       "count" => count,
       "products" => Enum.map(products, &product_json/1),
       "params" => params
