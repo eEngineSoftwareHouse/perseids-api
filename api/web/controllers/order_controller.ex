@@ -8,6 +8,14 @@ defmodule Perseids.OrderController do
 
   # action_fallback Perseids.FallbackController
 
+  def index(conn, %{"complaints" => "true"} = params) do
+    orders = 
+      Order.find(query: %{"synchronized" => 1}, filter: %{"customer_id" => conn.assigns.customer_id})
+      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
+
+    conn |> render_orders(orders, params)
+  end
+
   def index(conn, params) do
     orders = 
       Order.find(filter: %{"customer_id" => [conn.assigns.customer_id]})

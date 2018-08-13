@@ -4,17 +4,18 @@ defmodule Perseids.Complaint do
   @collection_name "complaints"
 
   schema @collection_name do
-   field :email,          :string
-   field :order_id,       :string
-   field :comment,        :string
-   field :base64,         :string
-   field :image,          :string
+   field :email,             :string
+   field :order_id,          :string
+   field :exported_id,       :string
+   field :comment,           :string
+   field :base64,            :string
+   field :image,             :string
   end
 
   def changeset(complaint, params \\ %{}) do
     complaint
-    |> cast(params, [:email, :order_id, :comment, :base64, :image])
-    |> validate_required([:email, :order_id, :comment])
+    |> cast(params, [:email, :order_id, :exported_id, :comment, :base64, :image])
+    |> validate_required([:email, :order_id, :exported_id, :comment])
     |> save_image
   end
 

@@ -33,6 +33,7 @@ defmodule ORMongo do
   def find(collection, where: query),                       do: mongo_where(collection, %{ "$and" => query })
   def find(collection, query: %{"id" => _object_id} = query),do: mongo_query(collection, query) # return one element, as collection
   def find(collection, query: query, options: options),     do: mongo_query(collection, query, options)
+  def find(collection, query: query, filter: filter),       do: mongo_query_with_filter(collection, query, filter)
 
   def count(collection, [{:keywords, keywords} | _]) do
     Mongo.count(:mongo, collection, %{"$text" => %{"$search" => keywords}})
@@ -122,7 +123,10 @@ defmodule ORMongo do
     Mongo.find(:mongo, collection, %{"$query" => where} |> Map.merge(options))
     |> result
   end
-  
+
+  defp mongo_query_with_filter(collection, query, filters) do
+    Mongo.find(:mongo, collection, %{"$and" => [query, filters]})
+  end
 
   defp mongo_find_one_by_id(collection, id) do
     Mongo.find(:mongo, collection, %{_id: BSON.ObjectId.decode!(id)})

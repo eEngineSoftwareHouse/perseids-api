@@ -5,6 +5,7 @@ defmodule Perseids.ComplaintView do
       created_at: complaint["created_at"],
       email: complaint["email"],
       order_id: complaint["order_id"],
+      exported_id: complaint["exported_id"],
       comment: complaint["comment"],
       image: complaint["image"]
     }
