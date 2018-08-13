@@ -39,7 +39,7 @@ defmodule Perseids.Order do
      |> validate_shipping
      |> validate_required_subfields(address: [:shipping]) # expects address to be map, not list!
      |> validate_required_subfields([address: [:payment]], if: :invoice) # validated only if 'invoice' checkbox is sent
-     |> validate_products(params["lang"])
+     |> validate_products(params["lang"], params["wholesale"])
      |> validate_debt_limit(params)
   end
 
@@ -483,14 +483,31 @@ defmodule Perseids.Order do
 
   defp products_count(params), do: params.products |> Enum.reduce(0, &(&1["count"] + &2))
 
-  defp validate_products(changeset, lang) do
-    get_field(changeset, :products) 
-    |> products_in?(lang, changeset) 
+  defp validate_products(changeset, lang, wholesale) do
+    get_field(changeset, :products)
+    |> include_product?(lang, wholesale)
+    |> check_qty_in_products(lang, changeset) 
   end
 
-  defp products_in?([], _lang, changeset), do: add_error(changeset, :products, gettext "You can't place order without products")
-  defp products_in?(nil, _lang, changeset), do: add_error(changeset, :products, gettext "You can't place order without products")
-  defp products_in?(products, lang, changeset), do: products |> Enum.reduce(changeset, &(validate_single_product(&1, lang, &2)))
+  defp include_product?([], _lang, _wholesale), do: false
+  defp include_product?(nil, _lang, _wholesale), do: false
+  defp include_product?(products, _lang, true), do: { true, products }
+  defp include_product?(products, lang, _wholesale) do
+    any_product_in_list = products
+    |> Enum.reduce([], &(is_product?(&1, lang, &2)))
+    |> Enum.member?(false)
+    { any_product_in_list, products }
+  end
+
+  defp is_product?(product, lang, acc) do
+    case Perseids.Product.find_one(source_id: product["id"], lang: lang) do
+      nil -> acc
+      product_mongo -> acc ++ [product_mongo["sku"] |> String.contains?("box")]
+    end
+  end
+  
+  defp check_qty_in_products({ true, products }, lang, changeset), do: products |> Enum.reduce(changeset, &(validate_single_product(&1, lang, &2)))
+  defp check_qty_in_products(_false, _lang, changeset), do: add_error(changeset, :products, gettext "You can't place order without products")
   
   defp validate_single_product(product, lang, changeset) do
     case Perseids.Product.find_one(source_id: product["id"], lang: lang) do

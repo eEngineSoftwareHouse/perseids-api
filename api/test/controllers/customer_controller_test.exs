@@ -6,7 +6,7 @@ defmodule Perseids.CustomerControllerTest do
   @moduletag :magento
 
   @valid_email Time.utc_now |> to_string() |> String.replace(~r/\W/, "-")
-  @valid_credentials %{"email" => "test-api@niepodam.pl", "password" => "Tajnafraza12"}
+  @valid_credentials %{"email" => "user@example.com", "password" => "Tajnafraza12"}
   @valid_params %{customer: %{email: "testowy-#{@valid_email}@testowy.pl", firstname: "Stefan", lastname: "Testowy"}, password: "Tajnafraza12"}
 
   
@@ -23,9 +23,9 @@ defmodule Perseids.CustomerControllerTest do
         "city" => "Testowo",
         "company" => "Testowo-#{Time.utc_now}",
         "country_id" => "PN",
-        "customer_id" => 30764,
+        "customer_id" => 33755,
         "firstname" => "NEw",
-        "id" => 12871,
+        "id" => 13208,
         "lastname" => "New",
         "postcode" => "90-123",
         "region" =>  %{
