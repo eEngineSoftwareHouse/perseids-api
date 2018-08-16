@@ -3,9 +3,9 @@ defmodule Perseids.PageControllerTest do
   
   alias Perseids
 
-  @admin_valid_credentials %{"email" => "admin@example.com", "password" => "Tajnafraza12"}
-  @valid_credentials %{"email" => "test-api@niepodam.pl", "password" => "Tajnafraza12"}
-  @wholesale_valid_credentials %{"email" => "wholesaler@example.com", "password" => "Tajnafraza12"}
+  @admin_valid_credentials %{"email" => "admin2@example.com", "password" => "Tajnafraza12"}
+  @valid_credentials %{"email" => "user@example.com", "password" => "Tajnafraza12"}
+  @wholesale_valid_credentials %{"email" => "wholesaler2@example.com", "password" => "Tajnafraza12"}
 
   defp guest(conn), do: conn |> Perseids.ConnCase.guest("pl_pln")
   defp logged_in(conn), do: conn |> Perseids.ConnCase.login(@valid_credentials, "pl_pln")
@@ -25,7 +25,7 @@ defmodule Perseids.PageControllerTest do
         |> get(page_path(conn, :index))
 
       assert json_response(conn, 200)
-    end  
+    end
   
     test "can show single page", %{conn: conn} do
       conn = 
