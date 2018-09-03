@@ -23,8 +23,16 @@ defmodule ING do
       "urlFailure" => @ing_cancel_url,
       "urlReturn" => @ing_return_url
     }
-    signature = payment_info |> create_signature
-    struct = payment_info |> Map.merge(%{ "signature" => signature }) |> URI.encode_query
+    signature = 
+      payment_info 
+      |> create_body_params 
+      |> create_signature
+
+    struct = 
+      payment_info 
+      |> Map.merge(%{ "signature" => signature }) 
+      |> URI.encode_query
+
     case post("payment", struct) do
       {:ok, response} -> manage_response(response, order)
       {:error, message} -> raise "ing payment request error: #{message}"
@@ -53,25 +61,24 @@ defmodule ING do
     HTTPoison.post(@ing_api_url <> url, params, [{"Content-Type", "application/x-www-form-urlencoded"}], @ing_timeout)
   end
 
-  defp create_signature(payment_info) do
-    body = 
-      payment_info
-      |> Enum.sort
-      |> Enum.map(fn ({key, value})-> "#{key}=#{value}&" end) 
-      |> Enum.join
-    
-    hash =
-      :crypto.hash(:sha256, body <> @ing_service_key)
-      |> Base.encode16(case: :lower)
+  defp create_signature(body) do
+    :crypto.hash(:sha256, body <> @ing_service_key)
+    |> Base.encode16(case: :lower)
+    |> Kernel.<> ";sha256"
+  end
 
-    hash <> ";sha256"
+  defp create_body_params(payment_info) do
+    payment_info
+    |> Enum.sort
+    |> Enum.map(fn ({key, value})-> "#{key}=#{value}&" end) 
+    |> Enum.join
   end
 
   defp ing_price(price) do
     price
     |> Kernel./(1) # be sure that price is INT
     |> Float.round(2)
-    |> Kernel.*(100) # PayU need price in 0,01
+    |> Kernel.*(100) # ING need price in 0,01
     |> round
   end
 end
