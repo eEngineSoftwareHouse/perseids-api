@@ -34,6 +34,18 @@ defmodule Perseids.PaymentController do
     json(conn, "ok")
   end
 
+  def ing_notify(conn, %{"transaction" => %{"orderId" => order_id, "status" => status, "currency" => currency}} = params) do
+    %{"signature" => signature} = Regex.named_captures(~r/signature=(?<signature>.{64})/, conn |> get_req_header("x-imoje-signature") |> List.first)
+    
+    ING.check_sig(conn.private.raw_body, signature)
+    |> maybe_success(order_id, status, conn)
+  end
+
+  defp maybe_success(true, order_id, "settled", conn) do
+    order_id |> Order.update(%{"payment_status" => "COMPLETED"})
+    json(conn, "ok")
+  end
+
   defp maybe_success(true, order_id, status, conn) do
     order_id |> Order.update(%{"payment_status" => status})
     json(conn, "ok")

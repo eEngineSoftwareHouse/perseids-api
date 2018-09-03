@@ -70,6 +70,13 @@ defmodule Perseids.Order do
     |> PayPal.create_payment
   end
 
+  def create(%{payment: "ing-pre"} = params, group_id, tax_rate) do
+    @collection_name
+    |> ORMongo.insert_one(update_shipping_and_payment_info(params, group_id, tax_rate))
+    |> item_response
+    |> ING.create_payment
+  end
+
   def create(params, group_id, tax_rate) do
     @collection_name
     |> ORMongo.insert_one(update_shipping_and_payment_info(params, group_id, tax_rate))
