@@ -11,7 +11,7 @@ defmodule Perseids.Router do
   #######################
   pipeline :api do
     plug Corsica, origins: "*", allow_headers: ~w(content-type authorization Client-Language accept origin)
-    plug :accepts, ["json"]
+    plug :accepts, ["json", "txt"]
     plug Language
     plug CurrentUser
     if Mix.env == :dev, do: plug Phoenix.CodeReloader
