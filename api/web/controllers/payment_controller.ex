@@ -34,7 +34,7 @@ defmodule Perseids.PaymentController do
     json(conn, "ok")
   end
 
-  def ing_notify(conn, %{"transaction" => %{"orderId" => order_id, "status" => status, "currency" => currency}} = params) do
+  def ing_notify(conn, %{"transaction" => %{"orderId" => order_id, "status" => status}} = _params) do
     %{"signature" => signature} = Regex.named_captures(~r/signature=(?<signature>.{64})/, conn |> get_req_header("x-imoje-signature") |> List.first)
     
     ING.check_sig(conn.private.raw_body, signature)
