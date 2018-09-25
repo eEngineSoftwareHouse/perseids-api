@@ -5,13 +5,11 @@ defmodule ING do
   @ing_service_key Application.get_env(:perseids, :ing)[:service_key]
   @ing_return_url Application.get_env(:perseids, :ing)[:return_url]
   @ing_cancel_url Application.get_env(:perseids, :ing)[:cancel_url]
+  @ing_twisto_secret_key Application.get_env(:perseids, :ing)[:twisto_secret_key]
+  @ing_twisto_public_key Application.get_env(:perseids, :ing)[:twisto_public_key]
   @ing_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
 
   def create_payment(%{"currency" => currency, "order_total_price" => order_total_price} = order) do
-    # %{ "twisto_transaction_id" => twisto_transaction_id, "twisto_status" => twisto_status } =
-    #   twisto_payment
-    #   |> transfer_struct_to_twisto(order)
-
     payment_info = %{
       "merchantId" => @ing_client_id,
       "serviceId" => @ing_service_id,
@@ -25,7 +23,11 @@ defmodule ING do
       "customerPhone" => order["address"]["shipping"]["phone-number"],
       "urlSuccess" => @ing_return_url,
       "urlFailure" => @ing_cancel_url,
-      "urlReturn" => @ing_return_url
+      "urlReturn" => @ing_return_url,
+      # "twistoData" => %{
+      #   "transaction_id" => twisto_transaction_id,
+      #   "status" => twisto_status
+      # }
     }
     signature = 
       payment_info 
@@ -49,17 +51,8 @@ defmodule ING do
     |> Kernel.==(signature)
   end
 
-  def twisto_payment do
-    signature =
-      :crypto.hash(:sha256, @ing_service_key)
-      |> Base.encode16(case: :lower)
-    case get("check/methods", [{"Content-Type", "application/x-www-form-urlencoded"}, {"X-Imoje-Signature", "merchantid=#{@ing_client_id};serviceid=#{@ing_service_id};signature=#{signature};alg=sha256"}]) do
-      {:ok, %HTTPoison.Response{body: body}} -> body |> Poison.decode!
-      {:error, message} -> raise "ing twisto request error: #{message}"
-    end 
-  end
-
-  def transfer_struct_to_twisto(%{ "data" => %{ "twisto" => %{ "enable" => true, "pk" => twisto_pk, "sk" => twisto_sk}}}, %{ "address" => %{ "shipping" => shipping }} = order) do
+  def transfer_struct_to_twisto(nil), do: nil
+  def transfer_struct_to_twisto(%{ "address" => %{ "shipping" => shipping }} = order) do
     customer = %{
       "email" => order["email"],
       "name" => shipping["name"]
@@ -101,31 +94,47 @@ defmodule ING do
     }
 
     data = %{
-      "random_nonce" => Ecto.UUID.generate,
+      "random_nonce" => "5ba8c8b9bb7933.56466140",
       "customer" => customer,
       "order" => twisto_order
     } |> Poison.encode!
+    IO.puts "@@@@@@@@@"
+    IO.inspect data
+    IO.puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&&--]"
       data_gzip = data |> :zlib.gzip
+    IO.inspect data_gzip
+    IO.puts "-----------------"
       data_size = data_gzip |> byte_size
-      vvv = <<data_size::32>> <> data_gzip
+      end_data = <<data_size::unsigned-32>> <> data_gzip
 
-    secret_key = twisto_sk |> String.slice(8..-1)
+    IO.puts "<><><><>"
+    IO.inspect end_data
+    IO.inspect <<data_size::32>> <> data_gzip
+    IO.puts "><><><"
+
+    secret_key = @ing_twisto_secret_key |> String.slice(8..-1)
+    IO.inspect @ing_twisto_secret_key
+    IO.puts "#################"
+
+    IO.inspect secret_key
+    IO.puts "#################"
+
     bin_key = secret_key |> Base.decode16!(case: :mixed) 
-    # bin_key = for <<x::binary-2 <- secret_key>>, do: x
-    # bbb = bin_key |> Enum.map(&(Base.decode16!(&1, case: :mixed)))
-    # aes_key = bbb |> Enum.take(16)
+    IO.inspect bin_key
+    IO.puts "#################"
     aes_key = bin_key |> String.slice(0..13)
-    # salt = bbb |> Enum.reverse |> Enum.take(16) |> Enum.reverse
+    IO.inspect aes_key
+    IO.puts "#################"
     salt = bin_key |> String.slice(14..29)
+    IO.inspect salt
+    # salt = bbb |> Enum.reverse |> Enum.take(16) |> Enum.reverse
 
-    # iv = :crypto.strong_rand_bytes(16)
-    iv = "EEH\rS2\xE7\xB6\xF2\xC4\xB7\xEF\xE5\xF6^k"
-    encrypted = :crypto.aes_cbc_128_encrypt(aes_key, iv, pad(vvv,16))
-    digest = :crypto.hmac(:sha256, salt, data <> iv)
+    iv = :crypto.strong_rand_bytes(16)
+    # iv = <<69, 69, 72, 13, 83, 50, 231, 182, 242, 196, 183, 239, 229, 246, 94, 107>>
+    encrypted = :crypto.aes_cbc_128_encrypt(aes_key, iv, pad(end_data,16))
+    digest = :crypto.hmac(:sha256, salt, end_data <> iv)
 
-    result = Base.encode64(iv <> digest <> encrypted)
-
-    HTTPoison.post("http://api.twisto.pl/v2/", result)
+    Base.encode64(iv <> digest <> encrypted)
   end
 
   def pad(data, block_size) do
