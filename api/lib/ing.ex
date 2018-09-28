@@ -6,7 +6,6 @@ defmodule ING do
   @ing_return_url Application.get_env(:perseids, :ing)[:return_url]
   @ing_cancel_url Application.get_env(:perseids, :ing)[:cancel_url]
   @ing_twisto_secret_key Application.get_env(:perseids, :ing)[:twisto_secret_key]
-  @ing_twisto_public_key Application.get_env(:perseids, :ing)[:twisto_public_key]
   @ing_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
 
   def create_payment(nil, _twisto), do: nil
@@ -71,7 +70,7 @@ defmodule ING do
     items = 
       order["products"] 
       |> Enum.map(&(create_item(&1)))
-      |> Kernel.++ [shipping_method]
+      |> Kernel.++([shipping_method])
 
     twisto_order = %{
       "date_created" => order["created_at"],
@@ -175,7 +174,7 @@ defmodule ING do
   defp create_signature(body) do
     :crypto.hash(:sha256, body <> @ing_service_key)
     |> Base.encode16(case: :lower)
-    |> Kernel.<> ";sha256"
+    |> Kernel.<>(";sha256")
   end
 
   defp create_body_params(payment_info) do
