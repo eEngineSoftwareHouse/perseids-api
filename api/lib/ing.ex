@@ -9,26 +9,9 @@ defmodule ING do
   @ing_twisto_public_key Application.get_env(:perseids, :ing)[:twisto_public_key]
   @ing_timeout [connect_timeout: 30000, recv_timeout: 30000, timeout: 30000]
 
-  def create_payment(%{"currency" => currency, "order_total_price" => order_total_price} = order) do
-    payment_info = %{
-      "merchantId" => @ing_client_id,
-      "serviceId" => @ing_service_id,
-      "amount" => ing_price(order_total_price),
-      "currency" => currency,
-      "orderId" => BSON.ObjectId.encode!(order["_id"]),
-      "orderDescription" => "Zamówienie " <> BSON.ObjectId.encode!(order["_id"]) <> " - pl.manymornings.com",
-      "customerFirstName" => "Pan/i",
-      "customerLastName" => order["address"]["shipping"]["name"],
-      "customerEmail" => order["email"],
-      "customerPhone" => order["address"]["shipping"]["phone-number"],
-      "urlSuccess" => @ing_return_url,
-      "urlFailure" => @ing_cancel_url,
-      "urlReturn" => @ing_return_url,
-      # "twistoData" => %{
-      #   "transaction_id" => twisto_transaction_id,
-      #   "status" => twisto_status
-      # }
-    }
+  def create_payment(nil, _twisto), do: nil
+  def create_payment(order, twisto) do
+    payment_info = order |> payment_struct(twisto)
     signature = 
       payment_info 
       |> create_body_params
@@ -57,19 +40,21 @@ defmodule ING do
       "email" => order["email"],
       "name" => shipping["name"]
     }
+
     delivery_address = %{
       "name" => shipping["name"],
       "street" =>  shipping["street"],
       "city" =>  shipping["city"],
-      "zipcode" => shipping["post-code"],
+      "zipcode" => shipping["post-code"] |> String.replace("-", ""),
       "phone_number" => shipping["phone-number"],
       "country" => shipping["country"]
     }
+
     billing_address = %{
       "name" => "Adrian Morawiak, Maciej Butkowski",
       "street" =>  "ul. Kalinowa 2",
       "city" =>  "Aleksandrów Łódzki",
-      "zipcode" => "95-070",
+      "zipcode" => "95070",
       "phone_number" => "+48 570 003 961",
       "country" => "PL"
     }
@@ -82,67 +67,85 @@ defmodule ING do
       "price_vat" => order["shipping_price"],
       "vat" => 23
     }
+    
+    items = 
+      order["products"] 
+      |> Enum.map(&(create_item(&1)))
+      |> Kernel.++ [shipping_method]
 
-
-    items = order["products"] |> Enum.map(&(create_item(&1)))
     twisto_order = %{
       "date_created" => order["created_at"],
       "billing_address" => billing_address,
-      "devlivery_address" => delivery_address,
-      "total_price_vat" => order["order_total_price"],
+      "delivery_address" => delivery_address,
+      "total_price_vat" => Float.round(order["order_total_price"], 2),
       "items" => items
     }
 
     data = %{
-      "random_nonce" => "5ba8c8b9bb7933.56466140",
+      "random_nonce" => Ecto.UUID.generate,
       "customer" => customer,
       "order" => twisto_order
     } |> Poison.encode!
-    IO.puts "@@@@@@@@@"
-    IO.inspect data
-    IO.puts "&&&&&&&&&&&&&&&&&&&&&&&&&&&&--]"
-      data_gzip = data |> :zlib.gzip
-    IO.inspect data_gzip
-    IO.puts "-----------------"
-      data_size = data_gzip |> byte_size
-      end_data = <<data_size::unsigned-32>> <> data_gzip
 
-    IO.puts "<><><><>"
-    IO.inspect end_data
-    IO.inspect <<data_size::32>> <> data_gzip
-    IO.puts "><><><"
+    data_gzip = data |> gzip()
+    data_size = data_gzip |> byte_size
+    packed_data = <<data_size::unsigned-32>> <> data_gzip
 
-    secret_key = @ing_twisto_secret_key |> String.slice(8..-1)
-    IO.inspect @ing_twisto_secret_key
-    IO.puts "#################"
-
-    IO.inspect secret_key
-    IO.puts "#################"
-
-    bin_key = secret_key |> Base.decode16!(case: :mixed) 
-    IO.inspect bin_key
-    IO.puts "#################"
-    aes_key = bin_key |> String.slice(0..13)
-    IO.inspect aes_key
-    IO.puts "#################"
-    salt = bin_key |> String.slice(14..29)
-    IO.inspect salt
-    # salt = bbb |> Enum.reverse |> Enum.take(16) |> Enum.reverse
+    aes_key = generate_key(0..31)
+    salt = generate_key(32..63)
 
     iv = :crypto.strong_rand_bytes(16)
-    # iv = <<69, 69, 72, 13, 83, 50, 231, 182, 242, 196, 183, 239, 229, 246, 94, 107>>
-    encrypted = :crypto.aes_cbc_128_encrypt(aes_key, iv, pad(end_data,16))
-    digest = :crypto.hmac(:sha256, salt, end_data <> iv)
+    digest = :crypto.hmac(:sha256, salt, packed_data <> iv)
+    encrypted = :crypto.aes_cbc_128_encrypt(aes_key, iv, pad(packed_data, 16))
 
     Base.encode64(iv <> digest <> encrypted)
   end
 
-  def pad(data, block_size) do
+  defp generate_key(range) do
+    @ing_twisto_secret_key 
+    |> String.slice(8..-1)
+    |> String.slice(range) 
+    |> Base.decode16!(case: :mixed) 
+  end
+
+  defp payment_struct(order, nil) do
+    %{
+      "merchantId" => @ing_client_id,
+      "serviceId" => @ing_service_id,
+      "amount" => ing_price(order["order_total_price"]),
+      "currency" => order["currency"],
+      "orderId" => BSON.ObjectId.encode!(order["_id"]),
+      "orderDescription" => "Zamówienie " <> BSON.ObjectId.encode!(order["_id"]) <> " - pl.manymornings.com",
+      "customerFirstName" => "Pan/i",
+      "customerLastName" => order["address"]["shipping"]["name"],
+      "customerEmail" => order["email"],
+      "customerPhone" => order["address"]["shipping"]["phone-number"],
+      "urlSuccess" => @ing_return_url,
+      "urlFailure" => @ing_cancel_url,
+      "urlReturn" => @ing_return_url,
+    }
+  end
+  defp payment_struct(order, twisto) do
+    payment_struct(order, nil) 
+    |> Map.merge(%{ "twistoData" => twisto |> Poison.encode! })
+  end
+
+  defp gzip(data) do
+    z = :zlib.open()
+    :zlib.deflateInit(z, 9)
+    data = :zlib.deflate(z, data, :finish)
+    :zlib.deflateEnd(z)
+    :zlib.close(z)
+  
+    data |> List.first
+  end
+
+  defp pad(data, block_size) do
     to_add = block_size - rem(byte_size(data), block_size)
     data <> to_string(:string.chars(to_add, to_add))
   end
 
-  def create_item(item) do
+  defp create_item(item) do
     %{
       "type" => item["type"] || 0,
       "name" =>  item["name"],
@@ -165,17 +168,9 @@ defmodule ING do
     end
   end
 
-  defp get(url, headers) do
-    HTTPoison.get(@ing_api_url <> url, headers, @ing_timeout)
-  end
-
   defp post(url, params) do
     HTTPoison.post(@ing_api_url <> url, params, [{"Content-Type", "application/x-www-form-urlencoded"}], @ing_timeout)
   end
-
-  # defp post(url, params, headers) do
-  #   HTTPoison.post(@ing_api_url <> url, params, headers, @ing_timeout)
-  # end
 
   defp create_signature(body) do
     :crypto.hash(:sha256, body <> @ing_service_key)

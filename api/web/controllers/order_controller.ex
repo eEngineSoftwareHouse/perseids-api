@@ -104,6 +104,17 @@ defmodule Perseids.OrderController do
     json(conn, Order.get_countries([where: [%{ "wholesale" => true }], lang: conn.assigns[:lang]]))
   end
 
+  def add_ing_payment(conn, %{"order_id" => order_id, "twisto" => twisto}) do
+    order_with_payment =
+      order_id 
+      |> Order.find_one
+      |> ING.create_payment(twisto)
+
+    case order_with_payment do
+      nil -> conn |> put_status(404) |> json(%{ errors: "Not Found" })
+      order -> render conn, "order.json", order: order
+    end
+  end
 
   defp prepare_params(conn, params) do
     params
