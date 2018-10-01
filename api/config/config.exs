@@ -96,12 +96,14 @@ config :perseids, :paypal,
 
 # Configure ING
 config :perseids, :ing,
-  api_url:       System.get_env("ING_API_URL"),
-  client_id:     System.get_env("ING_CLIENT_ID"),
-  service_id:    System.get_env("ING_SERVICE_ID"),
-  service_key:   System.get_env("ING_SERVICE_KEY"),
-  return_url:    System.get_env("ING_RETURN_URL"),
-  cancel_url:    System.get_env("ING_CANCEL_URL")
+  api_url:           System.get_env("ING_API_URL"),
+  client_id:         System.get_env("ING_CLIENT_ID"),
+  service_id:        System.get_env("ING_SERVICE_ID"),
+  service_key:       System.get_env("ING_SERVICE_KEY"),
+  return_url:        System.get_env("ING_RETURN_URL"),
+  cancel_url:        System.get_env("ING_CANCEL_URL"),
+  twisto_public_key: System.get_env("ING_TWISTO_PUBLIC_KEY"),
+  twisto_secret_key: System.get_env("ING_TWISTO_SECRET_KEY")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

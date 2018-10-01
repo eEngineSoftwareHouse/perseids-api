@@ -41,6 +41,18 @@ defmodule Perseids.PaymentController do
     |> maybe_success(order_id, status, conn)
   end
 
+  def ing_twisto(conn, %{"order_id" => order_id}) do
+    twisto_base64 = 
+      order_id 
+      |> Order.find_one
+      |> ING.transfer_struct_to_twisto
+
+    case twisto_base64 do
+      nil -> conn |> put_status(404) |> json(%{ errors: "Not Found" })
+      twisto_base64 -> conn |> json(twisto_base64)
+    end
+  end
+
   defp maybe_success(true, order_id, "settled", conn) do
     order_id |> Order.update(%{"payment_status" => "COMPLETED"})
     json(conn, "ok")

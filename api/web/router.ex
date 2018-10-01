@@ -96,6 +96,8 @@ defmodule Perseids.Router do
     get "/paypal_accept", PaymentController, :paypal_accept
     get "/paypal_cancel", PaymentController, :paypal_cancel
     post "/ing_notify", PaymentController, :ing_notify
+    get "/ing_twisto/:order_id", PaymentController, :ing_twisto
+    post "/add_ing_payment", OrderController, :add_ing_payment
 
     post "/contact", ContactController, :contact_form
     post "/contact/complaint", ContactController, :complaint_form
