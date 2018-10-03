@@ -49,15 +49,6 @@ defmodule ING do
       "country" => shipping["country"]
     }
 
-    billing_address = %{
-      "name" => "Adrian Morawiak, Maciej Butkowski",
-      "street" =>  "ul. Kalinowa 2",
-      "city" =>  "Aleksandrów Łódzki",
-      "zipcode" => "95070",
-      "phone_number" => "+48 570 003 961",
-      "country" => "PL"
-    }
-
     shipping_method = %{
       "type" => 1,
       "name" => "shipment",
@@ -74,7 +65,7 @@ defmodule ING do
 
     twisto_order = %{
       "date_created" => order["created_at"],
-      "billing_address" => billing_address,
+      "billing_address" => delivery_address,
       "delivery_address" => delivery_address,
       "total_price_vat" => Float.round(order["order_total_price"], 2),
       "items" => items
