@@ -41,7 +41,7 @@ defmodule ING do
     }
 
     delivery_address = %{
-      "name" => shipping["name"],
+      "name" => shipping["name"] <> " " <> shipping["surname"],
       "street" =>  shipping["street"],
       "city" =>  shipping["city"],
       "zipcode" => shipping["post-code"] |> String.replace("-", ""),
@@ -106,8 +106,8 @@ defmodule ING do
       "currency" => order["currency"],
       "orderId" => BSON.ObjectId.encode!(order["_id"]),
       "orderDescription" => "Zamówienie " <> BSON.ObjectId.encode!(order["_id"]) <> " - pl.manymornings.com",
-      "customerFirstName" => "Pan/i",
-      "customerLastName" => order["address"]["shipping"]["name"],
+      "customerFirstName" => order["address"]["shipping"]["name"],
+      "customerLastName" => order["address"]["shipping"]["surname"],
       "customerEmail" => order["email"],
       "customerPhone" => order["address"]["shipping"]["phone-number"],
       "urlSuccess" => @ing_return_url,
