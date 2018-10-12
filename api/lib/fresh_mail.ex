@@ -6,11 +6,11 @@ defmodule FreshMail do
   @fresh_mail_secret Application.get_env(:perseids, :fresh_mail)[:api_secret]
   @default_headers [{ "Content-Type", "application/json" }, { "X-Rest-ApiKey", @fresh_mail_key }]
 
-  def save_email(%{"email" => _email, "list" => _list} = params) do
+  def save_email(%{"email" => _email, "custom_fields" => %{ "gender" => _gender }, "list" => _list} = params) do
     encoded_params = params |> Poison.encode!
     sha1 = 
       @fresh_mail_key  <> "/rest/subscriber/add" <> encoded_params <> @fresh_mail_secret
-      |> encode_to_sha1 
+      |> encode_to_sha1
 
     headers = [{ "X-Rest-ApiSign", sha1 }]
 
@@ -20,7 +20,8 @@ defmodule FreshMail do
     end
   end
 
-  def save_email(_params) do
+  def save_email(params) do
+    raise params
     { 400, Gettext.gettext(Perseids.Gettext,"Email was not passed") }
   end
 
