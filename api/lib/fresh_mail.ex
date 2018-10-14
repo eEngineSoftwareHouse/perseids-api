@@ -21,7 +21,6 @@ defmodule FreshMail do
   end
 
   def save_email(params) do
-    raise params
     { 400, Gettext.gettext(Perseids.Gettext,"Email was not passed") }
   end
 
