@@ -3,7 +3,12 @@ defmodule Perseids.ServiceController do
   alias Perseids.Category
 
   def newsletter(conn, params) do 
-    body = params |> Map.put_new("list", conn.assigns.fresh_mail_list_id)
+    body = 
+      params 
+      |> Map.put_new("list", conn.assigns.fresh_mail_list_id)
+      |> Map.put_new("state", 1)
+      |> Map.put_new("confirm", 0)
+
     { status, response } = FreshMail.save_email(body)
 
     conn
