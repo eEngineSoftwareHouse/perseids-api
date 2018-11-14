@@ -105,6 +105,11 @@ config :perseids, :ing,
   twisto_public_key: System.get_env("ING_TWISTO_PUBLIC_KEY"),
   twisto_secret_key: System.get_env("ING_TWISTO_SECRET_KEY")
 
+config :perseids, :micro_admin,
+  base_url: System.get_env("MICRO_ADMIN_BASE_URL"),
+  jwt_auth_user: System.get_env("MICRO_ADMIN_JWT_AUTH_USER"),
+  jwt_auth_pass: System.get_env("MICRO_ADMIN_JWT_AUTH_PASS")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
