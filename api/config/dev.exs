@@ -42,7 +42,6 @@ config :rollbax, enabled: :log
 config :perseids, :db,
   name: "perseids",
   hostname: "mongo",
-  port: "27018"
 
 # Mailer config
 config :perseids, Perseids.Mailer,
