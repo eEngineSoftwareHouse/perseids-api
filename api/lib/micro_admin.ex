@@ -7,21 +7,21 @@ defmodule MicroAdmin do
   }
 
   def admin_token do
-    case post("identity/tokens", Poison.encode!(@micro_admin_credentials)) do
-      { :ok, response } -> micro_admin_response(response, 201)
-      { :error, reason } -> raise reason
+    case post("micro/admin/identity/tokens", Poison.encode!(@micro_admin_credentials)) do
+      { :ok, response } -> micro_admin_response(response)
+      { :error, reason } -> micro_admin_response(reason)
     end
   end
 
-  def wholesaler_limit(email, func) do
+  def wholesaler_limit(email) do
     case admin_token do
       { :ok, %{ "jwt" => token } } -> wholesaler_limit(email, token)
-      { :error, reason } -> "error"
+      { :error, reason } -> { :error, reason }
     end
   end 
 
   def wholesaler_limit(email, token) do
-    case get("order/customers/#{email}", [{"Authorization", "Bearer #{token}"}]) do
+    case get("micro/order/order/customers/#{email}", [{"Authorization", "Bearer #{token}"}]) do
       { :ok, response } -> micro_admin_response(response)
       { :error, reason } -> {:error, reason}
     end
@@ -39,10 +39,15 @@ defmodule MicroAdmin do
     HTTPoison.put(@micro_admin_host <> url, params, [{"Content-Type", "application/json"} | headers], @micro_admin_timeout)
   end
 
-  defp micro_admin_response(response, status_code \\ 200) do
+  defp micro_admin_response(response) do
     case response.status_code do
-      status_code -> { :ok, response.body |> Poison.decode! }
-      _ -> { :error, response.body |> Poison.decode! }
+      200 -> { :ok, response.body |> Poison.decode! }
+      201 -> { :ok, response.body |> Poison.decode! }
+      400 -> { :error, %{ "Bad request" => 400 } }
+      404 -> { :error, %{ "Not Found" => 404 } }
+      422 -> { :error, %{ "Unprocessable Entity" => 422 } }
+      500 -> { :error, %{ "Internal Server Error" => 500 } }
+      _   -> { :error, %{ "Error with status code" => response.status_code } }
     end
   end
 
