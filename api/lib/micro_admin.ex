@@ -14,7 +14,7 @@ defmodule MicroAdmin do
   end
 
   def wholesaler_limit(email) do
-    case admin_token do
+    case admin_token() do
       { :ok, %{ "jwt" => token } } -> wholesaler_limit(email, token)
       { :error, reason } -> { :error, reason }
     end

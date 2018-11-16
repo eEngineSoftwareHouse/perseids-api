@@ -5,7 +5,7 @@ defmodule Perseids.CustomerController do
   def info(conn, _params) do
     case conn.assigns[:store_view] |> Magento.customer_info(conn.assigns[:magento_token]) do
         {:ok, response} -> 
-          response = Perseids.CustomerHelper.default_lang(response)
+          response = response |> add_additional_data
           json(conn, response)
         {:error, message} -> 
           conn
@@ -27,7 +27,7 @@ defmodule Perseids.CustomerController do
   def create(conn, params) do
     case conn.assigns[:store_view] |> Magento.create_account(params) do
         {:ok, response} -> 
-          response = Perseids.CustomerHelper.default_lang(response)
+          response = response |> add_additional_data
           json(conn, response)
         {:error, message} -> 
           conn
@@ -39,7 +39,7 @@ defmodule Perseids.CustomerController do
   def update(conn, params) do
     case conn.assigns[:store_view] |> Magento.update_account(filtered_params(params), customer_id: conn.assigns[:customer_id], customer_token: conn.assigns[:magento_token], group_id: conn.assigns[:group_id]) do
         {:ok, response} -> 
-          response = Perseids.CustomerHelper.default_lang(response)
+          response = response |> add_additional_data
           json(conn, Map.put_new(response, :session_id, conn.assigns[:session_id]))
         {:error, message} -> 
           conn
@@ -81,5 +81,11 @@ defmodule Perseids.CustomerController do
   
   defp maybe_put_key(true, params, key, value), do: Map.put(params, key, value)
   defp maybe_put_key(false, params, _key, _value), do: params
+
+  defp add_additional_data(customer_info) do
+    customer_info
+    |> Perseids.CustomerHelper.default_lang
+    |> Perseids.CustomerHelper.wholesale_debt_limit
+  end
 
 end
