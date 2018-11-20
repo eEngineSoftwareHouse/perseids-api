@@ -248,7 +248,6 @@ defmodule Perseids.Order do
 
   defp maybe_pl_phone?(changeset, value, _lang, address_type) do
     country = changeset |> get_field(:address) |> Map.get("shipping") |> Map.get("country")
-    IO.puts country
     case ExPhoneNumber.parse(value, country) do
       { :ok, phone_number} -> changeset |> is_valid_number?(phone_number, address_type)
       { :error, reason } -> add_error(changeset, :address, "#{address_type} - " <> Gettext.gettext(Perseids.Gettext, reason))
@@ -258,14 +257,14 @@ defmodule Perseids.Order do
   def is_valid_number?(changeset, phone_number, address_type) do
     case ExPhoneNumber.is_valid_number?(phone_number) do
       true -> changeset |> is_possible_number?(phone_number, address_type)
-      false -> add_error(changeset, :address, "#{address_type} - " <> gettext "number is not valid number")
+      false -> add_error(changeset, :address, "#{address_type} - " <> gettext "The phone number is not correct, please add correct phone number")
     end
   end
 
   defp is_possible_number?(changeset, phone_number, address_type) do
     case ExPhoneNumber.is_possible_number?(phone_number) do
       true -> changeset
-      false -> add_error(changeset, :address, "#{address_type} - " <> gettext "number is not possible number")
+      false -> add_error(changeset, :address, "#{address_type} - " <> gettext "The phone number is not correct, please add correct phone number")
     end
   end
   
