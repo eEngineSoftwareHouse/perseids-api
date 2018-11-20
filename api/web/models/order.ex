@@ -132,9 +132,6 @@ defmodule Perseids.Order do
     end
   end
 
-  
-
-
   def validate_required_subfields(changeset, list, optional \\ [optional: false])
   def validate_required_subfields(changeset, subfields, if: key ) do
     case get_field(changeset, key) do
@@ -243,19 +240,35 @@ defmodule Perseids.Order do
   end
 
   defp maybe_pl_phone?(changeset, value, "pl_pln", address_type) do
-    case Regex.match?(~r/^[0-9]{9}$/, value) do
-      true -> changeset
-      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should contain only numbers and should be exactly 9 characters long")
+    case ExPhoneNumber.parse(value, "PL") do
+      { :ok, phone_number} -> changeset |> is_valid_number?(phone_number, address_type)
+      { :error, reason } -> add_error(changeset, :address, "#{address_type} - " <> Gettext.gettext(Perseids.Gettext, reason))
     end
   end
 
   defp maybe_pl_phone?(changeset, value, _lang, address_type) do
-    case Regex.match?(~r/^[+0-9]{9,15}$/, value) do
-      true -> changeset
-      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should be not longer than 15 characters and shorter than 9")
+    country = changeset |> get_field(:address) |> Map.get("shipping") |> Map.get("country")
+    IO.puts country
+    case ExPhoneNumber.parse(value, country) do
+      { :ok, phone_number} -> changeset |> is_valid_number?(phone_number, address_type)
+      { :error, reason } -> add_error(changeset, :address, "#{address_type} - " <> Gettext.gettext(Perseids.Gettext, reason))
     end
   end
 
+  def is_valid_number?(changeset, phone_number, address_type) do
+    case ExPhoneNumber.is_valid_number?(phone_number) do
+      true -> changeset |> is_possible_number?(phone_number, address_type)
+      false -> add_error(changeset, :address, "#{address_type} - " <> gettext "number is not valid number")
+    end
+  end
+
+  defp is_possible_number?(changeset, phone_number, address_type) do
+    case ExPhoneNumber.is_possible_number?(phone_number) do
+      true -> changeset
+      false -> add_error(changeset, :address, "#{address_type} - " <> gettext "number is not possible number")
+    end
+  end
+  
   def validate_nip(value, changeset, address_type) do
     changeset
     |> maybe_pl_nip?(value, get_change(changeset, :lang), address_type)
