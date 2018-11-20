@@ -159,3 +159,19 @@ msgstr "Ten adres e-mail został już zarejestrowany."
 #: lib/get_response.ex:various_lines
 msgid "Problem during authentication process, check headers"
 msgstr "Wystąpił błąd komunikacji, spróbuj później."
+
+#: web/models/order.ex:260 web/models/order.ex:267
+msgid "The phone number is not correct, please add correct phone number"
+msgstr "Podany numer telefonu jest niepoprawny, prosimy podaj poprawny numer telefonu"
+
+#: web/models/order.ex:253
+msgid "Invalid country calling code"
+msgstr "Wpisz poprawny numer kierunkowy"
+
+#: web/models/order.ex:253
+msgid "The string supplied did not seem to be a phone number"
+msgstr "Podany numer nie jest numerem telefonu"
+
+#: web/models/order.ex:54
+msgid "Your debit limit was used"
+msgstr "Twoj limit został przekroczony"
