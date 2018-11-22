@@ -54,7 +54,7 @@ defmodule Perseids.Order do
       _ -> add_error(changeset, :debt_limit, gettext "Your debit limit was used")
     end
   end
-  def validate_debt_limit(changeset, %{"wholesale" => _}), do: changeset
+  def validate_debt_limit(changeset, _unused), do: changeset
 
   def create(%{payment: "payu-pre"} = params, group_id, tax_rate) do
     @collection_name
@@ -498,16 +498,17 @@ defmodule Perseids.Order do
   defp validate_products(changeset, lang, wholesale) do
     get_field(changeset, :products)
     |> include_product?(lang, wholesale)
-    |> check_qty_in_products(lang, changeset) 
+    |> check_qty_in_products(lang, changeset, wholesale) 
   end
 
   defp include_product?([], _lang, _wholesale), do: false
   defp include_product?(nil, _lang, _wholesale), do: false
   defp include_product?(products, _lang, true), do: { true, products }
   defp include_product?(products, lang, _wholesale) do
-    any_product_in_list = products
-    |> Enum.reduce([], &(is_product?(&1, lang, &2)))
-    |> Enum.member?(false)
+    any_product_in_list = 
+      products
+      |> Enum.reduce([], &(is_product?(&1, lang, &2)))
+      |> Enum.member?(false)
     { any_product_in_list, products }
   end
 
@@ -518,24 +519,27 @@ defmodule Perseids.Order do
     end
   end
   
-  defp check_qty_in_products({ true, products }, lang, changeset), do: products |> Enum.reduce(changeset, &(validate_single_product(&1, lang, &2)))
-  defp check_qty_in_products(_false, _lang, changeset), do: add_error(changeset, :products, gettext "You can't place order without products")
+  defp check_qty_in_products({ true, products }, lang, changeset, wholesale), do: products |> Enum.reduce(changeset, &(validate_single_product(&1, lang, wholesale, &2)))
+  defp check_qty_in_products(_false, _lang, changeset, _wholesale), do: add_error(changeset, :products, gettext "You can't place order without products")
   
-  defp validate_single_product(product, lang, changeset) do
+  defp validate_single_product(product, lang, wholesale, changeset) do
     case Perseids.Product.find_one(source_id: product["id"], lang: lang) do
       nil -> 
         add_error(changeset, :products, gettext "Product not exsist")
       product_mongo ->
         product_mongo["variants"]
         |> find_variant(product["variant_id"])
-        |> validate_product_qty(product, changeset)
+        |> validate_product_qty(product, wholesale, changeset)
     end
   end
 
-  defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, changeset) when count > current_state do 
+  defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, true, changeset) when count > current_state do 
     add_error(changeset, :products, name <> gettext " - product out of stock")
   end
-  defp validate_product_qty(_current_state, _count, changeset ), do: changeset
+  defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, _false, changeset) when count > (current_state - 10) do 
+    add_error(changeset, :products, name <> gettext " - product out of stock")
+  end
+  defp validate_product_qty(_current_state, _count, _wholesale, changeset), do: changeset
 
   defp find_variant(variants, source_id) do
     variants
