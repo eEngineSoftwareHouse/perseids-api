@@ -10,7 +10,7 @@ defmodule Perseids.OrderController do
 
   def index(conn, %{"complaints" => "true"} = params) do
     orders = 
-      Order.find(query: %{"synchronized" => 1}, filter: %{"customer_id" => conn.assigns.customer_id})
+      Order.find(query: %{"synchronized_micro" => 1}, filter: %{"customer_id" => conn.assigns.customer_id})
       |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
 
     conn |> render_orders(orders, params)
@@ -27,8 +27,7 @@ defmodule Perseids.OrderController do
   def check_orders(conn, %{"id" => object_id} = _params) do
     orders = 
       Order.find( query: %{ "id" => object_id} )
-      |> Enum.filter(fn(elem) -> !Map.has_key?(elem, "synchronized") end)
-      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
+      |> Enum.filter(fn(elem) -> !Map.has_key?(elem, "synchronized_micro") end)
     
     render conn, "orders.json", orders: orders, count: orders |> Enum.count
   end
@@ -37,7 +36,7 @@ defmodule Perseids.OrderController do
     orders = 
       Order.find(
         query: %{
-          "synchronized" => %{"$ne" => 1},
+          "synchronized_micro" => %{"$ne" => 1},
           # "$and" => params |> Map.drop(["sort"]) |> Map.to_list |> Enum.map(fn({k, v}) -> %{k => v} end)
           "$and" => maybe_all(params)
         }, 
@@ -47,7 +46,6 @@ defmodule Perseids.OrderController do
           }
         }
       )
-      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
 
     render conn, "orders.json", orders: orders, count: orders |> Enum.count
   end
@@ -130,7 +128,10 @@ defmodule Perseids.OrderController do
 
   defp render_orders(conn, orders, params) do
     orders_count = orders |> Enum.count
-    orders = orders |> Pagination.paginate_collection(params)
+    orders = 
+      orders  
+      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
+      |> Pagination.paginate_collection(params)
 
     render conn, "orders.json", orders: orders, count: orders_count, page_size: orders.page_size
   end
