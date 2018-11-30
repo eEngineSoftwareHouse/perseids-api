@@ -9,17 +9,13 @@ defmodule Perseids.OrderController do
   # action_fallback Perseids.FallbackController
 
   def index(conn, %{"complaints" => "true"} = params) do
-    orders = 
-      Order.find(query: %{"synchronized_micro" => 1}, filter: %{"customer_id" => conn.assigns.customer_id})
-      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
+    orders = Order.find(query: %{"synchronized_micro" => 1}, filter: %{"customer_id" => conn.assigns.customer_id})
 
     conn |> render_orders(orders, params)
   end
 
   def index(conn, params) do
-    orders = 
-      Order.find(filter: %{"customer_id" => [conn.assigns.customer_id]})
-      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
+    orders = Order.find(filter: %{"customer_id" => [conn.assigns.customer_id]})
 
     conn |> render_orders(orders, params)
   end
@@ -28,6 +24,7 @@ defmodule Perseids.OrderController do
     orders = 
       Order.find( query: %{ "id" => object_id} )
       |> Enum.filter(fn(elem) -> !Map.has_key?(elem, "synchronized_micro") end)
+      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
     
     render conn, "orders.json", orders: orders, count: orders |> Enum.count
   end
@@ -46,6 +43,7 @@ defmodule Perseids.OrderController do
           }
         }
       )
+      |> Enum.sort(&(&1["created_at"] > &2["created_at"]))
 
     render conn, "orders.json", orders: orders, count: orders |> Enum.count
   end
