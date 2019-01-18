@@ -533,7 +533,8 @@ defmodule Perseids.Order do
     end
   end
 
-  defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, true, changeset) when count > current_state do 
+  # zmniejszenie aktualnego stanu o 100 dla hurtownika i o 10 dla detala, prosba MM.
+  defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, true, changeset) when count > (current_state - 100) do
     add_error(changeset, :products, name <> gettext " - product out of stock")
   end
   defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, _false, changeset) when count > (current_state - 10) do 
