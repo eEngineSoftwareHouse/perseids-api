@@ -139,7 +139,7 @@ defmodule ING do
     %{
       "type" => item["type"] || 0,
       "name" =>  item["name"],
-      "product_id" =>  item["id"],
+      "product_id" =>  item["variant_id"],
       "quantity" => item["count"] || 1,
       "price_vat" => item["total_price"],
       "vat" => 23

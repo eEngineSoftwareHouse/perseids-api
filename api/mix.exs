@@ -33,7 +33,8 @@ defmodule Perseids.Mixfile do
        :bamboo,
        :bamboo_smtp,
        :uuid,
-       :rollbax
+       :rollbax,
+       :ex_phone_number
      ]
     ]
   end
@@ -61,7 +62,8 @@ defmodule Perseids.Mixfile do
      {:bamboo, "~> 0.8"},
      {:bamboo_smtp, "~> 1.4.0"},
      {:uuid, "~> 1.1"},
-     {:rollbax, ">= 0.9.1"}
+     {:rollbax, ">= 0.9.1"},
+     {:ex_phone_number, "~> 0.1"}
    ]
   end
 

@@ -159,3 +159,11 @@ msgstr ""
 #: lib/get_response.ex:various_lines
 msgid "Problem during authentication process, check headers"
 msgstr ""
+
+#: web/models/order.ex:253
+msgid "Invalid country calling code"
+msgstr ""
+
+#: web/models/order.ex:253
+msgid "The string supplied did not seem to be a phone number"
+msgstr ""

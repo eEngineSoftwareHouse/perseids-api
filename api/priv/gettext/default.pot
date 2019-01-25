@@ -14,43 +14,43 @@ msgstr ""
 msgid "Lack of `from` or `content` fields in request"
 msgstr ""
 
-#: web/controllers/customer_controller.ex:55
+#: web/controllers/customer_controller.ex:54
 msgid "Passwords are not the same"
 msgstr ""
 
-#: web/models/order.ex:211
+#: web/models/order.ex:222
 msgid " - city"
 msgstr ""
 
-#: web/models/order.ex:213
+#: web/models/order.ex:224
 msgid " - company"
 msgstr ""
 
-#: web/models/order.ex:210
+#: web/models/order.ex:221
 msgid " - country"
 msgstr ""
 
-#: web/models/order.ex:208
+#: web/models/order.ex:219
 msgid " - name"
 msgstr ""
 
-#: web/models/order.ex:227
+#: web/models/order.ex:238
 msgid " - phone number"
 msgstr ""
 
-#: web/models/order.ex:224
+#: web/models/order.ex:235
 msgid " - post code"
 msgstr ""
 
-#: web/models/order.ex:212
+#: web/models/order.ex:223
 msgid " - street"
 msgstr ""
 
-#: web/models/order.ex:209
+#: web/models/order.ex:220
 msgid " - surname"
 msgstr ""
 
-#: web/models/order.ex:112 web/models/order.ex:113
+#: web/models/order.ex:126 web/models/order.ex:127
 msgid "E-mail can't be blank"
 msgstr ""
 
@@ -58,15 +58,15 @@ msgstr ""
 msgid "Logout failed"
 msgstr ""
 
-#: web/models/order.ex:198
+#: web/models/order.ex:209
 msgid "Payment"
 msgstr ""
 
-#: web/models/order.ex:191
+#: web/models/order.ex:202
 msgid "Shipping"
 msgstr ""
 
-#: web/controllers/order_controller.ex:72
+#: web/controllers/order_controller.ex:86
 msgid "There's no such code"
 msgstr ""
 
@@ -74,19 +74,19 @@ msgstr ""
 msgid "Unknown error occured"
 msgstr ""
 
-#: web/models/order.ex:117
+#: web/models/order.ex:131
 msgid "Wrong e-mail"
 msgstr ""
 
-#: web/models/order.ex:268
+#: web/models/order.ex:294
 msgid "You must accept rules to continue"
 msgstr ""
 
-#: web/models/order.ex:176
+#: web/models/order.ex:187
 msgid "field is required"
 msgstr ""
 
-#: web/models/order.ex:260
+#: web/models/order.ex:286
 msgid "is too short"
 msgstr ""
 
@@ -94,38 +94,46 @@ msgstr ""
 msgid "You do not have sufficient permissions."
 msgstr ""
 
-#: web/models/order.ex:162
+#: web/models/order.ex:173
 msgid "You must select parcel locker"
 msgstr ""
 
-#: web/models/order.ex:220
+#: web/models/order.ex:231
 msgid "post code should have format XX-XXX"
 msgstr ""
 
-#: web/controllers/product_controller.ex:20
+#: web/controllers/product_controller.ex:21
 msgid "Not found"
 msgstr ""
 
-#: web/models/order.ex:493
+#: web/models/order.ex:536
 msgid " - product out of stock"
 msgstr ""
 
-#: web/models/order.ex:484
+#: web/models/order.ex:527
 msgid "Product not exsist"
 msgstr ""
 
-#: web/models/order.ex:477 web/models/order.ex:478
+#: web/models/order.ex:522
 msgid "You can't place order without products"
 msgstr ""
 
-#: web/models/order.ex:253
+#: web/models/order.ex:279
 msgid "nip should contain only numbers and should be exacly 10 characters long"
 msgstr ""
 
-#: web/models/order.ex:241
-msgid "phone number should be not longer than 15 characters and shorter than 9"
+#: web/models/order.ex:260 web/models/order.ex:267
+msgid "The phone number is not correct, please add correct phone number"
 msgstr ""
 
-#: web/models/order.ex:234
-msgid "phone number should contain only numbers and should be exactly 9 characters long"
+#: web/models/order.ex:54
+msgid "Your debit limit was used"
+msgstr ""
+
+#: web/models/order.ex:253
+msgid "Invalid country calling code"
+msgstr ""
+
+#: web/models/order.ex:253
+msgid "The string supplied did not seem to be a phone number"
 msgstr ""

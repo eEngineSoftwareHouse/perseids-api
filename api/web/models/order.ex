@@ -131,9 +131,6 @@ defmodule Perseids.Order do
     end
   end
 
-  
-
-
   def validate_required_subfields(changeset, list, optional \\ [optional: false])
   def validate_required_subfields(changeset, subfields, if: key ) do
     case get_field(changeset, key) do
@@ -242,19 +239,34 @@ defmodule Perseids.Order do
   end
 
   defp maybe_pl_phone?(changeset, value, "pl_pln", address_type) do
-    case Regex.match?(~r/^[0-9]{9}$/, value) do
-      true -> changeset
-      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should contain only numbers and should be exactly 9 characters long")
+    case ExPhoneNumber.parse(value, "PL") do
+      { :ok, phone_number} -> changeset |> is_valid_number?(phone_number, address_type)
+      { :error, reason } -> add_error(changeset, :address, "#{address_type} - " <> Gettext.gettext(Perseids.Gettext, reason))
     end
   end
 
   defp maybe_pl_phone?(changeset, value, _lang, address_type) do
-    case Regex.match?(~r/^[+0-9]{9,15}$/, value) do
-      true -> changeset
-      _ -> add_error(changeset, :address, "#{address_type} - " <> gettext "phone number should be not longer than 15 characters and shorter than 9")
+    country = changeset |> get_field(:address) |> Map.get("shipping") |> Map.get("country")
+    case ExPhoneNumber.parse(value, country) do
+      { :ok, phone_number} -> changeset |> is_valid_number?(phone_number, address_type)
+      { :error, reason } -> add_error(changeset, :address, "#{address_type} - " <> Gettext.gettext(Perseids.Gettext, reason))
     end
   end
 
+  def is_valid_number?(changeset, phone_number, address_type) do
+    case ExPhoneNumber.is_valid_number?(phone_number) do
+      true -> changeset |> is_possible_number?(phone_number, address_type)
+      false -> add_error(changeset, :address, "#{address_type} - " <> gettext "The phone number is not correct, please add correct phone number")
+    end
+  end
+
+  defp is_possible_number?(changeset, phone_number, address_type) do
+    case ExPhoneNumber.is_possible_number?(phone_number) do
+      true -> changeset
+      false -> add_error(changeset, :address, "#{address_type} - " <> gettext "The phone number is not correct, please add correct phone number")
+    end
+  end
+  
   def validate_nip(value, changeset, address_type) do
     changeset
     |> maybe_pl_nip?(value, get_change(changeset, :lang), address_type)
@@ -485,16 +497,17 @@ defmodule Perseids.Order do
   defp validate_products(changeset, lang, wholesale) do
     get_field(changeset, :products)
     |> include_product?(lang, wholesale)
-    |> check_qty_in_products(lang, changeset) 
+    |> check_qty_in_products(lang, changeset, wholesale) 
   end
 
   defp include_product?([], _lang, _wholesale), do: false
   defp include_product?(nil, _lang, _wholesale), do: false
   defp include_product?(products, _lang, true), do: { true, products }
   defp include_product?(products, lang, _wholesale) do
-    any_product_in_list = products
-    |> Enum.reduce([], &(is_product?(&1, lang, &2)))
-    |> Enum.member?(false)
+    any_product_in_list = 
+      products
+      |> Enum.reduce([], &(is_product?(&1, lang, &2)))
+      |> Enum.member?(false)
     { any_product_in_list, products }
   end
 
@@ -505,24 +518,28 @@ defmodule Perseids.Order do
     end
   end
   
-  defp check_qty_in_products({ true, products }, lang, changeset), do: products |> Enum.reduce(changeset, &(validate_single_product(&1, lang, &2)))
-  defp check_qty_in_products(_false, _lang, changeset), do: add_error(changeset, :products, gettext "You can't place order without products")
+  defp check_qty_in_products({ true, products }, lang, changeset, wholesale), do: products |> Enum.reduce(changeset, &(validate_single_product(&1, lang, wholesale, &2)))
+  defp check_qty_in_products(_false, _lang, changeset, _wholesale), do: add_error(changeset, :products, gettext "You can't place order without products")
   
-  defp validate_single_product(product, lang, changeset) do
+  defp validate_single_product(product, lang, wholesale, changeset) do
     case Perseids.Product.find_one(source_id: product["id"], lang: lang) do
       nil -> 
         add_error(changeset, :products, gettext "Product not exsist")
       product_mongo ->
         product_mongo["variants"]
         |> find_variant(product["variant_id"])
-        |> validate_product_qty(product, changeset)
+        |> validate_product_qty(product, wholesale, changeset)
     end
   end
 
-  defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, changeset) when count > current_state do 
+  # zmniejszenie aktualnego stanu o 100 dla hurtownika i o 10 dla detala, prosba MM.
+  defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, true, changeset) when count > (current_state - 100) do
     add_error(changeset, :products, name <> gettext " - product out of stock")
   end
-  defp validate_product_qty(_current_state, _count, changeset ), do: changeset
+  defp validate_product_qty(%{ "quantity" => current_state }, %{ "count" => count, "name" => name }, _false, changeset) when count > (current_state - 10) do 
+    add_error(changeset, :products, name <> gettext " - product out of stock")
+  end
+  defp validate_product_qty(_current_state, _count, _wholesale, changeset), do: changeset
 
   defp find_variant(variants, source_id) do
     variants
