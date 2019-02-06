@@ -23,8 +23,11 @@ defmodule Perseids.SessionController do
         |> BSON.ObjectId.encode!
       
 
-        response = Perseids.CustomerHelper.default_lang(customer_info)
-        |> Map.put_new(:session_id, session_id)
+        response = 
+          customer_info
+          |> Perseids.CustomerHelper.default_lang
+          |> Perseids.CustomerHelper.wholesale_debt_limit
+          |> Map.put_new(:session_id, session_id)
         
         json(conn, response)
 

@@ -44,17 +44,16 @@ defmodule Perseids.Order do
   end
 
   def validate_debt_limit(changeset, %{"wholesale" => true} = params) do
-    { :ok, %{ "debt_amount_left" => debt_amount_left } } = 
-      params["store_view"] 
-      |> Magento.customer_info(params["magento_token"])
+    { _, response } =  MicroAdmin.wholesaler_limit(params["email"])
     total_price = calc_order_total(params["products"], params["lang"], params["group_id"])
     total_price_brutto = total_price + total_price * (params["tax_rate"] / 100)
+    debt_amount_left = response["debt_amount_left"] || 0
     case debt_amount_left - total_price_brutto >= 0 do
       true -> changeset
       _ -> add_error(changeset, :debt_limit, gettext "Your debit limit was used")
     end
   end
-  def validate_debt_limit(changeset, _unused), do: changeset
+  def validate_debt_limit(changeset, _params), do: changeset
 
   def create(%{payment: "payu-pre"} = params, group_id, tax_rate) do
     @collection_name

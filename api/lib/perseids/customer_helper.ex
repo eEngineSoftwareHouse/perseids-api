@@ -14,4 +14,14 @@ defmodule Perseids.CustomerHelper do
     customer
     |> Map.put_new(:default_lang, prefixes_map[customer["store_code"]])
   end
+
+  def wholesale_debt_limit(%{ "is_wholesaler" => true, "email" => email } = customer_data) do
+    { _key, response } = MicroAdmin.wholesaler_limit(email)
+
+    customer_data
+    |> Map.put(:debt_limit, response["debt_limit"] || 0)
+    |> Map.put(:debt_amount_left, response["debt_amount_left"] || 0)
+  end
+
+  def wholesale_debt_limit(customer_data), do: customer_data
 end
