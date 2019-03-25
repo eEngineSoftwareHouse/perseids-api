@@ -32,6 +32,10 @@ defmodule Perseids.Router do
   #######################
 
   # Only for logged in "admin" user
+  scope "/", Perseids do
+    get "/", RootController, :divider
+  end
+
   scope "/api/v1", Perseids do
     pipe_through :api
     pipe_through :authorized
